@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-
+    //Chucker
     debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
     implementation("androidx.core:core-ktx:1.8.0")
