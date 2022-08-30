@@ -34,12 +34,22 @@ android {
 
 dependencies {
     //Chucker
-    debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")
-    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
+    val chukerVresion = "3.5.2"
+    debugImplementation("com.github.chuckerteam.chucker:library:${chukerVresion}")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:${chukerVresion}")
+
+    //Core
     implementation("androidx.core:core-ktx:1.8.0")
+
+    //ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+
+    //View
     implementation("androidx.appcompat:appcompat:1.5.0")
     implementation("com.google.android.material:material:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+    //Test
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
