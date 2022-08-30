@@ -1,6 +1,8 @@
 plugins {
     id ("com.android.application")
     id ("org.jetbrains.kotlin.android")
+    //Detekt
+    id("io.gitlab.arturbosch.detekt")
 }
 
 android {
@@ -33,6 +35,9 @@ android {
 }
 
 dependencies {
+
+    //LeakCanary
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
 
     implementation("androidx.core:core-ktx:1.8.0")
     implementation("androidx.appcompat:appcompat:1.5.0")
