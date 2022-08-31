@@ -17,18 +17,6 @@ processors:
   active: true
   exclude:
     - 'DetektProgressListener'
-  # - 'KtFileCountProcessor'
-  # - 'PackageCountProcessor'
-  # - 'ClassCountProcessor'
-  # - 'FunctionCountProcessor'
-  # - 'PropertyCountProcessor'
-  # - 'ProjectComplexityProcessor'
-  # - 'ProjectCognitiveComplexityProcessor'
-  # - 'ProjectLLOCProcessor'
-  # - 'ProjectCLOCProcessor'
-  # - 'ProjectLOCProcessor'
-  # - 'ProjectSLOCProcessor'
-  # - 'LicenseHeaderLoaderExtension'
 
 console-reports:
   active: true
@@ -38,15 +26,11 @@ console-reports:
      - 'NotificationReport'
      - 'FindingsReport'
      - 'FileBasedFindingsReport'
-  #  - 'LiteFindingsReport'
 
 output-reports:
   active: true
   exclude:
-  # - 'TxtOutputReport'
-  # - 'XmlOutputReport'
-  # - 'HtmlOutputReport'
-  # - 'MdOutputReport'
+  
 
 comments:
   active: true
@@ -55,13 +39,13 @@ comments:
     licenseTemplateFile: 'license.template'
     licenseTemplateIsRegex: false
   CommentOverPrivateFunction:
-    active: false
+    active: true
   CommentOverPrivateProperty:
-    active: false
+    active: true
   DeprecatedBlockTag:
-    active: false
+    active: true
   EndOfSentenceFormat:
-    active: false
+    active: true
     endOfSentenceFormat: '([.?!][ \t\n\r\f<])|([.?!:]$)'
   KDocReferencesNonPublicProperty:
     active: false
@@ -314,7 +298,7 @@ naming:
     active: false
     forbiddenName: []
   FunctionMaxLength:
-    active: false
+    active: true
     maximumFunctionNameLength: 30
   FunctionMinLength:
     active: false
@@ -353,8 +337,8 @@ naming:
     propertyPattern: '[A-Za-z][_A-Za-z0-9]*'
     privatePropertyPattern: '(_)?[A-Za-z][_A-Za-z0-9]*'
   PackageNaming:
-    active: false
-    packagePattern: '[a-z]+(\.[a-z][A-Za-z0-9]*)*'
+    active: true
+    packagePattern: '^([a-z]{1}[a-z\d_]*\.)+[a-z][a-z\d_]*$'
   TopLevelPropertyNaming:
     active: true
     constantPattern: '[A-Z][_A-Z0-9]*'
