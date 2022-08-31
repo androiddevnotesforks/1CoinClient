@@ -41,9 +41,6 @@ dependencies {
     //Core
     implementation("androidx.core:core-ktx:1.8.0")
 
-    //ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-
     //View
     implementation("androidx.appcompat:appcompat:1.5.0")
     implementation("com.google.android.material:material:1.6.1")
