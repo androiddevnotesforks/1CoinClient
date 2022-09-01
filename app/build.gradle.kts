@@ -34,9 +34,9 @@ android {
 
 dependencies {
     //Chucker
-    val chukerVresion = "3.5.2"
-    debugImplementation("com.github.chuckerteam.chucker:library:${chukerVresion}")
-    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:${chukerVresion}")
+    val chukerVersion = "3.5.2"
+    debugImplementation("com.github.chuckerteam.chucker:library:$chukerVersion")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:$chukerVersion")
 
     //Core
     implementation("androidx.core:core-ktx:1.8.0")
