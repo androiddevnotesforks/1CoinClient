@@ -1,7 +1,6 @@
 plugins {
     id ("com.android.application")
     id ("org.jetbrains.kotlin.android")
-    //Detekt
     id("io.gitlab.arturbosch.detekt")
 }
 
