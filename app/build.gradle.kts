@@ -38,6 +38,9 @@ dependencies {
     debugImplementation("com.github.chuckerteam.chucker:library:$chukerVersion")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:$chukerVersion")
 
+    // LeakCanary
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
+
     //Core
     implementation("androidx.core:core-ktx:1.8.0")
 
