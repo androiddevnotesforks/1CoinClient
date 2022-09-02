@@ -44,33 +44,23 @@ android {
 
 dependencies {
 
-    val composeVersion = "1.2.1"
     //Jetpack Compose
-    implementation("androidx.compose.ui:ui:${composeVersion}")
-    // Navigation for Compose
+    val composeVersion = "1.3.0-beta01"
+    implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.navigation:navigation-compose:2.5.1")
-    // Integration with activities
     implementation("androidx.activity:activity-compose:1.5.1")
-    // Animations
-    implementation("androidx.compose.animation:animation:${composeVersion}")
-    // Tooling support (Previews, etc.)
-    implementation("androidx.compose.ui:ui-tooling:${composeVersion}")
-    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    implementation("androidx.compose.foundation:foundation:${composeVersion}")
-    // Material Design
-    implementation("androidx.compose.material:material:${composeVersion}")
-    // Material design icons
-    implementation("androidx.compose.material:material-icons-core:${composeVersion}")
-    // Integration with observables
-    implementation("androidx.compose.runtime:runtime-livedata:${composeVersion}")
+    implementation("androidx.compose.animation:animation:$composeVersion")
+    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
+    implementation("androidx.compose.foundation:foundation:$composeVersion")
+    implementation("androidx.compose.material:material:$composeVersion")
 
     // LeakCanary
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
 
     //Chucker
     val chukerVersion = "3.5.2"
-    debugImplementation("com.github.chuckerteam.chucker:library:${chukerVersion}")
-    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:${chukerVersion}")
+    debugImplementation("com.github.chuckerteam.chucker:library:$chukerVersion")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:$chukerVersion")
 
     //Core
     implementation("androidx.core:core-ktx:1.8.0")
