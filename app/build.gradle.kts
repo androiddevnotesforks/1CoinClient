@@ -47,10 +47,10 @@ dependencies {
     val composeVersion = "1.2.1"
     //Jetpack Compose
     implementation("androidx.compose.ui:ui:${composeVersion}")
-    // Integration with activities
-    implementation("androidx.activity:activity-compose:1.5.1")
     // Navigation for Compose
     implementation("androidx.navigation:navigation-compose:2.5.1")
+    // Integration with activities
+    implementation("androidx.activity:activity-compose:1.5.1")
     // Animations
     implementation("androidx.compose.animation:animation:${composeVersion}")
     // Tooling support (Previews, etc.)
