@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 android {
@@ -63,6 +64,9 @@ dependencies {
     // Integration with observables
     implementation("androidx.compose.runtime:runtime-livedata:${composeVersion}")
 
+    // LeakCanary
+    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
+
     //Chucker
     val chukerVersion = "3.5.2"
     debugImplementation("com.github.chuckerteam.chucker:library:${chukerVersion}")
@@ -84,6 +88,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
-    // UI Tests
-    // androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.1")
+    //UI Tests
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.1")
 }
