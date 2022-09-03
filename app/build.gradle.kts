@@ -2,9 +2,9 @@ import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 
 plugins {
     id("com.android.application")
-    id("io.gitlab.arturbosch.detekt")
     kotlin("android")
     kotlin("kapt")
+    id("io.gitlab.arturbosch.detekt")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
@@ -26,7 +26,7 @@ android {
     buildTypes {
         getByName("debug") {
             isMinifyEnabled = false
-            (this as ExtensionAware).configure<com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension> {
+            (this as ExtensionAware).configure<CrashlyticsExtension> {
                 mappingFileUploadEnabled = false
             }
         }
