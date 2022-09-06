@@ -5,6 +5,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
     id("io.gitlab.arturbosch.detekt")
+    id("com.squareup.sqldelight")
     kotlin("android")
     kotlin("kapt")
 }
@@ -90,6 +91,11 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.android.material:material:1.6.1")
 
+    // SQL Delight
+    val sqlDelightVersion = "1.5.3"
+    implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
+    implementation("com.squareup.sqldelight:coroutines-extensions:$sqlDelightVersion")
+
     // Test
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
@@ -97,4 +103,10 @@ dependencies {
 
     // UI Tests
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.1")
+}
+
+sqldelight {
+    database("AppDatabase") {
+        packageName = "com.finance_tracker.finance_tracker"
+    }
 }
