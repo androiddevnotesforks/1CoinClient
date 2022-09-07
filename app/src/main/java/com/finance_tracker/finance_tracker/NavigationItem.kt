@@ -1,26 +1,32 @@
 package com.finance_tracker.finance_tracker
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 
 sealed class NavigationItem(
-    val route: String,
+    @StringRes
+    val route: Int,
     @DrawableRes
     val iconRes: Int,
-    val title: String
+    @StringRes
+    val title: Int
 ) {
+
     object Main : NavigationItem(
-        route = "main",
+        route = R.string.main,
         iconRes = R.drawable.ic_main,
-        title = "Главная"
+        title = R.string.main_screen_text
     )
+
     object Operations : NavigationItem(
-        route = "operations",
+        route = R.string.operations,
         iconRes = R.drawable.ic_operations,
-        title = "Операции"
+        title = R.string.operations_screen_text
     )
-    object Else : NavigationItem(
-        route = "more",
-        iconRes = R.drawable.ic_else,
-        title = "Ещё"
+
+    object More : NavigationItem(
+        route = R.string.more,
+        iconRes = R.drawable.ic_more,
+        title = R.string.more_screen_text
     )
 }

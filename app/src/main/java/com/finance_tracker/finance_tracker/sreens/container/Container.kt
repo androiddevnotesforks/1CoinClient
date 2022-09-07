@@ -22,26 +22,25 @@ fun Container(modifier: Modifier = Modifier) {
         bottomBar = { BottomNavigationBar(navController) },
         content = { paddingValues ->
             Box(modifier = modifier.padding(paddingValues)) {
-                Navigation(navHostController = navController)
+                TabNavigation(navHostController = navController)
             }
         }
-
     )
 }
 
 @Composable
-fun Navigation(
+private fun TabNavigation(
     navHostController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    NavHost(navController = navHostController, startDestination = NavigationItem.Main.route) {
-        composable(NavigationItem.Main.route) {
+    NavHost(navController = navHostController, startDestination = NavigationItem.Main.route.toString()) {
+        composable(NavigationItem.Main.route.toString()) {
             MainScreen()
         }
-        composable(NavigationItem.Operations.route) {
+        composable(NavigationItem.Operations.route.toString()) {
             OperationsScreen()
         }
-        composable(NavigationItem.Else.route) {
+        composable(NavigationItem.More.route.toString()) {
             MoreScreen()
         }
     }

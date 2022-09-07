@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.finance_tracker.finance_tracker.sreens.container.Container
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CoinTheme (){
+            CoinTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
@@ -42,7 +43,7 @@ fun BottomNavigationBar(
         listOf(
             NavigationItem.Main,
             NavigationItem.Operations,
-            NavigationItem.Else
+            NavigationItem.More
         )
     }
     BottomNavigation(
@@ -56,16 +57,16 @@ fun BottomNavigationBar(
                 icon = {
                     Icon(
                         painterResource(id = item.iconRes),
-                        contentDescription = item.title
+                        contentDescription = stringResource(id = item.title)
                     )
                 },
-                label = { Text(text = item.title) },
+                label = { Text(text = stringResource(id = item.title)) },
                 selectedContentColor = Color.White,
-                unselectedContentColor = Color.White.copy(0.4f),
+                unselectedContentColor = Color.White.copy(alpha = 0.4f),
                 alwaysShowLabel = true,
-                selected = currentRoute == item.route,
+                selected = currentRoute == item.route.toString(),
                 onClick = {
-                    navController.navigate(item.route) {
+                    navController.navigate(item.route.toString()) {
                         navController.graph.startDestinationRoute?.let { route ->
                             popUpTo(route) {
                                 saveState = true
