@@ -1,0 +1,24 @@
+CREATE TABLE transactionsEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    amount INTEGER NOT NULL,
+    category TEXT NOT NULL,
+    date TEXT NOT NULL
+);
+
+getTransactionById:
+SELECT *
+FROM transactionsEntity
+WHERE id = :id;
+
+getAllTransactions:
+SELECT *
+FROM transactionsEntity;
+
+insertTransaction:
+INSERT OR REPLACE
+INTO transactionsEntity
+VALUES (?,?,?,?);
+
+deleteTransactionById:
+DELETE FROM transactionsEntity
+WHERE id = :id;
