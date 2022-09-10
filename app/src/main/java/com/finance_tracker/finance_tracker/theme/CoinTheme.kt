@@ -1,26 +1,73 @@
 package com.finance_tracker.finance_tracker.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
-private val DarkColorPalette = darkColors(
-    primary = Colors.Purple200,
-    primaryVariant = Colors.Purple700,
-    secondary = Colors.Teal200
+@Immutable
+data class CoinColors(
+    val primary: Color,
+    val primaryVariant: Color,
+    val secondary: Color,
+    val background: Color,
+    val content: Color,
+    val selectedContentColor: Color,
+    val unSelectedContentColor: Color,
 )
 
-private val LightColorPalette = lightColors(
-    primary = Colors.Purple500,
-    primaryVariant = Colors.Purple700,
-    secondary = Colors.Teal200
+val LocalCustomColors = staticCompositionLocalOf {
+    CoinColors(
+        primary = Color.Unspecified,
+        primaryVariant = Color.Unspecified,
+        secondary = Color.Unspecified,
+        background = Color.Unspecified,
+        content = Color.Unspecified,
+        selectedContentColor = Color.Unspecified,
+        unSelectedContentColor = Color.Unspecified,
+    )
+}
+val LocalCustomTypography = staticCompositionLocalOf {
+    CustomTypography(
+        body = TextStyle.Default,
+        title = TextStyle.Default
+    )
+}
+val LocalCoinElevation = staticCompositionLocalOf {
+    CoinElevation(
+        default = Dp.Unspecified,
+        pressed = Dp.Unspecified
+    )
+}
+
+private val DarkColorPalette = CoinColors(
+    primary = AppColors.Purple200,
+    primaryVariant = AppColors.Purple700,
+    secondary = AppColors.Teal200,
+    background = AppColors.Purple500,
+    content = AppColors.White,
+    selectedContentColor = AppColors.White,
+    unSelectedContentColor = AppColors.White,
+)
+private val LightColorPalette = CoinColors(
+    primary = AppColors.Purple500,
+    primaryVariant = AppColors.Purple700,
+    secondary = AppColors.Teal200,
+    background = AppColors.Purple500,
+    content = AppColors.White,
+    selectedContentColor = AppColors.White,
+    unSelectedContentColor = AppColors.White,
 )
 
 @Composable
-fun CoinTheme(
+fun AppTheme(
     modifier: Modifier = Modifier,
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
@@ -31,10 +78,32 @@ fun CoinTheme(
         LightColorPalette
     }
 
-    MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
+    val customTypography = CustomTypography(
+        body = TextStyle(fontSize = 16.sp),
+        title = TextStyle(fontSize = 32.sp)
+    )
+    val coinElevation = CoinElevation(
+        default = 4.dp,
+        pressed = 8.dp
+    )
+
+    CompositionLocalProvider(
+        LocalCustomColors provides colors,
+        LocalCustomTypography provides customTypography,
+        LocalCoinElevation provides coinElevation,
         content = content
     )
+
+}
+
+object CoinTheme {
+    val color: CoinColors
+        @Composable
+        get() = LocalCustomColors.current
+    val typography: CustomTypography
+        @Composable
+        get() = LocalCustomTypography.current
+    val elevation: CoinElevation
+        @Composable
+        get() = LocalCoinElevation.current
 }

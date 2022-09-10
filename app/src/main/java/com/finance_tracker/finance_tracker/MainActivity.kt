@@ -9,23 +9,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.finance_tracker.finance_tracker.sreens.container.Container
 import com.finance_tracker.finance_tracker.theme.CoinTheme
-import com.finance_tracker.finance_tracker.theme.Colors
+import com.finance_tracker.finance_tracker.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CoinTheme {
+            AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    color = CoinTheme.color.background//MaterialTheme.colors.background
                 ) {
                     Container()
                 }
@@ -47,8 +46,8 @@ fun BottomNavigationBar(
         )
     }
     BottomNavigation(
-        backgroundColor = Colors.Purple500,
-        contentColor = Colors.White
+        backgroundColor = CoinTheme.color.background,
+        contentColor = CoinTheme.color.content
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -61,8 +60,8 @@ fun BottomNavigationBar(
                     )
                 },
                 label = { Text(text = stringResource(id = item.title)) },
-                selectedContentColor = Color.White,
-                unselectedContentColor = Color.White.copy(alpha = 0.4f),
+                selectedContentColor = CoinTheme.color.selectedContentColor,
+                unselectedContentColor = CoinTheme.color.unSelectedContentColor.copy(alpha = 0.4f),
                 alwaysShowLabel = true,
                 selected = currentRoute == item.route.toString(),
                 onClick = {

@@ -14,14 +14,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.finance_tracker.finance_tracker.R
-import com.finance_tracker.finance_tracker.theme.Colors
+import com.finance_tracker.finance_tracker.theme.AppColors
 
 @Composable
 fun MoreScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Colors.Purple500)
+            .background(AppColors.Purple500)
     ) {
         Text(
             text = stringResource(R.string.more_screen_text),
