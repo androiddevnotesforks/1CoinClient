@@ -3,7 +3,4 @@
     <string name="more_screen_text">Ещё</string>
     <string name="main_screen_text">Главная</string>
     <string name="operations_screen_text">Операции</string>
-    <string name="main">main</string>
-    <string name="operations">operations</string>
-    <string name="more">more</string>
 </resources>

@@ -33,14 +33,14 @@ private fun TabNavigation(
     navHostController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    NavHost(navController = navHostController, startDestination = NavigationItem.Main.route.toString()) {
-        composable(NavigationItem.Main.route.toString()) {
+    NavHost(navController = navHostController, startDestination = NavigationItem.Main.route) {
+        composable(NavigationItem.Main.route) {
             MainScreen()
         }
-        composable(NavigationItem.Operations.route.toString()) {
+        composable(NavigationItem.Operations.route) {
             OperationsScreen()
         }
-        composable(NavigationItem.More.route.toString()) {
+        composable(NavigationItem.More.route) {
             MoreScreen()
         }
     }

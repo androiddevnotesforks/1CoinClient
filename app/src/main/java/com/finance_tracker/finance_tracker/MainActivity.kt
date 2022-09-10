@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
             AppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = CoinTheme.color.background//MaterialTheme.colors.background
+                    color = CoinTheme.color.background
                 ) {
                     Container()
                 }
@@ -63,9 +63,9 @@ fun BottomNavigationBar(
                 selectedContentColor = CoinTheme.color.selectedContentColor,
                 unselectedContentColor = CoinTheme.color.unSelectedContentColor.copy(alpha = 0.4f),
                 alwaysShowLabel = true,
-                selected = currentRoute == item.route.toString(),
+                selected = currentRoute == item.route,
                 onClick = {
-                    navController.navigate(item.route.toString()) {
+                    navController.navigate(item.route) {
                         navController.graph.startDestinationRoute?.let { route ->
                             popUpTo(route) {
                                 saveState = true

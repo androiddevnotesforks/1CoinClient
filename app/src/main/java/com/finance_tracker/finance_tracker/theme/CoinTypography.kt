@@ -4,14 +4,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.TextStyle
 
 @Immutable
-data class CustomTypography(
+data class CoinTypography(
     val body: TextStyle,
     val title: TextStyle
 )
-//val Typography = Typography(
-//    body1 = TextStyle(
-//        fontFamily = FontFamily.Default,
-//        fontWeight = FontWeight.Normal,
-//        fontSize = 14.sp
-//    )
-//)

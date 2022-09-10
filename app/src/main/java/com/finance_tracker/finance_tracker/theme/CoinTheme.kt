@@ -34,8 +34,8 @@ val LocalCustomColors = staticCompositionLocalOf {
         unSelectedContentColor = Color.Unspecified,
     )
 }
-val LocalCustomTypography = staticCompositionLocalOf {
-    CustomTypography(
+val LocalCoinTypography = staticCompositionLocalOf {
+    CoinTypography(
         body = TextStyle.Default,
         title = TextStyle.Default
     )
@@ -72,13 +72,13 @@ fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colors = if (darkTheme) {
+    val coinColors = if (darkTheme) {
         DarkColorPalette
     } else {
         LightColorPalette
     }
 
-    val customTypography = CustomTypography(
+    val coinTypography = CoinTypography(
         body = TextStyle(fontSize = 16.sp),
         title = TextStyle(fontSize = 32.sp)
     )
@@ -88,8 +88,8 @@ fun AppTheme(
     )
 
     CompositionLocalProvider(
-        LocalCustomColors provides colors,
-        LocalCustomTypography provides customTypography,
+        LocalCustomColors provides coinColors,
+        LocalCoinTypography provides coinTypography,
         LocalCoinElevation provides coinElevation,
         content = content
     )
@@ -100,9 +100,9 @@ object CoinTheme {
     val color: CoinColors
         @Composable
         get() = LocalCustomColors.current
-    val typography: CustomTypography
+    val typography: CoinTypography
         @Composable
-        get() = LocalCustomTypography.current
+        get() = LocalCoinTypography.current
     val elevation: CoinElevation
         @Composable
         get() = LocalCoinElevation.current

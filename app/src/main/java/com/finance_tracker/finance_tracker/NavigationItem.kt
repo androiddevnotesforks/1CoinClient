@@ -4,8 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
 sealed class NavigationItem(
-    @StringRes
-    val route: Int,
+    val route: String,
     @DrawableRes
     val iconRes: Int,
     @StringRes
@@ -13,19 +12,19 @@ sealed class NavigationItem(
 ) {
 
     object Main : NavigationItem(
-        route = R.string.main,
+        route = "main",
         iconRes = R.drawable.ic_main,
         title = R.string.main_screen_text
     )
 
     object Operations : NavigationItem(
-        route = R.string.operations,
+        route = "operations",
         iconRes = R.drawable.ic_operations,
         title = R.string.operations_screen_text
     )
 
     object More : NavigationItem(
-        route = R.string.more,
+        route = "more",
         iconRes = R.drawable.ic_more,
         title = R.string.more_screen_text
     )
