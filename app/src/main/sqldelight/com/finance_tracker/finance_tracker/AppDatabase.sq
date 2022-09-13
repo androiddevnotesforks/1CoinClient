@@ -1,24 +1,24 @@
-CREATE TABLE transactionsEntity (
-    id INTEGER NOT NULL PRIMARY KEY,
-    amount INTEGER NOT NULL,
-    category TEXT NOT NULL,
-    date TEXT NOT NULL
+CREATE TABLE TransactionsEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    amount REAL NOT NULL,
+    category TEXT,
+    date INTEGER NOT NULL
 );
 
 getTransactionById:
 SELECT *
-FROM transactionsEntity
+FROM TransactionsEntity
 WHERE id = :id;
 
 getAllTransactions:
 SELECT *
-FROM transactionsEntity;
+FROM TransactionsEntity;
 
 insertTransaction:
 INSERT OR REPLACE
-INTO transactionsEntity
+INTO TransactionsEntity
 VALUES (?,?,?,?);
 
 deleteTransactionById:
-DELETE FROM transactionsEntity
+DELETE FROM TransactionsEntity
 WHERE id = :id;
