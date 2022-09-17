@@ -5,15 +5,15 @@ buildscript{
         google()
     }
     dependencies {
-        classpath("com.google.gms:google-services:4.3.13")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.1")
+        classpath("com.google.gms:google-services:4.3.14")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.2")
         classpath("com.squareup.sqldelight:gradle-plugin:1.5.3")
     }
 }
 
 plugins {
-    id("com.android.application") version "7.3.0-rc01" apply false
-    id("com.android.library") version "7.3.0-rc01" apply false
+    id("com.android.application") version "7.3.0" apply false
+    id("com.android.library") version "7.3.0" apply false
     id("org.jetbrains.kotlin.android") version "1.7.10" apply false
     id("io.gitlab.arturbosch.detekt") version "1.21.0"
 }
