@@ -1,5 +1,7 @@
 package com.finance_tracker.finance_tracker
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,6 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.finance_tracker.finance_tracker.sreens.container.Container
@@ -18,6 +22,11 @@ import com.finance_tracker.finance_tracker.theme.CoinTheme
 import com.finance_tracker.finance_tracker.theme.AppTheme
 
 class MainActivity : ComponentActivity() {
+
+    companion object {
+        private const val REQUEST_CODE_SMS_PERMISSION = 1001
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -29,6 +38,17 @@ class MainActivity : ComponentActivity() {
                     Container()
                 }
             }
+        }
+
+        requestSmsPermission()
+    }
+
+    // TODO: Запрос разрешений перенести в место настройки СМС сообщений
+    private fun requestSmsPermission() {
+        val permission = Manifest.permission.RECEIVE_SMS
+        val grant = ContextCompat.checkSelfPermission(this, permission)
+        if (grant != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(permission), REQUEST_CODE_SMS_PERMISSION)
         }
     }
 }
@@ -46,6 +66,7 @@ fun BottomNavigationBar(
         )
     }
     BottomNavigation(
+        modifier = modifier,
         backgroundColor = CoinTheme.color.background,
         contentColor = CoinTheme.color.content
     ) {
