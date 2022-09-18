@@ -36,6 +36,6 @@ fun MoreScreen(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun ElseScreenPreview() {
+fun MoreScreenPreview() {
     MoreScreen()
 }
