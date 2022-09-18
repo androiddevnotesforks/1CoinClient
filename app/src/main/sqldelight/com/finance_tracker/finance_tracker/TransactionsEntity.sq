@@ -1,7 +1,12 @@
+import com.finance_tracker.finance_tracker.TransactionType;
+
 CREATE TABLE TransactionsEntity (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    type TEXT AS TransactionType NOT NULL ,
     amount REAL NOT NULL,
+    amountCurrency TEXT NOT NULL,
     category TEXT,
+    accountId INTEGER,
     date INTEGER NOT NULL
 );
 
@@ -17,7 +22,7 @@ FROM TransactionsEntity;
 insertTransaction:
 INSERT OR REPLACE
 INTO TransactionsEntity
-VALUES (?,?,?,?);
+VALUES (?,?,?,?,?,?,?);
 
 deleteTransactionById:
 DELETE FROM TransactionsEntity
