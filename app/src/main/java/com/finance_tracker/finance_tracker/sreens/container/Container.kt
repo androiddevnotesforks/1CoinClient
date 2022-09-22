@@ -9,7 +9,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.finance_tracker.finance_tracker.BottomNavigationBar
 import com.finance_tracker.finance_tracker.NavigationItem
 import com.finance_tracker.finance_tracker.sreens.main.MainScreen
 import com.finance_tracker.finance_tracker.sreens.more.MoreScreen
@@ -33,7 +32,7 @@ private fun TabNavigation(
     navHostController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    NavHost(navController = navHostController, startDestination = NavigationItem.Main.route) {
+    NavHost(navController = navHostController, startDestination = NavigationItem.Main.route, modifier = modifier) {
         composable(NavigationItem.Main.route) {
             MainScreen()
         }
