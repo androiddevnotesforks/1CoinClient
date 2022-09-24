@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.sreens.main
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +23,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .background(AppColors.Purple200)
+            .statusBarsPadding()
     ) {
         Text(
             text = stringResource(R.string.main_screen_text),

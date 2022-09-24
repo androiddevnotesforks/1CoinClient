@@ -10,8 +10,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.finance_tracker.finance_tracker.sreens.container.Container
-import com.finance_tracker.finance_tracker.theme.AppTheme
+import com.finance_tracker.finance_tracker.sreens.container.TabsNavigationScreen
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,12 +22,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AppTheme {
+            CoinTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = CoinTheme.color.background
                 ) {
-                    Container()
+                    TabsNavigationScreen()
                 }
             }
         }

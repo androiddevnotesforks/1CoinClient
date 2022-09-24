@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.sreens.container
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -15,9 +16,10 @@ import com.finance_tracker.finance_tracker.sreens.more.MoreScreen
 import com.finance_tracker.finance_tracker.sreens.operations.OperationsScreen
 
 @Composable
-fun Container(modifier: Modifier = Modifier) {
+fun TabsNavigationScreen(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
     Scaffold(
+        modifier = Modifier.navigationBarsPadding(),
         bottomBar = { BottomNavigationBar(navController) },
         content = { paddingValues ->
             Box(modifier = modifier.padding(paddingValues)) {

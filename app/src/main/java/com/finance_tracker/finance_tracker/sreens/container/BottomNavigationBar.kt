@@ -30,7 +30,7 @@ fun BottomNavigationBar(
     BottomNavigation(
         modifier = modifier,
         backgroundColor = CoinTheme.color.background,
-        contentColor = CoinTheme.color.content
+        contentColor = CoinTheme.color.primary,
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -43,8 +43,8 @@ fun BottomNavigationBar(
                     )
                 },
                 label = { Text(text = stringResource(id = item.title)) },
-                selectedContentColor = CoinTheme.color.selectedContentColor,
-                unselectedContentColor = CoinTheme.color.unSelectedContentColor.copy(alpha = 0.4f),
+                selectedContentColor = CoinTheme.color.primary,
+                unselectedContentColor = CoinTheme.color.secondary,
                 alwaysShowLabel = true,
                 selected = currentRoute == item.route,
                 onClick = {

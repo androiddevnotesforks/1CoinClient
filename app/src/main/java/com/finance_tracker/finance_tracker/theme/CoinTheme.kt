@@ -1,15 +1,18 @@
 package com.finance_tracker.finance_tracker.theme
 
+import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.LocalContentColor
+import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material.ripple.RippleAlpha
+import androidx.compose.material.ripple.RippleTheme
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Immutable
 data class CoinColors(
@@ -17,56 +20,65 @@ data class CoinColors(
     val primaryVariant: Color,
     val secondary: Color,
     val background: Color,
-    val content: Color,
-    val selectedContentColor: Color,
-    val unSelectedContentColor: Color,
+    val content: Color
 )
 
-val LocalCustomColors = staticCompositionLocalOf {
+val LocalCoinColors = staticCompositionLocalOf {
     CoinColors(
         primary = Color.Unspecified,
         primaryVariant = Color.Unspecified,
         secondary = Color.Unspecified,
         background = Color.Unspecified,
-        content = Color.Unspecified,
-        selectedContentColor = Color.Unspecified,
-        unSelectedContentColor = Color.Unspecified,
+        content = Color.Unspecified
     )
 }
 val LocalCoinTypography = staticCompositionLocalOf {
-    CoinTypography(
-        body = TextStyle.Default,
-        title = TextStyle.Default
-    )
+    CoinTypography()
 }
 val LocalCoinElevation = staticCompositionLocalOf {
     CoinElevation(
-        default = Dp.Unspecified,
-        pressed = Dp.Unspecified
+        default = 4.dp,
+        pressed = 8.dp
     )
 }
 
+// Ripple
+
+@Immutable
+private object CoinRippleTheme : RippleTheme {
+    @Composable
+    override fun defaultColor() = RippleTheme.defaultRippleColor(LocalContentColor.current, lightTheme = true)
+
+    @Composable
+    override fun rippleAlpha() = DefaultRippleAlpha
+}
+
+private val DefaultRippleAlpha = RippleAlpha(
+    pressedAlpha = 0.12f,
+    focusedAlpha = 0.12f,
+    draggedAlpha = 0.16f,
+    hoveredAlpha = 0.08f
+)
+
+
+
 private val DarkColorPalette = CoinColors(
-    primary = AppColors.Purple200,
-    primaryVariant = AppColors.Purple700,
-    secondary = AppColors.Teal200,
-    background = AppColors.Purple500,
-    content = AppColors.White,
-    selectedContentColor = AppColors.White,
-    unSelectedContentColor = AppColors.White,
+    primary = Color(0xFF009BFF),
+    primaryVariant = Color(0xFFFFFFFF),
+    secondary = Color.Black.copy(alpha = 0.4f),
+    background = Color.White,
+    content = Color.Black
 )
 private val LightColorPalette = CoinColors(
-    primary = AppColors.Purple500,
-    primaryVariant = AppColors.Purple700,
-    secondary = AppColors.Teal200,
-    background = AppColors.Purple500,
-    content = AppColors.White,
-    selectedContentColor = AppColors.White,
-    unSelectedContentColor = AppColors.White,
+    primary = Color(0xFF009BFF),
+    primaryVariant = Color(0xFFFFFFFF),
+    secondary = Color.Black.copy(alpha = 0.4f),
+    background = Color.White,
+    content = Color.Black
 )
 
 @Composable
-fun AppTheme(
+fun CoinTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
@@ -76,19 +88,13 @@ fun AppTheme(
         LightColorPalette
     }
 
-    val coinTypography = CoinTypography(
-        body = TextStyle(fontSize = 16.sp),
-        title = TextStyle(fontSize = 32.sp)
-    )
-    val coinElevation = CoinElevation(
-        default = 4.dp,
-        pressed = 8.dp
-    )
-
     CompositionLocalProvider(
-        LocalCustomColors provides coinColors,
-        LocalCoinTypography provides coinTypography,
-        LocalCoinElevation provides coinElevation,
+        LocalCoinColors provides coinColors,
+        LocalCoinTypography provides CoinTheme.typography,
+        LocalCoinElevation provides CoinTheme.elevation,
+        LocalContentColor provides CoinTheme.color.content,
+        LocalIndication provides rememberRipple(),
+        LocalRippleTheme provides CoinRippleTheme,
         content = content
     )
 
@@ -97,7 +103,7 @@ fun AppTheme(
 object CoinTheme {
     val color: CoinColors
         @Composable
-        get() = LocalCustomColors.current
+        get() = LocalCoinColors.current
     val typography: CoinTypography
         @Composable
         get() = LocalCoinTypography.current
