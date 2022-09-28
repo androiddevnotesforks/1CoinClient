@@ -3,4 +3,12 @@
     <string name="more_screen_text">Ещё</string>
     <string name="main_screen_text">Главная</string>
     <string name="operations_screen_text">Операции</string>
+
+    <!-- Add transaction -->
+    <string name="add_transaction_tab_income">Income</string>
+    <string name="add_transaction_tab_expense">Expense</string>
+    <string name="add_transaction_tab_transfer">Transfer</string>
+    <string name="add_transaction_amount">Amount</string>
+    <string name="add_transaction_stage_account">Account</string>
+    <string name="add_transaction_stage_category">Category</string>
 </resources>
