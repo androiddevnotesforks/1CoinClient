@@ -6,6 +6,7 @@ plugins {
     id("com.google.gms.google-services")
     id("io.gitlab.arturbosch.detekt")
     id("com.squareup.sqldelight")
+    id("com.google.devtools.ksp") version "1.7.10-1.0.6"
     kotlin("android")
     kotlin("kapt")
 }
@@ -51,6 +52,13 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.3.0"
+    }
+    applicationVariants.all {
+        kotlin.sourceSets {
+            getByName(name) {
+                kotlin.srcDir("build/generated/ksp/$name/kotlin")
+            }
+        }
     }
 }
 
@@ -103,6 +111,11 @@ dependencies {
 
     // UI Tests
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.1")
+
+    // Compose Destinations
+    val composeDestinationsVersion = "1.7.21-beta"
+    implementation("io.github.raamcosta.compose-destinations:animations-core:$composeDestinationsVersion")
+    ksp("io.github.raamcosta.compose-destinations:ksp:$composeDestinationsVersion")
 }
 
 sqldelight {

@@ -20,6 +20,8 @@ data class CoinColors(
     val primaryVariant: Color,
     val secondary: Color,
     val background: Color,
+    val secondaryBackground: Color,
+    val dividers: Color,
     val content: Color
 )
 
@@ -29,6 +31,8 @@ val LocalCoinColors = staticCompositionLocalOf {
         primaryVariant = Color.Unspecified,
         secondary = Color.Unspecified,
         background = Color.Unspecified,
+        secondaryBackground = Color.Unspecified,
+        dividers = Color.Unspecified,
         content = Color.Unspecified
     )
 }
@@ -67,6 +71,8 @@ private val DarkColorPalette = CoinColors(
     primaryVariant = Color(0xFFFFFFFF),
     secondary = Color.Black.copy(alpha = 0.4f),
     background = Color.White,
+    secondaryBackground = Color(0xFFF7F7F7),
+    dividers = Color(0xFFE6E6E6),
     content = Color.Black
 )
 private val LightColorPalette = CoinColors(
@@ -74,6 +80,8 @@ private val LightColorPalette = CoinColors(
     primaryVariant = Color(0xFFFFFFFF),
     secondary = Color.Black.copy(alpha = 0.4f),
     background = Color.White,
+    secondaryBackground = Color(0xFFF7F7F7),
+    dividers = Color(0xFFE6E6E6),
     content = Color.Black
 )
 

@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.sreens.more
+package com.finance_tracker.finance_tracker.sreens.analytics
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -15,12 +15,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.finance_tracker.finance_tracker.R
+import com.finance_tracker.finance_tracker.core.navigation.TabNavGraph
 import com.finance_tracker.finance_tracker.theme.AppColors
+import com.ramcosta.composedestinations.annotation.Destination
 
+@TabNavGraph
+@Destination
 @Composable
-fun MoreScreen(modifier: Modifier = Modifier) {
+fun AnalyticsScreen() {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(AppColors.Purple500)
             .statusBarsPadding()
@@ -29,7 +33,7 @@ fun MoreScreen(modifier: Modifier = Modifier) {
             text = stringResource(R.string.more_screen_text),
             fontWeight = FontWeight.Bold,
             color = Color.White,
-            modifier = modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier.align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center,
             fontSize = 24.sp
         )
@@ -38,6 +42,6 @@ fun MoreScreen(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun MoreScreenPreview() {
-    MoreScreen()
+fun AnalyticsScreenPreview() {
+    AnalyticsScreen()
 }

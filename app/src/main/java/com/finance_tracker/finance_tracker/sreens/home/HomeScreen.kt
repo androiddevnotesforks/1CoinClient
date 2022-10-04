@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.sreens.main
+package com.finance_tracker.finance_tracker.sreens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -15,12 +15,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.finance_tracker.finance_tracker.R
+import com.finance_tracker.finance_tracker.core.navigation.TabNavGraph
 import com.finance_tracker.finance_tracker.theme.AppColors
+import com.ramcosta.composedestinations.annotation.Destination
 
+@TabNavGraph(start = true)
+@Destination
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
+fun HomeScreen() {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(AppColors.Purple200)
             .statusBarsPadding()
@@ -29,7 +33,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
             text = stringResource(R.string.main_screen_text),
             fontWeight = FontWeight.Bold,
             color = Color.White,
-            modifier = modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier.align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center,
             fontSize = 24.sp
         )
@@ -38,6 +42,6 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun MainScreenPreview() {
-    MainScreen()
+fun HomeScreenPreview() {
+    HomeScreen()
 }
