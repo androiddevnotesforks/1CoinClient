@@ -10,7 +10,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.finance_tracker.finance_tracker.sreens.NavGraphs
+import com.finance_tracker.finance_tracker.presentation.NavGraphs
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 

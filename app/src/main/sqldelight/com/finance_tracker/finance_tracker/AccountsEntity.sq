@@ -1,0 +1,26 @@
+CREATE TABLE AccountsEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    balance REAL NOT NULL
+);
+
+INSERT INTO AccountsEntity (id, name, balance) VALUES(1, 'Cash', 0);
+INSERT INTO AccountsEntity (id, name, balance) VALUES(2, 'Card', 0);
+
+getAccountById:
+SELECT *
+FROM AccountsEntity
+WHERE id = :id;
+
+getAllAccounts:
+SELECT *
+FROM AccountsEntity;
+
+insertAccount:
+INSERT OR REPLACE
+INTO AccountsEntity
+VALUES (?,?,?);
+
+deleteAccountById:
+DELETE FROM AccountsEntity
+WHERE id = :id;
