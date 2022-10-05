@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.core_ui
+package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

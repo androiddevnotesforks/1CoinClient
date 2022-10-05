@@ -10,18 +10,15 @@ import androidx.compose.ui.unit.sp
 data class CoinTypography(
     val h1: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 42.sp,
-        color = Color.Black
+        fontSize = 42.sp
     ),
     val h2: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 32.sp,
-        color = Color.Black
+        fontSize = 32.sp
     ),
     val h3: TextStyle = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        color = Color.Black
+        fontSize = 22.sp
     ),
     val h4: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
@@ -30,57 +27,46 @@ data class CoinTypography(
     ),
     val h5: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 18.sp,
-        color = Color.Black
+        fontSize = 18.sp
     ),
     val h6: TextStyle = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 18.sp,
-        color = Color.Black
+        fontSize = 18.sp
     ),
     val body1: TextStyle = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        color = Color.Black
+        fontSize = 16.sp
     ),
     val body1_medium: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
-        color = Color.Black
+        fontSize = 16.sp
     ),
     val body2: TextStyle = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
-        color = Color.Black
+        fontSize = 14.sp
     ),
     val body2_medium: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
-        color = Color.Black
+        fontSize = 14.sp
     ),
     val subtitle1: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 13.sp,
-        color = Color.Black
+        fontSize = 13.sp
     ),
     val subtitle2: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 12.sp,
-        color = Color.Black
+        fontSize = 12.sp
     ),
     val subtitle3: TextStyle = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
-        color = Color.Black
+        fontSize = 12.sp
     ),
     val subtitle4: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        color = Color.Black
+        fontSize = 11.sp
     ),
     val subtitle5: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 10.sp,
-        color = Color.Black
-    ),
+        fontSize = 10.sp
+    )
 )

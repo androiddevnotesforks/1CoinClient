@@ -1,6 +1,8 @@
 package com.finance_tracker.finance_tracker.parsers
 
 import android.telephony.SmsMessage
+import androidx.compose.ui.graphics.Color
+import com.finance_tracker.finance_tracker.data.models.Account
 import com.finance_tracker.finance_tracker.data.models.Transaction
 import com.finance_tracker.finance_tracker.parsers.models.SmsTemplate
 import com.finance_tracker.finance_tracker.parsers.models.TransactionFields
@@ -23,6 +25,11 @@ class SmsMessageParser(
         return Transaction(
             type = fields.getTransactionType() ?: return null,
             amount = fields.getAmount(),
+            account = Account(
+                Account.Type.DebitCard,
+                name = "Fake card",
+                color = Color.Red
+            ),
             amountCurrency = fields.getAmountCurrency(),
             category = null,
             cardNumber = fields.getCardNumber(),

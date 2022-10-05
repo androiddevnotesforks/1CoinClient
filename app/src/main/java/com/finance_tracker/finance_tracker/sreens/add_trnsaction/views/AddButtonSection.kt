@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.sreens.add_trnsaction
+package com.finance_tracker.finance_tracker.sreens.add_trnsaction.views
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core_ui.PrimaryButton
+import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 
 @Composable

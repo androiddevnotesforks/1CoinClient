@@ -4,6 +4,14 @@
     <string name="main_screen_text">Главная</string>
     <string name="operations_screen_text">Операции</string>
 
+    <string name="transactions_title">Transactions</string>
+
+    <!-- Tabs -->
+    <string name="tab_home">Home</string>
+    <string name="tab_transactions">Transactions</string>
+    <string name="tab_accounts">Accounts</string>
+    <string name="tab_analytics">Analytics</string>
+
     <!-- Add transaction -->
     <string name="add_transaction_tab_income">Income</string>
     <string name="add_transaction_tab_expense">Expense</string>
