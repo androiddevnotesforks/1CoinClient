@@ -1,6 +1,8 @@
 package com.finance_tracker.finance_tracker.sreens.tabs_navigation
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigationItem
@@ -11,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.finance_tracker.finance_tracker.sreens.NavGraphs
 import com.finance_tracker.finance_tracker.sreens.appCurrentDestinationAsState
@@ -49,12 +52,8 @@ fun BottomNavigationBar(
 }
 
 @Composable
-private fun RowScope.EmptyBottomNavigationItem() {
-    BottomNavigationItem(
-        icon = {},
-        onClick = {},
-        selected = false
-    )
+private fun EmptyBottomNavigationItem() {
+    Box(modifier = Modifier.width(48.dp))
 }
 
 @Composable
@@ -73,7 +72,7 @@ private fun RowScope.BottomNavigationItem(
         label = {
             Text(
                 text = stringResource(id = item.label),
-                style = CoinTheme.typography.subtitle3,
+                style = CoinTheme.typography.subtitle5,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
