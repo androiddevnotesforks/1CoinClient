@@ -30,7 +30,7 @@
         </activity>
 
         <receiver
-            android:name=".broadcast_receivers.SmsBroadcastReceiver"
+            android:name=".data.broadcast_receivers.SmsBroadcastReceiver"
             android:exported="true"
             android:permission="android.permission.BROADCAST_SMS">
             <intent-filter android:priority="1000">

@@ -1,4 +1,4 @@
-import com.finance_tracker.finance_tracker.TransactionType;
+import com.finance_tracker.finance_tracker.data.models.TransactionType;
 
 CREATE TABLE TransactionsEntity (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -14,6 +14,12 @@ getTransactionById:
 SELECT *
 FROM TransactionsEntity
 WHERE id = :id;
+
+getAllTransactionsWithAccounts:
+SELECT *
+FROM TransactionsEntity
+INNER JOIN AccountsEntity ON TransactionsEntity.accountId = AccountsEntity.id
+WHERE AccountsEntity.id IS NOT NULL;
 
 getAllTransactions:
 SELECT *

@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.data.mocks
 
 import com.finance_tracker.finance_tracker.R
-import com.finance_tracker.finance_tracker.data.models.Category
+import com.finance_tracker.finance_tracker.domain.models.Category
 
 object MockCategories {
     val myCategories = listOf(

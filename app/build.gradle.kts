@@ -116,6 +116,16 @@ dependencies {
     val composeDestinationsVersion = "1.7.21-beta"
     implementation("io.github.raamcosta.compose-destinations:animations-core:$composeDestinationsVersion")
     ksp("io.github.raamcosta.compose-destinations:ksp:$composeDestinationsVersion")
+
+    // Koin
+    val koinVersion = "3.2.2"
+    val koinKspVersion = "1.0.3"
+    val koinAndroidComposeVersion = "3.2.1"
+    implementation("io.insert-koin:koin-core:$koinVersion")
+    implementation("io.insert-koin:koin-annotations:$koinKspVersion")
+    implementation("io.insert-koin:koin-android:$koinVersion")
+    implementation("io.insert-koin:koin-androidx-compose:$koinAndroidComposeVersion")
+    ksp("io.insert-koin:koin-ksp-compiler:$koinKspVersion")
 }
 
 sqldelight {
