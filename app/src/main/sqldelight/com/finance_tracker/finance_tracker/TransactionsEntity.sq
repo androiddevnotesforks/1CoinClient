@@ -1,4 +1,4 @@
-import com.finance_tracker.finance_tracker.data.models.TransactionType;
+import com.finance_tracker.finance_tracker.domain.models.TransactionType;
 
 CREATE TABLE TransactionsEntity (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
