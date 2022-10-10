@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.di
 import android.content.Context
 import com.finance_tracker.finance_tracker.AppDatabase
 import com.financetracker.financetracker.AccountsEntityQueries
+import com.financetracker.financetracker.CategoriesEntityQueries
 import com.financetracker.financetracker.SmsMessageEntityQueries
 import com.financetracker.financetracker.TransactionsEntity
 import com.financetracker.financetracker.TransactionsEntityQueries
@@ -41,5 +42,10 @@ class AppModule {
     @Factory
     fun provideAccountsEntityQueries(appDatabase: AppDatabase): AccountsEntityQueries {
         return appDatabase.accountsEntityQueries
+    }
+
+    @Factory
+    fun provideCategoriesEntityQueries(appDatabase: AppDatabase): CategoriesEntityQueries {
+        return appDatabase.categoriesEntityQueries
     }
 }

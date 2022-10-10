@@ -25,23 +25,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.data.mocks.MockCategories
+import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 import kotlin.math.roundToInt
 
 @Composable
 fun CategorySelector(
-    onCategorySelect: (category: Category) -> Unit
-) {
-    CategorySelector(
-        categories = MockCategories.myCategories,
-        onCategorySelect = onCategorySelect
-    )
-}
-
-@Composable
-private fun CategorySelector(
     categories: List<Category>,
     onCategorySelect: (category: Category) -> Unit
 ) {
@@ -122,6 +112,13 @@ private fun CategoryCard(
 @Composable
 fun CategorySelectorPreview() {
     CategorySelector(
+        categories = listOf(
+            Category(
+                id = 1L,
+                name = "1",
+                icon = R.drawable.ic_plus
+            )
+        ),
         onCategorySelect = {}
     )
 }
