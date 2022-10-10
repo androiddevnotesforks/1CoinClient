@@ -22,6 +22,7 @@ private const val ContentAnimationDuration = 200
 @Composable
 fun EnterTransactionController(
     accounts: List<Account>,
+    categories: List<Category>,
     currentStep: EnterTransactionStep,
     animationDirection: Int,
     modifier: Modifier = Modifier,
@@ -58,6 +59,7 @@ fun EnterTransactionController(
                 }
                 EnterTransactionStep.Category -> {
                     CategorySelector(
+                        categories = categories,
                         onCategorySelect = onCategorySelect
                     )
                 }
