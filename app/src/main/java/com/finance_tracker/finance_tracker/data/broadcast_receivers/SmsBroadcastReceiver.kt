@@ -44,8 +44,8 @@ class SmsBroadcastReceiver : BroadcastReceiver(), KoinComponent {
             type = transaction.type,
             amount = transaction.amount,
             amountCurrency = transaction.amountCurrency,
-            category = transaction.category,
-            accountId = null, // TODO: Создать отдельную таблицу для хранения подключенных счетов и ссылаться на записи в той таблице
+            categoryId = transaction.category?.id,
+            accountId = transaction.account.id,
             date = transaction.date?.time ?: 0
         )
     }

@@ -6,7 +6,6 @@ import com.finance_tracker.finance_tracker.data.broadcast_receivers.parsers.mode
 import com.finance_tracker.finance_tracker.data.broadcast_receivers.parsers.models.TransactionFields
 import com.finance_tracker.finance_tracker.data.broadcast_receivers.parsers.models.getAmount
 import com.finance_tracker.finance_tracker.data.broadcast_receivers.parsers.models.getAmountCurrency
-import com.finance_tracker.finance_tracker.data.broadcast_receivers.parsers.models.getCardNumber
 import com.finance_tracker.finance_tracker.data.broadcast_receivers.parsers.models.getTransactionType
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Transaction
@@ -23,6 +22,7 @@ class SmsMessageParser(
 
         val fields = groupByTransactionFields(message, supportedTemplate)
         return Transaction(
+            id = -1,
             type = fields.getTransactionType() ?: return null,
             amount = fields.getAmount(),
             account = Account(
@@ -33,7 +33,6 @@ class SmsMessageParser(
             ),
             amountCurrency = fields.getAmountCurrency(),
             category = null,
-            cardNumber = fields.getCardNumber(),
             date = date
         )
     }

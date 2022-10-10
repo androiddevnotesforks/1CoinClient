@@ -5,7 +5,7 @@ CREATE TABLE TransactionsEntity (
     type TEXT AS TransactionType NOT NULL ,
     amount REAL NOT NULL,
     amountCurrency TEXT NOT NULL,
-    category TEXT,
+    categoryId INTEGER,
     accountId INTEGER,
     date INTEGER NOT NULL
 );
@@ -15,11 +15,12 @@ SELECT *
 FROM TransactionsEntity
 WHERE id = :id;
 
-getAllTransactionsWithAccounts:
+getAllFullTransactions:
 SELECT *
 FROM TransactionsEntity
-INNER JOIN AccountsEntity ON TransactionsEntity.accountId = AccountsEntity.id
-WHERE AccountsEntity.id IS NOT NULL;
+INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
+INNER JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
+WHERE accounts.id IS NOT NULL;
 
 getAllTransactions:
 SELECT *

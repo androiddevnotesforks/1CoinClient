@@ -100,6 +100,7 @@ fun AddTransactionScreen(
                     EnterTransactionController(
                         modifier = Modifier.weight(1f),
                         accounts = viewModel.accounts.value,
+                        categories = viewModel.categories.value,
                         currentStep = currentStep,
                         animationDirection = if (currentStep.ordinal >= previousStepIndex) {
                             1
@@ -152,9 +153,8 @@ fun AddTransactionScreen(
                                     type = TransactionType.Expense,
                                     amountCurrency = "$",
                                     account = accountData ?: return@AddButtonSection,
-                                    category = (categoryData ?: return@AddButtonSection).name,
+                                    category = categoryData,
                                     amount = amountText.toDouble(),
-                                    cardNumber = "1234",
                                     date = Date()
                                 )
                             )

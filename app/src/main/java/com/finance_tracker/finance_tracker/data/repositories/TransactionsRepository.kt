@@ -2,6 +2,7 @@ package com.finance_tracker.finance_tracker.data.repositories
 
 import androidx.compose.ui.graphics.Color
 import com.finance_tracker.finance_tracker.domain.models.Account
+import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.financetracker.financetracker.TransactionsEntityQueries
 import org.koin.core.annotation.Factory
@@ -12,11 +13,12 @@ class TransactionsRepository(
     private val transactionsEntityQueries: TransactionsEntityQueries
 ) {
     fun getAllTransactions(): List<Transaction> {
-        return transactionsEntityQueries.getAllTransactionsWithAccounts {
-                id, type, amount, amountCurrency,
-                category, accountId, date,
-                _, accountName, balance ->
+        return transactionsEntityQueries.getAllFullTransactions {
+                id, type, amount, amountCurrency, categoryId,
+                accountId, date, _, accountName, _,
+                _, categoryName, categoryIcon ->
             Transaction(
+                id = id,
                 type = type,
                 amountCurrency = amountCurrency,
                 account = Account(
@@ -25,9 +27,14 @@ class TransactionsRepository(
                     color = Color.Red,
                     name = accountName
                 ),
+                category = categoryId?.let {
+                    Category(
+                        id = categoryId,
+                        name = categoryName,
+                        icon = categoryIcon
+                    )
+                },
                 amount = amount,
-                category = category,
-                cardNumber = null,
                 date = Date(date)
             )
         }.executeAsList()
