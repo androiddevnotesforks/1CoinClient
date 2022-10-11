@@ -2,7 +2,10 @@ package com.finance_tracker.finance_tracker.presentation.tabs_navigation
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.material.*
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -10,7 +13,6 @@ import androidx.navigation.compose.rememberNavController
 import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.presentation.NavGraphs
 import com.finance_tracker.finance_tracker.presentation.destinations.AddTransactionScreenDestination
-import com.finance_tracker.finance_tracker.presentation.home.TopBar
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
 import com.ramcosta.composedestinations.annotation.Destination
@@ -45,8 +47,7 @@ fun TabsNavigationScreen(
             }
         },
         isFloatingActionButtonDocked = true,
-        floatingActionButtonPosition = FabPosition.Center,
-        topBar = { TopBar() }
+        floatingActionButtonPosition = FabPosition.Center
     ) {
         DestinationsNavHost(
             navController = navController,

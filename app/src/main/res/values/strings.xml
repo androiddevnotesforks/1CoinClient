@@ -20,6 +20,5 @@
     <string name="add_transaction_stage_account">Account</string>
     <string name="add_transaction_stage_category">Category</string>
     
-    <string name="topbar_title">$42 520</string>
-    <string name="topbar_balance">Total Balance</string>
+    <string name="home_topbar_text">Total Balance</string>
 </resources>
