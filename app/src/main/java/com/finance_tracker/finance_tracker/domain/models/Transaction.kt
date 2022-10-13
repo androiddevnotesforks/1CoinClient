@@ -9,5 +9,5 @@ data class Transaction(
     val account: Account,
     val amount: Double = 0.0,
     val category: Category? = null,
-    val date: Date? = null,
+    val date: Date,
 )
