@@ -6,6 +6,9 @@
 
     <string name="transactions_title">Transactions</string>
 
+    <!--Accounts screen -->
+    <string name="accounts_screen_header">Accounts</string>
+
     <!-- Tabs -->
     <string name="tab_home">Home</string>
     <string name="tab_transactions">Transactions</string>
