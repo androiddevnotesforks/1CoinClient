@@ -2,16 +2,16 @@ package com.finance_tracker.finance_tracker.presentation.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,8 +23,7 @@ import com.finance_tracker.finance_tracker.theme.CoinTheme
 @Composable
 fun HomeTopBar() {
     TopAppBar(
-        backgroundColor = AppColors.White,
-//        contentColor = CoinTheme.color.primary,
+        backgroundColor = CoinTheme.color.primaryVariant,
         title = {
             Column {
                 Text(
@@ -38,23 +37,20 @@ fun HomeTopBar() {
             }
         },
         actions = {
-            Box(
-                modifier = Modifier
+            Icon(
+                painter = painterResource(R.drawable.ic_settings),
+                contentDescription = null,
+                Modifier
+                    .size(42.dp)
+                    .clip(CircleShape)
                     .background(
-                        AppColors.Teal700,
+                        color = CoinTheme.color.secondaryBackground,
                         shape = CircleShape
                     )
-                    .padding(9.dp)
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.ic_settings),
-                    contentDescription = null,
-                    Modifier
-                        .alpha(0.8f)
-                        .clickable { },
-                    tint = AppColors.Black
-                )
-            }
+                    .clickable { }
+                    .padding(8.dp),
+                tint = AppColors.Black.copy(0.8f)
+            )
         },
     )
 }
