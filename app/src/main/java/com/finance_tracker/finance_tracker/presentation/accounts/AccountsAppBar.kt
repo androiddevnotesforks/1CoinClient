@@ -33,7 +33,7 @@ fun AccountsAppBar(
                 tint = Color(0xFF009BFF)
             )
         },
-        backgroundColor = Color.White
+        backgroundColor = CoinTheme.color.background
     )
 }
 

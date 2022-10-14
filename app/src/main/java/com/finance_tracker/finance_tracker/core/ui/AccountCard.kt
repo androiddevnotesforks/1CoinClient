@@ -55,7 +55,7 @@ fun AccountCard(
 @Composable
 fun AccountCardPreview() {
 
-    //TODO
+    //TODO - ПРЕВЬЮ ДАННЫЕ
     val testCard = Account(
         id = 0,
         type = Account.Type.DebitCard,
