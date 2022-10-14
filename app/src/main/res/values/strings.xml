@@ -19,6 +19,4 @@
     <string name="add_transaction_amount">Amount</string>
     <string name="add_transaction_stage_account">Account</string>
     <string name="add_transaction_stage_category">Category</string>
-    
-    <string name="home_topbar_text">Total Balance</string>
 </resources>
