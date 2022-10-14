@@ -1,8 +1,8 @@
 package com.finance_tracker.finance_tracker.presentation.accounts
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -127,8 +127,8 @@ fun AccountsScreen() {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             modifier = Modifier
-                .fillMaxHeight()
-                .padding(bottom = 57.dp)
+                .fillMaxHeight(),
+            contentPadding = PaddingValues(bottom = 96.dp)
         ) {
             items(cards) { card ->
                 AccountCard(data = card)
