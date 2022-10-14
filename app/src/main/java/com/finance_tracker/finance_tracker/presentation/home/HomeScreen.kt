@@ -37,6 +37,11 @@ fun HomeScreen() {
             textAlign = TextAlign.Center,
             fontSize = 24.sp
         )
+
+        myAccountsHeader()
+
+        accountsWidget()
+
     }
 }
 
