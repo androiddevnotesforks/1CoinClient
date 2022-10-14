@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.add_trnsaction
+package com.finance_tracker.finance_tracker.presentation.add_transaction
 
 import androidx.lifecycle.ViewModel
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel

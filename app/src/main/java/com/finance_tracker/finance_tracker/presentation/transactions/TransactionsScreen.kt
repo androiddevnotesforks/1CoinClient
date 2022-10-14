@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.common.DateFormatType
+import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
 import com.finance_tracker.finance_tracker.core.navigation.TabNavGraph
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Transaction
@@ -36,12 +37,10 @@ import com.finance_tracker.finance_tracker.presentation.transactions.views.Trans
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import org.koin.androidx.compose.getViewModel
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
-private val AmountDecimalFormat = DecimalFormat("#.##")
 private val DateFormatter = SimpleDateFormat("dd.mm")
 
 @TabNavGraph
@@ -137,7 +136,7 @@ private fun TransactionItem(
 
         val sign = if (transaction.type == TransactionType.Income) "+" else "-"
         Text(
-            text = sign + transaction.amountCurrency + AmountDecimalFormat.format(transaction.amount),
+            text = sign + transaction.amountCurrency + DecimalFormatType.Amount.format(transaction.amount),
             style = CoinTheme.typography.body2
         )
     }
@@ -174,14 +173,14 @@ private fun DayTotalHeader(
             .defaultMinSize(minWidth = 16.dp))
         Text(
             modifier = Modifier.padding(end = 16.dp),
-            text = "+${AmountDecimalFormat.format(dayTotalModel.income)}",
+            text = "+${DecimalFormatType.Amount.format(dayTotalModel.income)}",
             style = CoinTheme.typography.subtitle2,
             color = CoinTheme.color.accentGreen
         )
 
         Text(
             modifier = Modifier.padding(end = 16.dp),
-            text = "-${AmountDecimalFormat.format(dayTotalModel.expense)}",
+            text = "-${DecimalFormatType.Amount.format(dayTotalModel.expense)}",
             style = CoinTheme.typography.subtitle2,
             color = CoinTheme.color.content
         )
