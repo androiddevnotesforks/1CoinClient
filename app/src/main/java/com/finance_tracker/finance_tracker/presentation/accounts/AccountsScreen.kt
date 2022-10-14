@@ -8,15 +8,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.finance_tracker.finance_tracker.core.navigation.TabNavGraph
+import com.finance_tracker.finance_tracker.core.ui.AccountCard
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.ramcosta.composedestinations.annotation.Destination
-
 
 @TabNavGraph
 @Destination
 @Composable
 fun AccountsScreen() {
 
+    //TODO - ВРЕМЕННЫЕ ФЕЙКОВЫЕ ДАННЫЕ
     val cards = listOf(
         Account(
             id = 0,

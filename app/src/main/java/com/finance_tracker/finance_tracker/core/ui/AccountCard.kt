@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.accounts
+package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
@@ -14,9 +14,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.domain.models.Account
+import com.finance_tracker.finance_tracker.theme.CoinTheme
 
 @Composable
 fun AccountCard(
@@ -32,18 +32,20 @@ fun AccountCard(
         shape = RoundedCornerShape(12.dp),
     ) {
         Column {
-            Icon(painter = painterResource(R.drawable.ic_wallet_active),
-                contentDescription = "Credit card icon",
-                modifier = modifier
+            Icon(
+                painter = painterResource(R.drawable.ic_wallet_active),
+                contentDescription = "",
+                modifier = Modifier
                     .padding(start = 16.dp, top = 16.dp)
                     .height(29.dp)
                     .width(29.dp),
                 tint = Color.White
             )
-            Text(text = data.name,
-                fontSize = 12.sp,
-                color = Color.White.copy(alpha = 0.5f),
-                modifier = modifier
+            Text(
+                text = data.name,
+                style = CoinTheme.typography.subtitle2,
+                color = CoinTheme.color.primaryVariant.copy(alpha = 0.5f),
+                modifier = Modifier
                     .padding(start = 16.dp))
         }
     }
@@ -52,7 +54,8 @@ fun AccountCard(
 @Preview
 @Composable
 fun AccountCardPreview() {
-    
+
+    //TODO
     val testCard = Account(
         id = 0,
         type = Account.Type.DebitCard,
