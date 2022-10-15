@@ -12,7 +12,9 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.asSp
 
 @Immutable
 data class CoinColors(
@@ -66,8 +68,6 @@ private val DefaultRippleAlpha = RippleAlpha(
     hoveredAlpha = 0.08f
 )
 
-
-
 private val DarkColorPalette = CoinColors(
     primary = Color(0xFF009BFF),
     primaryVariant = Color(0xFFFFFFFF),
@@ -88,6 +88,11 @@ private val LightColorPalette = CoinColors(
     content = Color.Black,
     accentGreen = Color(0xFF00BC2D)
 )
+
+@Composable
+fun TextStyle.staticTextSize(isStaticContentSize: Boolean = true): TextStyle {
+    return if (isStaticContentSize) copy(fontSize = fontSize.value.dp.asSp()) else this
+}
 
 @Composable
 fun CoinTheme(

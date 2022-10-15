@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.add_trnsaction.views
+package com.finance_tracker.finance_tracker.presentation.add_transaction.views
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
-import com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.enter_transaction_controller.AccountCard
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.AccountCard
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 
 data class StepsEnterTransactionBarData(
