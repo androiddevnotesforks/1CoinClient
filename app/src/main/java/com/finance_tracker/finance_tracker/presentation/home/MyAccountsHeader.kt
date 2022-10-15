@@ -31,10 +31,9 @@ fun myAccountsHeader() {
         )
         Icon(
             painter = painterResource(id = R.drawable.ic_arrow_next_small),
-            contentDescription = "",
+            contentDescription = null,
             modifier = Modifier
-                .width(24.dp)
-                .height(24.dp)
+                .size(24.dp)
                 .align(Alignment.CenterVertically)
         )
     }
