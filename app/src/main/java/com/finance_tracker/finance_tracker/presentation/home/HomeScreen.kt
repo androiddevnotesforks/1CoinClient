@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,7 +29,7 @@ fun HomeScreen(
     viewModel: HomeScreenViewModel = getViewModel()
 ) {
 
-    val accounts = viewModel.accounts.collectAsState()
+    val accounts by viewModel.accounts.collectAsState()
 
     Column(
         modifier = Modifier
@@ -47,7 +48,7 @@ fun HomeScreen(
 
         MyAccountsHeader()
 
-        AccountsWidget(data = accounts.value)
+        AccountsWidget(data = accounts)
 
     }
 }
