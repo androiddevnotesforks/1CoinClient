@@ -29,6 +29,7 @@ class SmsMessageParser(
                 id = 1, // TODO
                 type = Account.Type.DebitCard,
                 name = "Fake card",
+                balance = 0.0,
                 color = Color.Red
             ),
             amountCurrency = fields.getAmountCurrency(),

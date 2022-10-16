@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,11 +19,20 @@ import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.navigation.TabNavGraph
 import com.finance_tracker.finance_tracker.theme.AppColors
 import com.ramcosta.composedestinations.annotation.Destination
+import org.koin.androidx.compose.getViewModel
 
 @TabNavGraph(start = true)
 @Destination
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    viewModel: HomeScreenViewModel = getViewModel()
+) {
+
+    LaunchedEffect(Unit) {
+
+    }
+
+    val accounts = viewModel.accounts.value
 
     Column(
         modifier = Modifier
@@ -41,7 +51,7 @@ fun HomeScreen() {
 
         MyAccountsHeader()
 
-        AccountsWidget()
+        AccountsWidget(data = accounts)
 
     }
 }

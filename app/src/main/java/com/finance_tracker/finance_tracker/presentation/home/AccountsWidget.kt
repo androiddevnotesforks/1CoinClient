@@ -13,53 +13,17 @@ import com.finance_tracker.finance_tracker.core.ui.AccountCard
 import com.finance_tracker.finance_tracker.domain.models.Account
 
 @Composable
-fun AccountsWidget(modifier: Modifier = Modifier) {
-
-    //TODO - ВРЕМЕННЫЕ ФЕЙКОВЫЕ ДАННЫЕ
-    val accounts = listOf(
-        Account(
-            id = 0,
-            type = Account.Type.DebitCard,
-            name = "Debit card (*5841)",
-            color = Color(0xFFD50000),
-        ),
-        Account(
-            id = 1,
-            type = Account.Type.DebitCard,
-            name = "Debit card (*5841)",
-            color = Color(0xFFE67C73),
-        ),
-        Account(
-            id = 2,
-            type = Account.Type.DebitCard,
-            name = "Debit card (*5841)",
-            color = Color(0xFFF4511E),
-        ),
-        Account(
-            id = 3,
-            type = Account.Type.DebitCard,
-            name = "Debit card (*5841)",
-            color = Color(0xFFF6BF26),
-        ),
-        Account(
-            id = 4,
-            type = Account.Type.DebitCard,
-            name = "Debit card (*5841)",
-            color = Color(0xFF33B679),
-        ),  Account(
-            id = 5,
-            type = Account.Type.DebitCard,
-            name = "Debit card (*5841)",
-            color = Color(0xFF0B8043),
-        ),
-    )
+fun AccountsWidget(
+    modifier: Modifier = Modifier,
+    data: List<Account>
+) {
 
     LazyRow(
         modifier = modifier
             .padding(top = 12.dp),
         contentPadding = PaddingValues(start = 4.dp)
     ) {
-        items(accounts) { account ->
+        items(data) { account ->
             AccountCard(data = account)
         }
     }
@@ -68,5 +32,17 @@ fun AccountsWidget(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun AccountsWidgetPreview() {
-    AccountsWidget()
+
+    //TODO - ПРЕВЬЮ ДАННЫЕ
+    val testCard = listOf(
+        Account(
+            id = 0,
+            type = Account.Type.DebitCard,
+            name = "Debit card (*5841)",
+            balance = 2200.5,
+            color = Color(0xFFD50000),
+        )
+    )
+
+    AccountsWidget(data = testCard)
 }

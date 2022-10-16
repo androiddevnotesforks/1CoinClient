@@ -24,7 +24,7 @@ SELECT SUM(amount)
 FROM TransactionsEntity
 INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
 INNER JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
-WHERE DATE(date) = :date AND type = :type AND accounts.id IS NOT NULL;
+WHERE DATE(date) = :date AND TransactionsEntity.type = :type AND accounts.id IS NOT NULL;
 
 insertTransaction:
 INSERT OR REPLACE
