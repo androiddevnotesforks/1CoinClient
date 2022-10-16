@@ -24,6 +24,7 @@ import org.koin.androidx.compose.getViewModel
 @TabNavGraph(start = true)
 @Destination
 @Composable
+
 fun HomeScreen(
     viewModel: HomeScreenViewModel = getViewModel()
 ) {
