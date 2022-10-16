@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.enter_transaction_controller
+package com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box

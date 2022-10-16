@@ -19,4 +19,9 @@
     <string name="add_transaction_amount">Amount</string>
     <string name="add_transaction_stage_account">Account</string>
     <string name="add_transaction_stage_category">Category</string>
+
+    <!-- Transactions -->
+    <string name="transactions_today">Today</string>
+    <string name="transactions_yesterday">Yeasterday</string>
+
 </resources>

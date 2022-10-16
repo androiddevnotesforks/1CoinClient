@@ -2,12 +2,14 @@ package com.finance_tracker.finance_tracker.presentation.transactions
 
 import android.icu.util.Calendar
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import java.util.Date
 
@@ -24,27 +26,37 @@ class TransactionsViewModel(
     }
 
     private fun loadTransactions() {
-        val transactions = transactionsRepository.getAllTransactions()
-        for (transaction in transactions) {
-            val lastUiTransactionModel = _transactions.value.lastOrNull()
+        viewModelScope.launch {
+            val transactions = transactionsRepository.getAllTransactions()
+            for (transaction in transactions) {
+                val lastUiTransactionModel = _transactions.value.lastOrNull()
 
-            if (lastUiTransactionModel == null ||
-                (lastUiTransactionModel is TransactionUiModel.Data &&
-                        !lastUiTransactionModel.transaction.date.isCalendarDateEquals(transaction.date))
-            ) {
-                _transactions.getAndUpdate {
-                    val totalIncomeAmount = transactionsRepository.getTotalTransactionAmountByDateAndType(
-                        date = transaction.date,
-                        type = TransactionType.Income
-                    )
-                    val totalExpenseAmount = transactionsRepository.getTotalTransactionAmountByDateAndType(
-                        date = transaction.date,
-                        type = TransactionType.Expense
-                    )
-                    it + TransactionUiModel.DateAndDayTotal(date = transaction.date, income = totalIncomeAmount, expense = totalExpenseAmount) // получение общего дохода и расхода за 1 день
+                if (lastUiTransactionModel == null ||
+                    (lastUiTransactionModel is TransactionUiModel.Data &&
+                            !lastUiTransactionModel.transaction.date.isCalendarDateEquals(
+                                transaction.date
+                            ))
+                ) {
+                    _transactions.update {
+                        val totalIncomeAmount =
+                            transactionsRepository.getTotalTransactionAmountByDateAndType(
+                                date = transaction.date,
+                                type = TransactionType.Income
+                            )
+                        val totalExpenseAmount =
+                            transactionsRepository.getTotalTransactionAmountByDateAndType(
+                                date = transaction.date,
+                                type = TransactionType.Expense
+                            )
+                        it + TransactionUiModel.DateAndDayTotal(
+                            date = transaction.date,
+                            income = totalIncomeAmount,
+                            expense = totalExpenseAmount
+                        ) // получение общего дохода и расхода за 1 день
+                    }
                 }
+                _transactions.update { it + TransactionUiModel.Data(transaction) }
             }
-            _transactions.getAndUpdate { it + TransactionUiModel.Data(transaction) }
         }
     }
 

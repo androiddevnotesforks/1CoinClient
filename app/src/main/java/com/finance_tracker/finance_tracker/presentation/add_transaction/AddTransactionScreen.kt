@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.add_trnsaction
+package com.finance_tracker.finance_tracker.presentation.add_transaction
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
@@ -19,15 +19,15 @@ import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
-import com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.AddButtonSection
-import com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.AmountTextField
-import com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.CalendarDayView
-import com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.CategoriesAppBar
-import com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.EnterTransactionStep
-import com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.StepsEnterTransactionBar
-import com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.StepsEnterTransactionBarData
-import com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.enter_transaction_controller.EnterTransactionController
-import com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.enter_transaction_controller.KeyboardCommand
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.AddButtonSection
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.AmountTextField
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.CalendarDayView
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.CategoriesAppBar
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.EnterTransactionStep
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBar
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBarData
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.EnterTransactionController
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.KeyboardCommand
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
