@@ -17,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.R
-import com.finance_tracker.finance_tracker.theme.AppColors
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 
 @Composable
@@ -49,7 +48,7 @@ fun HomeTopBar() {
                     )
                     .clickable { }
                     .padding(8.dp),
-                tint = AppColors.Black.copy(0.8f)
+                tint = CoinTheme.color.content.copy(alpha = 0.8f)
             )
         },
     )
