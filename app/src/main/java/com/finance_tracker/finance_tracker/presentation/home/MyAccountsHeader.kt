@@ -14,9 +14,9 @@ import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 
 @Composable
-fun myAccountsHeader() {
+fun MyAccountsHeader(modifier: Modifier = Modifier) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .padding(
                 start = 16.dp,
                 end = 16.dp
@@ -30,7 +30,7 @@ fun myAccountsHeader() {
             modifier = Modifier.weight(1f)
         )
         Icon(
-            painter = painterResource(id = R.drawable.ic_arrow_next_small),
+            painter = painterResource(R.drawable.ic_arrow_next_small),
             contentDescription = null,
             modifier = Modifier
                 .size(24.dp)
@@ -41,6 +41,6 @@ fun myAccountsHeader() {
 
 @Preview
 @Composable
-fun myAccountsHeaderPreview() {
-    myAccountsHeader()
+fun MyAccountsHeaderPreview() {
+    MyAccountsHeader()
 }

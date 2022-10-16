@@ -13,7 +13,7 @@ import com.finance_tracker.finance_tracker.core.ui.AccountCard
 import com.finance_tracker.finance_tracker.domain.models.Account
 
 @Composable
-fun accountsWidget() {
+fun AccountsWidget(modifier: Modifier = Modifier) {
 
     //TODO - ВРЕМЕННЫЕ ФЕЙКОВЫЕ ДАННЫЕ
     val accounts = listOf(
@@ -55,7 +55,7 @@ fun accountsWidget() {
     )
 
     LazyRow(
-        modifier = Modifier
+        modifier = modifier
             .padding(top = 12.dp),
         contentPadding = PaddingValues(start = 4.dp)
     ) {
@@ -67,6 +67,6 @@ fun accountsWidget() {
 
 @Preview
 @Composable
-fun accountsWidgetPreview() {
-    accountsWidget()
+fun AccountsWidgetPreview() {
+    AccountsWidget()
 }

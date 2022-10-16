@@ -1,9 +1,6 @@
 package com.finance_tracker.finance_tracker.core.ui
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -34,12 +31,11 @@ fun AccountCard(
         Column {
             Icon(
                 painter = painterResource(R.drawable.ic_wallet_active),
-                contentDescription = "",
+                contentDescription = null,
                 modifier = Modifier
                     .padding(start = 16.dp, top = 16.dp)
-                    .height(29.dp)
-                    .width(29.dp),
-                tint = Color.White
+                    .size(29.dp),
+                tint = CoinTheme.color.primaryVariant
             )
             Text(
                 text = data.name,
