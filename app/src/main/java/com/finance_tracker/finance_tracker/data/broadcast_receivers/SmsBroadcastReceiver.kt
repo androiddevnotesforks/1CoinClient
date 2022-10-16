@@ -46,7 +46,7 @@ class SmsBroadcastReceiver : BroadcastReceiver(), KoinComponent {
             amountCurrency = transaction.amountCurrency,
             categoryId = transaction.category?.id,
             accountId = transaction.account.id,
-            date = transaction.date?.time ?: 0
+            date = transaction.date
         )
     }
 

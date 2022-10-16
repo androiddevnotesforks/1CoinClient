@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.add_trnsaction.views
+package com.finance_tracker.finance_tracker.presentation.add_transaction.views
 
 import androidx.annotation.StringRes
 import com.finance_tracker.finance_tracker.R

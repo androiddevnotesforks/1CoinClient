@@ -12,7 +12,9 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.asSp
 
 @Immutable
 data class CoinColors(
@@ -22,7 +24,8 @@ data class CoinColors(
     val background: Color,
     val secondaryBackground: Color,
     val dividers: Color,
-    val content: Color
+    val content: Color,
+    val accentGreen: Color
 )
 
 val LocalCoinColors = staticCompositionLocalOf {
@@ -33,7 +36,8 @@ val LocalCoinColors = staticCompositionLocalOf {
         background = Color.Unspecified,
         secondaryBackground = Color.Unspecified,
         dividers = Color.Unspecified,
-        content = Color.Unspecified
+        content = Color.Unspecified,
+        accentGreen = Color.Unspecified
     )
 }
 val LocalCoinTypography = staticCompositionLocalOf {
@@ -64,8 +68,6 @@ private val DefaultRippleAlpha = RippleAlpha(
     hoveredAlpha = 0.08f
 )
 
-
-
 private val DarkColorPalette = CoinColors(
     primary = Color(0xFF009BFF),
     primaryVariant = Color(0xFFFFFFFF),
@@ -73,7 +75,8 @@ private val DarkColorPalette = CoinColors(
     background = Color.White,
     secondaryBackground = Color(0xFFF7F7F7),
     dividers = Color(0xFFE6E6E6),
-    content = Color.Black
+    content = Color.Black,
+    accentGreen = Color(0xFF00BC2D)
 )
 private val LightColorPalette = CoinColors(
     primary = Color(0xFF009BFF),
@@ -82,8 +85,14 @@ private val LightColorPalette = CoinColors(
     background = Color.White,
     secondaryBackground = Color(0xFFF7F7F7),
     dividers = Color(0xFFE6E6E6),
-    content = Color.Black
+    content = Color.Black,
+    accentGreen = Color(0xFF00BC2D)
 )
+
+@Composable
+fun TextStyle.staticTextSize(isStaticContentSize: Boolean = true): TextStyle {
+    return if (isStaticContentSize) copy(fontSize = fontSize.value.dp.asSp()) else this
+}
 
 @Composable
 fun CoinTheme(

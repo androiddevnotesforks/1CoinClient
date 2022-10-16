@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.enter_transaction_controller
+package com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
-import com.finance_tracker.finance_tracker.presentation.add_trnsaction.views.EnterTransactionStep
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.EnterTransactionStep
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 
 private const val ContentAnimationDuration = 200

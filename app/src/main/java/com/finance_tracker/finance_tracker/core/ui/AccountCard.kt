@@ -23,8 +23,10 @@ fun AccountCard(
     Card(
         modifier = modifier
             .padding(4.dp)
-            .size(width = 160.dp,
-                height = 128.dp),
+            .size(
+                width = 160.dp,
+                height = 128.dp
+            ),
         backgroundColor = data.color,
         shape = RoundedCornerShape(12.dp),
     ) {
