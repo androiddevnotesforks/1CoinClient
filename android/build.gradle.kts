@@ -1,12 +1,13 @@
 import com.google.firebase.crashlytics.buildtools.gradle.CrashlyticsExtension
 
 plugins {
+    id("org.jetbrains.compose") version "1.2.0"
     id("com.android.application")
     id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
     id("io.gitlab.arturbosch.detekt")
     id("com.squareup.sqldelight")
-    id("com.google.devtools.ksp") version "1.7.10-1.0.6"
+    id("com.google.devtools.ksp") version "1.7.20-1.0.6"
     kotlin("android")
     kotlin("kapt")
 }
@@ -41,8 +42,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -64,6 +65,8 @@ android {
 
 dependencies {
 
+    implementation(project(":common"))
+
     // Firebase BoM
     implementation(platform ("com.google.firebase:firebase-bom:30.3.2"))
     implementation("com.google.firebase:firebase-analytics-ktx")
@@ -72,7 +75,7 @@ dependencies {
 
     // Jetpack Compose
     val composeVersion = "1.3.0-beta01"
-    implementation("androidx.activity:activity-compose:1.5.1")
+    implementation("androidx.activity:activity-compose:1.6.0")
     implementation("androidx.compose.animation:animation:$composeVersion")
     implementation("androidx.compose.foundation:foundation:$composeVersion")
     implementation("androidx.compose.material:material:$composeVersion")
@@ -100,7 +103,7 @@ dependencies {
     implementation("com.google.android.material:material:1.6.1")
 
     // SQL Delight
-    val sqlDelightVersion = "1.5.3"
+    val sqlDelightVersion = "1.5.4"
     implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
     implementation("com.squareup.sqldelight:coroutines-extensions:$sqlDelightVersion")
 
