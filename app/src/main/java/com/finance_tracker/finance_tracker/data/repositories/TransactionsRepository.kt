@@ -21,7 +21,7 @@ class TransactionsRepository(
         return withContext(Dispatchers.IO) {
             transactionsEntityQueries.getAllFullTransactions {
                     id, type, amount, amountCurrency, categoryId,
-                    accountId, date, _, accountName, _, accountColorHex,
+                    accountId, date, _, accountName, _, balance, accountColorHex,
                     _, categoryName, categoryIcon ->
                 Transaction(
                     id = id,
@@ -31,7 +31,8 @@ class TransactionsRepository(
                         id = accountId ?: 0L,
                         type = Account.Type.Cash,
                         color = accountColorHex.hexToColor(),
-                        name = accountName
+                        name = accountName.name,
+                        balance = balance
                     ),
                     category = categoryId?.let {
                         Category(

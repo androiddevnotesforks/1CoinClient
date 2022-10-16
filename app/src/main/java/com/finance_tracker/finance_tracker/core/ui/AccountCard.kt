@@ -12,6 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.R
+import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 
@@ -35,16 +36,30 @@ fun AccountCard(
                 painter = painterResource(R.drawable.ic_wallet_active),
                 contentDescription = null,
                 modifier = Modifier
-                    .padding(start = 16.dp, top = 16.dp)
+                    .padding(
+                        start = 16.dp,
+                        top = 16.dp
+                    )
                     .size(29.dp),
                 tint = CoinTheme.color.primaryVariant
+            )
+            Text(
+                text = DecimalFormatType.Amount.format(data.balance),
+                style = CoinTheme.typography.h5,
+                color = CoinTheme.color.primaryVariant,
+                modifier = Modifier
+                    .padding(
+                        top = 30.dp,
+                        start = 16.dp
+                    )
             )
             Text(
                 text = data.name,
                 style = CoinTheme.typography.subtitle2,
                 color = CoinTheme.color.primaryVariant.copy(alpha = 0.5f),
                 modifier = Modifier
-                    .padding(start = 16.dp))
+                    .padding(start = 16.dp)
+            )
         }
     }
 }
@@ -58,6 +73,7 @@ fun AccountCardPreview() {
         id = 0,
         type = Account.Type.DebitCard,
         name = "Debit card (*5841)",
+        balance = 2200.5,
         color = Color(0xFFD50000),
     )
     

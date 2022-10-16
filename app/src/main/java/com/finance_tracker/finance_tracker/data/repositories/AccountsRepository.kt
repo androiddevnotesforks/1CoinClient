@@ -1,6 +1,8 @@
 package com.finance_tracker.finance_tracker.data.repositories
 
+import androidx.compose.ui.graphics.Color
 import com.finance_tracker.finance_tracker.core.common.hexToColor
+import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AccountColorData
 import com.financetracker.financetracker.AccountColorsEntityQueries
 import com.financetracker.financetracker.AccountsEntityQueries
@@ -16,12 +18,14 @@ class AccountsRepository(
 
     suspend fun insertAccount(
         accountName: String,
+        type: Account.Type,
         balance: Double,
         colorHex: String
     ) {
         withContext(Dispatchers.IO) {
             accountsEntityQueries.insertAccount(
                 id = null,
+                type = type,
                 name = accountName,
                 balance = balance,
                 colorHex = colorHex
@@ -35,6 +39,20 @@ class AccountsRepository(
                 AccountColorData(
                     color = hex.hexToColor(),
                     name = name
+                )
+            }.executeAsList()
+        }
+    }
+
+    suspend fun getAllAccountsFromDatabase(): List<Account> {
+        return withContext(Dispatchers.IO) {
+            accountsEntityQueries.getAllAccounts { id, type, name, balance, colorHex->
+                Account(
+                    id = id,
+                    type = type,
+                    name = name,
+                    balance = balance,
+                    color = colorHex.hexToColor(Color.Red)
                 )
             }.executeAsList()
         }

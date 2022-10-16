@@ -9,6 +9,7 @@ fun AccountsEntity.accountToDomainModel(): Account {
         id = id,
         type = Account.Type.Cash,
         name = name,
+        balance = balance,
         color = Color.Red
     )
 }

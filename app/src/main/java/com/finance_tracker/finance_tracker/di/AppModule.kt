@@ -2,12 +2,7 @@ package com.finance_tracker.finance_tracker.di
 
 import android.content.Context
 import com.finance_tracker.finance_tracker.AppDatabase
-import com.financetracker.financetracker.AccountColorsEntityQueries
-import com.financetracker.financetracker.AccountsEntityQueries
-import com.financetracker.financetracker.CategoriesEntityQueries
-import com.financetracker.financetracker.SmsMessageEntityQueries
-import com.financetracker.financetracker.TransactionsEntity
-import com.financetracker.financetracker.TransactionsEntityQueries
+import com.financetracker.financetracker.*
 import com.squareup.sqldelight.ColumnAdapter
 import com.squareup.sqldelight.EnumColumnAdapter
 import com.squareup.sqldelight.android.AndroidSqliteDriver
@@ -35,6 +30,9 @@ class AppModule {
             TransactionsEntityAdapter = TransactionsEntity.Adapter(
                 typeAdapter = EnumColumnAdapter(),
                 dateAdapter = dateAdapter
+            ),
+            AccountsEntityAdapter = AccountsEntity.Adapter(
+                typeAdapter = EnumColumnAdapter(),
             )
         )
     }

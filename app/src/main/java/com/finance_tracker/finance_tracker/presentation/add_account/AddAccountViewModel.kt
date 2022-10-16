@@ -6,6 +6,7 @@ import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.common.EventFlow
 import com.finance_tracker.finance_tracker.core.common.toHexString
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
+import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AccountColorData
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -115,10 +116,16 @@ class AddAccountViewModel(
                 ))
                 return@launch
             }
+            val type = selectedType.value ?: run {
+                events.emit(AddAccountEvent.ShowToast(
+                    text = R.string.new_account_error_select_account_type
+                ))
+            }
             accountsRepository.insertAccount(
                 accountName = accountName,
                 balance = balance,
-                colorHex = selectedColor.toHexString()
+                colorHex = selectedColor.toHexString(),
+                type = type as Account.Type
             )
             events.emit(AddAccountEvent.Close)
         }
