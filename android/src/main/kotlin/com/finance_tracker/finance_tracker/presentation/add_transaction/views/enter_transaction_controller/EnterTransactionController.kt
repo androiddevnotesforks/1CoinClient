@@ -16,7 +16,7 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.EnterTransactionStep
 import com.finance_tracker.finance_tracker.theme.CoinTheme
 
-private const val ContentAnimationDuration = 200
+private const val CONTENT_ANIMATION_DURATION = 200
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -39,10 +39,10 @@ fun EnterTransactionController(
             targetState = currentStep,
             transitionSpec = {
                 slideInHorizontally(
-                    animationSpec = tween(ContentAnimationDuration),
+                    animationSpec = tween(CONTENT_ANIMATION_DURATION),
                     initialOffsetX = { fullWidth -> animationDirection * fullWidth }
                 ) with slideOutHorizontally(
-                    animationSpec = tween(ContentAnimationDuration),
+                    animationSpec = tween(CONTENT_ANIMATION_DURATION),
                     targetOffsetX = { fullWidth -> -animationDirection * fullWidth }
                 )
             }

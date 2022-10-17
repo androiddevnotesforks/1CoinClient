@@ -54,7 +54,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.compose.getViewModel
 
-private const val AccountNameCharsLimit = 40
+private const val ACCOUNT_NAME_CHARS_LIMIT = 40
 
 @RootNavGraph
 @Destination
@@ -97,7 +97,7 @@ fun AddAccountScreen(
             onValueChange = viewModel::onAccountNameChange,
             maxLines = 1,
             singleLine = true,
-            charsLimit = AccountNameCharsLimit,
+            charsLimit = ACCOUNT_NAME_CHARS_LIMIT,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
 
