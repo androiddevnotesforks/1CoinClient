@@ -17,11 +17,12 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
-
+        
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+      
     - name: Create file
-      run: cat /home/runner/work/FinanceTracker/app/google-services.json
+      run: cat ${GITHUB_WORKSPACE}/app/google-services.json
       
     - name: Decode google services and insert into file
       env:
