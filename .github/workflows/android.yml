@@ -21,13 +21,10 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       
-    - name: Create file
-      run: cat ${GITHUB_WORKSPACE}/app/google-services.json
-      
     - name: Decode google services and insert into file
       env:
        DATA: ${{ secrets.GOOGLE_SERVICES_JSON }}
-      run: touch /home/runner/work/FinanceTracker/app/google-services.json && echo $DATA | base64 -d > /home/runner/work/FinanceTracker/app/google-services.json
+      run: echo $DATA | base64 -d > /home/runner/work/FinanceTracker/app/google-services.json
 
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew assembleDebug
