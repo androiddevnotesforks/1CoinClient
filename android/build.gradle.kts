@@ -106,14 +106,6 @@ dependencies {
     implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
     implementation("com.squareup.sqldelight:coroutines-extensions:$sqlDelightVersion")
 
-    // Test
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-
-    // UI Tests
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.1")
-
     // Compose Destinations
     val composeDestinationsVersion = "1.7.21-beta"
     implementation("io.github.raamcosta.compose-destinations:animations-core:$composeDestinationsVersion")
