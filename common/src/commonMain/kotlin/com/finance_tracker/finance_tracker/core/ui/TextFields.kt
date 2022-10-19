@@ -22,13 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.takeOrElse
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
@@ -126,7 +124,7 @@ fun CoinOutlinedSelectTextField(
             Icon(
                 modifier = Modifier
                     .size(24.dp),
-                painter = painterResource(R.drawable.ic_expand_more),
+                imageVector = loadXmlPicture("ic_expand_more"),
                 contentDescription = null,
                 tint = CoinTheme.color.content
             )
