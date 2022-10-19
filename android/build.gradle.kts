@@ -6,7 +6,6 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
     id("io.gitlab.arturbosch.detekt")
-    id("com.squareup.sqldelight")
     id("com.google.devtools.ksp") version "1.7.20-1.0.6"
     kotlin("android")
     kotlin("kapt")
@@ -129,10 +128,4 @@ dependencies {
     implementation("io.insert-koin:koin-android:$koinVersion")
     implementation("io.insert-koin:koin-androidx-compose:$koinAndroidComposeVersion")
     ksp("io.insert-koin:koin-ksp-compiler:$koinKspVersion")
-}
-
-sqldelight {
-    database("AppDatabase") {
-        packageName = "com.finance_tracker.finance_tracker"
-    }
 }

@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.theme
+package com.finance_tracker.finance_tracker.core.theme
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.unit.Dp

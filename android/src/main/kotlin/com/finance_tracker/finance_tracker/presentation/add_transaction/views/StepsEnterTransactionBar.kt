@@ -21,10 +21,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.R
+import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.AccountCard
-import com.finance_tracker.finance_tracker.theme.CoinTheme
 
 data class StepsEnterTransactionBarData(
     val currentStep: EnterTransactionStep = EnterTransactionStep.Account,

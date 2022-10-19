@@ -7,8 +7,8 @@ import com.finance_tracker.finance_tracker.core.common.EventFlow
 import com.finance_tracker.finance_tracker.core.common.toHexString
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.models.Account
+import com.finance_tracker.finance_tracker.domain.models.AccountColorData
 import com.finance_tracker.finance_tracker.domain.models.Currency
-import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AccountColorData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow

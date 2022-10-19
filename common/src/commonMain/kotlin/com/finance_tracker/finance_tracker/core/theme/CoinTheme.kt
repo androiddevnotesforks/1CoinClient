@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.theme
+package com.finance_tracker.finance_tracker.core.theme
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.isSystemInDarkTheme

@@ -15,11 +15,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.presentation.NavGraphs
 import com.finance_tracker.finance_tracker.presentation.appCurrentDestinationAsState
 import com.finance_tracker.finance_tracker.presentation.destinations.Destination
 import com.finance_tracker.finance_tracker.presentation.startAppDestination
-import com.finance_tracker.finance_tracker.theme.CoinTheme
 import com.ramcosta.composedestinations.navigation.navigate
 
 @Composable

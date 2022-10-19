@@ -16,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.R
-import com.finance_tracker.finance_tracker.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
 fun CalendarDayView(

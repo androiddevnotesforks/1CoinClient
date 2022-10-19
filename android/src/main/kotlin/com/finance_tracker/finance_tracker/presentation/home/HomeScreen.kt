@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.navigation.TabNavGraph
-import com.finance_tracker.finance_tracker.theme.AppColors
+import com.finance_tracker.finance_tracker.core.theme.AppColors
 import com.ramcosta.composedestinations.annotation.Destination
 import org.koin.androidx.compose.getViewModel
 

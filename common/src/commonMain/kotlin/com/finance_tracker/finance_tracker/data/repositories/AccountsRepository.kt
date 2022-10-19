@@ -3,7 +3,7 @@ package com.finance_tracker.finance_tracker.data.repositories
 import androidx.compose.ui.graphics.Color
 import com.finance_tracker.finance_tracker.core.common.hexToColor
 import com.finance_tracker.finance_tracker.domain.models.Account
-import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AccountColorData
+import com.finance_tracker.finance_tracker.domain.models.AccountColorData
 import com.financetracker.financetracker.AccountColorsEntityQueries
 import com.financetracker.financetracker.AccountsEntityQueries
 import kotlinx.coroutines.Dispatchers
