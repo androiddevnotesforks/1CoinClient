@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker
 import android.app.Application
 import com.finance_tracker.finance_tracker.data.database.DatabaseInitializer
 import com.finance_tracker.finance_tracker.di.AppModule
+import com.finance_tracker.finance_tracker.di.commonModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -18,7 +19,7 @@ class App: Application(), KoinComponent {
 
         startKoin {
             androidContext(this@App)
-            modules(AppModule().module)
+            modules(commonModules() + AppModule().module)
         }
 
         databaseInitializer.init()

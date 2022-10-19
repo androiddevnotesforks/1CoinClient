@@ -18,13 +18,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.toDp
+import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinDropdownMenu
-import com.finance_tracker.finance_tracker.theme.CoinTheme
-
-data class AccountColorData(
-    val color: Color,
-    val name: String
-)
+import com.finance_tracker.finance_tracker.domain.models.AccountColorData
 
 @Composable
 fun AccountColorsDropdownMenu(

@@ -20,9 +20,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.R
+import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AmountCurrenciesDropdownMenu
-import com.finance_tracker.finance_tracker.theme.CoinTheme
 
 @Composable
 fun CurrencySelector(
