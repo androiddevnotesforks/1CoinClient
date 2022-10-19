@@ -15,6 +15,7 @@ kotlin {
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
+                api(compose.ui)
                 // Needed only for preview.
                 implementation(compose.preview)
 
