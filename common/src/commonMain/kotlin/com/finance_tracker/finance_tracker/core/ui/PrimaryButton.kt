@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -44,10 +43,4 @@ fun PrimaryButton(
             color = LocalContentColor.current
         )
     }
-}
-
-@Preview
-@Composable
-fun PrimaryButtonPreview() {
-    PrimaryButton(text = "Add")
 }

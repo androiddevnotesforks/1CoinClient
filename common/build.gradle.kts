@@ -16,8 +16,9 @@ kotlin {
                 api(compose.foundation)
                 api(compose.material)
                 api(compose.ui)
+                api(compose.uiTooling)
                 // Needed only for preview.
-                implementation(compose.preview)
+                api(compose.preview)
 
                 // Koin
                 val koinVersion = "3.2.2"
@@ -25,8 +26,14 @@ kotlin {
                 api("io.insert-koin:koin-core:$koinVersion")
                 api("io.insert-koin:koin-annotations:$koinKspVersion")
             }
-            resources.srcDirs("common/src/commonMain/res")
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+        }
+        named("desktopMain") {
+            dependencies {
+                api(compose.uiTooling)
+                // Needed only for preview.
+                api(compose.preview)
+            }
         }
         named("androidMain") {
             dependencies {
