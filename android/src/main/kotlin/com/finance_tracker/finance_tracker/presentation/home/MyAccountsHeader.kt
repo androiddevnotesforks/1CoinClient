@@ -26,7 +26,7 @@ fun MyAccountsHeader(modifier: Modifier = Modifier) {
             )
     ) {
         Text(
-            text = stringResource(id = R.string.home_my_accounts),
+            text = stringResource(R.string.home_my_accounts),
             style = CoinTheme.typography.h4
         )
         Spacer(

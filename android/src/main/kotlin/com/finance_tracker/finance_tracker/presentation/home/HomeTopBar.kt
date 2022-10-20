@@ -18,9 +18,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.presentation.destinations.CategorySettingsScreenDestination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 
 @Composable
-fun HomeTopBar() {
+fun HomeTopBar(
+    navigator: DestinationsNavigator
+) {
     TopAppBar(
         backgroundColor = CoinTheme.color.primaryVariant,
         title = {
@@ -46,7 +51,7 @@ fun HomeTopBar() {
                         color = CoinTheme.color.secondaryBackground,
                         shape = CircleShape
                     )
-                    .clickable { }
+                    .clickable { navigator.navigate(CategorySettingsScreenDestination)}
                     .padding(8.dp),
                 tint = CoinTheme.color.content.copy(alpha = 0.8f)
             )
@@ -57,5 +62,5 @@ fun HomeTopBar() {
 @Preview
 @Composable
 fun HomeTopBarPreview() {
-    HomeTopBar()
+    HomeTopBar(navigator = EmptyDestinationsNavigator)
 }
