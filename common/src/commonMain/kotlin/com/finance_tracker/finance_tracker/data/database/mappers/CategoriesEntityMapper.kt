@@ -7,6 +7,6 @@ fun CategoriesEntity.categoryToDomainModel(): Category {
     return Category(
         id = id,
         name = name,
-        icon = icon
+        iconId = icon
     )
 }

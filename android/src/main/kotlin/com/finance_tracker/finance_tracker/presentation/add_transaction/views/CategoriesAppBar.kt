@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
+import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 
@@ -45,7 +46,7 @@ fun CategoriesAppBar(
             .statusBarsPadding(),
         navigationIcon = {
             AppBarIcon(
-                painter = painterResource(R.drawable.ic_arrow_back),
+                painter = rememberVectorPainter(loadXmlPicture("ic_arrow_back")),
                 onClick = { navigator.popBackStack() }
             )
         },
@@ -74,7 +75,7 @@ fun CategoriesAppBar(
             }
         },
         actions = {
-            AppBarIcon(painter = painterResource(R.drawable.ic_more_vert))
+            AppBarIcon(painter = rememberVectorPainter(loadXmlPicture("ic_more_vert")))
         },
         backgroundColor = Color.White
     )

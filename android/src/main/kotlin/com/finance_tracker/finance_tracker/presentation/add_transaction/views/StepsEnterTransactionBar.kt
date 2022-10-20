@@ -14,14 +14,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.AccountCard
@@ -106,7 +106,7 @@ fun CategoryRow(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                painter = painterResource(category.icon),
+                imageVector = loadXmlPicture(category.iconId),
                 contentDescription = null
             )
             Text(
@@ -127,7 +127,7 @@ fun NextIcon(
     Icon(
         modifier = modifier
             .padding(horizontal = 8.dp),
-        painter = painterResource(R.drawable.ic_arrow_next_small),
+        painter = rememberVectorPainter(loadXmlPicture("ic_arrow_next_small")),
         contentDescription = null
     )
 }

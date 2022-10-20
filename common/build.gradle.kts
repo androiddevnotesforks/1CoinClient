@@ -25,6 +25,9 @@ kotlin {
                 val koinKspVersion = "1.0.3"
                 api("io.insert-koin:koin-core:$koinVersion")
                 api("io.insert-koin:koin-annotations:$koinKspVersion")
+
+                // ViewModel
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
             }
             kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
         }
@@ -61,6 +64,15 @@ android {
         targetSdk = 33
     }
 
+    java {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        kotlinOptions {
+            jvmTarget = "11"
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -69,7 +81,7 @@ android {
     sourceSets {
         named("main") {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
-            res.srcDirs("src/androidMain/res")
+            res.srcDirs("src/androidMain/res", "src/commonMain/resources")
         }
     }
 }

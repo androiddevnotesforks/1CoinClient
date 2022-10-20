@@ -8,9 +8,7 @@ import com.financetracker.financetracker.AccountColorsEntityQueries
 import com.financetracker.financetracker.AccountsEntityQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.core.annotation.Factory
 
-@Factory
 class AccountsRepository(
     private val accountsEntityQueries: AccountsEntityQueries,
     private val accountColorsEntityQueries: AccountColorsEntityQueries

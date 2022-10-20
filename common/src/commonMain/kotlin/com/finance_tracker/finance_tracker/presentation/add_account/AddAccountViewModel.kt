@@ -1,9 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.add_account
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.common.EventFlow
+import com.finance_tracker.finance_tracker.core.common.ViewModel
 import com.finance_tracker.finance_tracker.core.common.toHexString
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -15,7 +13,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.koin.android.annotation.KoinViewModel
 
 private val mockAccountTypes = listOf(
     "Debit card",
@@ -29,7 +26,6 @@ private val mockAmountCurrencies = listOf(
     Currency(name = "GBR", sign = "£")
 ) // TODO: Удалить моковые данные
 
-@KoinViewModel
 class AddAccountViewModel(
     private val accountsRepository: AccountsRepository
 ): ViewModel() {
@@ -60,8 +56,12 @@ class AddAccountViewModel(
 
     val events = EventFlow<AddAccountEvent?>()
 
-    val isAddButtonEnabled = combine(enteredAccountName, selectedType, selectedColor, enteredAmount) {
-            accountName, selectedType, selectedColor, enteredAmount ->
+    val isAddButtonEnabled = combine(
+        enteredAccountName,
+        selectedType,
+        selectedColor,
+        enteredAmount
+    ) { accountName, selectedType, selectedColor, enteredAmount ->
         accountName.isNotBlank() && selectedType != null &&
                 selectedColor != null && enteredAmount.isNotBlank()
     }.stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = false)
@@ -100,32 +100,33 @@ class AddAccountViewModel(
         viewModelScope.launch {
             val accountName = enteredAccountName.value.takeIf { it.isNotBlank() } ?: run {
                 events.emit(AddAccountEvent.ShowToast(
-                    text = R.string.new_account_error_enter_account_name
+                    textId = "new_account_error_enter_account_name"
                 ))
                 return@launch
             }
             val selectedColor = selectedColor.value?.color ?: run {
                 events.emit(AddAccountEvent.ShowToast(
-                    text = R.string.new_account_error_select_account_color
+                    textId = "new_account_error_select_account_color"
                 ))
                 return@launch
             }
             val balance = enteredAmount.value.toDoubleOrNull() ?: run {
                 events.emit(AddAccountEvent.ShowToast(
-                    text = R.string.new_account_error_enter_account_balance
+                    textId = "new_account_error_enter_account_balance"
                 ))
                 return@launch
             }
             val type = selectedType.value ?: run {
                 events.emit(AddAccountEvent.ShowToast(
-                    text = R.string.new_account_error_select_account_type
+                    textId = "new_account_error_select_account_type"
                 ))
+                return@launch
             }
             accountsRepository.insertAccount(
                 accountName = accountName,
                 balance = balance,
                 colorHex = selectedColor.toHexString(),
-                type = type as Account.Type
+                type = Account.Type.CreditCard // TODO: Подставлять выбранный AccountType
             )
             events.emit(AddAccountEvent.Close)
         }
