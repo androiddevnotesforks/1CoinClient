@@ -10,12 +10,13 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.finance_tracker.finance_tracker.core.common.getLocalizedString
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
 import com.finance_tracker.finance_tracker.presentation.NavGraphs
 import com.finance_tracker.finance_tracker.presentation.appCurrentDestinationAsState
 import com.finance_tracker.finance_tracker.presentation.destinations.Destination
@@ -62,16 +63,17 @@ private fun RowScope.BottomNavigationItem(
     item: BottomNavigationItem,
     isSelected: Boolean
 ) {
+    val context = LocalContext.current
     BottomNavigationItem(
         icon = {
             Icon(
-                painter = painterResource(item.provideIcon(isSelected)),
-                contentDescription = stringResource(item.label)
+                imageVector = loadXmlPicture(item.provideIcon(isSelected)),
+                contentDescription = getLocalizedString(item.labelStringId, context)
             )
         },
         label = {
             Text(
-                text = stringResource(id = item.label),
+                text = getLocalizedString(item.labelStringId, context),
                 style = CoinTheme.typography.subtitle5,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

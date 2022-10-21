@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.add_transaction
 
-import androidx.lifecycle.ViewModel
+import com.finance_tracker.finance_tracker.core.common.ViewModel
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -12,9 +12,7 @@ import com.financetracker.financetracker.TransactionsEntityQueries
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.koin.android.annotation.KoinViewModel
 
-@KoinViewModel
 class AddTransactionViewModel(
     private val transactionsEntityQueries: TransactionsEntityQueries,
     private val accountsEntityQueries: AccountsEntityQueries,

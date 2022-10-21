@@ -21,12 +21,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
 import com.finance_tracker.finance_tracker.domain.models.Account
 import kotlin.math.roundToInt
 
@@ -103,7 +103,7 @@ fun AccountSelector(
                         modifier = Modifier
                             .size(24.dp)
                             .align(Alignment.Center),
-                        painter = painterResource(R.drawable.ic_plus),
+                        painter = rememberVectorPainter(loadXmlPicture("ic_plus")),
                         tint = CoinTheme.color.secondary,
                         contentDescription = null
                     )

@@ -1,8 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.transactions
 
-import android.icu.util.Calendar
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.finance_tracker.finance_tracker.core.common.ViewModel
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,11 +8,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.koin.android.annotation.KoinViewModel
 import java.util.Date
 
-@KoinViewModel
-class TransactionsViewModel(
+class TransactionsViewModel constructor(
     private val transactionsRepository: TransactionsRepository
 ): ViewModel() {
 
@@ -64,11 +60,11 @@ class TransactionsViewModel(
         if (this == date) return true
         if (this == null) return false
         if (date == null) return false
-
-        val calendar1 = Calendar.getInstance().apply { time = this@isCalendarDateEquals }
+        return true
+        /*val calendar1 = Calendar.getInstance().apply { time = this@isCalendarDateEquals }
         val calendar2 = Calendar.getInstance().apply { time = date }
         return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) &&
                 calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) &&
-                calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH)
+                calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH)*/ // TODO: Реализация Calendar в KMP
     }
 }

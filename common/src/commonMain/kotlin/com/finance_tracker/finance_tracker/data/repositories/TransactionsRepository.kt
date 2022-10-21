@@ -9,10 +9,8 @@ import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.financetracker.financetracker.TransactionsEntityQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.core.annotation.Factory
 import java.util.Date
 
-@Factory
 class TransactionsRepository(
     private val transactionsEntityQueries: TransactionsEntityQueries
 ) {
@@ -38,7 +36,7 @@ class TransactionsRepository(
                         Category(
                             id = categoryId,
                             name = categoryName,
-                            icon = categoryIcon
+                            iconId = categoryIcon
                         )
                     },
                     amount = amount,

@@ -21,7 +21,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +30,7 @@ import com.finance_tracker.finance_tracker.core.common.DateFormatType
 import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
 import com.finance_tracker.finance_tracker.core.navigation.TabNavGraph
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
@@ -114,7 +114,7 @@ private fun TransactionItem(
                 .size(44.dp)
                 .background(color = CoinTheme.color.secondaryBackground, shape = CircleShape)
                 .padding(12.dp),
-            painter = painterResource(category.icon),
+            imageVector = loadXmlPicture(category.iconId),
             contentDescription = null
         )
 

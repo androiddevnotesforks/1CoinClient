@@ -24,11 +24,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
@@ -41,6 +41,7 @@ import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedSelectTextField
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
+import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
 import com.finance_tracker.finance_tracker.domain.models.AccountColorData
 import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AccountColorsDropdownMenu
 import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AccountTypesDropdownMenu
@@ -67,7 +68,7 @@ fun AddAccountScreen(
     LaunchedEffect(Unit) {
         viewModel.events
             .filterNotNull()
-            .onEach { event -> handleEvent(event, context, navigator) }
+            .onEach { event -> handleEvent(event, context) }
             .launchIn(this)
     }
     Column {
@@ -283,7 +284,7 @@ private fun AddAccountTopBar(
         contentColor = CoinTheme.color.content,
         navigationIcon = {
             AppBarIcon(
-                painter = painterResource(R.drawable.ic_arrow_back),
+                painter = rememberVectorPainter(loadXmlPicture("ic_arrow_back")),
                 onClick = { navigator.popBackStack() }
             )
         },
