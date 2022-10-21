@@ -3,12 +3,13 @@ package com.finance_tracker.finance_tracker.presentation.categories
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
+import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 
@@ -21,7 +22,7 @@ fun CategorySettingsAppBar(
         backgroundColor = CoinTheme.color.primaryVariant,
         navigationIcon = {
             AppBarIcon(
-                painter = painterResource(R.drawable.ic_arrow_back),
+                painter = rememberVectorPainter(loadXmlPicture("ic_arrow_back")),
                 onClick = { navigator.popBackStack() },
             )
         },
@@ -33,7 +34,7 @@ fun CategorySettingsAppBar(
         },
         actions = {
             AppBarIcon(
-                painterResource(R.drawable.ic_plus),
+                rememberVectorPainter(loadXmlPicture("ic_plus")),
                 tint = CoinTheme.color.primary,
             )
         },

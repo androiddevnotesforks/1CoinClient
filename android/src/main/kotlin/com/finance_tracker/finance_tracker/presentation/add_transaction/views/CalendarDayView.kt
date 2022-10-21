@@ -12,11 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
 
 @Composable
 fun CalendarDayView(
@@ -34,7 +34,7 @@ fun CalendarDayView(
             LocalContentColor provides LocalContentColor.current.copy(alpha = 0.8f)
         ) {
             Icon(
-                painter = painterResource(R.drawable.ic_calendar),
+                painter = rememberVectorPainter(loadXmlPicture("ic_calendar")),
                 contentDescription = null,
                 tint = LocalContentColor.current
             )

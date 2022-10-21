@@ -1,16 +1,13 @@
-package com.finance_tracker.finance_tracker.presentation.accounts
+package com.finance_tracker.finance_tracker.presentation.home
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import com.finance_tracker.finance_tracker.core.common.ViewModel
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.models.Account
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.koin.android.annotation.KoinViewModel
 
-@KoinViewModel
-class AccountsScreenViewModel(
+class HomeScreenViewModel(
     private val repository: AccountsRepository
 ): ViewModel() {
 

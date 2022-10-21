@@ -8,10 +8,10 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.navigation.compose.rememberNavController
-import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
 import com.finance_tracker.finance_tracker.presentation.NavGraphs
 import com.finance_tracker.finance_tracker.presentation.destinations.AddTransactionScreenDestination
 import com.ramcosta.composedestinations.DestinationsNavHost
@@ -41,7 +41,7 @@ fun TabsNavigationScreen(
                 }
             ) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_plus),
+                    painter = rememberVectorPainter(loadXmlPicture("ic_plus")),
                     contentDescription = null
                 )
             }

@@ -13,7 +13,7 @@ class CategoriesRepository(
 ) {
     suspend fun insertCategory(
         categoryName: String,
-        categoryIcon: Int,
+        categoryIcon: String,
     ) {
         withContext(Dispatchers.IO) {
             categoriesEntityQueries.insertCategory(

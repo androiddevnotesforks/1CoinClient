@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.categories
+package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -10,10 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Category
 
@@ -27,7 +25,7 @@ fun CategoryCard(
             .fillMaxWidth()
     ) {
         Icon(
-            painter = painterResource(R.drawable.ic_more_vert),
+            painter = rememberVectorPainter(loadXmlPicture("ic_more_vert")),
             contentDescription = null,
             modifier = Modifier
                 .padding(end = 12.dp)
@@ -36,7 +34,7 @@ fun CategoryCard(
             tint = CoinTheme.color.content
         )
         Icon(
-            painter = painterResource(data.icon),
+            painter = rememberVectorPainter(loadXmlPicture(data.iconId)),
             contentDescription = null,
             Modifier
                 .size(42.dp)
@@ -58,7 +56,7 @@ fun CategoryCard(
         )
         Spacer(Modifier.weight(1f))
         Icon(
-            painter = painterResource(R.drawable.ic_plus),
+            painter = rememberVectorPainter(loadXmlPicture("ic_plus")),
             contentDescription = null,
             modifier = Modifier
                 .padding(end = 6.dp)
@@ -67,16 +65,4 @@ fun CategoryCard(
             tint = Color.Red
         )
     }
-}
-
-@Preview
-@Composable
-fun CategoryCardPreview() {
-    CategoryCard(
-        Category(
-            id = 0,
-            name = "Shopping",
-            icon = R.drawable.ic_category_9,
-        )
-    )
 }

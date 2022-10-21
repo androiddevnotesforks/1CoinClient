@@ -1,7 +1,7 @@
 CREATE TABLE CategoriesEntity (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    icon INTEGER AS Int NOT NULL
+    icon TEXT NOT NULL
 );
 
 getAllCategories:

@@ -1,15 +1,12 @@
 package com.finance_tracker.finance_tracker.presentation.categories
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepository
 import com.finance_tracker.finance_tracker.domain.models.Category
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.koin.android.annotation.KoinViewModel
+import com.finance_tracker.finance_tracker.core.common.ViewModel
 
-@KoinViewModel
 class CategorySettingsScreenViewModel(
     private val repository: CategoriesRepository
 ): ViewModel() {
