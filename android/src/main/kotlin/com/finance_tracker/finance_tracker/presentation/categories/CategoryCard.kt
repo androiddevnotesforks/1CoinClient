@@ -1,10 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.categories
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -27,10 +24,7 @@ fun CategoryCard(
 ) {
     Row(
         modifier = modifier
-            .size(
-                width = 296.dp,
-                height = 44.dp
-            ),
+            .fillMaxWidth()
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_more_vert),
@@ -38,7 +32,8 @@ fun CategoryCard(
             modifier = Modifier
                 .padding(end = 12.dp)
                 .size(18.dp)
-                .align(Alignment.CenterVertically)
+                .align(Alignment.CenterVertically),
+            tint = CoinTheme.color.content
         )
         Icon(
             painter = painterResource(data.icon),
@@ -67,7 +62,7 @@ fun CategoryCard(
             contentDescription = null,
             modifier = Modifier
                 .padding(end = 6.dp)
-                .size(9.dp)
+                .size(8.dp)
                 .align(Alignment.CenterVertically),
             tint = Color.Red
         )

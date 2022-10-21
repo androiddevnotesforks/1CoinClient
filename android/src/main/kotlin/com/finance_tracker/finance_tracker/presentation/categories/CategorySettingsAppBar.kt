@@ -7,13 +7,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.finance_tracker.finance_tracker.R
-import com.finance_tracker.finance_tracker.core.navigation.TabNavGraph
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 
-@TabNavGraph
 @Composable
 fun CategorySettingsAppBar(
     navigator: DestinationsNavigator
@@ -27,14 +25,12 @@ fun CategorySettingsAppBar(
                 onClick = { navigator.popBackStack() },
             )
         },
-
         title = {
             Text(
                 text = stringResource(R.string.category_settings),
                 style = CoinTheme.typography.h4
             )
         },
-
         actions = {
             AppBarIcon(
                 painterResource(R.drawable.ic_plus),

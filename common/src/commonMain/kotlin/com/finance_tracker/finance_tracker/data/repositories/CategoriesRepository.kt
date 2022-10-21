@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Factory
 
 @Factory
-class CategoryRepository(
+class CategoriesRepository(
     private val categoriesEntityQueries: CategoriesEntityQueries
 ) {
     suspend fun insertCategory(

@@ -47,7 +47,7 @@ fun CategorySettingsScreen(
             modifier = Modifier
                 .padding(
                     top = 24.dp,
-                    start = 19.dp
+                    start = 20.dp
                 ),
             navigator = navigator
         )
@@ -56,11 +56,12 @@ fun CategorySettingsScreen(
             modifier = Modifier
                 .padding(
                     start = 16.dp,
-                    end = 16.dp
+                    end = 16.dp,
+                    top = 8.dp
                 )
-                .fillMaxHeight()
-            ,
-            contentPadding = PaddingValues(bottom = 96.dp)
+                .fillMaxHeight(),
+            contentPadding = PaddingValues(bottom = 96.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             items(categories) {category ->
                 CategoryCard(data = category)

@@ -11,7 +11,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -63,13 +62,13 @@ private fun CategoryItem(
             .padding(horizontal = 1.dp)
             .clip(RoundedCornerShape(8.dp))
             .clickable { onClick.invoke(categoryTab) }
-            .padding(horizontal = 7.dp, vertical = 8.dp),
+            .padding(horizontal = 8.dp, vertical = 8.dp),
         text = stringResource(categoryTab.textRes),
         style = CoinTheme.typography.h5,
         color = if (selectedCategoryTab == categoryTab) {
-            Color.Black
+            CoinTheme.color.content
         } else {
-            Color.Black.copy(alpha = 0.2f)
+            CoinTheme.color.content.copy(alpha = 0.2f)
         }
     )
 }
