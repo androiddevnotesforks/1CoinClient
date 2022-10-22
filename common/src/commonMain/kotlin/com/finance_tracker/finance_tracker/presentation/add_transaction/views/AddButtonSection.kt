@@ -1,20 +1,19 @@
 package com.finance_tracker.finance_tracker.presentation.add_transaction.views
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
 
 @Composable
 fun AddButtonSection(
     modifier: Modifier = Modifier,
-    paddingValues: PaddingValues = PaddingValues(),
     onAddClick: () -> Unit = {}
 ) {
     Surface(
@@ -25,7 +24,7 @@ fun AddButtonSection(
     ) {
         PrimaryButton(
             modifier = Modifier
-                .padding(paddingValues)
+                .navigationBarsPadding()
                 .fillMaxWidth()
                 .padding(16.dp),
             text = "Add",

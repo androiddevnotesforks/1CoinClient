@@ -49,6 +49,7 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.compose.getViewModel
+import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 private const val AccountNameCharsLimit = 40
 
@@ -268,6 +269,7 @@ fun ColorIcon(accountColorData: AccountColorData?) {
 private fun AddAccountTopBar(
     modifier: Modifier = Modifier
 ) {
+    val rootController = LocalRootController.current
     TopAppBar(
         modifier = modifier,
         backgroundColor = CoinTheme.color.background,
@@ -275,7 +277,7 @@ private fun AddAccountTopBar(
         navigationIcon = {
             AppBarIcon(
                 painter = rememberVectorPainter(loadXmlPicture("ic_arrow_back")),
-                onClick = { /*navigator.popBackStack()*/ }
+                onClick = { rootController.popBackStack() }
             )
         },
         title = {

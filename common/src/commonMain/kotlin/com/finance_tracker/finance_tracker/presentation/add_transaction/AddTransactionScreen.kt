@@ -132,7 +132,6 @@ fun AddTransactionScreen(
                     )
 
                     AddButtonSection(
-                        //paddingValues = WindowInsets.navigationBars.asPaddingValues(), // TODO: PaddingValues
                         onAddClick = {
                             viewModel.addTransaction(
                                 Transaction(
