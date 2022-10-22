@@ -3,24 +3,16 @@ package com.finance_tracker.finance_tracker.presentation.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
-import com.finance_tracker.finance_tracker.R
-import com.finance_tracker.finance_tracker.core.navigation.TabNavGraph
-import com.finance_tracker.finance_tracker.core.theme.AppColors
-import com.ramcosta.composedestinations.annotation.Destination
-import org.koin.androidx.compose.getViewModel
+import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.LocalContext
+import com.finance_tracker.finance_tracker.core.common.getViewModel
+import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
+import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
 fun HomeScreen(
@@ -33,7 +25,7 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppColors.Purple200)
+            .background(CoinTheme.color.background)
             .statusBarsPadding()
     ) {
 

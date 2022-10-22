@@ -7,20 +7,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.navigation.TabNavGraph
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ExpenseIncomeTabs
 import com.finance_tracker.finance_tracker.domain.models.Category
-import com.ramcosta.composedestinations.annotation.Destination
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 import org.koin.androidx.compose.getViewModel
 
-@TabNavGraph
-@Destination
 @Composable
 fun CategorySettingsScreen(
-    navigator: DestinationsNavigator,
     viewModel: CategorySettingsScreenViewModel = getViewModel()
 ) {
 
@@ -43,7 +36,7 @@ fun CategorySettingsScreen(
             .fillMaxSize()
             .statusBarsPadding()
     ) {
-        CategorySettingsAppBar(navigator)
+        CategorySettingsAppBar()
         
         ExpenseIncomeTabs(
             modifier = Modifier
@@ -51,7 +44,6 @@ fun CategorySettingsScreen(
                     top = 24.dp,
                     start = 20.dp
                 ),
-            navigator = navigator
         )
 
         LazyColumn(
@@ -75,5 +67,5 @@ fun CategorySettingsScreen(
 @Preview
 @Composable
 fun CategorySettingsScreenPreview() {
-    CategorySettingsScreen(navigator = EmptyDestinationsNavigator)
+    CategorySettingsScreen()
 }

@@ -10,20 +10,16 @@ import com.finance_tracker.finance_tracker.R
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
-import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 
 @Composable
-fun CategorySettingsAppBar(
-    navigator: DestinationsNavigator
-) {
+fun CategorySettingsAppBar() {
 
     TopAppBar(
         backgroundColor = CoinTheme.color.primaryVariant,
         navigationIcon = {
             AppBarIcon(
                 painter = rememberVectorPainter(loadXmlPicture("ic_arrow_back")),
-                onClick = { navigator.popBackStack() },
+                onClick = {  },
             )
         },
         title = {
@@ -44,7 +40,5 @@ fun CategorySettingsAppBar(
 @Preview
 @Composable
 fun CategorySettingsAppBarPreview() {
-    CategorySettingsAppBar(
-        navigator = EmptyDestinationsNavigator
-    )
+    CategorySettingsAppBar()
 }

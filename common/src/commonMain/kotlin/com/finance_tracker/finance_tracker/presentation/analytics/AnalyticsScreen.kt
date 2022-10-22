@@ -3,18 +3,14 @@ package com.finance_tracker.finance_tracker.presentation.analytics
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalContext
-import com.finance_tracker.finance_tracker.core.common.getLocalizedString
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
-import com.finance_tracker.finance_tracker.core.theme.AppColors
+import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.ExpenseIncomeTabs
 
 @Composable
 fun AnalyticsScreen() {
@@ -25,13 +21,15 @@ fun AnalyticsScreen() {
             .background(CoinTheme.color.background)
             .statusBarsPadding()
     ) {
-        Text(
-            text = getLocalizedString("more_screen_text", context),
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-            fontSize = 24.sp
+        AnalyticsScreenAppBar()
+
+        ExpenseIncomeTabs(
+            modifier = Modifier
+                .padding(
+                    top = 24.dp,
+                    start = 20.dp
+                )
         )
+
     }
 }
