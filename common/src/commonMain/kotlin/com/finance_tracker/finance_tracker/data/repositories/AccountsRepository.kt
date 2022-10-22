@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.data.repositories
 
-import androidx.compose.ui.graphics.Color
 import com.finance_tracker.finance_tracker.core.common.hexToColor
+import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.AccountColorData
 import com.financetracker.financetracker.AccountColorsEntityQueries
@@ -44,15 +44,8 @@ class AccountsRepository(
 
     suspend fun getAllAccountsFromDatabase(): List<Account> {
         return withContext(Dispatchers.IO) {
-            accountsEntityQueries.getAllAccounts { id, type, name, balance, colorHex->
-                Account(
-                    id = id,
-                    type = type,
-                    name = name,
-                    balance = balance,
-                    color = colorHex.hexToColor(Color.Red)
-                )
-            }.executeAsList()
+            accountsEntityQueries.getAllAccounts().executeAsList()
+                .map { it.accountToDomainModel() }
         }
     }
 }

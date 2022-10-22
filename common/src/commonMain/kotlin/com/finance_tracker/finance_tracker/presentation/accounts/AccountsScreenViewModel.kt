@@ -20,7 +20,7 @@ class AccountsScreenViewModel(
 
     private fun loadAccounts() {
         viewModelScope.launch {
-            _accounts.value  = repository.getAllAccountsFromDatabase()
+            _accounts.value = repository.getAllAccountsFromDatabase()
         }
     }
 }

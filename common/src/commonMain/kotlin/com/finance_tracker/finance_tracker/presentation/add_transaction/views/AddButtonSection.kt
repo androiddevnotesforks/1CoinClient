@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
@@ -33,10 +32,4 @@ fun AddButtonSection(
             onClick = onAddClick
         )
     }
-}
-
-@Preview
-@Composable
-fun AddButtonSectionPreview() {
-    AddButtonSection()
 }

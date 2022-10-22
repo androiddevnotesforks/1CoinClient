@@ -23,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
@@ -112,14 +111,4 @@ fun AccountSelector(
 
         }
     }
-}
-
-@Preview
-@Composable
-fun AccountSelectorPreview() {
-    AccountSelector(
-        accounts = emptyList(),
-        onAccountSelect = {},
-        onAccountAdd = {}
-    )
 }

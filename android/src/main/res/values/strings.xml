@@ -31,6 +31,9 @@
     <string name="transactions_today">Today</string>
     <string name="transactions_yesterday">Yesterday</string>
 
+    <!-- Categories -->
+    <string name="category_settings">Category Settings</string>
+
     <!-- New account -->
     <string name="new_account_title">New Account</string>
     <string name="new_account_btn_add">Add</string>

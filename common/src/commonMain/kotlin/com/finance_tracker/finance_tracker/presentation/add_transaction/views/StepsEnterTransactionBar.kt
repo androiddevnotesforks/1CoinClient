@@ -1,13 +1,10 @@
 package com.finance_tracker.finance_tracker.presentation.add_transaction.views
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Text
@@ -159,7 +156,23 @@ private fun <T: Any> RowScope.StageText(
                     LocalContentColor.current
                 } else {
                     LocalContentColor.current.copy(alpha = 0.3f)
-                }
+                },
+                modifier = Modifier
+                    .border(
+                        width = 2.dp,
+                        color = if (isActiveStage) {
+                            CoinTheme.color.primary
+                        } else {
+                            CoinTheme.color.dividers
+                        },
+                        shape = RoundedCornerShape(50.dp)
+                    )
+                    .padding(
+                        start = 48.dp,
+                        end = 48.dp,
+                        top = 10.dp,
+                        bottom = 10.dp
+                    ),
             )
         } else {
             dataContent.invoke(data)

@@ -13,7 +13,6 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
@@ -47,10 +46,4 @@ fun CalendarDayView(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun CalendarDayViewPreview() {
-    CalendarDayView()
 }
