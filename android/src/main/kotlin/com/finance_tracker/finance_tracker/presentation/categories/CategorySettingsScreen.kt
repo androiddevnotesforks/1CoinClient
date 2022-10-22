@@ -4,12 +4,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ExpenseIncomeTabs
-import com.finance_tracker.finance_tracker.domain.models.Category
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -17,19 +18,7 @@ fun CategorySettingsScreen(
     viewModel: CategorySettingsScreenViewModel = getViewModel()
 ) {
 
-    //TODO ФЕЙКОВЫЕ ВРЕМЕННЫЕ ДАННЫЕ
-    val categories = listOf(
-        Category(
-            id = 0,
-            name = "Shopping",
-            iconId = "ic_category_9",
-        ),
-        Category(
-            id = 1,
-            name = "Shopping",
-            iconId = "ic_category_9",
-        )
-    )
+    val categories by viewModel.categories.collectAsState()
 
     Column(
         modifier = Modifier
@@ -57,7 +46,7 @@ fun CategorySettingsScreen(
             contentPadding = PaddingValues(bottom = 96.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            items(categories) {category ->
+            items(categories) { category ->
                 CategoryCard(data = category)
             }
         }

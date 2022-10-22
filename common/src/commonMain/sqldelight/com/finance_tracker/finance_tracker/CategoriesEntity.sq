@@ -4,6 +4,8 @@ CREATE TABLE CategoriesEntity (
     icon TEXT NOT NULL
 );
 
+INSERT INTO CategoriesEntity(id, name, icon) VALUES (1, 'Category1', 'ic_category_1');
+
 getAllCategories:
 SELECT *
 FROM CategoriesEntity;
