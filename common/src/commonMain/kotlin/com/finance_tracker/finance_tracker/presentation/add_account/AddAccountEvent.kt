@@ -2,6 +2,7 @@ package com.finance_tracker.finance_tracker.presentation.add_account
 
 import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.core.common.getLocalizedString
+import ru.alexgladkov.odyssey.compose.RootController
 
 sealed class AddAccountEvent {
     object Close: AddAccountEvent()
@@ -12,12 +13,12 @@ sealed class AddAccountEvent {
 
 fun handleEvent(
     event: AddAccountEvent,
-    context: Context
+    context: Context,
+    rootController: RootController
 ) {
     when (event) {
         AddAccountEvent.Close -> {
-            // TODO: Вернуть код
-            //navigator.popBackStack()
+            rootController.popBackStack()
         }
         is AddAccountEvent.ShowToast -> {
             // TODO: Вернуть код

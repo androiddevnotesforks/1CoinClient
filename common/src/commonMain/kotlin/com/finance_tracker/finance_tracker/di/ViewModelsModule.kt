@@ -2,9 +2,9 @@ package com.finance_tracker.finance_tracker.di
 
 import org.koin.core.module.Module
 
-expect class DriverFactoryModule() {
+expect class ViewModelsModule() {
     fun create(): Module
 }
 
-val DriverFactoryModule.module: Module
+val ViewModelsModule.module: Module
     get() = create()

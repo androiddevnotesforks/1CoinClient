@@ -1,3 +1,5 @@
+package com.finance_tracker.finance_tracker.di
+
 import com.finance_tracker.finance_tracker.AppDatabase
 import com.finance_tracker.finance_tracker.data.database.DatabaseInitializer
 import com.finance_tracker.finance_tracker.data.database.DriverFactory

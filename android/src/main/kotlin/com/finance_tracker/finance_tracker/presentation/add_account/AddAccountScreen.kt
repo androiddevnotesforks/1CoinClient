@@ -57,11 +57,12 @@ private const val AccountNameCharsLimit = 40
 fun AddAccountScreen(
     viewModel: AddAccountViewModel = getViewModel(),
 ) {
+    val rootController = LocalRootController.current
     val context = LocalContext.current
     LaunchedEffect(Unit) {
         viewModel.events
             .filterNotNull()
-            .onEach { event -> handleEvent(event, context) }
+            .onEach { event -> handleEvent(event, context, rootController) }
             .launchIn(this)
     }
     Column {
