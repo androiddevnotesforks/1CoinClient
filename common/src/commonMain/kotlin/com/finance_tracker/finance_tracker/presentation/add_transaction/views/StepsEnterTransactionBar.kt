@@ -174,8 +174,7 @@ private fun <T: Any> RowScope.StageText(
                         bottom = 10.dp
                     ),
             )
-        }
-        else {
+        } else {
             dataContent.invoke(data)
         }
     }
