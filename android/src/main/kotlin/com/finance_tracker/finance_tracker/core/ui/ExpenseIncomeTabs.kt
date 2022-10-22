@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.categories
+package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
@@ -25,7 +25,7 @@ enum class CategoryTab(@StringRes val textRes: Int) {
 }
 
 @Composable
-fun CategorySettingsTabs(
+fun ExpenseIncomeTabs(
     navigator: DestinationsNavigator,
     modifier: Modifier = Modifier,
     selectedCategoryTab: CategoryTab = CategoryTab.Expense,
@@ -75,6 +75,6 @@ private fun CategoryItem(
 
 @Preview
 @Composable
-fun CategorySettingsTabsPreview() {
-    CategorySettingsTabs(navigator = EmptyDestinationsNavigator)
+fun ExpenseIncomeTabsPreview() {
+    ExpenseIncomeTabs(navigator = EmptyDestinationsNavigator)
 }

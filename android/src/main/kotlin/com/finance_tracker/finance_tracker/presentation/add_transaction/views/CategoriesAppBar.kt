@@ -75,9 +75,9 @@ fun CategoriesAppBar(
             }
         },
         actions = {
-            AppBarIcon(painter = rememberVectorPainter(loadXmlPicture("ic_more_vert")))
+            AppBarIcon(painter = rememberVectorPainter(loadXmlPicture("ic_arrow_refresh")))
         },
-        backgroundColor = Color.White
+        backgroundColor = CoinTheme.color.background
     )
 }
 

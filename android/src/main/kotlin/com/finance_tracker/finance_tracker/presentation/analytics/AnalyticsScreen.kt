@@ -3,21 +3,17 @@ package com.finance_tracker.finance_tracker.presentation.analytics
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
-import com.finance_tracker.finance_tracker.R
+import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.navigation.TabNavGraph
-import com.finance_tracker.finance_tracker.core.theme.AppColors
+import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.ExpenseIncomeTabs
 import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.EmptyDestinationsNavigator
 
 @TabNavGraph
 @Destination
@@ -26,16 +22,19 @@ fun AnalyticsScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppColors.Purple500)
+            .background(CoinTheme.color.background)
             .statusBarsPadding()
     ) {
-        Text(
-            text = stringResource(R.string.more_screen_text),
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-            fontSize = 24.sp
+
+        AnalyticsScreenAppBar()
+
+        ExpenseIncomeTabs(
+            navigator = EmptyDestinationsNavigator,
+            modifier = Modifier
+                .padding(
+                    start = 20.dp,
+                    top = 24.dp
+                ),
         )
     }
 }
