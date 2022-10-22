@@ -7,16 +7,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.getViewModel
+import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ExpenseIncomeTabs
-import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun CategorySettingsScreen(
     viewModel: CategorySettingsScreenViewModel = getViewModel()
 ) {
+
 
     val categories by viewModel.categories.collectAsState()
 
@@ -51,10 +52,4 @@ fun CategorySettingsScreen(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun CategorySettingsScreenPreview() {
-    CategorySettingsScreen()
 }
