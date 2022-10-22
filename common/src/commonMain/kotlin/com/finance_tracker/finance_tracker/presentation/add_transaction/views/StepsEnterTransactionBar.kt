@@ -157,36 +157,25 @@ private fun <T: Any> RowScope.StageText(
                 } else {
                     LocalContentColor.current.copy(alpha = 0.3f)
                 },
-                modifier = if (isActiveStage) {
-                    Modifier
-                        .border(
-                            width = 2.dp,
-                            color = CoinTheme.color.primary,
-                            shape = RoundedCornerShape(52.dp)
-                        )
-                        .padding(
-                            start = 48.dp,
-                            end = 48.dp,
-                            top = 10.dp,
-                            bottom = 10.dp
-                        )
-                }
-            else {
-                    Modifier
-                        .border(
-                            width = 2.dp,
-                            color = CoinTheme.color.dividers,
-                            shape = RoundedCornerShape(52.dp)
-                        )
-                        .padding(
-                            start = 48.dp,
-                            end = 48.dp,
-                            top = 10.dp,
-                            bottom = 10.dp
-                        )
-                }
+                modifier = Modifier
+                    .border(
+                        width = 2.dp,
+                        color = if (isActiveStage) {
+                            CoinTheme.color.primary
+                        } else {
+                            CoinTheme.color.dividers
+                        },
+                        shape = RoundedCornerShape(50.dp)
+                    )
+                    .padding(
+                        start = 48.dp,
+                        end = 48.dp,
+                        top = 10.dp,
+                        bottom = 10.dp
+                    ),
             )
-        } else {
+        }
+        else {
             dataContent.invoke(data)
         }
     }

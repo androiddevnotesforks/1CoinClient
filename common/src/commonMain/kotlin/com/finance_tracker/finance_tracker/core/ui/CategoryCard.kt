@@ -34,7 +34,7 @@ fun CategoryCard(
             tint = CoinTheme.color.content
         )
         Icon(
-            painter = rememberVectorPainter(loadXmlPicture(data.iconId)),
+            painter = rememberVectorPainter(loadXmlPicture(name = data.iconId)),
             contentDescription = null,
             Modifier
                 .size(42.dp)

@@ -63,8 +63,6 @@ kotlin {
 }
 
 dependencies {
-    implementation("androidx.compose.ui:ui-tooling-preview:1.1.1")
-    debugImplementation("androidx.compose.ui:ui-tooling:1.1.1")
     val koinKspVersion = "1.0.3"
     add("kspCommonMainMetadata", "io.insert-koin:koin-ksp-compiler:$koinKspVersion")
 }
