@@ -1,6 +1,5 @@
 package com.finance_tracker.finance_tracker.core.ui
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -17,7 +16,7 @@ import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 
-enum class CategoryTab(@StringRes val textId: String) {
+enum class CategoryTab(val textId: String) {
     Income("add_transaction_tab_income"),
     Expense("add_transaction_tab_expense"),
 }

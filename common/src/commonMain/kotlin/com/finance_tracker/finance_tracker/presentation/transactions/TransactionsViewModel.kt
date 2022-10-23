@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.Calendar
 import java.util.Date
 
 class TransactionsViewModel constructor(
@@ -60,11 +61,11 @@ class TransactionsViewModel constructor(
         if (this == date) return true
         if (this == null) return false
         if (date == null) return false
-        return true
-        /*val calendar1 = Calendar.getInstance().apply { time = this@isCalendarDateEquals }
+
+        val calendar1 = Calendar.getInstance().apply { time = this@isCalendarDateEquals }
         val calendar2 = Calendar.getInstance().apply { time = date }
         return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) &&
                 calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) &&
-                calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH)*/ // TODO: Реализация Calendar в KMP
+                calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH)
     }
 }

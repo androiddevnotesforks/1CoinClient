@@ -6,7 +6,6 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
     id("io.gitlab.arturbosch.detekt")
-    id("com.google.devtools.ksp") version "1.7.20-1.0.6"
     kotlin("android")
     kotlin("kapt")
 }
@@ -62,13 +61,6 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.3.0"
     }
-    applicationVariants.all {
-        kotlin.sourceSets {
-            getByName(name) {
-                kotlin.srcDir("build/generated/ksp/$name/kotlin")
-            }
-        }
-    }
 }
 
 dependencies {
@@ -117,13 +109,10 @@ dependencies {
 
     // Koin
     val koinVersion = "3.2.2"
-    val koinKspVersion = "1.0.3"
     val koinAndroidComposeVersion = "3.2.1"
     implementation("io.insert-koin:koin-core:$koinVersion")
-    implementation("io.insert-koin:koin-annotations:$koinKspVersion")
     implementation("io.insert-koin:koin-android:$koinVersion")
     implementation("io.insert-koin:koin-androidx-compose:$koinAndroidComposeVersion")
-    ksp("io.insert-koin:koin-ksp-compiler:$koinKspVersion")
 
     // Odyssey
     val odysseyVersion = "1.0.0"

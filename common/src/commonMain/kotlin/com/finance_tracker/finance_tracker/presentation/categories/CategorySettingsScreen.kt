@@ -1,16 +1,21 @@
 package com.finance_tracker.finance_tracker.presentation.categories
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.getViewModel
+import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ExpenseIncomeTabs
 import com.finance_tracker.finance_tracker.domain.models.Category
-import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun CategorySettingsScreen(
@@ -62,10 +67,4 @@ fun CategorySettingsScreen(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun CategorySettingsScreenPreview() {
-    CategorySettingsScreen()
 }

@@ -3,7 +3,6 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     id("com.squareup.sqldelight")
-    id("com.google.devtools.ksp") version "1.7.20-1.0.6"
 }
 
 kotlin {
@@ -22,19 +21,13 @@ kotlin {
 
                 // Koin
                 val koinVersion = "3.2.2"
-                val koinKspVersion = "1.0.3"
                 api("io.insert-koin:koin-core:$koinVersion")
-                api("io.insert-koin:koin-annotations:$koinKspVersion")
-
-                // ViewModel
-                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
 
                 // Odyssey
                 val odysseyVersion = "1.0.0"
                 implementation("io.github.alexgladkov:odyssey-core:$odysseyVersion")
                 implementation("io.github.alexgladkov:odyssey-compose:$odysseyVersion")
             }
-            kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
         }
         named("desktopMain") {
             dependencies {
@@ -45,6 +38,10 @@ kotlin {
                 // Koin
                 val koinVersion = "3.2.2"
                 implementation("io.insert-koin:koin-core:$koinVersion")
+
+                // SQL Delight
+                val sqlDelightVersion = "1.5.4"
+                implementation("com.squareup.sqldelight:sqlite-driver:$sqlDelightVersion")
             }
         }
         named("androidMain") {
@@ -52,23 +49,21 @@ kotlin {
                 api("androidx.appcompat:appcompat:1.5.1")
                 api("androidx.core:core-ktx:1.9.0")
 
+                // ViewModel
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+
                 // Koin
                 val koinVersion = "3.2.2"
                 val koinAndroidComposeVersion = "3.2.1"
-                implementation("io.insert-koin:koin-android:$koinVersion")
+                implementation("io.insert-koin:koin-core:$koinVersion")
                 implementation("io.insert-koin:koin-androidx-compose:$koinAndroidComposeVersion")
+
+                // SQL Delight
+                val sqlDelightVersion = "1.5.4"
+                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
             }
         }
     }
-}
-
-dependencies {
-    val koinKspVersion = "1.0.3"
-    add("kspCommonMainMetadata", "io.insert-koin:koin-ksp-compiler:$koinKspVersion")
-}
-
-tasks.preBuild {
-    dependsOn(":common:kspCommonMainKotlinMetadata")
 }
 
 android {
