@@ -12,3 +12,12 @@ insertCategory:
 INSERT OR REPLACE
 INTO CategoriesEntity
 VALUES (?,?,?);
+
+deleteCategoryById:
+DELETE
+FROM CategoriesEntity
+WHERE id = :id;
+
+replaceCategory:
+UPDATE CategoriesEntity SET name = :name, icon = :icon
+WHERE id = :id;

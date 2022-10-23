@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
@@ -18,7 +19,8 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 @Composable
 fun CategoryCard(
     data: Category,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -61,7 +63,8 @@ fun CategoryCard(
             modifier = Modifier
                 .size(32.dp)
                 .padding(end = 6.dp)
-                .align(Alignment.CenterVertically),
+                .align(Alignment.CenterVertically)
+                .clickable { onClick() },
             tint = Color.Red,
         )
     }

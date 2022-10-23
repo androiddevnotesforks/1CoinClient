@@ -28,4 +28,17 @@ class CategoriesRepository(
                 .map { it.categoryToDomainModel() }
         }
     }
+
+    suspend fun deleteCategoryById(id: Long) {
+        withContext(Dispatchers.IO) {
+            categoriesEntityQueries.deleteCategoryById(id)
+        }
+    }
+
+    suspend fun updateCategoryPosition(categoryFrom: Category, categoryTo: Category) {
+        withContext(Dispatchers.IO) {
+            categoriesEntityQueries.replaceCategory(categoryTo.name, categoryTo.iconId, categoryFrom.id)
+            categoriesEntityQueries.replaceCategory(categoryFrom.name, categoryFrom.iconId, categoryTo.id)
+        }
+    }
 }

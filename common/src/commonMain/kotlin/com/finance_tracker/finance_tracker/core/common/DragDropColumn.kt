@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 fun <T : Any> DragDropColumn(
     items: List<T>,
     onSwap: (Int, Int) -> Unit,
-    itemContent: @Composable (LazyItemScope.(index : Int,item: T) -> Unit)
+    itemContent: @Composable (LazyItemScope.(index : Int, item: T) -> Unit)
 ) {
     var overscrollJob by remember { mutableStateOf<Job?>(null) }
     val listState = rememberLazyListState()
@@ -82,7 +82,7 @@ fun <T : Any> DragDropColumn(
             ) { isDragging ->
                 val elevation by animateDpAsState(if (isDragging) 4.dp else 0.dp)
                 Card(elevation = elevation) {
-                    itemContent(index,item)
+                    itemContent(index, item)
                 }
             }
         }

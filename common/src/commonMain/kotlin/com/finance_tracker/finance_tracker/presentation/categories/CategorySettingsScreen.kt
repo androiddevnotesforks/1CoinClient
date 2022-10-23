@@ -26,7 +26,7 @@ fun CategorySettingsScreen(
             .statusBarsPadding()
     ) {
         CategorySettingsAppBar()
-        
+
         ExpenseIncomeTabs(
             modifier = Modifier
                 .padding(
@@ -37,48 +37,25 @@ fun CategorySettingsScreen(
 
         DragDropColumn(
             items = categories,
-            onSwap = viewModel::swapSections
-        ) { index,category ->
+            onSwap = viewModel::swapCategories
+        ) { index, category ->
             ItemWrapper(
                 isFirstItem = index == 0,
                 isLastItem = index == categories.lastIndex,
                 modifier = Modifier
-            ) { CategoryCard(
-                data = category,
-                modifier = Modifier
-                    .padding(
-                        start = 16.dp,
-                        top = 8.dp,
-                        bottom = 8.dp,
-                        end = 16.dp
-                    )
+            ) {
+                CategoryCard(
+                    data = category,
+                    modifier = Modifier
+                        .padding(
+                            start = 16.dp,
+                            top = 8.dp,
+                            bottom = 8.dp,
+                            end = 16.dp
+                        ),
+                    onClick = { viewModel.deleteCategory(category.id) }
                 )
             }
         }
-
-        /*LazyColumn(
-            modifier = Modifier
-                .fillMaxHeight(),
-            contentPadding = PaddingValues(
-                bottom = 36.dp,
-                start = 16.dp,
-                end = 16.dp,
-            ),
-        ) {
-            itemsIndexed(categories) { index, category ->
-                ItemWrapper(
-                    isFirstItem = index == 0,
-                    isLastItem = index == categories.lastIndex,
-                    modifier = Modifier
-                )
-                { CategoryCard(data = category, modifier = Modifier
-                    .padding(
-                        start = 16.dp,
-                        top = 8.dp,
-                        bottom = 8.dp,
-                        end = 16.dp)
-                ) }
-            }
-        }*/
     }
 }

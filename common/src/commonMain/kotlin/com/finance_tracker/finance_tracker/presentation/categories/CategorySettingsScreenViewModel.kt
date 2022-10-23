@@ -24,7 +24,7 @@ class CategorySettingsScreenViewModel(
         }
     }
 
-    fun swapSections(from: Int, to: Int) {
+    fun swapCategories(from: Int, to: Int) {
         val fromItem = _categories.value[from]
         val toItem = _categories.value[to]
         val newList = _categories.value.toMutableList()
@@ -32,6 +32,20 @@ class CategorySettingsScreenViewModel(
         newList[to] = fromItem
 
         _categories.value = newList
+        saveListState(fromItem, toItem)
+    }
+
+    private fun saveListState(categoryFrom: Category, categoryTo: Category) {
+        viewModelScope.launch {
+            repository.updateCategoryPosition(categoryFrom, categoryTo)
+        }
+    }
+
+    fun deleteCategory(id: Long) {
+        viewModelScope.launch {
+            repository.deleteCategoryById(id)
+            loadAllCategories()
+        }
     }
 
 }
