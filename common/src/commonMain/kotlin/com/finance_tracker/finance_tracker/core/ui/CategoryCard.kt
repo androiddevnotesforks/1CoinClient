@@ -62,7 +62,7 @@ fun CategoryCard(
                 .size(24.dp)
                 .padding(end = 6.dp)
                 .align(Alignment.CenterVertically),
-            tint = Color.Red
+            tint = Color.Red,
         )
     }
 }

@@ -15,7 +15,6 @@ class CategorySettingsScreenViewModel(
     val categories = _categories.asStateFlow()
 
     init {
-        initCategories()
         loadAllCategories()
     }
 
@@ -25,9 +24,4 @@ class CategorySettingsScreenViewModel(
         }
     }
 
-    private fun initCategories() {
-        viewModelScope.launch {
-            repository.initAllTestCategories()
-        }
-    }
 }
