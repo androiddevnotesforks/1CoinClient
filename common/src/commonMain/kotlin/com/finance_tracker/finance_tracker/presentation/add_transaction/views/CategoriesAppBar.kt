@@ -22,6 +22,7 @@ import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
+import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 enum class CategoryTab(val textId: String) {
     Income("add_transaction_tab_income"),
@@ -35,6 +36,7 @@ fun CategoriesAppBar(
     selectedCategoryTab: CategoryTab = CategoryTab.Expense,
     onCategorySelect: (CategoryTab) -> Unit = {}
 ) {
+    val rootController = LocalRootController.current
     TopAppBar(
         modifier = modifier
             .background(CoinTheme.color.background)
@@ -42,7 +44,7 @@ fun CategoriesAppBar(
         navigationIcon = {
             AppBarIcon(
                 painter = rememberVectorPainter(loadXmlPicture("ic_arrow_back")),
-                onClick = { /*navigator.popBackStack()*/ }
+                onClick = { rootController.popBackStack() }
             )
         },
         title = {

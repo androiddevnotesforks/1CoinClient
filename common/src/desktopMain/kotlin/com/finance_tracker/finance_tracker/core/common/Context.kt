@@ -6,7 +6,7 @@ abstract class DesktopContext
 
 actual typealias Context = DesktopContext
 
+object EmptyContext: DesktopContext()
+
 @Composable
-actual fun getContext(): Context {
-    error("desktop haven't 'Context'")
-}
+actual fun getContext(): Context = EmptyContext

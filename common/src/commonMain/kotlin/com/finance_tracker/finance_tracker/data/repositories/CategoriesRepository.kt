@@ -5,9 +5,7 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 import com.financetracker.financetracker.CategoriesEntityQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.koin.core.annotation.Factory
 
-@Factory
 class CategoriesRepository(
     private val categoriesEntityQueries: CategoriesEntityQueries
 ) {
