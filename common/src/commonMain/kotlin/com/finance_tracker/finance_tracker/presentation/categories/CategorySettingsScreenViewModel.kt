@@ -24,4 +24,14 @@ class CategorySettingsScreenViewModel(
         }
     }
 
+    fun swapSections(from: Int, to: Int) {
+        val fromItem = _categories.value[from]
+        val toItem = _categories.value[to]
+        val newList = _categories.value.toMutableList()
+        newList[from] = toItem
+        newList[to] = fromItem
+
+        _categories.value = newList
+    }
+
 }

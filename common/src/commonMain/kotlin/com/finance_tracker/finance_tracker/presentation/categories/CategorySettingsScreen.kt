@@ -1,14 +1,12 @@
 package com.finance_tracker.finance_tracker.presentation.categories
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.DragDropColumn
 import com.finance_tracker.finance_tracker.core.common.getViewModel
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
@@ -21,7 +19,6 @@ fun CategorySettingsScreen(
 ) {
 
     val categories by viewModel.categories.collectAsState()
-    val categoriesList = rememberLazyListState()
 
     Column(
         modifier = Modifier
@@ -38,21 +35,50 @@ fun CategorySettingsScreen(
                 ),
         )
 
-        LazyColumn(
+        DragDropColumn(
+            items = categories,
+            onSwap = viewModel::swapSections
+        ) { index,category ->
+            ItemWrapper(
+                isFirstItem = index == 0,
+                isLastItem = index == categories.lastIndex,
+                modifier = Modifier
+            ) { CategoryCard(
+                data = category,
+                modifier = Modifier
+                    .padding(
+                        start = 16.dp,
+                        top = 8.dp,
+                        bottom = 8.dp,
+                        end = 16.dp
+                    )
+                )
+            }
+        }
+
+        /*LazyColumn(
             modifier = Modifier
                 .fillMaxHeight(),
             contentPadding = PaddingValues(
-                top = 16.dp,
                 bottom = 36.dp,
                 start = 16.dp,
                 end = 16.dp,
             ),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            items(categories) { category ->
-                CategoryCard(data = category)
-                //ItemWrapper(isFirstItem = cate, isLastItem = false, modifier = Modifier) { CategoryCard(data = category) }
+            itemsIndexed(categories) { index, category ->
+                ItemWrapper(
+                    isFirstItem = index == 0,
+                    isLastItem = index == categories.lastIndex,
+                    modifier = Modifier
+                )
+                { CategoryCard(data = category, modifier = Modifier
+                    .padding(
+                        start = 16.dp,
+                        top = 8.dp,
+                        bottom = 8.dp,
+                        end = 16.dp)
+                ) }
             }
-        }
+        }*/
     }
 }
