@@ -16,51 +16,27 @@ kotlin {
                 api(compose.material)
                 api(compose.ui)
                 api(compose.uiTooling)
-                // Needed only for preview.
                 api(compose.preview)
 
-                // Koin
-                val koinVersion = "3.2.2"
-                api("io.insert-koin:koin-core:$koinVersion")
-
-                // Odyssey
-                val odysseyVersion = "1.0.0"
-                implementation("io.github.alexgladkov:odyssey-core:$odysseyVersion")
-                implementation("io.github.alexgladkov:odyssey-compose:$odysseyVersion")
+                api(libs.koin.core)
+                api(libs.bundles.odyssey)
             }
         }
         named("desktopMain") {
             dependencies {
                 api(compose.uiTooling)
-                // Needed only for preview.
                 api(compose.preview)
 
-                // Koin
-                val koinVersion = "3.2.2"
-                implementation("io.insert-koin:koin-core:$koinVersion")
+                api(libs.koin.core)
 
-                // SQL Delight
-                val sqlDelightVersion = "1.5.4"
-                implementation("com.squareup.sqldelight:sqlite-driver:$sqlDelightVersion")
+                implementation(libs.sqldelight.jvm)
             }
         }
         named("androidMain") {
             dependencies {
-                api("androidx.appcompat:appcompat:1.5.1")
-                api("androidx.core:core-ktx:1.9.0")
-
-                // ViewModel
-                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-
-                // Koin
-                val koinVersion = "3.2.2"
-                val koinAndroidComposeVersion = "3.2.1"
-                implementation("io.insert-koin:koin-core:$koinVersion")
-                implementation("io.insert-koin:koin-androidx-compose:$koinAndroidComposeVersion")
-
-                // SQL Delight
-                val sqlDelightVersion = "1.5.4"
-                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
+                implementation(libs.viewModel)
+                implementation(libs.bundles.koin.android)
+                implementation(libs.sqldelight.android)
             }
         }
     }

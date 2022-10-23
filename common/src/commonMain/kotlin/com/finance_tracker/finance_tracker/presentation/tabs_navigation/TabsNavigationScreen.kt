@@ -40,10 +40,7 @@ fun TabsNavigationScreen() {
                 backgroundColor = CoinTheme.color.primary,
                 contentColor = CoinTheme.color.primaryVariant,
                 onClick = {
-                    // Не работает
-                    rootController.findRootController().push(MainNavigationTree.AddTransaction.name)
-                    // Работает
-                    //selectedTabItem.rootController.findRootController().push(MainNavigationTree.AddTransaction.name)
+                    selectedTabItem.rootController.findRootController().push(MainNavigationTree.AddTransaction.name)
                 }
             ) {
                 Icon(
