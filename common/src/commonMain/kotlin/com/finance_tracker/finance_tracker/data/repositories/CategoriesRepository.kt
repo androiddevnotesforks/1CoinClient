@@ -24,10 +24,32 @@ class CategoriesRepository(
         }
     }
 
+    suspend fun insertTestCategory(
+        id: Long,
+        categoryName: String,
+        categoryIcon: String,
+    ) {
+        withContext(Dispatchers.IO) {
+            categoriesEntityQueries.insertCategory(
+                id = id,
+                name = categoryName,
+                icon = categoryIcon,
+            )
+        }
+    }
+
     suspend fun getAllCategories(): List<Category> {
         return withContext(Dispatchers.IO) {
             categoriesEntityQueries.getAllCategories().executeAsList()
                 .map { it.categoryToDomainModel() }
+        }
+    }
+
+    suspend fun initAllTestCategories() {
+        withContext(Dispatchers.IO) {
+            for (category in 1 until 64) {
+                insertTestCategory(id = category.toLong(), categoryName = "Category$category", categoryIcon = "ic_category_$category")
+            }
         }
     }
 }

@@ -38,12 +38,12 @@ fun CategorySettingsScreen(
 
         LazyColumn(
             modifier = Modifier
+                .fillMaxHeight()
                 .padding(
                     start = 16.dp,
                     end = 16.dp,
                     top = 8.dp
-                )
-                .fillMaxHeight(),
+                ),
             contentPadding = PaddingValues(bottom = 96.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {

@@ -9,7 +9,6 @@ import com.finance_tracker.finance_tracker.core.common.getLocalizedString
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
-import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
@@ -23,7 +22,7 @@ fun CategorySettingsAppBar() {
         navigationIcon = {
             AppBarIcon(
                 painter = rememberVectorPainter(loadXmlPicture("ic_arrow_back")),
-                onClick = { rootController.findRootController().push() },
+                onClick = { rootController.findRootController().popBackStack() },
             )
         },
         title = {

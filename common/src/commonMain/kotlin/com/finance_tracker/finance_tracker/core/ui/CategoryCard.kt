@@ -25,7 +25,7 @@ fun CategoryCard(
             .fillMaxWidth()
     ) {
         Icon(
-            painter = rememberVectorPainter(loadXmlPicture("ic_more_vert")),
+            painter = rememberVectorPainter(loadXmlPicture("ic_three_stripes")),
             contentDescription = null,
             modifier = Modifier
                 .padding(end = 12.dp)
@@ -56,11 +56,11 @@ fun CategoryCard(
         )
         Spacer(Modifier.weight(1f))
         Icon(
-            painter = rememberVectorPainter(loadXmlPicture("ic_plus")),
+            painter = rememberVectorPainter(loadXmlPicture("ic_cross")),
             contentDescription = null,
             modifier = Modifier
+                .size(24.dp)
                 .padding(end = 6.dp)
-                .size(8.dp)
                 .align(Alignment.CenterVertically),
             tint = Color.Red
         )
