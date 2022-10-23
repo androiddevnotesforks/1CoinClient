@@ -18,6 +18,7 @@ class CategoriesRepository(
                 id = null,
                 name = categoryName,
                 icon = categoryIcon,
+                position = null,
             )
         }
     }
@@ -37,8 +38,8 @@ class CategoriesRepository(
 
     suspend fun updateCategoryPosition(categoryFrom: Category, categoryTo: Category) {
         withContext(Dispatchers.IO) {
-            categoriesEntityQueries.replaceCategory(categoryTo.name, categoryTo.iconId, categoryFrom.id)
-            categoriesEntityQueries.replaceCategory(categoryFrom.name, categoryFrom.iconId, categoryTo.id)
+            categoriesEntityQueries.replaceCategory(categoryFrom.id, categoryTo.id)
+            categoriesEntityQueries.replaceCategory(categoryTo.id, categoryFrom.id)
         }
     }
 }

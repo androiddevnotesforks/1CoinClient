@@ -53,7 +53,7 @@ fun CategorySettingsScreen(
                             bottom = 8.dp,
                             end = 16.dp
                         ),
-                    onClick = { viewModel.deleteCategory(category.id) }
+                    onCrossDeleteClick = { viewModel.deleteCategory(category.id) }
                 )
             }
         }

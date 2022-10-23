@@ -1,17 +1,19 @@
 CREATE TABLE CategoriesEntity (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
-    icon TEXT NOT NULL
+    icon TEXT NOT NULL,
+    position INTEGER
 );
 
 getAllCategories:
 SELECT *
-FROM CategoriesEntity;
+FROM CategoriesEntity
+ORDER BY position;
 
 insertCategory:
 INSERT OR REPLACE
 INTO CategoriesEntity
-VALUES (?,?,?);
+VALUES (?,?,?,?);
 
 deleteCategoryById:
 DELETE
@@ -19,5 +21,5 @@ FROM CategoriesEntity
 WHERE id = :id;
 
 replaceCategory:
-UPDATE CategoriesEntity SET name = :name, icon = :icon
+UPDATE CategoriesEntity SET position = :position
 WHERE id = :id;

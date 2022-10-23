@@ -20,7 +20,7 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 fun CategoryCard(
     data: Category,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
+    onCrossDeleteClick: () -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -64,7 +64,7 @@ fun CategoryCard(
                 .size(32.dp)
                 .padding(end = 6.dp)
                 .align(Alignment.CenterVertically)
-                .clickable { onClick() },
+                .clickable { onCrossDeleteClick() },
             tint = Color.Red,
         )
     }
