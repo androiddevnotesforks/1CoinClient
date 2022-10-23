@@ -66,22 +66,14 @@ android {
 dependencies {
 
     implementation(project(":common"))
+    implementation("androidx.activity:activity-compose:1.6.0")
+    implementation("androidx.core:core-ktx:1.9.0")
 
     // Firebase BoM
     implementation(platform ("com.google.firebase:firebase-bom:30.3.2"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-config-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
-
-    // Jetpack Compose
-    val composeVersion = "1.3.0-beta02"
-    implementation("androidx.activity:activity-compose:1.6.0")
-    implementation("androidx.compose.animation:animation:$composeVersion")
-    implementation("androidx.compose.foundation:foundation:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    implementation("androidx.navigation:navigation-compose:2.5.2")
 
     // LeakCanary
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
@@ -91,31 +83,5 @@ dependencies {
     debugImplementation("com.github.chuckerteam.chucker:library:$chukerVersion")
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:$chukerVersion")
 
-    // Core
-    implementation("androidx.core:core-ktx:1.9.0")
-
-    // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-
-    // View
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("com.google.android.material:material:1.6.1")
-
-    // SQL Delight
-    val sqlDelightVersion = "1.5.4"
-    implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
-    implementation("com.squareup.sqldelight:coroutines-extensions:$sqlDelightVersion")
-
-    // Koin
-    val koinVersion = "3.2.2"
-    val koinAndroidComposeVersion = "3.2.1"
-    implementation("io.insert-koin:koin-core:$koinVersion")
-    implementation("io.insert-koin:koin-android:$koinVersion")
-    implementation("io.insert-koin:koin-androidx-compose:$koinAndroidComposeVersion")
-
-    // Odyssey
-    val odysseyVersion = "1.0.0"
-    implementation("io.github.alexgladkov:odyssey-core:$odysseyVersion")
-    implementation("io.github.alexgladkov:odyssey-compose:$odysseyVersion")
+    implementation(libs.bundles.koin.android)
 }

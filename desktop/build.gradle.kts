@@ -18,11 +18,6 @@ kotlin {
         named("commonMain") {
             dependencies {
                 implementation(project(":common"))
-
-                // Odyssey
-                val odysseyVersion = "1.0.0"
-                implementation("io.github.alexgladkov:odyssey-core:$odysseyVersion")
-                implementation("io.github.alexgladkov:odyssey-compose:$odysseyVersion")
             }
         }
     }
