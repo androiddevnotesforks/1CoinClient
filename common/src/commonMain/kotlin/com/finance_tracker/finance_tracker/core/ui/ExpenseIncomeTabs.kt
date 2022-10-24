@@ -12,7 +12,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.getLocalizedString
-import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 
@@ -29,8 +28,7 @@ fun ExpenseIncomeTabs(
 ) {
     Row(
         modifier = modifier
-            .background(CoinTheme.color.background)
-            .statusBarsPadding(),
+            .background(CoinTheme.color.background),
     ) {
         CategoryItem(
             categoryTab = CategoryTab.Expense,

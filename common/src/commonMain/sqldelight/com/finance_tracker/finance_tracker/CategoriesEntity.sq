@@ -2,7 +2,9 @@ CREATE TABLE CategoriesEntity (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     icon TEXT NOT NULL,
-    position INTEGER
+    position INTEGER,
+    isInExpense INTEGER NOT NULL,
+    isInIncome INTEGER NOT NULL
 );
 
 getAllCategories:
@@ -10,10 +12,22 @@ SELECT *
 FROM CategoriesEntity
 ORDER BY position;
 
+getAllExpenseCategories:
+SELECT *
+FROM CategoriesEntity
+WHERE isInExpense = 1
+ORDER BY position;
+
+getAllIncomeCategories:
+SELECT *
+FROM CategoriesEntity
+WHERE isInIncome = 1
+ORDER BY position;
+
 insertCategory:
 INSERT OR REPLACE
 INTO CategoriesEntity
-VALUES (?,?,?,?);
+VALUES (?,?,?,?,?,?);
 
 deleteCategoryById:
 DELETE

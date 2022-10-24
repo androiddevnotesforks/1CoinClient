@@ -12,6 +12,8 @@ class CategoriesRepository(
     suspend fun insertCategory(
         categoryName: String,
         categoryIcon: String,
+        isInExpense: Int,
+        isInIncome: Int,
     ) {
         withContext(Dispatchers.IO) {
             categoriesEntityQueries.insertCategory(
@@ -19,6 +21,9 @@ class CategoriesRepository(
                 name = categoryName,
                 icon = categoryIcon,
                 position = null,
+                isInExpense = isInExpense.toLong(),
+                isInIncome = isInIncome.toLong(),
+
             )
         }
     }
@@ -40,6 +45,20 @@ class CategoriesRepository(
         withContext(Dispatchers.IO) {
             categoriesEntityQueries.replaceCategory(categoryFrom.id, categoryTo.id)
             categoriesEntityQueries.replaceCategory(categoryTo.id, categoryFrom.id)
+        }
+    }
+
+    suspend fun getAllExpenseCategories(): List<Category> {
+        return withContext(Dispatchers.IO) {
+            categoriesEntityQueries.getAllExpenseCategories().executeAsList()
+                .map { it.categoryToDomainModel() }
+        }
+    }
+
+    suspend fun getAllIncomeCategories(): List<Category> {
+        return withContext(Dispatchers.IO) {
+            categoriesEntityQueries.getAllIncomeCategories().executeAsList()
+                .map { it.categoryToDomainModel() }
         }
     }
 }

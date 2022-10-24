@@ -1,18 +1,20 @@
 package com.finance_tracker.finance_tracker.presentation.categories
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.LazyDragColumn
-import com.finance_tracker.finance_tracker.core.common.getViewModel
-import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
-import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
+import com.finance_tracker.finance_tracker.core.common.*
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ExpenseIncomeTabs
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
+import ru.alexgladkov.odyssey.compose.extensions.push
+import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun CategorySettingsScreen(
@@ -20,6 +22,8 @@ fun CategorySettingsScreen(
 ) {
 
     val categories by viewModel.categories.collectAsState()
+    val rootController = LocalRootController.current
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -36,6 +40,14 @@ fun CategorySettingsScreen(
                     start = 20.dp,
                     bottom = 4.dp,
                 ),
+            onCategorySelect = {
+                if(it.textId == "add_transaction_tab_income") {
+                    rootController.findRootController().push(ExpenseIncomeNavigationTree.Income.name)
+                } else {
+                    rootController.findRootController().push(ExpenseIncomeNavigationTree.Expense.name)
+
+                }
+            }
         )
 
         LazyDragColumn(

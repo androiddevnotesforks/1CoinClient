@@ -20,7 +20,7 @@ class TransactionsRepository(
             transactionsEntityQueries.getAllFullTransactions {
                     id, type, amount, amountCurrency, categoryId,
                     accountId, date, _, accountName, _, balance, accountColorHex,
-                    _, categoryName, categoryIcon, categoryPosition ->
+                    _, categoryName, categoryIcon, categoryPosition, isInExpense, isInIncome ->
                 Transaction(
                     id = id,
                     type = type,
@@ -45,6 +45,7 @@ class TransactionsRepository(
             }.executeAsList()
         }
     }
+
 
     suspend fun getTotalTransactionAmountByDateAndType(
         date: Date,
