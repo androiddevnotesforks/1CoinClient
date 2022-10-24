@@ -77,6 +77,8 @@ class AddAccountViewModel(
     }
 
     fun onAccountNameChange(accountName: String) {
+        println("accountName: $accountName")
+        println("_enteredAccountName: ${_enteredAccountName.value}")
         _enteredAccountName.value = accountName
     }
 
