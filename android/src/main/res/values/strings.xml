@@ -33,6 +33,7 @@
 
     <!-- Categories -->
     <string name="category_settings">Category Settings</string>
+    <string name="add_expense_category">New Expense Category</string>
 
     <!-- New account -->
     <string name="new_account_title">New Account</string>
