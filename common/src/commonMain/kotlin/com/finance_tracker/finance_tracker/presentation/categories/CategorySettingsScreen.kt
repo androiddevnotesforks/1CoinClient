@@ -6,8 +6,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.DragDropColumn
+import com.finance_tracker.finance_tracker.core.common.LazyDragColumn
 import com.finance_tracker.finance_tracker.core.common.getViewModel
+import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ExpenseIncomeTabs
@@ -15,7 +16,7 @@ import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
 
 @Composable
 fun CategorySettingsScreen(
-    viewModel: CategorySettingsScreenViewModel = getViewModel()
+    viewModel: CategorySettingsViewModel = getViewModel()
 ) {
 
     val categories by viewModel.categories.collectAsState()
@@ -24,6 +25,7 @@ fun CategorySettingsScreen(
         modifier = Modifier
             .fillMaxSize()
             .statusBarsPadding()
+            .navigationBarsPadding()
     ) {
         CategorySettingsAppBar()
 
@@ -31,13 +33,19 @@ fun CategorySettingsScreen(
             modifier = Modifier
                 .padding(
                     top = 24.dp,
-                    start = 20.dp
+                    start = 20.dp,
+                    bottom = 4.dp,
                 ),
         )
 
-        DragDropColumn(
+        LazyDragColumn(
             items = categories,
-            onSwap = viewModel::swapCategories
+            onSwap = viewModel::swapCategories,
+            contentPaddingValues = PaddingValues(
+                start = 16.dp,
+                end = 16.dp,
+                bottom = 16.dp,
+            )
         ) { index, category ->
             ItemWrapper(
                 isFirstItem = index == 0,

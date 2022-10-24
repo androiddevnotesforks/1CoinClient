@@ -1,8 +1,6 @@
 package com.finance_tracker.finance_tracker.core.common
 
-import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -51,26 +49,28 @@ fun LazyItemScope.DraggableItem(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.(isDragging: Boolean) -> Unit
 ) {
-    val current: Float by animateFloatAsState(dragDropState.draggingItemOffset * 0.67f)
-    val previous: Float by animateFloatAsState(dragDropState.previousItemOffset.value * 0.67f)
+    val current: Float by animateFloatAsState(dragDropState.draggingItemOffset * 0.1f)
+    val previous: Float by animateFloatAsState(dragDropState.previousItemOffset.value * 0.1f)
     val dragging = index == dragDropState.currentIndexOfDraggedItem
 
-    val draggingModifier = if (dragging) {
-        Modifier
-            .zIndex(1f)
-            .graphicsLayer {
-                translationY = current
-            }
-    } else if (index == dragDropState.previousIndexOfDraggedItem) {
-        Modifier
-            .zIndex(1f)
-            .graphicsLayer {
-                translationY = previous
-            }
-    } else {
-        Modifier.animateItemPlacement(
-            tween(easing = FastOutLinearInEasing)
-        )
+    val draggingModifier = when {
+        dragging -> {
+            Modifier
+                .zIndex(1f)
+                .graphicsLayer {
+                    translationY = current
+                }
+        }
+        index == dragDropState.previousIndexOfDraggedItem -> {
+            Modifier
+                .zIndex(1f)
+                .graphicsLayer {
+                    translationY = previous
+                }
+        }
+        else -> {
+            Modifier.animateItemPlacement()
+        }
     }
     Column(modifier = modifier.then(draggingModifier)) {
         content(dragging)

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import com.finance_tracker.finance_tracker.core.common.ViewModel
 
-class CategorySettingsScreenViewModel(
+class CategorySettingsViewModel(
     private val repository: CategoriesRepository
 ): ViewModel() {
 

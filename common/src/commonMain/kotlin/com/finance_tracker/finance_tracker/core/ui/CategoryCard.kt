@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -61,8 +62,8 @@ fun CategoryCard(
             painter = rememberVectorPainter(loadXmlPicture("ic_cross")),
             contentDescription = null,
             modifier = Modifier
+                .clip(RoundedCornerShape(12.dp))
                 .size(32.dp)
-                .padding(end = 6.dp)
                 .align(Alignment.CenterVertically)
                 .clickable { onCrossDeleteClick() },
             tint = Color.Red,

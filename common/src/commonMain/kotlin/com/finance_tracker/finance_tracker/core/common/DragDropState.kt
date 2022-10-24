@@ -48,8 +48,7 @@ class DragDropState internal constructor(
 
     fun onDragStart(offset: Offset) {
         state.layoutInfo.visibleItemsInfo
-            .firstOrNull { item -> offset.y.toInt() in item.offset..(item.offset + item.size) }
-            ?.also {
+            .firstOrNull { item -> offset.y.toInt() in item.offset..(item.offset + item.size) } ?.also {
                 currentIndexOfDraggedItem = it.index
                 initiallyDraggedElement = it
                 draggingItemInitialOffset = it.offset
@@ -59,9 +58,7 @@ class DragDropState internal constructor(
     fun onDragInterrupted() {
         if (currentIndexOfDraggedItem != null) {
             previousIndexOfDraggedItem = currentIndexOfDraggedItem
-            // val startOffset = draggingItemOffset
             scope.launch {
-                //previousItemOffset.snapTo(startOffset)
                 previousItemOffset.animateTo(
                     0f,
                     tween(easing = FastOutLinearInEasing)
