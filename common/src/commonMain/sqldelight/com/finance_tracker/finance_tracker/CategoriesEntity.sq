@@ -3,8 +3,8 @@ CREATE TABLE CategoriesEntity (
     name TEXT NOT NULL,
     icon TEXT NOT NULL,
     position INTEGER,
-    isInExpense INTEGER NOT NULL,
-    isInIncome INTEGER NOT NULL
+    isExpense INTEGER AS Boolean DEFAULT 0 NOT NULL,
+    isIncome INTEGER AS Boolean DEFAULT 0 NOT NULL
 );
 
 getAllCategories:
@@ -15,13 +15,13 @@ ORDER BY position;
 getAllExpenseCategories:
 SELECT *
 FROM CategoriesEntity
-WHERE isInExpense = 1
+WHERE isExpense = 1
 ORDER BY position;
 
 getAllIncomeCategories:
 SELECT *
 FROM CategoriesEntity
-WHERE isInIncome = 1
+WHERE isIncome = 1
 ORDER BY position;
 
 insertCategory:

@@ -14,7 +14,6 @@ import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.getLocalizedString
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
-
 enum class CategoryTab(val textId: String) {
     Income("add_transaction_tab_income"),
     Expense("add_transaction_tab_expense"),

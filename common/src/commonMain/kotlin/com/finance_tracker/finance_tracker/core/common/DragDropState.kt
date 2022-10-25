@@ -75,6 +75,8 @@ class DragDropState internal constructor(
     fun onDrag(offset: Offset) {
         draggedDistance += offset.y
 
+        println("asdasdasd " + offset.y.toString())
+
         initialOffsets?.let { (topOffset, bottomOffset) ->
             val startOffset = topOffset + draggedDistance
             val endOffset = bottomOffset + draggedDistance
@@ -88,8 +90,7 @@ class DragDropState internal constructor(
                             delta > 0 -> (endOffset > item.offsetEnd)
                             else -> (startOffset < item.offset)
                         }
-                    }
-                    ?.also { item ->
+                    }?.also { item ->
                         currentIndexOfDraggedItem?.let { current ->
                             scope.launch {
                                 onSwap.invoke(
@@ -109,8 +110,8 @@ class DragDropState internal constructor(
             val startOffset = it.offset + draggedDistance
             val endOffset = it.offsetEnd + draggedDistance
             return@let when {
-                draggedDistance > 0 -> (endOffset - state.layoutInfo.viewportEndOffset + 50f).takeIf { diff -> diff > 0 }
-                draggedDistance < 0 -> (startOffset - state.layoutInfo.viewportStartOffset - 50f).takeIf { diff -> diff < 0 }
+                draggedDistance > 0 -> (endOffset - state.layoutInfo.viewportEndOffset + 0f).takeIf { diff -> diff > 0 }
+                draggedDistance < 0 -> (startOffset - state.layoutInfo.viewportStartOffset - 0f).takeIf { diff -> diff < 0 }
                 else -> null
             }
         } ?: 0f

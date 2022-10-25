@@ -108,8 +108,8 @@ class DatabaseInitializer(
                         name = category.name,
                         icon = category.iconId,
                         position = category.id,
-                        isInExpense = 1,
-                        isInIncome = 0,
+                        isExpense = true,
+                        isIncome = false,
                     )
                 }
                 defaultIncomeCategories.forEach { category ->
@@ -118,8 +118,8 @@ class DatabaseInitializer(
                         name = category.name,
                         icon = category.iconId,
                         position = category.id,
-                        isInExpense = 0,
-                        isInIncome = 1,
+                        isExpense = false,
+                        isIncome = true,
                     )
                 }
             }

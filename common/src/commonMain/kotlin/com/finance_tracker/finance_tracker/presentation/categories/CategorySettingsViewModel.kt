@@ -11,27 +11,49 @@ class CategorySettingsViewModel(
     private val repository: CategoriesRepository
 ): ViewModel() {
 
-    private val _categories = MutableStateFlow<List<Category>>(emptyList())
-    val categories = _categories.asStateFlow()
+    private val _expenseCategories = MutableStateFlow<List<Category>>(emptyList())
+    val expenseCategories = _expenseCategories.asStateFlow()
+
+    private val _incomeCategories = MutableStateFlow<List<Category>>(emptyList())
+    val incomeCategories = _incomeCategories.asStateFlow()
 
     init {
-        loadAllCategories()
+        loadAllExpenseCategories()
     }
 
-    private fun loadAllCategories() {
+    private fun loadAllExpenseCategories() {
         viewModelScope.launch {
-            _categories.value = repository.getAllCategories()
+            _expenseCategories.value = repository.getAllExpenseCategories()
         }
     }
 
-    fun swapCategories(from: Int, to: Int) {
-        val fromItem = _categories.value[from]
-        val toItem = _categories.value[to]
-        val newList = _categories.value.toMutableList()
+    private fun loadAllIncomeCategories() {
+        viewModelScope.launch {
+            _incomeCategories.value = repository.getAllIncomeCategories()
+        }
+    }
+
+
+    fun swapExpenseCategories(from: Int, to: Int) {
+        val fromItem = _expenseCategories.value[from]
+        val toItem = _expenseCategories.value[to]
+        val newList = _expenseCategories.value.toMutableList()
         newList[from] = toItem
         newList[to] = fromItem
 
-        _categories.value = newList
+        _expenseCategories.value = newList
+        saveListState(fromItem, toItem)
+    }
+
+    fun swapIncomeCategories(from: Int, to: Int) {
+        val fromItem = _incomeCategories.value[from]
+        val toItem = _incomeCategories.value[to]
+        val newList = _incomeCategories.value.toMutableList()
+
+        newList[from] = toItem
+        newList[to] = fromItem
+
+        _incomeCategories.value = newList
         saveListState(fromItem, toItem)
     }
 
@@ -44,7 +66,7 @@ class CategorySettingsViewModel(
     fun deleteCategory(id: Long) {
         viewModelScope.launch {
             repository.deleteCategoryById(id)
-            loadAllCategories()
+            loadAllExpenseCategories()
         }
     }
 

@@ -12,8 +12,8 @@ class CategoriesRepository(
     suspend fun insertCategory(
         categoryName: String,
         categoryIcon: String,
-        isInExpense: Int,
-        isInIncome: Int,
+        isExpense: Boolean,
+        isIncome: Boolean,
     ) {
         withContext(Dispatchers.IO) {
             categoriesEntityQueries.insertCategory(
@@ -21,8 +21,8 @@ class CategoriesRepository(
                 name = categoryName,
                 icon = categoryIcon,
                 position = null,
-                isInExpense = isInExpense.toLong(),
-                isInIncome = isInIncome.toLong(),
+                isExpense = isExpense,
+                isIncome = isIncome,
 
             )
         }
