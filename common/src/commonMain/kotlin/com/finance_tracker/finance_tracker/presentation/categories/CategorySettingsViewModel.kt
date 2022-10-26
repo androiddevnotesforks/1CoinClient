@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import com.finance_tracker.finance_tracker.core.common.ViewModel
+import com.finance_tracker.finance_tracker.core.ui.CategoryTab
 
 class CategorySettingsViewModel(
     private val repository: CategoriesRepository
@@ -16,6 +17,9 @@ class CategorySettingsViewModel(
 
     private val _incomeCategories = MutableStateFlow<List<Category>>(emptyList())
     val incomeCategories = _incomeCategories.asStateFlow()
+
+    private val _chosenScreen = MutableStateFlow(CategoryTab.Expense)
+    val chosenScreen = _chosenScreen.asStateFlow()
 
     init {
         loadAllExpenseCategories()
