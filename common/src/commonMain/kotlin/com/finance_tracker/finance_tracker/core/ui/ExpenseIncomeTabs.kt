@@ -12,7 +12,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.getLocalizedString
+import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+
 
 enum class CategoryTab(val textId: String) {
     Income("add_transaction_tab_income"),
@@ -27,7 +29,8 @@ fun ExpenseIncomeTabs(
 ) {
     Row(
         modifier = modifier
-            .background(CoinTheme.color.background),
+            .background(CoinTheme.color.background)
+            .statusBarsPadding(),
     ) {
         CategoryItem(
             categoryTab = CategoryTab.Expense,
