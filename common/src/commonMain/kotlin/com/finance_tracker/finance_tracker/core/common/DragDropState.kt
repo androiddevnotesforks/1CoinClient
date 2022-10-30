@@ -75,8 +75,6 @@ class DragDropState internal constructor(
     fun onDrag(offset: Offset) {
         draggedDistance += offset.y
 
-        println("asdasdasd " + offset.y.toString())
-
         initialOffsets?.let { (topOffset, bottomOffset) ->
             val startOffset = topOffset + draggedDistance
             val endOffset = bottomOffset + draggedDistance

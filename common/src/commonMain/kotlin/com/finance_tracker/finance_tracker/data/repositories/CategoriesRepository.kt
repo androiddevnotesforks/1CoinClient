@@ -23,11 +23,16 @@ class CategoriesRepository(
                 position = null,
                 isExpense = isExpense,
                 isIncome = isIncome,
-
             )
         }
     }
 
+    suspend fun getAllCategoriesWithoutPosition(): List<Category> {
+        return withContext(Dispatchers.IO) {
+            categoriesEntityQueries.getAllCategoriesWithoutPosition().executeAsList()
+                .map { it.categoryToDomainModel() }
+        }
+    }
     suspend fun getAllCategories(): List<Category> {
         return withContext(Dispatchers.IO) {
             categoriesEntityQueries.getAllCategories().executeAsList()
@@ -41,10 +46,10 @@ class CategoriesRepository(
         }
     }
 
-    suspend fun updateCategoryPosition(categoryFrom: Category, categoryTo: Category) {
+    suspend fun updateCategoryPosition(categoryFrom: Long, categoryTo: Long) {
         withContext(Dispatchers.IO) {
-            categoriesEntityQueries.replaceCategory(categoryFrom.id, categoryTo.id)
-            categoriesEntityQueries.replaceCategory(categoryTo.id, categoryFrom.id)
+            categoriesEntityQueries.replaceCategory(categoryFrom, categoryTo)
+            categoriesEntityQueries.replaceCategory(categoryTo, categoryFrom)
         }
     }
 

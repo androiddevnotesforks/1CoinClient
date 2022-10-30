@@ -7,6 +7,10 @@ CREATE TABLE CategoriesEntity (
     isIncome INTEGER AS Boolean DEFAULT 0 NOT NULL
 );
 
+getAllCategoriesWithoutPosition:
+SELECT *
+FROM CategoriesEntity;
+
 getAllCategories:
 SELECT *
 FROM CategoriesEntity

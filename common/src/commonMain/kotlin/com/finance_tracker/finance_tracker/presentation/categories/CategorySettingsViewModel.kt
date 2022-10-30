@@ -21,8 +21,13 @@ class CategorySettingsViewModel(
     private val _chosenScreen = MutableStateFlow(CategoryTab.Expense)
     val chosenScreen = _chosenScreen.asStateFlow()
 
+    fun onCategorySelect(categoryTab: CategoryTab) {
+        _chosenScreen.value = categoryTab
+    }
+
     init {
         loadAllExpenseCategories()
+        loadAllIncomeCategories()
     }
 
     private fun loadAllExpenseCategories() {
@@ -37,7 +42,6 @@ class CategorySettingsViewModel(
         }
     }
 
-
     fun swapExpenseCategories(from: Int, to: Int) {
         val fromItem = _expenseCategories.value[from]
         val toItem = _expenseCategories.value[to]
@@ -46,7 +50,7 @@ class CategorySettingsViewModel(
         newList[to] = fromItem
 
         _expenseCategories.value = newList
-        saveListState(fromItem, toItem)
+        saveListState(fromItem.id, toItem.id)
     }
 
     fun swapIncomeCategories(from: Int, to: Int) {
@@ -58,20 +62,24 @@ class CategorySettingsViewModel(
         newList[to] = fromItem
 
         _incomeCategories.value = newList
-        saveListState(fromItem, toItem)
+        saveListState(fromItem.id, toItem.id)
     }
 
-    private fun saveListState(categoryFrom: Category, categoryTo: Category) {
+    private fun saveListState(categoryFromId: Long, categoryToId: Long) {
         viewModelScope.launch {
-            repository.updateCategoryPosition(categoryFrom, categoryTo)
+            repository.updateCategoryPosition(categoryFromId, categoryToId)
         }
     }
 
     fun deleteCategory(id: Long) {
         viewModelScope.launch {
             repository.deleteCategoryById(id)
-            loadAllExpenseCategories()
+
+            if(_chosenScreen.value == CategoryTab.Expense) {
+                loadAllExpenseCategories()
+            } else {
+                loadAllIncomeCategories()
+            }
         }
     }
-
 }

@@ -3,16 +3,20 @@ package com.finance_tracker.finance_tracker.presentation.categories
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.getLocalizedString
+import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
-import com.finance_tracker.finance_tracker.core.ui.loadXmlPicture
+import com.finance_tracker.finance_tracker.core.ui.CategoryTab
+import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
-fun CategorySettingsAppBar() {
+fun CategorySettingsAppBar(
+    selectedCategoryTab: CategoryTab
+) {
 
     val rootController = LocalRootController.current
     val context = LocalContext.current
@@ -21,7 +25,7 @@ fun CategorySettingsAppBar() {
         backgroundColor = CoinTheme.color.primaryVariant,
         navigationIcon = {
             AppBarIcon(
-                painter = rememberVectorPainter(loadXmlPicture("ic_arrow_back")),
+                painter = rememberVectorPainter("ic_arrow_back"),
                 onClick = { rootController.findRootController().popBackStack() },
             )
         },
@@ -33,8 +37,14 @@ fun CategorySettingsAppBar() {
         },
         actions = {
             AppBarIcon(
-                rememberVectorPainter(loadXmlPicture("ic_plus")),
-                onClick = { rootController.findRootController().push(MainNavigationTree.AddCategory.name)},
+                rememberVectorPainter("ic_plus"),
+                onClick = { rootController.findRootController().push(MainNavigationTree.AddCategory.name, params = if(
+                    selectedCategoryTab == CategoryTab.Expense) {
+                        "new_expense_category"
+                    } else {
+                        "new_income_category"
+                    }
+                ) },
                 tint = CoinTheme.color.primary,
             )
         },

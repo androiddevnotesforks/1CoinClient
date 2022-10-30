@@ -43,6 +43,7 @@ fun <T : Any> LazyDragColumn(
                 detectDragGesturesAfterLongPress(
                     onDrag = { change, offset ->
 
+                        change.consume()
                         dragDropState.onDrag(offset = offset)
 
                         if (overscrollJob?.isActive == true) {
