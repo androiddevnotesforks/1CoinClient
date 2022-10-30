@@ -1,0 +1,17 @@
+CREATE TABLE DefaultCategoriesEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    icon TEXT NOT NULL,
+    isExpense INTEGER AS Boolean DEFAULT 0 NOT NULL,
+    isIncome INTEGER AS Boolean DEFAULT 0 NOT NULL
+);
+
+
+insertCategory:
+INSERT OR REPLACE
+INTO DefaultCategoriesEntity
+VALUES (?,?,?,?,?);
+
+getAllCategories:
+SELECT *
+FROM DefaultCategoriesEntity;

@@ -30,7 +30,7 @@ class AddCategoryViewModel(
 
     private fun loadAllCategories() {
         viewModelScope.launch {
-            _categories.value = repository.getAllCategoriesWithoutPosition()
+            _categories.value = repository.getAllDefaultCategories()
         }
     }
 

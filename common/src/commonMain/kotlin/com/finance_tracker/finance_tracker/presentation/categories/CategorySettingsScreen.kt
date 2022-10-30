@@ -37,8 +37,6 @@ fun CategorySettingsScreen(
 
         CategorySettingsAppBar(selectedCategoryTab = selectedCategoryTab)
 
-
-
         ExpenseIncomeTabs(
             modifier = Modifier
                 .padding(

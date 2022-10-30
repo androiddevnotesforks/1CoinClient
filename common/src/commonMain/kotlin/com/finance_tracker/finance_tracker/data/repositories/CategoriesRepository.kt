@@ -3,11 +3,13 @@ package com.finance_tracker.finance_tracker.data.repositories
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.financetracker.financetracker.CategoriesEntityQueries
+import com.financetracker.financetracker.DefaultCategoriesEntityQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class CategoriesRepository(
-    private val categoriesEntityQueries: CategoriesEntityQueries
+    private val categoriesEntityQueries: CategoriesEntityQueries,
+    private val defaultCategoriesEntityQueries: DefaultCategoriesEntityQueries
 ) {
     suspend fun insertCategory(
         categoryName: String,
@@ -27,12 +29,13 @@ class CategoriesRepository(
         }
     }
 
-    suspend fun getAllCategoriesWithoutPosition(): List<Category> {
+    suspend fun getAllDefaultCategories(): List<Category> {
         return withContext(Dispatchers.IO) {
-            categoriesEntityQueries.getAllCategoriesWithoutPosition().executeAsList()
+            defaultCategoriesEntityQueries.getAllCategories().executeAsList()
                 .map { it.categoryToDomainModel() }
         }
     }
+
     suspend fun getAllCategories(): List<Category> {
         return withContext(Dispatchers.IO) {
             categoriesEntityQueries.getAllCategories().executeAsList()

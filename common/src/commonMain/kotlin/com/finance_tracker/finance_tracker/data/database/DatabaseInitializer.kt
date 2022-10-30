@@ -2,9 +2,11 @@ package com.finance_tracker.finance_tracker.data.database
 
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.financetracker.financetracker.CategoriesEntityQueries
+import com.financetracker.financetracker.DefaultCategoriesEntityQueries
 
 class DatabaseInitializer(
-    private val categoriesEntityQueries: CategoriesEntityQueries
+    private val categoriesEntityQueries: CategoriesEntityQueries,
+    private val defaultCategoriesEntityQueries: DefaultCategoriesEntityQueries
 ) {
 
     private val defaultExpenseCategories = listOf(
@@ -101,6 +103,29 @@ class DatabaseInitializer(
     private fun initCategories() {
         categoriesEntityQueries.transaction {
             val databaseCategories = categoriesEntityQueries.getAllCategories().executeAsList()
+            val defaultDatabaseCategories = defaultCategoriesEntityQueries.getAllCategories().executeAsList()
+
+            if(defaultDatabaseCategories.isEmpty()) {
+                defaultExpenseCategories.forEach { category ->
+                    defaultCategoriesEntityQueries.insertCategory(
+                        id = category.id,
+                        name = category.name,
+                        icon = category.iconId,
+                        isExpense = true,
+                        isIncome = false,
+                    )
+                }
+                defaultIncomeCategories.forEach { category ->
+                    defaultCategoriesEntityQueries.insertCategory(
+                        id = category.id,
+                        name = category.name,
+                        icon = category.iconId,
+                        isExpense = false,
+                        isIncome = true,
+                    )
+                }
+            }
+
             if (databaseCategories.isEmpty()) {
                 defaultExpenseCategories.forEach { category ->
                     categoriesEntityQueries.insertCategory(
