@@ -10,9 +10,12 @@ import com.finance_tracker.finance_tracker.core.common.MessageKeyQueue
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.navigation.main.navigationGraph
 import com.finance_tracker.finance_tracker.core.theme.setupThemedNavigation
+import com.finance_tracker.finance_tracker.data.database.DatabaseInitializer
 import com.finance_tracker.finance_tracker.di.commonModules
 import org.koin.core.context.startKoin
+import org.koin.java.KoinJavaComponent.inject
 
+private val databaseInitializer: DatabaseInitializer by inject(DatabaseInitializer::class.java)
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = singleWindowApplication(
@@ -30,6 +33,7 @@ fun main() = singleWindowApplication(
     }
 ) {
     initKoin()
+    databaseInitializer.init()
     setupThemedNavigation(MainNavigationTree.Main.name) { navigationGraph() }
 }
 
