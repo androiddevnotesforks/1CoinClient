@@ -88,14 +88,10 @@ fun <T : Any> LazyDragColumn(
                             RoundedCornerShape(
                                 topStart = 12.dp,
                                 topEnd = 12.dp,
-                                bottomStart = 0.dp,
-                                bottomEnd = 0.dp
                             )
                         }
                         items.lastIndex -> {
                             RoundedCornerShape(
-                                topStart = 0.dp,
-                                topEnd = 0.dp,
                                 bottomStart = 12.dp,
                                 bottomEnd = 12.dp
                             )

@@ -3,8 +3,7 @@ package com.finance_tracker.finance_tracker.presentation.add_category
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import com.finance_tracker.finance_tracker.core.common.LocalContext
-import com.finance_tracker.finance_tracker.core.common.getLocalizedString
+import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
@@ -16,19 +15,18 @@ fun AddCategoryAppBar(
 ) {
 
     val rootController = LocalRootController.current
-    val context = LocalContext.current
-
+    
     TopAppBar(
         backgroundColor = CoinTheme.color.primaryVariant,
         navigationIcon = {
             AppBarIcon(
                 painter = rememberVectorPainter("ic_arrow_back"),
-                onClick = { rootController.findRootController().popBackStack() },
+                onClick = { rootController.popBackStack() },
             )
         },
         title = {
             Text(
-                text = getLocalizedString(id = textValue, context = context),
+                text = stringResource(textValue),
                 style = CoinTheme.typography.h4
             )
         },
