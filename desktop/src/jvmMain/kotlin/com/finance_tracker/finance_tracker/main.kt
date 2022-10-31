@@ -1,7 +1,12 @@
 package com.finance_tracker.finance_tracker
 
-import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.application
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.type
+import androidx.compose.ui.window.singleWindowApplication
+import com.finance_tracker.finance_tracker.core.common.MessageKeyQueue
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.navigation.main.navigationGraph
 import com.finance_tracker.finance_tracker.core.theme.setupThemedNavigation
@@ -9,15 +14,23 @@ import com.finance_tracker.finance_tracker.di.commonModules
 import org.koin.core.context.startKoin
 
 
-fun main() = application {
-    initKoin()
-    Window(
-        visible = true,
-        title = "",
-        onCloseRequest = ::exitApplication
-    ) {
-        setupThemedNavigation(MainNavigationTree.Main.name) { navigationGraph() }
+@OptIn(ExperimentalComposeUiApi::class)
+fun main() = singleWindowApplication(
+    title = "",
+    onKeyEvent = {
+        println()
+        if (
+            it.key == Key.DirectionLeft &&
+            it.type == KeyEventType.KeyDown
+        ) {
+            MessageKeyQueue.onBackPressedChannel.trySend(Unit)
+            return@singleWindowApplication true
+        }
+        false
     }
+) {
+    initKoin()
+    setupThemedNavigation(MainNavigationTree.Main.name) { navigationGraph() }
 }
 
 private fun initKoin() {

@@ -15,12 +15,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 enum class CategoryTab(val textId: String) {
@@ -29,11 +29,27 @@ enum class CategoryTab(val textId: String) {
     Transfer("add_transaction_tab_transfer"),
 }
 
+private fun TransactionType.toCategoryTab(): CategoryTab {
+    return when (this) {
+        TransactionType.Expense -> CategoryTab.Expense
+        TransactionType.Income -> CategoryTab.Income
+        TransactionType.Transfer -> CategoryTab.Transfer
+    }
+}
+
+private fun CategoryTab.toTransactionType(): TransactionType {
+    return when (this) {
+        CategoryTab.Expense -> TransactionType.Expense
+        CategoryTab.Income -> TransactionType.Income
+        CategoryTab.Transfer -> TransactionType.Transfer
+    }
+}
+
 @Composable
 fun CategoriesAppBar(
     modifier: Modifier = Modifier,
-    selectedCategoryTab: CategoryTab = CategoryTab.Expense,
-    onCategorySelect: (CategoryTab) -> Unit = {}
+    selectedTransactionType: TransactionType = TransactionType.Expense,
+    onTransactionTypeSelect: (TransactionType) -> Unit = {}
 ) {
     val rootController = LocalRootController.current
     TopAppBar(
@@ -55,18 +71,18 @@ fun CategoriesAppBar(
             ) {
                 CategoryItem(
                     categoryTab = CategoryTab.Income,
-                    selectedCategoryTab = selectedCategoryTab,
-                    onClick = onCategorySelect
+                    selectedCategoryTab = selectedTransactionType.toCategoryTab(),
+                    onClick = { onTransactionTypeSelect.invoke(it.toTransactionType()) }
                 )
                 CategoryItem(
                     categoryTab = CategoryTab.Expense,
-                    selectedCategoryTab = selectedCategoryTab,
-                    onClick = onCategorySelect
+                    selectedCategoryTab = selectedTransactionType.toCategoryTab(),
+                    onClick = { onTransactionTypeSelect.invoke(it.toTransactionType()) }
                 )
                 CategoryItem(
                     categoryTab = CategoryTab.Transfer,
-                    selectedCategoryTab = selectedCategoryTab,
-                    onClick = onCategorySelect
+                    selectedCategoryTab = selectedTransactionType.toCategoryTab(),
+                    onClick = { onTransactionTypeSelect.invoke(it.toTransactionType()) }
                 )
             }
         },
@@ -84,7 +100,6 @@ private fun CategoryItem(
     modifier: Modifier = Modifier,
     onClick: (CategoryTab) -> Unit
 ) {
-    val context = LocalContext.current
     Text(
         modifier = modifier
             .padding(horizontal = 1.dp)

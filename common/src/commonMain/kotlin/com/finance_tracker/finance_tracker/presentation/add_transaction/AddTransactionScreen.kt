@@ -1,39 +1,38 @@
 package com.finance_tracker.finance_tracker.presentation.add_transaction
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.BackHandler
 import com.finance_tracker.finance_tracker.core.common.getViewModel
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.AddButtonSection
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.AmountTextField
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.CalendarDayView
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.CategoriesAppBar
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.EnterTransactionStep
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBar
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBarData
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.*
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.EnterTransactionController
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.KeyboardCommand
-import java.util.Date
+import ru.alexgladkov.odyssey.compose.local.LocalRootController
+import java.util.*
 
 @Composable
 fun AddTransactionScreen(
     viewModel: AddTransactionViewModel = getViewModel()
 ) {
+    val navController = LocalRootController.current
     CoinTheme {
-        Column {
-            CategoriesAppBar()
+        var selectedTransactionType by remember { mutableStateOf(TransactionType.Expense) }
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            CategoriesAppBar(
+                selectedTransactionType = selectedTransactionType,
+                onTransactionTypeSelect = { selectedTransactionType = it }
+            )
 
             var amountText by remember { mutableStateOf("0") }
             var accountData by remember {
@@ -49,9 +48,7 @@ fun AddTransactionScreen(
                 amount = amountText.toDouble()
             )
 
-            CalendarDayView(
-                modifier = Modifier
-            )
+            CalendarDayView()
 
             Surface(
                 modifier = Modifier.weight(2f),
@@ -62,13 +59,13 @@ fun AddTransactionScreen(
                 val firstStep = steps.first()
                 var currentStep by remember { mutableStateOf(firstStep) }
                 var previousStepIndex by remember { mutableStateOf(-1) }
-                /*BackHandler { // TODO: BackHandler
+                BackHandler {
                     if (currentStep != firstStep) {
                         currentStep = currentStep.previous()
                     } else {
-                        *//*navigator.popBackStack()*//*
+                        navController.popBackStack()
                     }
-                }*/
+                }
                 LaunchedEffect(currentStep) {
                     previousStepIndex = currentStep.ordinal
                 }
@@ -108,20 +105,25 @@ fun AddTransactionScreen(
                                         amountText.length <= 1 && amountText.toDouble() == 0.0 -> {
                                             /* ignore */
                                         }
+
                                         amountText.length <= 1 && amountText.toDouble() != 0.0 -> {
                                             amountText = "0"
                                         }
+
                                         amountText.length > 1 && amountText[amountText.length - 2] == '.' -> {
                                             amountText = amountText.dropLast(2)
                                         }
+
                                         else -> {
                                             amountText = amountText.dropLast(1)
                                         }
                                     }
                                 }
+
                                 is KeyboardCommand.Digit -> {
                                     amountText += command.value.toString()
                                 }
+
                                 KeyboardCommand.Point -> {
                                     if (!amountText.contains(".")) {
                                         amountText += "."
@@ -135,7 +137,7 @@ fun AddTransactionScreen(
                         onAddClick = {
                             viewModel.addTransaction(
                                 Transaction(
-                                    type = TransactionType.Expense,
+                                    type = selectedTransactionType,
                                     amountCurrency = "$",
                                     account = accountData ?: return@AddButtonSection,
                                     category = categoryData,

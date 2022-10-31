@@ -19,6 +19,8 @@
     <string name="add_transaction_amount">Amount</string>
     <string name="add_transaction_stage_account">Account</string>
     <string name="add_transaction_stage_category">Category</string>
+    <string name="add_transaction_today">Today</string>
+    <string name="add_transaction_yesterday">Yesterday</string>
 
     <!-- Home -->
     <string name="home_topbar_text">Total Balance</string>

@@ -30,6 +30,7 @@ kotlin {
                 api(libs.koin.core)
 
                 implementation(libs.sqldelight.jvm)
+                implementation("com.github.lgooddatepicker:LGoodDatePicker:11.2.1")
             }
         }
         named("androidMain") {
