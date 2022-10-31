@@ -25,15 +25,13 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 enum class CategoryTab(val textId: String) {
     Income("add_transaction_tab_income"),
-    Expense("add_transaction_tab_expense"),
-    Transfer("add_transaction_tab_transfer"),
+    Expense("add_transaction_tab_expense")
 }
 
 private fun TransactionType.toCategoryTab(): CategoryTab {
     return when (this) {
         TransactionType.Expense -> CategoryTab.Expense
         TransactionType.Income -> CategoryTab.Income
-        TransactionType.Transfer -> CategoryTab.Transfer
     }
 }
 
@@ -41,7 +39,6 @@ private fun CategoryTab.toTransactionType(): TransactionType {
     return when (this) {
         CategoryTab.Expense -> TransactionType.Expense
         CategoryTab.Income -> TransactionType.Income
-        CategoryTab.Transfer -> TransactionType.Transfer
     }
 }
 
@@ -76,11 +73,6 @@ fun CategoriesAppBar(
                 )
                 CategoryItem(
                     categoryTab = CategoryTab.Expense,
-                    selectedCategoryTab = selectedTransactionType.toCategoryTab(),
-                    onClick = { onTransactionTypeSelect.invoke(it.toTransactionType()) }
-                )
-                CategoryItem(
-                    categoryTab = CategoryTab.Transfer,
                     selectedCategoryTab = selectedTransactionType.toCategoryTab(),
                     onClick = { onTransactionTypeSelect.invoke(it.toTransactionType()) }
                 )

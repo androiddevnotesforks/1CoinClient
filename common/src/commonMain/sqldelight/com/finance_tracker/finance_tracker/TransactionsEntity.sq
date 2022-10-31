@@ -1,13 +1,14 @@
 import com.finance_tracker.finance_tracker.domain.models.TransactionType;
 import java.util.Date;
 
-CREATE TABLE TransactionsEntity (
+CREATE TABLE IF NOT EXISTS TransactionsEntity (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     type TEXT AS TransactionType NOT NULL,
     amount REAL NOT NULL,
     amountCurrency TEXT NOT NULL,
     categoryId INTEGER,
     accountId INTEGER,
+    insertionDate TEXT AS Date NOT NULL,
     date TEXT AS Date NOT NULL
 );
 
@@ -17,7 +18,9 @@ FROM TransactionsEntity
 INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
 INNER JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
 WHERE accounts.id IS NOT NULL
-ORDER BY date DESC;
+ORDER BY
+    date DESC,
+    insertionDate DESC;
 
 getTotalTransactionAmountByDateAndType:
 SELECT SUM(amount)
@@ -29,4 +32,4 @@ WHERE DATE(date) = :date AND TransactionsEntity.type = :type AND accounts.id IS 
 insertTransaction:
 INSERT OR REPLACE
 INTO TransactionsEntity
-VALUES (?,?,?,?,?,?,?);
+VALUES (?,?,?,?,?,?,?,?);

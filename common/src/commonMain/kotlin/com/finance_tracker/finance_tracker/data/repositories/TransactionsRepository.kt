@@ -9,7 +9,7 @@ import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.financetracker.financetracker.TransactionsEntityQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.Date
+import java.util.*
 
 class TransactionsRepository(
     private val transactionsEntityQueries: TransactionsEntityQueries
@@ -19,17 +19,17 @@ class TransactionsRepository(
         return withContext(Dispatchers.IO) {
             transactionsEntityQueries.getAllFullTransactions {
                     id, type, amount, amountCurrency, categoryId,
-                    accountId, date, _, accountName, _, balance, accountColorHex,
-                    _, categoryName, categoryIcon, categoryPosition ->
+                    accountId, _, date, _, accountType, accountName, balance, accountColorHex,
+                    _, categoryName, categoryIcon, _ ->
                 Transaction(
                     id = id,
                     type = type,
                     amountCurrency = amountCurrency,
                     account = Account(
                         id = accountId ?: 0L,
-                        type = Account.Type.Cash,
+                        type = accountType,
                         color = accountColorHex.hexToColor(),
-                        name = accountName.name,
+                        name = accountName,
                         balance = balance
                     ),
                     category = categoryId?.let {

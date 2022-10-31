@@ -25,6 +25,8 @@ koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = 
 sqldelight-android = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight-jvm = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 
+datepicker-desktop = "com.github.lgooddatepicker:LGoodDatePicker:11.2.1"
+
 viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
 
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase" }

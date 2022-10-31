@@ -15,7 +15,6 @@
     <!-- Add transaction -->
     <string name="add_transaction_tab_income">Income</string>
     <string name="add_transaction_tab_expense">Expense</string>
-    <string name="add_transaction_tab_transfer">Transfer</string>
     <string name="add_transaction_amount">Amount</string>
     <string name="add_transaction_stage_account">Account</string>
     <string name="add_transaction_stage_category">Category</string>

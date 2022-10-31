@@ -39,7 +39,8 @@ fun StepsEnterTransactionBar(
         modifier = modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
-            .background(CoinTheme.color.background),
+            .background(CoinTheme.color.background)
+            .padding(horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
@@ -121,7 +122,7 @@ fun NextIcon(
 ) {
     Icon(
         modifier = modifier
-            .padding(horizontal = 8.dp),
+            .padding(horizontal = 2.dp),
         painter = rememberVectorPainter("ic_arrow_next_small"),
         contentDescription = null
     )
@@ -144,7 +145,7 @@ private fun <T: Any> RowScope.StageText(
             .weight(1f)
             .padding(vertical = 16.dp, horizontal = 8.dp)
             .border(
-                width = 2.dp,
+                width = 1.dp,
                 color = if (isActiveStage) {
                     CoinTheme.color.primary
                 } else {

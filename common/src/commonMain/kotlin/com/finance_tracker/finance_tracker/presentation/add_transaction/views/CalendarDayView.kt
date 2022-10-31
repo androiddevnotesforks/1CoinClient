@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.asCalendar
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CalendarDialog
@@ -19,13 +20,14 @@ import com.finance_tracker.finance_tracker.core.ui.CalendarDialogController
 import com.finance_tracker.finance_tracker.core.ui.StubCalendarDialogController
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import java.time.LocalDate
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Composable
 fun CalendarDayView(
-    modifier: Modifier = Modifier
+    date: LocalDate,
+    modifier: Modifier = Modifier,
+    onDateChange: (LocalDate) -> Unit = {}
 ) {
     Box(
         modifier = modifier.fillMaxWidth(),
@@ -34,12 +36,11 @@ fun CalendarDayView(
         var calendarDialogController: CalendarDialogController by remember {
             mutableStateOf(StubCalendarDialogController)
         }
-        var date by remember { mutableStateOf(LocalDate.now()) }
         CalendarDialog(
             onControllerCreate = {
                 calendarDialogController = it
             },
-            onDateChangeListener = { date = it }
+            onDateChangeListener = onDateChange
         )
 
         Row(
@@ -89,10 +90,4 @@ private fun LocalDate.isYesterday(): Boolean {
     }
     return yesterdayCalendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) &&
             yesterdayCalendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR)
-}
-
-private fun LocalDate.asCalendar(): Calendar {
-    return Calendar.getInstance().apply {
-        time = Date.from(atStartOfDay(ZoneId.systemDefault()).toInstant())
-    }
 }

@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.BackHandler
 import com.finance_tracker.finance_tracker.core.common.getViewModel
+import com.finance_tracker.finance_tracker.core.common.toDate
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
@@ -17,7 +18,7 @@ import com.finance_tracker.finance_tracker.presentation.add_transaction.views.*
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.EnterTransactionController
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.KeyboardCommand
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
-import java.util.*
+import java.time.LocalDate
 
 @Composable
 fun AddTransactionScreen(
@@ -45,10 +46,14 @@ fun AddTransactionScreen(
                 modifier = Modifier
                     .weight(1f),
                 currency = "$",
-                amount = amountText.toDouble()
+                amount = amountText
             )
 
-            CalendarDayView()
+            var localDate by remember { mutableStateOf(LocalDate.now()) }
+            CalendarDayView(
+                date = localDate,
+                onDateChange = { localDate = it }
+            )
 
             Surface(
                 modifier = Modifier.weight(2f),
@@ -99,6 +104,7 @@ fun AddTransactionScreen(
                             currentStep = currentStep.next()
                         },
                         onKeyboardButtonClick = { command ->
+                            var newAmountText = amountText
                             when (command) {
                                 KeyboardCommand.Delete -> {
                                     when {
@@ -107,33 +113,40 @@ fun AddTransactionScreen(
                                         }
 
                                         amountText.length <= 1 && amountText.toDouble() != 0.0 -> {
-                                            amountText = "0"
-                                        }
-
-                                        amountText.length > 1 && amountText[amountText.length - 2] == '.' -> {
-                                            amountText = amountText.dropLast(2)
+                                            newAmountText = "0"
                                         }
 
                                         else -> {
-                                            amountText = amountText.dropLast(1)
+                                            newAmountText = newAmountText.dropLast(1)
                                         }
                                     }
                                 }
 
                                 is KeyboardCommand.Digit -> {
-                                    amountText += command.value.toString()
+                                    when (amountText) {
+                                        "0" -> {
+                                            newAmountText = command.value.toString()
+                                        }
+                                        else -> {
+                                            newAmountText += command.value.toString()
+                                        }
+                                    }
                                 }
 
                                 KeyboardCommand.Point -> {
-                                    if (!amountText.contains(".")) {
-                                        amountText += "."
+                                    if (!newAmountText.contains(".")) {
+                                        newAmountText += "."
                                     }
                                 }
+                            }
+                            if (newAmountText.matches(Regex("^\\d*\\.?\\d*"))) {
+                                amountText = newAmountText
                             }
                         }
                     )
 
                     AddButtonSection(
+                        enabled = accountData != null && categoryData != null,
                         onAddClick = {
                             viewModel.addTransaction(
                                 Transaction(
@@ -142,9 +155,10 @@ fun AddTransactionScreen(
                                     account = accountData ?: return@AddButtonSection,
                                     category = categoryData,
                                     amount = amountText.toDouble(),
-                                    date = Date()
+                                    date = localDate.toDate()
                                 )
                             )
+                            navController.popBackStack()
                         }
                     )
                 }
