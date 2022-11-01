@@ -33,7 +33,7 @@ fun HomeScreen(
 
         MyAccountsHeader(
             modifier = Modifier
-                .padding(top = 26.dp)
+                .padding(top = 26.dp),
         )
 
         AccountsWidget(data = accounts)

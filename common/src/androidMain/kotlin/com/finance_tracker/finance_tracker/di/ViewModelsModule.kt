@@ -6,6 +6,7 @@ import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTrans
 import com.finance_tracker.finance_tracker.presentation.categories.CategorySettingsViewModel
 import com.finance_tracker.finance_tracker.presentation.home.HomeScreenViewModel
 import com.finance_tracker.finance_tracker.presentation.transactions.TransactionsViewModel
+import com.finance_tracker.finance_tracker.presentation.add_category.AddCategoryViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -18,5 +19,6 @@ actual class ViewModelsModule {
         viewModelOf(::HomeScreenViewModel)
         viewModelOf(::AddTransactionViewModel)
         viewModelOf(::CategorySettingsViewModel)
+        viewModelOf(::AddCategoryViewModel)
     }
 }
