@@ -44,7 +44,6 @@ fun AddCategoryScreen(
         AddCategoryAppBar(textValue = appBarText)
 
         val chosenCategory by viewModel.chosenCategory.collectAsState()
-
         val newCategoryName by viewModel.newCategoryName.collectAsState()
 
         Row(

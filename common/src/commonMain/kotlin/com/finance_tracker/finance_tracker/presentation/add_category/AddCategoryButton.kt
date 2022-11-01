@@ -3,7 +3,9 @@ package com.finance_tracker.finance_tracker.presentation.add_category
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSizeIn
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -26,8 +28,8 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 
 @Composable
 fun AddCategoryButton(
-    modifier: Modifier = Modifier,
     categories: List<Category>,
+    modifier: Modifier = Modifier,
     viewModel: AddCategoryViewModel = getViewModel()
 ) {
 
@@ -58,8 +60,13 @@ fun AddCategoryButton(
 
         Box {
             CoinDropdownMenu(
+                modifier = Modifier
+                    .width(200.dp)
+                    .requiredSizeIn(maxHeight = 180.dp),
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
+                xOffset = 48.dp,
+                yOffset = 48.dp,
             ) {
                 categories.forEach { category ->
                     DropdownMenuItem(
