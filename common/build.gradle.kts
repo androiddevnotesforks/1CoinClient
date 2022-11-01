@@ -24,12 +24,9 @@ kotlin {
         }
         named("desktopMain") {
             dependencies {
-                api(compose.uiTooling)
-                api(compose.preview)
-
-                api(libs.koin.core)
-
+                implementation(libs.koin.core)
                 implementation(libs.sqldelight.jvm)
+                implementation(libs.datepicker.desktop)
             }
         }
         named("androidMain") {

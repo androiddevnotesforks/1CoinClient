@@ -12,6 +12,7 @@ import com.financetracker.financetracker.TransactionsEntityQueries
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.util.*
 
 class AddTransactionViewModel(
     private val transactionsEntityQueries: TransactionsEntityQueries,
@@ -48,7 +49,8 @@ class AddTransactionViewModel(
             amountCurrency = transaction.amountCurrency,
             categoryId = transaction.category?.id,
             accountId = transaction.account.id,
-            date = transaction.date
+            insertionDate = Date(),
+            date = transaction.date,
         )
     }
 }

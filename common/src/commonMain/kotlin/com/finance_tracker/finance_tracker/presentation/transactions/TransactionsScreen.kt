@@ -2,14 +2,7 @@ package com.finance_tracker.finance_tracker.presentation.transactions
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -17,6 +10,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -34,15 +28,17 @@ import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.transactions.views.TransactionsAppBar
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 
-private val DateFormatter = SimpleDateFormat("dd.mm")
+private val DateFormatter = SimpleDateFormat("dd.MM")
 
 @Composable
 fun TransactionsScreen(
     viewModel: TransactionsViewModel = getViewModel()
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.loadTransactions()
+    }
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -131,7 +127,12 @@ private fun TransactionItem(
         val sign = if (transaction.type == TransactionType.Income) "+" else "-"
         Text(
             text = sign + transaction.amountCurrency + DecimalFormatType.Amount.format(transaction.amount),
-            style = CoinTheme.typography.body2
+            style = CoinTheme.typography.body2,
+            color = if (transaction.type == TransactionType.Income) {
+                CoinTheme.color.accentGreen
+            } else {
+                CoinTheme.color.content
+            }
         )
     }
 }
