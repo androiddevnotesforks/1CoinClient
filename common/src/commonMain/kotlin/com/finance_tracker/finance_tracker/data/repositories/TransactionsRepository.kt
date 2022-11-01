@@ -20,7 +20,7 @@ class TransactionsRepository(
             transactionsEntityQueries.getAllFullTransactions {
                     id, type, amount, amountCurrency, categoryId,
                     accountId, _, date, _, accountType, accountName, balance, accountColorHex,
-                    _, categoryName, categoryIcon, _ ->
+                    _, categoryName, categoryIcon, _, _, _ ->
                 Transaction(
                     id = id,
                     type = type,

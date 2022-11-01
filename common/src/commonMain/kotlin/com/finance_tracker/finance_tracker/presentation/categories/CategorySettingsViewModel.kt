@@ -6,46 +6,80 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import com.finance_tracker.finance_tracker.core.common.ViewModel
+import com.finance_tracker.finance_tracker.core.ui.CategoryTab
 
 class CategorySettingsViewModel(
     private val repository: CategoriesRepository
 ): ViewModel() {
 
-    private val _categories = MutableStateFlow<List<Category>>(emptyList())
-    val categories = _categories.asStateFlow()
+    private val _expenseCategories = MutableStateFlow<List<Category>>(emptyList())
+    val expenseCategories = _expenseCategories.asStateFlow()
 
-    init {
-        loadAllCategories()
+    private val _incomeCategories = MutableStateFlow<List<Category>>(emptyList())
+    val incomeCategories = _incomeCategories.asStateFlow()
+
+    private val _chosenScreen = MutableStateFlow(CategoryTab.Expense)
+    val chosenScreen = _chosenScreen.asStateFlow()
+
+    fun onCategorySelect(categoryTab: CategoryTab) {
+        _chosenScreen.value = categoryTab
     }
 
-    private fun loadAllCategories() {
+    init {
+        loadAllExpenseCategories()
+        loadAllIncomeCategories()
+    }
+
+    private fun loadAllExpenseCategories() {
         viewModelScope.launch {
-            _categories.value = repository.getAllCategories()
+            _expenseCategories.value = repository.getAllExpenseCategories()
         }
     }
 
-    fun swapCategories(from: Int, to: Int) {
-        val fromItem = _categories.value[from]
-        val toItem = _categories.value[to]
-        val newList = _categories.value.toMutableList()
+    private fun loadAllIncomeCategories() {
+        viewModelScope.launch {
+            _incomeCategories.value = repository.getAllIncomeCategories()
+        }
+    }
+
+    fun swapExpenseCategories(from: Int, to: Int) {
+        val fromItem = _expenseCategories.value[from]
+        val toItem = _expenseCategories.value[to]
+        val newList = _expenseCategories.value.toMutableList()
         newList[from] = toItem
         newList[to] = fromItem
 
-        _categories.value = newList
-        saveListState(fromItem, toItem)
+        _expenseCategories.value = newList
+        saveListState(fromItem.id, toItem.id)
     }
 
-    private fun saveListState(categoryFrom: Category, categoryTo: Category) {
+    fun swapIncomeCategories(from: Int, to: Int) {
+        val fromItem = _incomeCategories.value[from]
+        val toItem = _incomeCategories.value[to]
+        val newList = _incomeCategories.value.toMutableList()
+
+        newList[from] = toItem
+        newList[to] = fromItem
+
+        _incomeCategories.value = newList
+        saveListState(fromItem.id, toItem.id)
+    }
+
+    private fun saveListState(categoryFromId: Long, categoryToId: Long) {
         viewModelScope.launch {
-            repository.updateCategoryPosition(categoryFrom, categoryTo)
+            repository.updateCategoryPosition(categoryFromId, categoryToId)
         }
     }
 
     fun deleteCategory(id: Long) {
         viewModelScope.launch {
             repository.deleteCategoryById(id)
-            loadAllCategories()
+
+            if(_chosenScreen.value == CategoryTab.Expense) {
+                loadAllExpenseCategories()
+            } else {
+                loadAllIncomeCategories()
+            }
         }
     }
-
 }
