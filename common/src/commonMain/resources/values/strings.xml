@@ -6,6 +6,10 @@
 
     <string name="transactions_title">Transactions</string>
 
+    <string name="account_type_debit_card">Debit card</string>
+    <string name="account_type_credit_card">Credit card</string>
+    <string name="account_type_cash">Cash</string>
+
     <!-- Tabs -->
     <string name="tab_home">Home</string>
     <string name="tab_transactions">Transactions</string>

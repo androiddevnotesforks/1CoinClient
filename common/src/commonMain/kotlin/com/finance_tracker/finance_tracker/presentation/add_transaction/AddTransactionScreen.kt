@@ -26,15 +26,11 @@ fun AddTransactionScreen(
 ) {
     val navController = LocalRootController.current
     CoinTheme {
+        LaunchedEffect(Unit) { viewModel.onScreenComposed() }
         var selectedTransactionType by remember { mutableStateOf(TransactionType.Expense) }
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            CategoriesAppBar(
-                selectedTransactionType = selectedTransactionType,
-                onTransactionTypeSelect = { selectedTransactionType = it }
-            )
-
             var amountText by remember { mutableStateOf("0") }
             var accountData by remember {
                 mutableStateOf<Account?>(null)
@@ -42,6 +38,32 @@ fun AddTransactionScreen(
             var categoryData by remember {
                 mutableStateOf<Category?>(null)
             }
+            var localDate by remember { mutableStateOf(LocalDate.now()) }
+
+            val isAddTransactionEnabled = accountData != null && categoryData != null
+            val onAddTransaction = {
+                val account = accountData
+                if (account != null) {
+                    viewModel.addTransaction(
+                        Transaction(
+                            type = selectedTransactionType,
+                            amountCurrency = "$",
+                            account = account,
+                            category = categoryData,
+                            amount = amountText.toDouble(),
+                            date = localDate.toDate()
+                        )
+                    )
+                    navController.popBackStack()
+                }
+            }
+            CategoriesAppBar(
+                doneButtonEnabled = isAddTransactionEnabled,
+                selectedTransactionType = selectedTransactionType,
+                onTransactionTypeSelect = { selectedTransactionType = it },
+                onDoneClick = onAddTransaction
+            )
+
             AmountTextField(
                 modifier = Modifier
                     .weight(1f),
@@ -49,7 +71,6 @@ fun AddTransactionScreen(
                 amount = amountText
             )
 
-            var localDate by remember { mutableStateOf(LocalDate.now()) }
             CalendarDayView(
                 date = localDate,
                 onDateChange = { localDate = it }
@@ -85,10 +106,14 @@ fun AddTransactionScreen(
                         onStepSelect = { currentStep = it }
                     )
 
+                    val categoriesFlow = when (selectedTransactionType) {
+                        TransactionType.Expense -> viewModel.expenseCategories
+                        TransactionType.Income -> viewModel.incomeCategories
+                    }
                     EnterTransactionController(
                         modifier = Modifier.weight(1f),
                         accounts = viewModel.accounts.value,
-                        categories = viewModel.categories.value,
+                        categories = categoriesFlow.value,
                         currentStep = currentStep,
                         animationDirection = if (currentStep.ordinal >= previousStepIndex) {
                             1
@@ -146,20 +171,8 @@ fun AddTransactionScreen(
                     )
 
                     AddButtonSection(
-                        enabled = accountData != null && categoryData != null,
-                        onAddClick = {
-                            viewModel.addTransaction(
-                                Transaction(
-                                    type = selectedTransactionType,
-                                    amountCurrency = "$",
-                                    account = accountData ?: return@AddButtonSection,
-                                    category = categoryData,
-                                    amount = amountText.toDouble(),
-                                    date = localDate.toDate()
-                                )
-                            )
-                            navController.popBackStack()
-                        }
+                        enabled = isAddTransactionEnabled,
+                        onAddClick = onAddTransaction
                     )
                 }
             }

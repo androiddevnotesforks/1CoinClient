@@ -12,6 +12,7 @@ import com.financetracker.financetracker.TransactionsEntityQueries
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import java.util.*
 
 class AddTransactionViewModel(
@@ -23,22 +24,31 @@ class AddTransactionViewModel(
     private val _accounts: MutableStateFlow<List<Account>> = MutableStateFlow(emptyList())
     val accounts: StateFlow<List<Account>> = _accounts.asStateFlow()
 
-    private val _categories: MutableStateFlow<List<Category>> = MutableStateFlow(emptyList())
-    val categories: StateFlow<List<Category>> = _categories.asStateFlow()
+    private val _expenseCategories: MutableStateFlow<List<Category>> = MutableStateFlow(emptyList())
+    val expenseCategories: StateFlow<List<Category>> = _expenseCategories.asStateFlow()
 
-    init {
+    private val _incomeCategories: MutableStateFlow<List<Category>> = MutableStateFlow(emptyList())
+    val incomeCategories: StateFlow<List<Category>> = _incomeCategories.asStateFlow()
+
+    fun onScreenComposed() {
         loadAccounts()
         loadCategories()
     }
 
     private fun loadAccounts() {
-        _accounts.value = accountsEntityQueries.getAllAccounts().executeAsList()
-            .map { it.accountToDomainModel() }
+        viewModelScope.launch {
+            _accounts.value = accountsEntityQueries.getAllAccounts().executeAsList()
+                .map { it.accountToDomainModel() }
+        }
     }
 
     private fun loadCategories() {
-        _categories.value = categoriesEntityQueries.getAllCategories().executeAsList()
-            .map { it.categoryToDomainModel() }
+        viewModelScope.launch {
+            _expenseCategories.value = categoriesEntityQueries.getAllExpenseCategories().executeAsList()
+                .map { it.categoryToDomainModel() }
+            _incomeCategories.value = categoriesEntityQueries.getAllIncomeCategories().executeAsList()
+                .map { it.categoryToDomainModel() }
+        }
     }
 
     fun addTransaction(transaction: Transaction) {

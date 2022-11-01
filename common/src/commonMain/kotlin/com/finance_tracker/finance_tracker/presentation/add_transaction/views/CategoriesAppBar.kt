@@ -1,5 +1,8 @@
 package com.finance_tracker.finance_tracker.presentation.add_transaction.views
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -10,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -44,9 +48,11 @@ private fun CategoryTab.toTransactionType(): TransactionType {
 
 @Composable
 fun CategoriesAppBar(
+    doneButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
     selectedTransactionType: TransactionType = TransactionType.Expense,
-    onTransactionTypeSelect: (TransactionType) -> Unit = {}
+    onTransactionTypeSelect: (TransactionType) -> Unit = {},
+    onDoneClick: () -> Unit = {}
 ) {
     val rootController = LocalRootController.current
     TopAppBar(
@@ -79,7 +85,11 @@ fun CategoriesAppBar(
             }
         },
         actions = {
-            AppBarIcon(painter = rememberVectorPainter("ic_arrow_refresh"))
+            AppBarIcon(
+                painter = rememberVectorPainter("ic_done"),
+                onClick = onDoneClick,
+                enabled = doneButtonEnabled
+            )
         },
         backgroundColor = CoinTheme.color.background
     )
@@ -92,6 +102,15 @@ private fun CategoryItem(
     modifier: Modifier = Modifier,
     onClick: (CategoryTab) -> Unit
 ) {
+    val targetTextColor = if (selectedCategoryTab == categoryTab) {
+        Color.Black
+    } else {
+        Color.Black.copy(alpha = 0.2f)
+    }
+    val textColor by animateColorAsState(
+        targetValue = targetTextColor,
+        animationSpec = spring(stiffness = Spring.StiffnessMediumLow)
+    )
     Text(
         modifier = modifier
             .padding(horizontal = 1.dp)
@@ -100,10 +119,6 @@ private fun CategoryItem(
             .padding(horizontal = 7.dp, vertical = 8.dp),
         text = stringResource(categoryTab.textId),
         fontSize = 16.sp,
-        color = if (selectedCategoryTab == categoryTab) {
-            Color.Black
-        } else {
-            Color.Black.copy(alpha = 0.2f)
-        }
+        color = textColor
     )
 }
