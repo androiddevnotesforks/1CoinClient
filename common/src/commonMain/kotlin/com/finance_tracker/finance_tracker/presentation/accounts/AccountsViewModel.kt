@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.accounts
 
-import com.finance_tracker.finance_tracker.core.common.ViewModel
+import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.models.Account
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class AccountsViewModel(
     private val repository: AccountsRepository
-): ViewModel() {
+): KViewModel() {
 
     private val _accounts = MutableStateFlow<List<Account>>(emptyList())
     val accounts = _accounts.asStateFlow()

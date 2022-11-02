@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LazyDragColumn
-import com.finance_tracker.finance_tracker.core.common.getViewModel
+import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
@@ -20,47 +20,47 @@ import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
 import com.finance_tracker.finance_tracker.domain.models.Category
 
 @Composable
-fun CategorySettingsScreen(
-    viewModel: CategorySettingsViewModel = getViewModel()
-) {
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .statusBarsPadding()
-            .navigationBarsPadding()
-    ) {
-
-        val incomeCategories by viewModel.incomeCategories.collectAsState()
-        val expenseCategories by viewModel.expenseCategories.collectAsState()
-        val selectedCategoryTab by viewModel.chosenScreen.collectAsState()
-
-        CategorySettingsAppBar(selectedCategoryTab = selectedCategoryTab)
-
-        ExpenseIncomeTabs(
+fun CategorySettingsScreen() {
+    StoredViewModel<CategorySettingsViewModel> { viewModel ->
+        Column(
             modifier = Modifier
-                .padding(
-                    top = 24.dp,
-                    start = 20.dp,
-                    bottom = 4.dp,
-                ),
-            onCategorySelect = viewModel::onCategorySelect
-        )
+                .fillMaxSize()
+                .statusBarsPadding()
+                .navigationBarsPadding()
+        ) {
 
-        when(selectedCategoryTab) {
-            CategoryTab.Expense -> {
-                CategoriesLazyColumn(
-                    categories = expenseCategories,
-                    onSwap = viewModel::swapExpenseCategories,
-                    onCrossDeleteClick = viewModel::deleteCategory
-                )
-            }
-            CategoryTab.Income -> {
-                CategoriesLazyColumn(
-                    categories = incomeCategories,
-                    onSwap = viewModel::swapIncomeCategories,
-                    onCrossDeleteClick = viewModel::deleteCategory
-                )
+            val incomeCategories by viewModel.incomeCategories.collectAsState()
+            val expenseCategories by viewModel.expenseCategories.collectAsState()
+            val selectedCategoryTab by viewModel.chosenScreen.collectAsState()
+
+            CategorySettingsAppBar(selectedCategoryTab = selectedCategoryTab)
+
+            ExpenseIncomeTabs(
+                modifier = Modifier
+                    .padding(
+                        top = 24.dp,
+                        start = 20.dp,
+                        bottom = 4.dp,
+                    ),
+                onCategorySelect = viewModel::onCategorySelect
+            )
+
+            when (selectedCategoryTab) {
+                CategoryTab.Expense -> {
+                    CategoriesLazyColumn(
+                        categories = expenseCategories,
+                        onSwap = viewModel::swapExpenseCategories,
+                        onCrossDeleteClick = viewModel::deleteCategory
+                    )
+                }
+
+                CategoryTab.Income -> {
+                    CategoriesLazyColumn(
+                        categories = incomeCategories,
+                        onSwap = viewModel::swapIncomeCategories,
+                        onCrossDeleteClick = viewModel::deleteCategory
+                    )
+                }
             }
         }
     }

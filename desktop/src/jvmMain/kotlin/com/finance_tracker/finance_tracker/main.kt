@@ -9,7 +9,7 @@ import androidx.compose.ui.window.singleWindowApplication
 import com.finance_tracker.finance_tracker.core.common.MessageKeyQueue
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.navigation.main.navigationGraph
-import com.finance_tracker.finance_tracker.core.theme.setupThemedNavigation
+import com.finance_tracker.finance_tracker.core.navigation.setupNavigation
 import com.finance_tracker.finance_tracker.data.database.DatabaseInitializer
 import com.finance_tracker.finance_tracker.di.commonModules
 import org.koin.core.context.startKoin
@@ -21,7 +21,6 @@ private val databaseInitializer: DatabaseInitializer by inject(DatabaseInitializ
 fun main() = singleWindowApplication(
     title = "",
     onKeyEvent = {
-        println()
         if (
             it.key == Key.DirectionLeft &&
             it.type == KeyEventType.KeyDown
@@ -34,7 +33,7 @@ fun main() = singleWindowApplication(
 ) {
     initKoin()
     databaseInitializer.init()
-    setupThemedNavigation(MainNavigationTree.Main.name) { navigationGraph() }
+    setupNavigation(MainNavigationTree.Main.name) { navigationGraph() }
 }
 
 private fun initKoin() {
