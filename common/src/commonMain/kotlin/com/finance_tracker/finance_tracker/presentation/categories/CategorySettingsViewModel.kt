@@ -25,7 +25,11 @@ class CategorySettingsViewModel(
         _chosenScreen.value = categoryTab
     }
 
-    init {
+    fun onScreenComposed() {
+        loadAllCategories()
+    }
+
+    private fun loadAllCategories() {
         loadAllExpenseCategories()
         loadAllIncomeCategories()
     }
