@@ -21,19 +21,19 @@ class CategorySettingsViewModel(
     private val _chosenScreen = MutableStateFlow(CategoryTab.Expense)
     val chosenScreen = _chosenScreen.asStateFlow()
 
+    init {
+        loadAllCategories()
+    }
+
     fun onCategorySelect(categoryTab: CategoryTab) {
         _chosenScreen.value = categoryTab
     }
 
     fun onScreenComposed() {
-        loadAllCategoriesSeparately()
+        loadAllCategories()
     }
 
-    init {
-        loadAllCategoriesSeparately()
-    }
-
-    private fun loadAllCategoriesSeparately() {
+    private fun loadAllCategories() {
         loadAllExpenseCategories()
         loadAllIncomeCategories()
     }

@@ -13,9 +13,9 @@ class AddCategoryViewModel(
 
     private val _chosenCategory = MutableStateFlow(
         Category(
-        id = 0,
-        name = "Restaurant",
-        iconId = "ic_category_1"
+            id = 0,
+            name = "Restaurant",
+            iconId = "ic_category_1"
         )
     )
     val chosenCategory = _chosenCategory.asStateFlow()
