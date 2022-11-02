@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -23,6 +24,10 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 fun CategorySettingsScreen(
     viewModel: CategorySettingsViewModel = getViewModel()
 ) {
+
+    LaunchedEffect(Unit) {
+        viewModel.onScreenComposed()
+    }
 
     Column(
         modifier = Modifier
