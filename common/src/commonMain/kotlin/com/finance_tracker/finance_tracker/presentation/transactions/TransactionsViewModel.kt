@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.transactions
 
-import com.finance_tracker.finance_tracker.core.common.ViewModel
+import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import kotlinx.coroutines.Job
@@ -13,7 +13,7 @@ import java.util.*
 
 class TransactionsViewModel constructor(
     private val transactionsRepository: TransactionsRepository
-): ViewModel() {
+): KViewModel() {
 
     private val _transactions: MutableStateFlow<List<TransactionUiModel>> = MutableStateFlow(emptyList())
     val transactions: StateFlow<List<TransactionUiModel>> = _transactions.asStateFlow()

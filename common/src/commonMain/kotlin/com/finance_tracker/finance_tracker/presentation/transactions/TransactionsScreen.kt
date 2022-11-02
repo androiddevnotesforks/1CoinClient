@@ -19,7 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.DateFormatType
 import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
-import com.finance_tracker.finance_tracker.core.common.getViewModel
+import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
@@ -33,22 +33,22 @@ import java.util.*
 private val DateFormatter = SimpleDateFormat("dd.MM")
 
 @Composable
-fun TransactionsScreen(
-    viewModel: TransactionsViewModel = getViewModel()
-) {
-    LaunchedEffect(Unit) {
-        viewModel.loadTransactions()
-    }
-    Column(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        TransactionsAppBar()
+fun TransactionsScreen() {
+    StoredViewModel<TransactionsViewModel> { viewModel ->
+        LaunchedEffect(Unit) {
+            viewModel.loadTransactions()
+        }
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            TransactionsAppBar()
 
-        val transactions by viewModel.transactions.collectAsState()
-        if (transactions.isEmpty()) {
-            EmptyTransactionsStub()
-        } else {
-            TransactionsList(transactions = transactions)
+            val transactions by viewModel.transactions.collectAsState()
+            if (transactions.isEmpty()) {
+                EmptyTransactionsStub()
+            } else {
+                TransactionsList(transactions = transactions)
+            }
         }
     }
 }

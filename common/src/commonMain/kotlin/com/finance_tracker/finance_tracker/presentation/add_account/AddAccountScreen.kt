@@ -17,7 +17,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalContext
-import com.finance_tracker.finance_tracker.core.common.getViewModel
+import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -34,98 +34,98 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 private const val AccountNameCharsLimit = 40
 
 @Composable
-fun AddAccountScreen(
-    viewModel: AddAccountViewModel = getViewModel(),
-) {
-    val rootController = LocalRootController.current
-    val context = LocalContext.current
-    LaunchedEffect(Unit) {
-        viewModel.events
-            .onEach { event -> handleEvent(event, context, rootController) }
-            .launchIn(this)
-    }
-    Column {
-        AddAccountTopBar(
-            modifier = Modifier
-                .statusBarsPadding()
-        )
-
-        val titleAccount by viewModel.enteredAccountName.collectAsState()
-        CoinOutlinedTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, start = 16.dp, end = 16.dp),
-            value = titleAccount,
-            label = {
-                Text(
-                    text = stringResource("new_account_field_name_label")
-                )
-            },
-            placeholder = {
-                Text(
-                    text = stringResource("new_account_field_name_placeholder"),
-                    style = CoinTheme.typography.body1.staticTextSize()
-                )
-            },
-            onValueChange = viewModel::onAccountNameChange,
-            maxLines = 1,
-            singleLine = true,
-            charsLimit = AccountNameCharsLimit,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-        )
-
-        Row(
-            modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp)
-        ) {
-            AccountTypeTextField(viewModel = viewModel)
-            Spacer(modifier = Modifier.width(8.dp))
-            AccountColorTextField(viewModel = viewModel)
+fun AddAccountScreen() {
+    StoredViewModel<AddAccountViewModel> { viewModel ->
+        val rootController = LocalRootController.current
+        val context = LocalContext.current
+        LaunchedEffect(Unit) {
+            viewModel.events
+                .onEach { event -> handleEvent(event, context, rootController) }
+                .launchIn(this)
         }
+        Column {
+            AddAccountTopBar(
+                modifier = Modifier
+                    .statusBarsPadding()
+            )
 
-        val amountAccount by viewModel.enteredAmount.collectAsState()
-        val amountCurrencies by viewModel.amountCurrencies.collectAsState()
-        val selectedCurrency by viewModel.selectedCurrency.collectAsState()
-        CoinOutlinedTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, start = 16.dp, end = 16.dp),
-            value = amountAccount,
-            label = {
-                Text(
-                    text = stringResource("new_account_field_amount_label"),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            },
-            placeholder = {
-                Text(
-                    text = stringResource("new_account_field_amount_placeholder"),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = CoinTheme.typography.body1.staticTextSize()
-                )
-            },
-            onValueChange = viewModel::onAmountChange,
-            maxLines = 1,
-            trailingIcon = {
-                CurrencySelector(
-                    items = amountCurrencies,
-                    selectedCurrency = selectedCurrency,
-                    onCurrencySelect = viewModel::onCurrencySelect
-                )
-            },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-        )
+            val titleAccount by viewModel.enteredAccountName.collectAsState()
+            CoinOutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                value = titleAccount,
+                label = {
+                    Text(
+                        text = stringResource("new_account_field_name_label")
+                    )
+                },
+                placeholder = {
+                    Text(
+                        text = stringResource("new_account_field_name_placeholder"),
+                        style = CoinTheme.typography.body1.staticTextSize()
+                    )
+                },
+                onValueChange = viewModel::onAccountNameChange,
+                maxLines = 1,
+                singleLine = true,
+                charsLimit = AccountNameCharsLimit,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            )
 
-        val isAddButtonEnabled by viewModel.isAddButtonEnabled.collectAsState()
-        PrimaryButton(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, start = 16.dp, end = 16.dp),
-            text = stringResource("new_account_btn_add"),
-            onClick = viewModel::onAddAccountClick,
-            enabled = isAddButtonEnabled
-        )
+            Row(
+                modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp)
+            ) {
+                AccountTypeTextField(viewModel = viewModel)
+                Spacer(modifier = Modifier.width(8.dp))
+                AccountColorTextField(viewModel = viewModel)
+            }
+
+            val amountAccount by viewModel.enteredAmount.collectAsState()
+            val amountCurrencies by viewModel.amountCurrencies.collectAsState()
+            val selectedCurrency by viewModel.selectedCurrency.collectAsState()
+            CoinOutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                value = amountAccount,
+                label = {
+                    Text(
+                        text = stringResource("new_account_field_amount_label"),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                },
+                placeholder = {
+                    Text(
+                        text = stringResource("new_account_field_amount_placeholder"),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = CoinTheme.typography.body1.staticTextSize()
+                    )
+                },
+                onValueChange = viewModel::onAmountChange,
+                maxLines = 1,
+                trailingIcon = {
+                    CurrencySelector(
+                        items = amountCurrencies,
+                        selectedCurrency = selectedCurrency,
+                        onCurrencySelect = viewModel::onCurrencySelect
+                    )
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            )
+
+            val isAddButtonEnabled by viewModel.isAddButtonEnabled.collectAsState()
+            PrimaryButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                text = stringResource("new_account_btn_add"),
+                onClick = viewModel::onAddAccountClick,
+                enabled = isAddButtonEnabled
+            )
+        }
     }
 }
 

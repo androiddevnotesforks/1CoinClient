@@ -8,9 +8,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.BackHandler
-import com.finance_tracker.finance_tracker.core.common.getViewModel
+import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.toDate
-import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.*
@@ -18,12 +17,11 @@ import com.finance_tracker.finance_tracker.presentation.add_transaction.views.en
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
-fun AddTransactionScreen(
-    viewModel: AddTransactionViewModel = getViewModel()
-) {
-    val navController = LocalRootController.current
-    CoinTheme {
+fun AddTransactionScreen() {
+    StoredViewModel<AddTransactionViewModel> { viewModel ->
+        val navController = LocalRootController.current
         LaunchedEffect(Unit) { viewModel.onScreenComposed() }
+
         val selectedTransactionType by viewModel.selectedTransactionType.collectAsState()
         Column(
             modifier = Modifier.fillMaxSize()
@@ -101,10 +99,12 @@ fun AddTransactionScreen(
                         TransactionType.Expense -> viewModel.expenseCategories
                         TransactionType.Income -> viewModel.incomeCategories
                     }
+                    val accounts by viewModel.accounts.collectAsState()
+                    val categories by categoriesFlow.collectAsState()
                     EnterTransactionController(
                         modifier = Modifier.weight(1f),
-                        accounts = viewModel.accounts.value,
-                        categories = categoriesFlow.value,
+                        accounts = accounts,
+                        categories = categories,
                         currentStep = currentStep,
                         animationDirection = if (currentStep.ordinal >= previousStepIndex) {
                             1

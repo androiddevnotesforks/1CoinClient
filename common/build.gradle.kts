@@ -19,8 +19,9 @@ kotlin {
                 api(compose.uiTooling)
                 api(compose.preview)
 
-                api(libs.koin.core)
+                api(libs.bundles.koin.common)
                 api(libs.bundles.odyssey)
+                api(libs.bundles.kviewmodel)
             }
         }
         named("desktopMain") {
@@ -33,7 +34,7 @@ kotlin {
         named("androidMain") {
             dependencies {
                 implementation(libs.viewModel)
-                implementation(libs.bundles.koin.android)
+                implementation(libs.koin.android)
                 implementation(libs.sqldelight.android)
             }
         }

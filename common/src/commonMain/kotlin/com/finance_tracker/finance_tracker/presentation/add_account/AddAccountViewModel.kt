@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.add_account
 
+import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.core.common.EventChannel
-import com.finance_tracker.finance_tracker.core.common.ViewModel
 import com.finance_tracker.finance_tracker.core.common.toHexString
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class AddAccountViewModel(
     private val accountsRepository: AccountsRepository
-): ViewModel() {
+): KViewModel() {
 
     private val _amountCurrencies = MutableStateFlow(Currency.list)
     val amountCurrencies = _amountCurrencies.asStateFlow()

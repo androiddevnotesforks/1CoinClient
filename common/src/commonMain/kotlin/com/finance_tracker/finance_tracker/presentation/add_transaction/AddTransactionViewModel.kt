@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.add_transaction
 
-import com.finance_tracker.finance_tracker.core.common.ViewModel
+import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -23,7 +23,7 @@ class AddTransactionViewModel(
     private val transactionsEntityQueries: TransactionsEntityQueries,
     private val accountsEntityQueries: AccountsEntityQueries,
     private val categoriesEntityQueries: CategoriesEntityQueries
-): ViewModel() {
+): KViewModel() {
 
     private val _accounts: MutableStateFlow<List<Account>> = MutableStateFlow(emptyList())
     val accounts: StateFlow<List<Account>> = _accounts.asStateFlow()

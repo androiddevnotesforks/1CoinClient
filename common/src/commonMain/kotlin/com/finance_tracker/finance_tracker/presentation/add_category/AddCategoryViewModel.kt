@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.add_category
 
-import com.finance_tracker.finance_tracker.core.common.ViewModel
+import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepository
 import com.finance_tracker.finance_tracker.domain.models.Category
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class AddCategoryViewModel(
     private val repository: CategoriesRepository
-): ViewModel() {
+): KViewModel() {
 
     private val _chosenCategory = MutableStateFlow(
         Category(
@@ -36,7 +36,7 @@ class AddCategoryViewModel(
         }
     }
 
-    fun setChosenCategory(category: Category) {
+    fun onCategoryChoose(category: Category) {
         _chosenCategory.value = category
     }
 
