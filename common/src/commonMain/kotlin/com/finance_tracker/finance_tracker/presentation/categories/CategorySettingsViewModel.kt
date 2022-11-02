@@ -1,12 +1,12 @@
 package com.finance_tracker.finance_tracker.presentation.categories
 
+import com.finance_tracker.finance_tracker.core.common.ViewModel
+import com.finance_tracker.finance_tracker.core.ui.CategoryTab
 import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepository
 import com.finance_tracker.finance_tracker.domain.models.Category
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import com.finance_tracker.finance_tracker.core.common.ViewModel
-import com.finance_tracker.finance_tracker.core.ui.CategoryTab
 
 class CategorySettingsViewModel(
     private val repository: CategoriesRepository
@@ -25,7 +25,15 @@ class CategorySettingsViewModel(
         _chosenScreen.value = categoryTab
     }
 
+    fun onScreenComposed() {
+        loadAllCategoriesSeparately()
+    }
+
     init {
+        loadAllCategoriesSeparately()
+    }
+
+    private fun loadAllCategoriesSeparately() {
         loadAllExpenseCategories()
         loadAllIncomeCategories()
     }

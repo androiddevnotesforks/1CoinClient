@@ -11,10 +11,12 @@ class AddCategoryViewModel(
     private val repository: CategoriesRepository
 ): ViewModel() {
 
-    private val _chosenCategory = MutableStateFlow(Category(
+    private val _chosenCategory = MutableStateFlow(
+        Category(
         id = 0,
         name = "Restaurant",
-        iconId = "ic_category_1")
+        iconId = "ic_category_1"
+        )
     )
     val chosenCategory = _chosenCategory.asStateFlow()
 
