@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     id("com.squareup.sqldelight")
+    id("kotlin-parcelize")
 }
 
 kotlin {

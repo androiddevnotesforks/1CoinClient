@@ -4,23 +4,42 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.getViewModel
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeScreenViewModel = getViewModel()
+    viewModel: HomeViewModel = getViewModel()
 ) {
 
     val accounts by viewModel.accounts.collectAsState()
-    val context = LocalContext.current
+
+    LaunchedEffect(Unit) {
+        viewModel.onScreenComposed()
+    }
+
+    val accountsLazyListState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+    LaunchedEffect(Unit) {
+        viewModel.events
+            .filterNotNull()
+            .onEach { event ->
+                handleEvent(
+                    event,
+                    coroutineScope,
+                    accountsLazyListState
+                )
+            }
+            .launchIn(this)
+    }
 
     Column(
         modifier = Modifier
@@ -36,7 +55,9 @@ fun HomeScreen(
                 .padding(top = 26.dp),
         )
 
-        AccountsWidget(data = accounts)
-
+        AccountsWidget(
+            data = accounts,
+            state = accountsLazyListState
+        )
     }
 }

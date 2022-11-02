@@ -16,7 +16,7 @@ import com.finance_tracker.finance_tracker.core.ui.AccountCard
 
 @Composable
 fun AccountsScreen(
-    viewModel: AccountsScreenViewModel = getViewModel(),
+    viewModel: AccountsViewModel = getViewModel(),
 ) {
 
     Column {

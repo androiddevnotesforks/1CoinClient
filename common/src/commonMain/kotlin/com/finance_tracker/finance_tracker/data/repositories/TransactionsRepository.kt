@@ -2,10 +2,8 @@ package com.finance_tracker.finance_tracker.data.repositories
 
 import com.finance_tracker.finance_tracker.core.common.DateFormatType
 import com.finance_tracker.finance_tracker.core.common.hexToColor
-import com.finance_tracker.finance_tracker.domain.models.Account
-import com.finance_tracker.finance_tracker.domain.models.Category
-import com.finance_tracker.finance_tracker.domain.models.Transaction
-import com.finance_tracker.finance_tracker.domain.models.TransactionType
+import com.finance_tracker.finance_tracker.domain.models.*
+import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.financetracker.financetracker.TransactionsEntityQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -19,7 +17,7 @@ class TransactionsRepository(
         return withContext(Dispatchers.IO) {
             transactionsEntityQueries.getAllFullTransactions {
                     id, type, amount, amountCurrency, categoryId,
-                    accountId, _, date, _, accountType, accountName, balance, accountColorHex,
+                    accountId, _, date, _, accountType, accountName, balance, accountColorHex, currency,
                     _, categoryName, categoryIcon, _, _, _ ->
                 Transaction(
                     id = id,
@@ -30,7 +28,8 @@ class TransactionsRepository(
                         type = accountType,
                         color = accountColorHex.hexToColor(),
                         name = accountName,
-                        balance = balance
+                        balance = balance,
+                        currency = Currency.getByName(currency)
                     ),
                     category = categoryId?.let {
                         Category(
