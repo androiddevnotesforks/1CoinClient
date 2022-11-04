@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
+import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.CollapsingToolbarScaffoldState
@@ -63,7 +64,7 @@ fun EditButton(
                     alpha = state.toolbarState.progress
                 }
                 .padding(start = 4.dp),
-            text = "Edit", // TODO: to resources
+            text = stringResource("detail_account_btn_edit"),
             color = tint,
             style = CoinTheme.typography.body2_medium.staticTextSize(),
             maxLines = 1,
