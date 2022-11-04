@@ -26,6 +26,7 @@ import com.finance_tracker.finance_tracker.presentation.detail_account.views.Acc
 import com.finance_tracker.finance_tracker.presentation.detail_account.views.DetailAccountAppBar
 import com.finance_tracker.finance_tracker.presentation.detail_account.views.DetailAccountExpandedAppBar
 import com.finance_tracker.finance_tracker.presentation.detail_account.views.EditButton
+import org.koin.core.parameter.parametersOf
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
@@ -33,7 +34,9 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 fun DetailAccountScreen(
     account: Account
 ) {
-    StoredViewModel<DetailAccountViewModel> { viewModel ->
+    StoredViewModel<DetailAccountViewModel>(
+        parameters = { parametersOf(account) }
+    ) { viewModel ->
         LaunchedEffect(Unit) {
             viewModel.onScreenComposed()
         }
