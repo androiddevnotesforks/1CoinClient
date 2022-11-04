@@ -19,9 +19,9 @@ fun RootComposeBuilder.navigationGraph() {
         CategorySettingsScreen()
     }
 
-    screen(MainNavigationTree.AddAccount.name) {
+    screen(MainNavigationTree.AddAccount.name) { account ->
         AddAccountScreen(
-            account = it as? Account
+            account = account as? Account ?: Account.EMPTY
         )
     }
 
