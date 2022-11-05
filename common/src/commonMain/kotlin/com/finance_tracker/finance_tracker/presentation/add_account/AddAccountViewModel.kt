@@ -18,8 +18,10 @@ import kotlinx.coroutines.launch
 
 class AddAccountViewModel(
     private val accountsRepository: AccountsRepository,
-    private val account: Account?
+    private val _account: Account
 ): KViewModel() {
+
+    private val account: Account? = _account.takeIf { _account != Account.EMPTY }
 
     private val _amountCurrencies = MutableStateFlow(Currency.list)
     val amountCurrencies = _amountCurrencies.asStateFlow()
@@ -67,7 +69,7 @@ class AddAccountViewModel(
     private fun loadAccountColors() {
         viewModelScope.launch {
             _colors.value = accountsRepository.getAllAccountColors()
-            _selectedColor.value = colors.value.firstOrNull { it.color == account?.color } ?: colors.value.first()
+            _selectedColor.value = colors.value.firstOrNull { it.color == account?.color }
         }
     }
 
