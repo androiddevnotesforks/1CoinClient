@@ -54,7 +54,7 @@ private const val AccountNameCharsLimit = 40
 
 @Composable
 fun AddAccountScreen(
-    account: Account?
+    account: Account
 ) {
     StoredViewModel<AddAccountViewModel>(
         parameters = { parametersOf(account) }

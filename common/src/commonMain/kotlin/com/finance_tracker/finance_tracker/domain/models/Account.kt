@@ -22,4 +22,15 @@ data class Account(
         } else {
             "ic_card"
         }
+
+    companion object {
+        val EMPTY = Account(
+            id = -1,
+            type = Type.Cash,
+            name = "",
+            balance = 0.0,
+            color = Color.Black,
+            currency = Currency.list.first()
+        )
+    }
 }
