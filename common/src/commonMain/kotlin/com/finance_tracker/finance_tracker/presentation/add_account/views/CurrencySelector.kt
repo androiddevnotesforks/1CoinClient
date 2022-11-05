@@ -66,6 +66,6 @@ fun CurrencySelector(
     AmountCurrenciesDropdownMenu(
         items = items,
         expandedState = currencyMenuExpanded,
-        onCurrencySelect = onCurrencySelect
+        onCurrencySelect = onCurrencySelect,
     )
 }

@@ -3,7 +3,6 @@ package com.finance_tracker.finance_tracker.presentation.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -55,9 +54,7 @@ fun HomeTopBar() {
                         shape = CircleShape
                     )
                     .clickable { modalController.present(bottomDialog) { key ->
-                            SettingsSheet(
-                                modifier = Modifier
-                                    .height(220.dp),
+                            SettingsSheet (
                                 onCloseClick = { modalController.popBackStack(key) }
                             )
                         }
