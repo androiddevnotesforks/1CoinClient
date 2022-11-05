@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.Divider
@@ -37,7 +36,7 @@ fun SettingsSheet(
 
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
-        sheetPeekHeight = 0.dp,
+        sheetPeekHeight = 220.dp,
         sheetContent = {
 
 
@@ -74,7 +73,7 @@ fun SettingsSheet(
                         painter = rememberVectorPainter(id = "ic_category_1"),
                         contentDescription = null,
                         modifier = Modifier
-                            .size(20.dp)
+                            //.size(20.dp)
                             .padding(
                                 start = 16.dp,
                                 end = 8.dp

@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.presentation.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -24,10 +25,10 @@ import ru.alexgladkov.odyssey.compose.navigation.modal_navigation.ModalSheetConf
 @Composable
 fun HomeTopBar() {
     val rootController = LocalRootController.current
-
     val modalController = rootController.findModalController()
 
-    val bottomConf = ModalSheetConfiguration(maxHeight = 0.7f, cornerRadius = 4)
+    val bottomDialog = ModalSheetConfiguration(cornerRadius = 12)
+
     TopAppBar(
         backgroundColor = CoinTheme.color.primaryVariant,
         title = {
@@ -53,9 +54,14 @@ fun HomeTopBar() {
                         color = CoinTheme.color.secondaryBackground,
                         shape = CircleShape
                     )
-                    .clickable { modalController.present(bottomConf) { key ->
-                        SettingsSheet({ modalController.popBackStack(key = key) })
-                    } }
+                    .clickable { modalController.present(bottomDialog) { key ->
+                            SettingsSheet(
+                                modifier = Modifier
+                                    .height(220.dp),
+                                onCloseClick = { modalController.popBackStack(key) }
+                            )
+                        }
+                    }
                     .padding(8.dp),
                 tint = CoinTheme.color.content.copy(alpha = 0.8f)
             )
