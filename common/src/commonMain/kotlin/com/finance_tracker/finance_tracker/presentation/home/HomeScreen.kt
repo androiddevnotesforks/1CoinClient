@@ -13,8 +13,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
-import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
+import com.finance_tracker.finance_tracker.core.common.systemBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
@@ -48,8 +47,7 @@ fun HomeScreen() {
             modifier = Modifier
                 .fillMaxSize()
                 .background(CoinTheme.color.background)
-                .statusBarsPadding()
-                .navigationBarsPadding()
+                .systemBarsPadding()
         ) {
 
             HomeTopBar()

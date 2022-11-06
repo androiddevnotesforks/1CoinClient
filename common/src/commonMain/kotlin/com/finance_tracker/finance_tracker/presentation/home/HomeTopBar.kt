@@ -26,7 +26,7 @@ fun HomeTopBar() {
     val rootController = LocalRootController.current
     val modalController = rootController.findModalController()
 
-    val bottomDialog = ModalSheetConfiguration(cornerRadius = 12)
+    val sheetConfiguration = ModalSheetConfiguration(cornerRadius = 12)
 
     TopAppBar(
         backgroundColor = CoinTheme.color.primaryVariant,
@@ -53,8 +53,9 @@ fun HomeTopBar() {
                         color = CoinTheme.color.secondaryBackground,
                         shape = CircleShape
                     )
-                    .clickable { modalController.present(bottomDialog) { key ->
-                            SettingsSheet (
+                    .clickable {
+                        modalController.present(sheetConfiguration) { key ->
+                            SettingsSheet(
                                 onCloseClick = { modalController.popBackStack(key) }
                             )
                         }
