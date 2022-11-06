@@ -40,7 +40,7 @@ fun SettingsSheetMainCurrencyItem(
                 )
                 .size(24.dp)
                 .align(Alignment.CenterVertically),
-            tint = CoinTheme.color.content
+            tint = CoinTheme.color.content.copy(alpha = 0.6f)
         )
         Text(
             text = stringResource("settings_main_currency"),
