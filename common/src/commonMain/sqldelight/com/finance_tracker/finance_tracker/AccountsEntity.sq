@@ -29,3 +29,8 @@ VALUES (?,?,?,?,?,?);
 deleteAccountById:
 DELETE FROM AccountsEntity
 WHERE id = :id;
+
+updateAccountById:
+UPDATE AccountsEntity
+SET type = :type, name = :name, balance = :balance, colorHex = :colorHex, currency = :currency
+WHERE id = :id;

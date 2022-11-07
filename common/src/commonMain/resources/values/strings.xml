@@ -61,6 +61,7 @@
     <string name="new_account_error_select_account_type">Select type</string>
     <string name="new_account_error_select_account_color">Select color</string>
     <string name="new_account_error_enter_account_balance">Enter amount</string>
+    <string name="edit_account_save">Save</string>
 
     <!-- Detail account -->
     <string name="detail_account_btn_edit">Edit</string>

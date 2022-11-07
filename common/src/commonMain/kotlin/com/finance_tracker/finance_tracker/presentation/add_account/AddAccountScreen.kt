@@ -144,7 +144,11 @@ fun AddAccountScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp, start = 16.dp, end = 16.dp),
-                text = stringResource("new_account_btn_add"),
+                text = if(account == Account.EMPTY) {
+                    stringResource("new_account_btn_add")
+                } else {
+                    stringResource("edit_account_save")
+                },
                 onClick = viewModel::onAddAccountClick,
                 enabled = isAddButtonEnabled
             )
