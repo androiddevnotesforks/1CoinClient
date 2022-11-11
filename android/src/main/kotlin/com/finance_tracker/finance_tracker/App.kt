@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker
 import android.app.Application
 import com.finance_tracker.finance_tracker.data.database.DatabaseInitializer
 import com.finance_tracker.finance_tracker.di.commonModules
+import com.google.firebase.crashlytics.ktx.BuildConfig
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
 import io.github.aakira.napier.DebugAntilog

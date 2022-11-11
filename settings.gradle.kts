@@ -17,7 +17,6 @@ pluginManagement {
         id("io.gitlab.arturbosch.detekt") version "1.21.0"
     }
 }
-
 rootProject.name = "FinanceTracker"
 
 include(":common", ":android", ":desktop")
