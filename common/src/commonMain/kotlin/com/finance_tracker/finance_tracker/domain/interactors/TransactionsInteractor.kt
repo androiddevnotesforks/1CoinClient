@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.domain.interactors
 
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
+import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import java.util.*
@@ -44,6 +45,10 @@ class TransactionsInteractor(
             newTransactions += TransactionListModel.Data(transaction)
         }
         return newTransactions
+    }
+
+    suspend fun deleteTransactions(transactions: List<Transaction>) {
+        transactionsRepository.deleteTransactions(transactions)
     }
 
     private fun Date?.isCalendarDateEquals(date: Date?): Boolean {
