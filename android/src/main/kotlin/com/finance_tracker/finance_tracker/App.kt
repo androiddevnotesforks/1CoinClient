@@ -34,6 +34,6 @@ class App: Application(), KoinComponent {
             Napier.base(CrashlyticsAntilog())
         }
 
-        databaseInitializer.init()
+        databaseInitializer.init(this)
     }
 }
