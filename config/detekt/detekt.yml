@@ -307,7 +307,7 @@ naming:
     excludeClassPattern: '$^'
     ignoreOverridden: true
   FunctionParameterNaming:
-    active: true
+    active: false
     parameterPattern: '[a-z][A-Za-z0-9]*'
     excludeClassPattern: '$^'
     ignoreOverridden: true
@@ -337,7 +337,7 @@ naming:
     active: true
     packagePattern: '^([a-z]{1}[a-z\d_]*\.)+[a-z][a-z\d_]*$'
   TopLevelPropertyNaming:
-    active: true
+    active: false
     constantPattern: '[A-Z][a-zA-Z0-9]*'
     propertyPattern: '[A-Z][a-zA-Z0-9]*'
     privatePropertyPattern: '_?[A-Za-z][_A-Za-z0-9]*'
