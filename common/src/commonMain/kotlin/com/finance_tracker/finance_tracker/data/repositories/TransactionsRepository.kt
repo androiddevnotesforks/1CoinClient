@@ -76,6 +76,14 @@ class TransactionsRepository(
         }
     }
 
+    suspend fun deleteTransactions(transactions: List<Transaction>) {
+        withContext(Dispatchers.IO) {
+            transactionsEntityQueries.deleteTransactionsById(
+                ids = transactions.mapNotNull { it.id }
+            )
+        }
+    }
+
     suspend fun getTotalTransactionAmountByDateAndType(
         date: Date,
         type: TransactionType

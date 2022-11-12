@@ -25,4 +25,15 @@ class TransactionsViewModel constructor(
             _transactions.update { transactionsInteractor.getTransactions() }
         }
     }
+
+    fun onDeleteTransactions(
+        transactions: List<TransactionListModel.Data>
+    ) {
+        viewModelScope.launch {
+            transactionsInteractor.deleteTransactions(
+                transactions = transactions.map { it.transaction }
+            )
+            loadTransactions()
+        }
+    }
 }
