@@ -7,10 +7,16 @@ import com.finance_tracker.finance_tracker.presentation.add_category.AddCategory
 import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionScreen
 import com.finance_tracker.finance_tracker.presentation.categories.CategorySettingsScreen
 import com.finance_tracker.finance_tracker.presentation.detail_account.DetailAccountScreen
+import com.finance_tracker.finance_tracker.presentation.home.HomeScreen
 import ru.alexgladkov.odyssey.compose.extensions.screen
 import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
 
 fun RootComposeBuilder.navigationGraph() {
+
+    screen(MainNavigationTree.Home.name) {
+        HomeScreen()
+    }
+
     screen(MainNavigationTree.AddTransaction.name) {
         AddTransactionScreen()
     }

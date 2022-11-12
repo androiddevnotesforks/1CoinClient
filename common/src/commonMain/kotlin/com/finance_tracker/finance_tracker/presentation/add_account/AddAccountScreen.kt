@@ -9,11 +9,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -23,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalFocusManager
@@ -33,6 +37,7 @@ import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
@@ -69,7 +74,12 @@ fun AddAccountScreen(
         Column {
             AddAccountTopBar(
                 modifier = Modifier
-                    .statusBarsPadding()
+                    .statusBarsPadding(),
+                topBarText = if (account == Account.EMPTY) {
+                    "new_account_title"
+                } else {
+                    "accounts_screen_top_bar"
+                }
             )
 
             val titleAccount by viewModel.enteredAccountName.collectAsState()
@@ -140,18 +150,62 @@ fun AddAccountScreen(
             )
 
             val isAddButtonEnabled by viewModel.isAddButtonEnabled.collectAsState()
-            PrimaryButton(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 16.dp, start = 16.dp, end = 16.dp),
-                text = if(account == Account.EMPTY) {
-                    stringResource("new_account_btn_add")
-                } else {
-                    stringResource("edit_account_save")
-                },
-                onClick = viewModel::onAddAccountClick,
-                enabled = isAddButtonEnabled
-            )
+            if(account == Account.EMPTY) {
+                PrimaryButton(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp,
+                            start = 16.dp,
+                            end = 16.dp),
+                    text = stringResource("new_account_btn_add"),
+                    onClick = viewModel::onAddAccountClick,
+                    enabled = isAddButtonEnabled
+                )
+            } else {
+                Row(
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .padding(
+                                start = 16.dp,
+                                end = 8.dp
+                            )
+                            .size(40.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(
+                                color = CoinTheme.color.secondaryBackground,
+                                shape = RoundedCornerShape(12.dp),
+                            )
+                            .clickable {
+                                viewModel.onDeleteClick(account)
+                                rootController.findRootController().backToScreen(MainNavigationTree.Home.name)
+                            },
+                    ) {
+                        Icon(
+                            painter = rememberVectorPainter("ic_recycle_bin"),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .padding(
+                                    start = 8.dp,
+                                    top = 8.dp
+                                )
+                                .size(24.dp),
+                            tint = CoinTheme.color.accentRed
+                        )
+                    }
+                    PrimaryButton(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(40.dp)
+                            .padding(end = 16.dp),
+                        text = stringResource("edit_account_save"),
+                        onClick = viewModel::onAddAccountClick,
+                        enabled = isAddButtonEnabled
+                    )
+                }
+            }
         }
     }
 }
@@ -279,7 +333,8 @@ fun ColorIcon(accountColorData: AccountColorData?) {
 
 @Composable
 private fun AddAccountTopBar(
-    modifier: Modifier = Modifier
+    topBarText: String,
+    modifier: Modifier = Modifier,
 ) {
     val rootController = LocalRootController.current
     TopAppBar(
@@ -294,7 +349,7 @@ private fun AddAccountTopBar(
         },
         title = {
             Text(
-                text = stringResource("new_account_title"),
+                text = stringResource(topBarText),
                 style = CoinTheme.typography.h4
             )
         }

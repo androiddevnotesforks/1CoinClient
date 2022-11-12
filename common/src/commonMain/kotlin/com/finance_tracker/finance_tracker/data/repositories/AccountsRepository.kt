@@ -70,4 +70,10 @@ class AccountsRepository(
             accountsEntityQueries.getAccountById(id).executeAsOne().accountToDomainModel()
         }
     }
+
+    suspend fun deleteAccountById(id: Long) {
+        withContext(Dispatchers.IO) {
+            accountsEntityQueries.deleteAccountById(id)
+        }
+    }
 }

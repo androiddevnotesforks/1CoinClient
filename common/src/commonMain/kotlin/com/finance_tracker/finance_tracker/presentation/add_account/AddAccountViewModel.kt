@@ -93,6 +93,12 @@ class AddAccountViewModel(
         _enteredAmount.value = amount
     }
 
+    fun onDeleteClick(account: Account) {
+        viewModelScope.launch {
+            accountsRepository.deleteAccountById(account.id)
+        }
+    }
+
     fun onAddAccountClick() {
         viewModelScope.launch {
             val accountName = enteredAccountName.value.takeIf { it.isNotBlank() } ?: run {

@@ -36,6 +36,7 @@
 
     <!--Accounts -->
     <string name="accounts_screen_header">Accounts</string>
+    <string name="accounts_screen_top_bar">Account Settings</string>
 
     <!-- Settings -->
     <string name="settings_top_text">Settings</string>
