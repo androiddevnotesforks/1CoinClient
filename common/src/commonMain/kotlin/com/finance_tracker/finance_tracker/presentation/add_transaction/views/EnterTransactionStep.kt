@@ -11,11 +11,13 @@ enum class EnterTransactionStep(val textId: String? = null): Parcelable {
 
     fun previous(): EnterTransactionStep {
         val steps = values()
-        return steps[ordinal - 1]
+        val previousIndex = (ordinal - 1).coerceAtLeast(0)
+        return steps[previousIndex]
     }
 
     fun next(): EnterTransactionStep {
         val steps = values()
-        return steps[ordinal + 1]
+        val nextIndex = (ordinal + 1).coerceAtMost(steps.size - 1)
+        return steps[nextIndex]
     }
 }
