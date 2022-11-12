@@ -92,8 +92,6 @@ Once it's filed:
 
 ### How to build project
 - Android
-    - Request <i>'google-services.json'</i> file from <a href="https://t.me/infinity_coder">@infinity_coder</a> in Telegram
-    - Add <i>'google-services.json'</i> file in <i>'/android/'</i> folder
     - Sync gradle
     - Run Android configuration project
 - Desktop
