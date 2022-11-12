@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 class SettingsSheetViewModel: KViewModel() {
 
-    private val _chosenCurrency = MutableStateFlow(Currency.list.first())
+    private val _chosenCurrency = MutableStateFlow(Currency.default)
     val chosenCurrency = _chosenCurrency.asStateFlow()
 
     fun onCurrencySelect(currency: Currency) {

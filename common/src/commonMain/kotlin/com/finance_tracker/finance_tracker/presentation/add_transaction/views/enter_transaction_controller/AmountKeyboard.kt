@@ -54,7 +54,7 @@ fun AmountKeyboard(
                             KeyboardCommand.Delete -> {
                                 Icon(
                                     modifier = Modifier.size(24.dp),
-                                    painter = rememberVectorPainter("ic_delete"),
+                                    painter = rememberVectorPainter("ic_backspace"),
                                     contentDescription = null
                                 )
                             }
