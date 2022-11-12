@@ -34,7 +34,7 @@ class SmsMessageParser(
                 color = Color.Red,
                 currency = Currency.default
             ),
-            amountCurrency = fields.getAmountCurrency(),
+            amountCurrency = Currency.getByName(fields.getAmountCurrency()),
             category = null,
             date = date
         )

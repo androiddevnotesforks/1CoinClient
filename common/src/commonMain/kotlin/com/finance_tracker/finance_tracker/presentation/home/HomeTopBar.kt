@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
+import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
@@ -21,7 +22,6 @@ import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.presentation.settings.SettingsSheet
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
-import ru.alexgladkov.odyssey.compose.navigation.modal_navigation.ModalSheetConfiguration
 
 @Composable
 fun HomeTopBar(
@@ -31,8 +31,6 @@ fun HomeTopBar(
 ) {
     val rootController = LocalRootController.current
     val modalController = rootController.findModalController()
-
-    val sheetConfiguration = ModalSheetConfiguration(cornerRadius = 12)
 
     TopAppBar(
         modifier = modifier,
@@ -61,7 +59,7 @@ fun HomeTopBar(
                         shape = CircleShape
                     )
                     .clickable {
-                        modalController.present(sheetConfiguration) { key ->
+                        modalController.present(DialogConfigurations.bottomSheet) { key ->
                             SettingsSheet(
                                 onCloseClick = { modalController.popBackStack(key) }
                             )
