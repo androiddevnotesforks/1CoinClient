@@ -38,7 +38,7 @@ fun LazyListState.getVisibleItemInfoFor(absoluteIndex: Int): LazyListItemInfo? {
         .getOrNull(absoluteIndex - this.layoutInfo.visibleItemsInfo.first().index)
 }
 
-val LazyListItemInfo.offsetEnd: Int
+val LazyListItemInfo.OffsetEnd: Int
     get() = this.offset + this.size
 
 @ExperimentalFoundationApi

@@ -3,8 +3,13 @@ package com.finance_tracker.finance_tracker.presentation.add_transaction
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.BackHandler
@@ -12,7 +17,12 @@ import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.toDate
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.*
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.AddButtonSection
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.AmountTextField
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.CalendarDayView
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.CategoriesAppBar
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBar
+import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBarData
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.EnterTransactionController
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 

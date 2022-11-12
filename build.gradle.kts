@@ -30,7 +30,6 @@ val detektTask = tasks.register<JavaExec>("detektAll") {
     main = "io.gitlab.arturbosch.detekt.cli.Main"
     classpath = detekt
 
-    //val input = listOf("android/src/main/kotlin", "common/src/androidMain/kotlin", "common/src/commonMain/kotlin", "common/src/desktop/kotlin")
     val input = projectDir
     val config = ("$projectDir/config/detekt/detekt.yml")
 
@@ -42,14 +41,6 @@ val detektTask = tasks.register<JavaExec>("detektAll") {
 
 dependencies {
     detekt("io.gitlab.arturbosch.detekt:detekt-cli:1.22.0-RC3")
-}
-
-subprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    }
 }
 
 allprojects {

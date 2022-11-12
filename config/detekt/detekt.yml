@@ -185,8 +185,8 @@ empty-blocks:
   EmptyForBlock:
     active: true
   EmptyFunctionBlock:
-    active: false
-    ignoreOverridden: false
+    active: true
+    ignoreOverridden: true
   EmptyIfBlock:
     active: true
   EmptyInitBlock:
@@ -307,10 +307,11 @@ naming:
     excludeClassPattern: '$^'
     ignoreOverridden: true
   FunctionParameterNaming:
-    active: false
+    active: true
     parameterPattern: '[a-z][A-Za-z0-9]*'
     excludeClassPattern: '$^'
     ignoreOverridden: true
+    excludes: ['**/build/**']
   InvalidPackageDeclaration:
     active: true
     rootPackage: ''
@@ -337,10 +338,11 @@ naming:
     active: true
     packagePattern: '^([a-z]{1}[a-z\d_]*\.)+[a-z][a-z\d_]*$'
   TopLevelPropertyNaming:
-    active: false
+    active: true
     constantPattern: '[A-Z][a-zA-Z0-9]*'
     propertyPattern: '[A-Z][a-zA-Z0-9]*'
     privatePropertyPattern: '_?[A-Za-z][_A-Za-z0-9]*'
+    excludes: ['**/build/**', '**/di/**', '**/templates/**']
   VariableMaxLength:
     active: false
     maximumVariableNameLength: 64
@@ -567,10 +569,11 @@ style:
     maxChainedCalls: 5
   MaxLineLength:
     active: true
-    maxLineLength: 200
+    maxLineLength: 120
     excludePackageStatements: true
     excludeImportStatements: true
     excludeCommentStatements: false
+    excludes: ['**/build/**']
   MayBeConst:
     active: true
   ModifierOrder:
@@ -627,7 +630,8 @@ style:
     acceptableLength: 4
     allowNonStandardGrouping: false
   UnnecessaryAbstractClass:
-    active: false
+    active: true
+    excludes: ['**/common/**']
   UnnecessaryAnnotationUseSiteTarget:
     active: false
   UnnecessaryApply:
@@ -651,7 +655,7 @@ style:
   UnusedPrivateClass:
     active: true
   UnusedPrivateMember:
-    active: false
+    active: true
     allowedNames: '(_|ignored|expected|serialVersionUID)'
   UseAnyOrNoneInsteadOfFind:
     active: true
@@ -686,7 +690,6 @@ style:
     active: true
     ignoreLateinitVar: false
   WildcardImport:
-    active: false
+    active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
     excludeImports:
-      - 'java.util.*'

@@ -38,7 +38,7 @@ class DragDropState internal constructor(
     var currentIndexOfDraggedItem by mutableStateOf<Int?>(null)
 
     private val initialOffsets: Pair<Int, Int>?
-        get() = initiallyDraggedElement?.let { Pair(it.offset, it.offsetEnd) }
+        get() = initiallyDraggedElement?.let { Pair(it.offset, it.OffsetEnd) }
 
     private val currentElement: LazyListItemInfo?
         get() = currentIndexOfDraggedItem?.let {
@@ -81,11 +81,15 @@ class DragDropState internal constructor(
 
             currentElement?.let { hovered ->
                 state.layoutInfo.visibleItemsInfo
-                    .filterNot { item -> item.offsetEnd < startOffset || item.offset > endOffset || hovered.index == item.index }
+                    .filterNot { item ->
+                        item.OffsetEnd < startOffset
+                                || item.offset > endOffset
+                                || hovered.index == item.index
+                    }
                     .firstOrNull { item ->
                         val delta = (startOffset - hovered.offset)
                         when {
-                            delta > 0 -> (endOffset > item.offsetEnd)
+                            delta > 0 -> (endOffset > item.OffsetEnd)
                             else -> (startOffset < item.offset)
                         }
                     }?.also { item ->
@@ -106,10 +110,12 @@ class DragDropState internal constructor(
     fun checkForOverScroll(): Float {
         return initiallyDraggedElement?.let {
             val startOffset = it.offset + draggedDistance
-            val endOffset = it.offsetEnd + draggedDistance
+            val endOffset = it.OffsetEnd + draggedDistance
             return@let when {
-                draggedDistance > 0 -> (endOffset - state.layoutInfo.viewportEndOffset + 50f).takeIf { diff -> diff > 0 }
-                draggedDistance < 0 -> (startOffset - state.layoutInfo.viewportStartOffset - 50f).takeIf { diff -> diff < 0 }
+                draggedDistance > 0 -> (endOffset - state.layoutInfo.viewportEndOffset + 50f)
+                    .takeIf{ diff -> diff > 0 }
+                draggedDistance < 0 -> (startOffset - state.layoutInfo.viewportStartOffset - 50f)
+                    .takeIf { diff -> diff < 0 }
                 else -> null
             }
         } ?: 0f
