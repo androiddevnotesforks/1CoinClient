@@ -28,12 +28,6 @@ import com.finance_tracker.finance_tracker.presentation.add_transaction.views.Ca
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.CategoriesAppBar
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBar
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBarData
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.AddButtonSection
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.AmountTextField
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.CalendarDayView
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.CategoriesAppBar
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBar
-import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBarData
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.EnterTransactionController
 import org.koin.core.parameter.parametersOf
 import ru.alexgladkov.odyssey.compose.extensions.present
