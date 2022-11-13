@@ -9,15 +9,19 @@ enum class EnterTransactionStep(val textId: String? = null): Parcelable {
     Category("add_transaction_stage_category"),
     Amount;
 
-    fun previous(): EnterTransactionStep {
+    fun previous(): EnterTransactionStep? {
         val steps = values()
-        val previousIndex = (ordinal - 1).coerceAtLeast(0)
+        val previousIndex = (ordinal - 1)
+        if (previousIndex < 0) return null
+
         return steps[previousIndex]
     }
 
-    fun next(): EnterTransactionStep {
+    fun next(): EnterTransactionStep? {
         val steps = values()
-        val nextIndex = (ordinal + 1).coerceAtMost(steps.size - 1)
+        val nextIndex = (ordinal + 1)
+        if (nextIndex >= steps.size) return null
+
         return steps[nextIndex]
     }
 }

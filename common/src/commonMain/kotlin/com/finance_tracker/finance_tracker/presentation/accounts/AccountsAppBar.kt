@@ -18,8 +18,7 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 fun AccountsAppBar(
     modifier: Modifier = Modifier
 ) {
-    val controller = LocalRootController.current.findRootController()
-
+    val navController = LocalRootController.current.findRootController()
     TopAppBar(
         modifier = modifier
             .background(CoinTheme.color.background)
@@ -33,10 +32,10 @@ fun AccountsAppBar(
         actions = {
             AppBarIcon(
                 painter = rememberVectorPainter("ic_plus"),
+                tint = CoinTheme.color.primary,
                 onClick = {
-                    controller.push(screen = MainNavigationTree.AddAccount.name)
-                },
-                tint = CoinTheme.color.primary
+                    navController.push(MainNavigationTree.AddAccount.name)
+                }
             )
         },
         backgroundColor = CoinTheme.color.background

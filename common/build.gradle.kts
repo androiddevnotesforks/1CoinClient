@@ -4,6 +4,7 @@ plugins {
     id("com.android.library")
     id("com.squareup.sqldelight")
     id("kotlin-parcelize")
+    id("io.gitlab.arturbosch.detekt")
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 
