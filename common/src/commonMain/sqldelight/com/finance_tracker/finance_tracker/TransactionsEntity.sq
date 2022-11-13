@@ -47,3 +47,7 @@ VALUES (?,?,?,?,?,?,?,?);
 deleteTransactionsById:
 DELETE FROM TransactionsEntity
 WHERE id IN :ids;
+
+deleteTransactionById:
+DELETE FROM TransactionsEntity
+WHERE id = :id;

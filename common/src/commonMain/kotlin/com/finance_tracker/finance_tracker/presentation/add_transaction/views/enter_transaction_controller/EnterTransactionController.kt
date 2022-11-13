@@ -26,7 +26,7 @@ private const val ContentAnimationDuration = 200
 fun EnterTransactionController(
     accounts: List<Account>,
     categories: List<Category>,
-    currentStep: EnterTransactionStep,
+    currentStep: EnterTransactionStep?,
     animationDirection: Int,
     modifier: Modifier = Modifier,
     onAccountSelect: (Account) -> Unit = {},
@@ -71,6 +71,9 @@ fun EnterTransactionController(
                     AmountKeyboard(
                         onButtonClick = onKeyboardButtonClick
                     )
+                }
+                else -> {
+                    /* no keyboard */
                 }
             }
         }

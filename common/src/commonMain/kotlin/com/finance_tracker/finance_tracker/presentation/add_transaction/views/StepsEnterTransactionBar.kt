@@ -33,7 +33,7 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.AccountCard
 
 data class StepsEnterTransactionBarData(
-    val currentStep: EnterTransactionStep = EnterTransactionStep.Account,
+    val currentStep: EnterTransactionStep? = EnterTransactionStep.Account,
     val accountData: Account? = null,
     val categoryData: Category? = null
 )
@@ -141,7 +141,7 @@ fun NextIcon(
 private fun <T: Any> RowScope.StageText(
     currentStep: EnterTransactionStep,
     data: T?,
-    selectedStep: EnterTransactionStep,
+    selectedStep: EnterTransactionStep?,
     onStepSelect: (EnterTransactionStep) -> Unit,
     modifier: Modifier = Modifier,
     dataContent: @Composable (data: T) -> Unit = {}
