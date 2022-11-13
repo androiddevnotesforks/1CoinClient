@@ -5,8 +5,8 @@ import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
 import com.finance_tracker.finance_tracker.core.common.toLocalDate
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
-import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
+import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Currency
@@ -26,8 +26,8 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class AddTransactionViewModel(
+    private val transactionsInteractor: TransactionsInteractor,
     private val transactionsRepository: TransactionsRepository,
-    private val accountsRepository: AccountsRepository,
     private val accountsEntityQueries: AccountsEntityQueries,
     private val categoriesEntityQueries: CategoriesEntityQueries,
     private val _transaction: Transaction
@@ -95,12 +95,7 @@ class AddTransactionViewModel(
 
     fun onAddTransactionClick(transaction: Transaction) {
         viewModelScope.launch {
-            transactionsRepository.addOrUpdateTransaction(transaction)
-            if(transaction.type == TransactionType.Expense) {
-                accountsRepository.reduceAccountBalance(transaction.account.id, transaction.amount)
-            } else {
-                accountsRepository.increaseAccountBalance(transaction.account.id, transaction.amount)
-            }
+            transactionsInteractor.addOrUpdateTransaction(transaction)
         }
     }
 

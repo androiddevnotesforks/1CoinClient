@@ -1,13 +1,16 @@
 package com.finance_tracker.finance_tracker.domain.interactors
 
+import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 class TransactionsInteractor(
-    private val transactionsRepository: TransactionsRepository
+    private val transactionsRepository: TransactionsRepository,
+    private val accountsRepository: AccountsRepository,
 ) {
 
     suspend fun getTransactions(accountId: Long? = null): List<TransactionListModel> {
@@ -49,6 +52,25 @@ class TransactionsInteractor(
 
     suspend fun deleteTransactions(transactions: List<Transaction>) {
         transactionsRepository.deleteTransactions(transactions)
+
+        val transactionsIterator = transactions.iterator()
+
+        transactionsIterator.forEach {
+            if (it.type == TransactionType.Expense) {
+                accountsRepository.increaseAccountBalance(it.account.id, it.amount)
+            } else {
+                accountsRepository.reduceAccountBalance(it.account.id, it.amount)
+            }
+        }
+    }
+
+    suspend fun addOrUpdateTransaction(transaction: Transaction) {
+        transactionsRepository.addOrUpdateTransaction(transaction)
+        if (transaction.type == TransactionType.Expense) {
+            accountsRepository.reduceAccountBalance(transaction.account.id, transaction.amount)
+        } else {
+            accountsRepository.increaseAccountBalance(transaction.account.id, transaction.amount)
+        }
     }
 
     private fun Date?.isCalendarDateEquals(date: Date?): Boolean {
