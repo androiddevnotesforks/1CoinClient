@@ -50,27 +50,25 @@ class TransactionsInteractor(
         return newTransactions
     }
 
+    private suspend fun updateAccountBalance(transaction: Transaction) {
+        if (transaction.type == TransactionType.Expense) {
+            accountsRepository.increaseAccountBalance(transaction.account.id, transaction.amount)
+        } else {
+            accountsRepository.reduceAccountBalance(transaction.account.id, transaction.amount)
+        }
+    }
+
     suspend fun deleteTransactions(transactions: List<Transaction>) {
         transactionsRepository.deleteTransactions(transactions)
 
-        val transactionsIterator = transactions.iterator()
-
-        transactionsIterator.forEach {
-            if (it.type == TransactionType.Expense) {
-                accountsRepository.increaseAccountBalance(it.account.id, it.amount)
-            } else {
-                accountsRepository.reduceAccountBalance(it.account.id, it.amount)
-            }
+        transactions.forEach {
+            updateAccountBalance(it)
         }
     }
 
     suspend fun addOrUpdateTransaction(transaction: Transaction) {
         transactionsRepository.addOrUpdateTransaction(transaction)
-        if (transaction.type == TransactionType.Expense) {
-            accountsRepository.reduceAccountBalance(transaction.account.id, transaction.amount)
-        } else {
-            accountsRepository.increaseAccountBalance(transaction.account.id, transaction.amount)
-        }
+        updateAccountBalance(transaction)
     }
 
     private fun Date?.isCalendarDateEquals(date: Date?): Boolean {
