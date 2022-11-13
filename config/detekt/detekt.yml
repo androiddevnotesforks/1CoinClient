@@ -342,7 +342,7 @@ naming:
     constantPattern: '[A-Z][a-zA-Z0-9]*'
     propertyPattern: '[A-Z][a-zA-Z0-9]*'
     privatePropertyPattern: '_?[A-Za-z][_A-Za-z0-9]*'
-    excludes: ['**/build/**', '**/di/**', '**/templates/**']
+    excludes: ['**/build/**', '**/di/**', '**/templates/**', '**/common/DragDropExt.kt']
   VariableMaxLength:
     active: false
     maximumVariableNameLength: 64
@@ -630,7 +630,7 @@ style:
     acceptableLength: 4
     allowNonStandardGrouping: false
   UnnecessaryAbstractClass:
-    active: true
+    active: false
     excludes: ['**/common/**']
   UnnecessaryAnnotationUseSiteTarget:
     active: false
@@ -692,4 +692,3 @@ style:
   WildcardImport:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/jsTest/**', '**/iosTest/**']
-    excludeImports:
