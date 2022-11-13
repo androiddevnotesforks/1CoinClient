@@ -9,6 +9,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
@@ -19,7 +20,6 @@ import com.finance_tracker.finance_tracker.presentation.transactions.views.Trans
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
-import ru.alexgladkov.odyssey.compose.navigation.modal_navigation.AlertConfiguration
 
 @Composable
 fun TransactionsScreen() {
@@ -29,10 +29,6 @@ fun TransactionsScreen() {
         }
         val navController = LocalRootController.current.findRootController()
         val modalController = navController.findModalController()
-        val alertConfiguration = AlertConfiguration(
-            cornerRadius = 8,
-            maxWidth = 0.93f
-        )
 
         Column(
             modifier = Modifier.fillMaxSize()
@@ -61,7 +57,7 @@ fun TransactionsScreen() {
                 selectedItemsCount = selectedItemsCount,
                 onCloseClick = { unselectAllItems() },
                 onDeleteClick = {
-                    modalController.present(alertConfiguration) { key ->
+                    modalController.present(DialogConfigurations.alert) { key ->
                         DeleteDialog(
                             titleEntity = if (selectedItemsCount > 1) {
                                 stringResource("transactions")
@@ -86,11 +82,14 @@ fun TransactionsScreen() {
 
             CommonTransactionsList(
                 transactions = transactions,
-                onClick = {
+                onClick = { transactionData ->
                     if (selectedItemsCount > 0) {
-                        it.isSelected.value = !it.isSelected.value
+                        transactionData.isSelected.value = !transactionData.isSelected.value
                     } else {
-                        navController.push(MainNavigationTree.AddTransaction.name)
+                        navController.push(
+                            screen = MainNavigationTree.AddTransaction.name,
+                            params = transactionData.transaction
+                        )
                     }
                 },
                 onLongClick = {

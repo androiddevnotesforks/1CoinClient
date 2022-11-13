@@ -78,7 +78,7 @@ fun TransactionItem(
 
         val sign = if (transaction.type == TransactionType.Income) "+" else "-"
         Text(
-            text = sign + transaction.amountCurrency + DecimalFormatType.Amount.format(transaction.amount),
+            text = sign + transaction.amountCurrency.sign + DecimalFormatType.Amount.format(transaction.amount),
             style = CoinTheme.typography.body2,
             color = if (transaction.type == TransactionType.Income) {
                 CoinTheme.color.accentGreen
