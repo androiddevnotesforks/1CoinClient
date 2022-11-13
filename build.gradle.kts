@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     repositories {
@@ -23,7 +25,26 @@ plugins {
     id("io.gitlab.arturbosch.detekt") apply false
 }
 
-subprojects {
+val detekt by configurations.creating
+
+val detektTask = tasks.register<JavaExec>("detektAll") {
+    main = "io.gitlab.arturbosch.detekt.cli.Main"
+    classpath = detekt
+
+    val input = projectDir
+    val config = ("$projectDir/config/detekt/detekt.yml")
+
+    val exclude = ".*/build/.*,.*/resources/.*"
+    val params = listOf("-i", input, "-c", config, "-ex", exclude)
+
+    args(params)
+}
+
+dependencies {
+    detekt("io.gitlab.arturbosch.detekt:detekt-cli:1.22.0-RC3")
+}
+
+allprojects {
     repositories {
         google()
         mavenCentral()
