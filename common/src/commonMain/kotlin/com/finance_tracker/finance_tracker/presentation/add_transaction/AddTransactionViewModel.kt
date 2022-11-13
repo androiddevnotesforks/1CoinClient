@@ -66,7 +66,8 @@ class AddTransactionViewModel(
     val firstStep = if (transaction == null) steps.first() else null
 
     private val initialSelectedTransactionType = transaction?.type ?: TransactionType.Expense
-    private val _selectedTransactionType: MutableStateFlow<TransactionType> = MutableStateFlow(initialSelectedTransactionType)
+    private val _selectedTransactionType: MutableStateFlow<TransactionType> =
+        MutableStateFlow(initialSelectedTransactionType)
     val selectedTransactionType: StateFlow<TransactionType> = _selectedTransactionType.asStateFlow()
 
     fun onScreenComposed() {
