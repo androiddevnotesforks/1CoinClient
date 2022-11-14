@@ -34,9 +34,9 @@ fun main() = singleWindowApplication(
         false
     }
 ) {
+    Napier.base(DebugAntilog())
     initKoin()
     databaseInitializer.init(EmptyContext)
-    Napier.base(DebugAntilog())
     setupNavigation(MainNavigationTree.Main.name) { navigationGraph() }
 }
 
