@@ -68,7 +68,7 @@ android {
 sqldelight {
     database("AppDatabase") {
         packageName = "com.finance_tracker.finance_tracker"
-        schemaOutputDirectory = file("src/commonMain/sqldelight/com/finance_tracker/finance_tracker/databases")
+        schemaOutputDirectory = file("src/commonMain/sqldelight/com/finance_tracker/finance_tracker/schemas")
         verifyMigrations = true
     }
 }
