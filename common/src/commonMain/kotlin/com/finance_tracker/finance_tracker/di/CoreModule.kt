@@ -1,8 +1,10 @@
 package com.finance_tracker.finance_tracker.di
 
+import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
@@ -31,6 +33,11 @@ private fun provideHttpClient(jsonFactory: Json): HttpClient {
             json(jsonFactory)
         }
         install(Logging) {
+            logger = object: Logger {
+                override fun log(message: String) {
+                    Napier.v(message, tag = "HTTP-Client")
+                }
+            }
             level = LogLevel.ALL
         }
     }
