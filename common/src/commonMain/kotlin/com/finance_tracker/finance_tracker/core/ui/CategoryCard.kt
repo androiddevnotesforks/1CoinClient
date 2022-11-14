@@ -66,7 +66,7 @@ fun CategoryCard(
             contentDescription = null,
             modifier = Modifier
                 .clip(RoundedCornerShape(12.dp))
-                .size(32.dp)
+                .size(24.dp)
                 .align(Alignment.CenterVertically)
                 .clickable { onCrossDeleteClick() },
             tint = Color.Red,
