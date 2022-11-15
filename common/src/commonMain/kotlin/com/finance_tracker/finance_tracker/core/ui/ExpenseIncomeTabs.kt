@@ -14,9 +14,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
@@ -35,7 +35,6 @@ fun ExpenseIncomeTabs(
     Row(
         modifier = modifier
             .background(CoinTheme.color.background)
-            .statusBarsPadding(),
     ) {
         CategoryItem(
             categoryTab = CategoryTab.Expense,
@@ -71,9 +70,10 @@ private fun CategoryItem(
             .padding(horizontal = 1.dp)
             .clip(RoundedCornerShape(8.dp))
             .clickable { onClick.invoke(categoryTab) }
-            .padding(horizontal = 7.dp, vertical = 8.dp),
+            .padding(horizontal = 8.dp, vertical = 8.dp),
         text = stringResource(categoryTab.textId),
-        fontSize = 16.sp,
-        color = textColor
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Bold,
+        color = textColor,
     )
 }

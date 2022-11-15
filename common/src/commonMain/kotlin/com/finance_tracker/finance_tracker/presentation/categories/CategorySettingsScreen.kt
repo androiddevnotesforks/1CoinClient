@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.LazyDragColumn
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.CategoryTab
@@ -38,7 +37,6 @@ fun CategorySettingsScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .statusBarsPadding()
         ) {
 
             val incomeCategories by viewModel.incomeCategories.collectAsState()
@@ -51,7 +49,7 @@ fun CategorySettingsScreen() {
                 modifier = Modifier
                     .padding(
                         top = 24.dp,
-                        start = 20.dp,
+                        start = 12.dp,
                         bottom = 4.dp,
                     ),
                 onCategorySelect = viewModel::onCategorySelect,
