@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.domain.interactors
 
-import com.financetracker.financetracker.CurrencyRatesEntity
+import com.financetracker.financetracker.data.CurrencyRatesEntity
 
 class CurrencyConverterInteractor {
 

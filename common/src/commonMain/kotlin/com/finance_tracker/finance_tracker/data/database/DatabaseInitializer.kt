@@ -3,8 +3,8 @@ package com.finance_tracker.finance_tracker.data.database
 import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.core.common.getRaw
 import com.finance_tracker.finance_tracker.domain.models.Category
-import com.financetracker.financetracker.CategoriesEntityQueries
-import com.financetracker.financetracker.CurrencyRatesEntityQueries
+import com.financetracker.financetracker.data.CategoriesEntityQueries
+import com.financetracker.financetracker.data.CurrencyRatesEntityQueries
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject

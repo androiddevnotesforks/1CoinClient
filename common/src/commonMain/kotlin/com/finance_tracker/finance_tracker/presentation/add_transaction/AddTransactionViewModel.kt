@@ -14,8 +14,8 @@ import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.EnterTransactionStep
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.KeyboardCommand
-import com.financetracker.financetracker.AccountsEntityQueries
-import com.financetracker.financetracker.CategoriesEntityQueries
+import com.financetracker.financetracker.data.AccountsEntityQueries
+import com.financetracker.financetracker.data.CategoriesEntityQueries
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
