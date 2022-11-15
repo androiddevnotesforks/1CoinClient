@@ -316,6 +316,7 @@ naming:
     active: true
     rootPackage: ''
     requireRootInDeclaration: false
+    excludes: ['**/build/**']
   LambdaParameterNaming:
     active: false
     parameterPattern: '[a-z][A-Za-z0-9]*|_'

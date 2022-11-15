@@ -5,8 +5,8 @@ import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomain
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.AccountColorData
 import com.finance_tracker.finance_tracker.domain.models.Currency
-import com.financetracker.financetracker.AccountColorsEntityQueries
-import com.financetracker.financetracker.AccountsEntityQueries
+import com.financetracker.financetracker.data.AccountColorsEntityQueries
+import com.financetracker.financetracker.data.AccountsEntityQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
