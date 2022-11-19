@@ -29,6 +29,8 @@ private val commands = listOf(
     KeyboardCommand.Point, KeyboardCommand.Digit(0), KeyboardCommand.Delete,
 )
 
+private const val KeyboardRowCount = 3
+
 @Composable
 fun AmountKeyboard(
     modifier: Modifier = Modifier,
@@ -37,7 +39,7 @@ fun AmountKeyboard(
     Column(
         modifier = modifier
     ) {
-        val commandsRows = commands.chunked(3)
+        val commandsRows = commands.chunked(KeyboardRowCount)
         for (commandRow in commandsRows) {
             Row(
                 modifier = Modifier.weight(1f)
