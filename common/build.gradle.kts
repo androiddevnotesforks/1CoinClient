@@ -29,6 +29,7 @@ kotlin {
 
                 implementation(libs.sqldelight.coroutines)
                 implementation(libs.bundles.ktor)
+                implementation(libs.koalaplot)
             }
         }
         named("desktopMain") {
