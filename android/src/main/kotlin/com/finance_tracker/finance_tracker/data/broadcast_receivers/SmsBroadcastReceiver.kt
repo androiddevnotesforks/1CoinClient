@@ -8,11 +8,11 @@ import android.telephony.SmsMessage
 import com.finance_tracker.finance_tracker.data.broadcast_receivers.parsers.SmsMessageParser
 import com.finance_tracker.finance_tracker.data.broadcast_receivers.parsers.templates.tinkoffSmsTemplate
 import com.finance_tracker.finance_tracker.domain.models.Transaction
-import com.financetracker.financetracker.SmsMessageEntityQueries
-import com.financetracker.financetracker.TransactionsEntityQueries
+import com.financetracker.financetracker.data.SmsMessageEntityQueries
+import com.financetracker.financetracker.data.TransactionsEntityQueries
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.util.*
+import java.util.Date
 
 class SmsBroadcastReceiver : BroadcastReceiver(), KoinComponent {
 

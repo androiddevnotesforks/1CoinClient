@@ -6,6 +6,7 @@ import com.finance_tracker.finance_tracker.core.common.toLocalDate
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
+import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Currency
@@ -13,8 +14,8 @@ import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.EnterTransactionStep
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.KeyboardCommand
-import com.financetracker.financetracker.AccountsEntityQueries
-import com.financetracker.financetracker.CategoriesEntityQueries
+import com.financetracker.financetracker.data.AccountsEntityQueries
+import com.financetracker.financetracker.data.CategoriesEntityQueries
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class AddTransactionViewModel(
+    private val transactionsInteractor: TransactionsInteractor,
     private val transactionsRepository: TransactionsRepository,
     private val accountsEntityQueries: AccountsEntityQueries,
     private val categoriesEntityQueries: CategoriesEntityQueries,
@@ -93,7 +95,7 @@ class AddTransactionViewModel(
 
     fun onAddTransactionClick(transaction: Transaction) {
         viewModelScope.launch {
-            transactionsRepository.addOrUpdateTransaction(transaction)
+            transactionsInteractor.addOrUpdateTransaction(transaction)
         }
     }
 

@@ -31,7 +31,7 @@
 
 <div align="center">
   <h3>
-    <a href="">
+    <a href="https://github.com/VitalyPeryatin/1Coin/blob/develop/CONTRIBUTING.md">
       Contributing
     </a>
     <span> | </span>

@@ -1,8 +1,8 @@
 package com.finance_tracker.finance_tracker.data.repositories
 
 import com.finance_tracker.finance_tracker.data.network.CurrenciesNetworkDataSource
-import com.financetracker.financetracker.CurrencyRatesEntity
-import com.financetracker.financetracker.CurrencyRatesEntityQueries
+import com.financetracker.financetracker.data.CurrencyRatesEntity
+import com.financetracker.financetracker.data.CurrencyRatesEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.Dispatchers
