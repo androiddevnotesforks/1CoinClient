@@ -95,6 +95,11 @@ private val LightColorPalette = CoinColors(
     accentRed = Color(0xFFF62D2D)
 )
 
+object CoinAlpha {
+    const val Medium = 0.2f
+    const val Soft = 0.8f
+}
+
 @Composable
 fun TextStyle.staticTextSize(isStaticContentSize: Boolean = true): TextStyle {
     return if (isStaticContentSize) copy(fontSize = fontSize.value.dp.asSp()) else this

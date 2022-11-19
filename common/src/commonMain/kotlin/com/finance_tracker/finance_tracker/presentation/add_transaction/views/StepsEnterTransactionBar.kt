@@ -72,7 +72,7 @@ fun StepsEnterTransactionBar(
 fun RowScope.AccountStage(
     data: StepsEnterTransactionBarData,
     modifier: Modifier = Modifier,
-    onStageSelect: (EnterTransactionStep) -> Unit
+    onStageSelect: (EnterTransactionStep) -> Unit = {}
 ) {
     StageText(
         modifier = modifier,
@@ -88,7 +88,7 @@ fun RowScope.AccountStage(
 fun RowScope.CategoryStage(
     data: StepsEnterTransactionBarData,
     modifier: Modifier = Modifier,
-    onStageSelect: (EnterTransactionStep) -> Unit
+    onStageSelect: (EnterTransactionStep) -> Unit = {}
 ) {
     StageText(
         modifier = modifier,
