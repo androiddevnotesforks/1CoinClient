@@ -46,16 +46,15 @@ private val androidx.compose.ui.input.key.KeyEvent.isDirectionRight: Boolean
 private val MenuVerticalMargin = 48.dp
 
 @OptIn(ExperimentalComposeUiApi::class)
-@Suppress("ModifierParameter")
 @Composable
 fun GridDropdownMenu(
     columnSize: Dp,
     expanded: Boolean,
     onDismissRequest: () -> Unit,
-    focusable: Boolean = true,
     modifier: Modifier = Modifier,
+    focusable: Boolean = true,
     offset: DpOffset = DpOffset(0.dp, 0.dp),
-    content: LazyGridScope.() -> Unit
+    content: LazyGridScope.() -> Unit = {}
 ) {
     val expandedStates = remember { MutableTransitionState(false) }
     expandedStates.targetState = expanded

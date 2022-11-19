@@ -30,16 +30,13 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 private const val MinCategoryNameLength = 2
 
 @Composable
-fun AddCategoryScreen(
-    modifier: Modifier = Modifier,
-    appBarText: String,
-) {
+fun AddCategoryScreen(appBarText: String, ) {
     StoredViewModel<AddCategoryViewModel> { viewModel ->
         val rootController = LocalRootController.current
         val context = LocalContext.current
 
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .statusBarsPadding()
         ) {

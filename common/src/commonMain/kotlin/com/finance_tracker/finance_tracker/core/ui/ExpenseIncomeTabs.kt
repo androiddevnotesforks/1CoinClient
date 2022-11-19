@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.sp
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
-
 enum class CategoryTab(val textId: String) {
     Income("add_transaction_tab_income"),
     Expense("add_transaction_tab_expense"),
@@ -54,7 +53,7 @@ private fun CategoryItem(
     categoryTab: CategoryTab,
     selectedCategoryTab: CategoryTab,
     modifier: Modifier = Modifier,
-    onClick: (CategoryTab) -> Unit
+    onClick: (CategoryTab) -> Unit = {}
 ) {
     val targetTextColor = if (selectedCategoryTab == categoryTab) {
         Color.Black
