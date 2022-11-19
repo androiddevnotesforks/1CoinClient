@@ -139,12 +139,9 @@ private fun CategoriesLazyColumn(
                     onCrossDeleteClick.invoke(category.id)
                 }
             )
-        }
-        ItemWrapper(
-            isFirstItem = false,
-            isLastItem = false,
-        ) {
-            Spacer(Modifier.navigationBarsPadding())
+            if (index == categories.lastIndex) {
+                Spacer(Modifier.navigationBarsPadding())
+            }
         }
     }
 }
