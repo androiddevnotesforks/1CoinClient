@@ -30,10 +30,6 @@ import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 import io.github.koalaplot.core.util.ResponsiveText
 import io.github.koalaplot.core.util.toString
 
-val fibonacci = listOf(1f, 1f, 2f, 3f, 5f, 8f, 13f, 21f)
-val fibonacciSum = fibonacci.sum()
-val colors = listOf(Color.Black, Color.Green, Color.Red, Color.Blue, Color.Gray, Color.Magenta, Color.Yellow, Color.Cyan)
-
 private data class OtherOptionsState(
     val showLabels: Boolean = true,
     val holeSize: Float = 0.8f,
@@ -50,6 +46,13 @@ private data class ConnectorStyleState(
 fun PieChart(
     modifier: Modifier = Modifier
 ) {
+    val fibonacci = listOf(1f, 1f, 2f, 3f, 5f, 8f, 13f, 21f)
+    val fibonacciSum = fibonacci.sum()
+    val colors = listOf(
+        Color.Black, Color.Green, Color.Red,
+        Color.Blue, Color.Gray, Color.Magenta,
+        Color.Yellow, Color.Cyan
+    )
     val strokeWidth = 1.dp.toPx()
     val otherOptionsState by remember { mutableStateOf(OtherOptionsState()) }
     val connectorStyle by remember {
@@ -109,7 +112,7 @@ fun PieChart(
                 }
             },
             holeSize = otherOptionsState.holeSize,
-            holeContent = { holeTotalLabel() },
+            holeContent = { HoleTotalLabel(sum = fibonacciSum.toInt()) },
             labelSpacing = if (otherOptionsState.showLabels) otherOptionsState.labelSpacing else 1.0f
         )
     }
@@ -117,14 +120,19 @@ fun PieChart(
 
 @Suppress("MagicNumber")
 @Composable
-private fun holeTotalLabel() {
+private fun HoleTotalLabel(
+    modifier: Modifier = Modifier,
+    sum: Int = 0
+) {
     Column(
-        modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.Center),
+        modifier = modifier
+            .fillMaxSize()
+            .wrapContentSize(Alignment.Center),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ResponsiveText(
-            "Total",
+            text = "Total",
             modifier = Modifier.weight(0.20f).fillMaxWidth(),
             style = LocalTextStyle.current.copy(
                 fontFamily = FontFamily.SansSerif,
@@ -133,7 +141,7 @@ private fun holeTotalLabel() {
             )
         )
         ResponsiveText(
-            "${fibonacciSum.toInt()}",
+            text = sum.toString(),
             modifier = Modifier.weight(0.80f).fillMaxWidth(),
             style = LocalTextStyle.current.copy(
                 fontFamily = FontFamily.SansSerif,
