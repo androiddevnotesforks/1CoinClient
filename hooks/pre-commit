@@ -1,0 +1,6 @@
+#!/bin/sh
+#coding=UTF-8
+
+./gradlew detektAll
+RESULT=$?
+exit $RESULT

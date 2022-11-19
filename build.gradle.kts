@@ -51,3 +51,20 @@ allprojects {
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
+
+task<Copy>("enableGitHooks") {
+    group = "git hooks"
+    from("${rootProject.rootDir}/hooks/")
+    include("*")
+    into("${rootProject.rootDir}/.git/hooks")
+    fileMode = 0b111101101 // make files executable
+}
+
+task<Delete>("disableGitHooks") {
+    group = "git hooks"
+    delete = setOf(
+        fileTree("${rootProject.rootDir}/.git/hooks/") {
+            include("*")
+        }
+    )
+}
