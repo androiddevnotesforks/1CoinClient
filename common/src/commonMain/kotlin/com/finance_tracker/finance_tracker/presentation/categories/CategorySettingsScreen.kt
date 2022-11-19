@@ -2,6 +2,7 @@ package com.finance_tracker.finance_tracker.presentation.categories
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -13,6 +14,8 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.LazyDragColumn
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
+import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
+import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.CategoryTab
@@ -37,6 +40,7 @@ fun CategorySettingsScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .statusBarsPadding()
         ) {
 
             val incomeCategories by viewModel.incomeCategories.collectAsState()
@@ -135,6 +139,12 @@ private fun CategoriesLazyColumn(
                     onCrossDeleteClick.invoke(category.id)
                 }
             )
+        }
+        ItemWrapper(
+            isFirstItem = false,
+            isLastItem = false,
+        ) {
+            Spacer(Modifier.navigationBarsPadding())
         }
     }
 }

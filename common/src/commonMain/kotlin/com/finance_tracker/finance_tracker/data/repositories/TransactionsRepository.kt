@@ -7,6 +7,7 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
+import com.financetracker.financetracker.data.TransactionsEntityQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Date
@@ -116,11 +117,4 @@ class TransactionsRepository(
             ).executeAsOneOrNull()?.SUM ?: 0.0
         }
     }
-
-    /*suspend fun asd(page: Long): List<Transaction> {
-        return withContext(Dispatchers.IO) {
-
-        }
-
-    }*/
 }
