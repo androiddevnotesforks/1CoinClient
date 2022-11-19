@@ -125,7 +125,7 @@ class AddAccountViewModel(
                 ))
                 return@launch
             }
-            if(account == null) {
+            if (account == null) {
                 accountsRepository.insertAccount(
                     accountName = accountName,
                     balance = balance,
@@ -133,7 +133,6 @@ class AddAccountViewModel(
                     type = type,
                     currency = selectedCurrency.value
                 )
-                _events.send(AddAccountEvent.Close)
             }
             else {
                 accountsRepository.updateAccount(
@@ -144,8 +143,8 @@ class AddAccountViewModel(
                     currency = selectedCurrency.value,
                     id = account.id,
                 )
-                _events.send(AddAccountEvent.Close)
             }
+            _events.send(AddAccountEvent.Close)
         }
     }
 }

@@ -150,7 +150,7 @@ fun AddAccountScreen(
             )
 
             val isAddButtonEnabled by viewModel.isAddButtonEnabled.collectAsState()
-            if(account == Account.EMPTY) {
+            if (account == Account.EMPTY) {
                 PrimaryButton(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -200,7 +200,7 @@ fun AddAccountScreen(
                             .fillMaxWidth()
                             .height(40.dp)
                             .padding(end = 16.dp),
-                        text = stringResource("edit_account_save"),
+                        text = stringResource("edit_account_btn_save"),
                         onClick = viewModel::onAddAccountClick,
                         enabled = isAddButtonEnabled
                     )
