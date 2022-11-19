@@ -180,7 +180,7 @@ fun AddAccountScreen(
                             )
                             .clickable {
                                 viewModel.onDeleteClick(account)
-                                rootController.findRootController().backToScreen(MainNavigationTree.Home.name)
+                                rootController.findRootController().backToScreen(MainNavigationTree.Main.name)
                             },
                     ) {
                         Icon(

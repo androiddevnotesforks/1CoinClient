@@ -64,7 +64,14 @@ class AccountsRepository(
         }
     }
 
-    suspend fun updateAccount(type: Account.Type, name: String, balance: Double, colorHex: String, currency: Currency, id: Long) {
+    suspend fun updateAccount(
+        type: Account.Type,
+        name: String,
+        balance: Double,
+        colorHex: String,
+        currency: Currency,
+        id: Long
+    ) {
         withContext(Dispatchers.IO) {
             accountsEntityQueries.updateAccountById(
                 type = type,
