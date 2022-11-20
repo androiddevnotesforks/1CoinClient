@@ -40,7 +40,6 @@ fun AddCategoryScreen(appBarText: String, ) {
                 .fillMaxSize()
                 .statusBarsPadding()
         ) {
-
             AddCategoryAppBar(textValue = appBarText)
 
             val chosenIcon by viewModel.chosenIcon.collectAsState()
