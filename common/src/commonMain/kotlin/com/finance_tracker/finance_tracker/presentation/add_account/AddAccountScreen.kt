@@ -101,7 +101,8 @@ fun AddAccountScreen(
                 value = titleAccount,
                 label = {
                     Text(
-                        text = stringResource("new_account_field_name_label")
+                        text = stringResource("new_account_field_name_label"),
+                        style = CoinTheme.typography.subtitle3
                     )
                 },
                 placeholder = {
@@ -165,9 +166,11 @@ fun AddAccountScreen(
                 PrimaryButton(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp,
+                        .padding(
+                            top = 16.dp,
                             start = 16.dp,
-                            end = 16.dp),
+                            end = 16.dp
+                        ),
                     text = stringResource("new_account_btn_add"),
                     onClick = viewModel::onAddAccountClick,
                     enabled = isAddButtonEnabled
