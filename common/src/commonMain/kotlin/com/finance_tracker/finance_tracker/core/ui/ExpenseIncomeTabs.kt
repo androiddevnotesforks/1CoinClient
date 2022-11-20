@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.theme.CoinAlpha
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 enum class CategoryTab(val textId: String) {
@@ -58,7 +59,7 @@ private fun CategoryItem(
     val targetTextColor = if (selectedCategoryTab == categoryTab) {
         Color.Black
     } else {
-        Color.Black.copy(alpha = 0.2f)
+        Color.Black.copy(alpha = CoinAlpha.Medium)
     }
     val textColor by animateColorAsState(
         targetValue = targetTextColor,
