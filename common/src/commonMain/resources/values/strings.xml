@@ -9,7 +9,6 @@
     <string name="dialog_title_delete">Deleting</string>
     <string name="transaction">Transaction</string>
     <string name="transactions">Transactions</string>
-    <string name="got_it">Got it</string>
 
     <!-- Account -->
     <string name="account_type_debit_card">Debit card</string>
@@ -39,6 +38,7 @@
 
     <!--Accounts -->
     <string name="accounts_screen_header">Accounts</string>
+    <string name="accounts_screen_top_bar">Account Settings</string>
 
     <!-- Settings -->
     <string name="settings_top_text">Settings</string>
@@ -50,6 +50,7 @@
     <string name="transactions_yesterday">Yesterday</string>
     <string name="transactions_title_normal">Transactions</string>
     <string name="transactions_title_selected">Selected: </string>
+    <string name="got_it">Got it</string>
 
     <!-- Categories -->
     <string name="category_settings">Category Settings</string>
@@ -71,6 +72,7 @@
     <string name="new_account_error_select_account_type">Select type</string>
     <string name="new_account_error_select_account_color">Select color</string>
     <string name="new_account_error_enter_account_balance">Enter amount</string>
+    <string name="edit_account_btn_save">Save</string>
 
     <!-- Detail account -->
     <string name="detail_account_btn_edit">Edit</string>

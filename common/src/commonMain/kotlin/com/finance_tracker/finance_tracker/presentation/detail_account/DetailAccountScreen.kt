@@ -41,6 +41,7 @@ fun DetailAccountScreen(
         LaunchedEffect(Unit) {
             viewModel.onScreenComposed()
         }
+        val accountData by viewModel.accountData.collectAsState()
         val navController = LocalRootController.current.findRootController()
         val state = rememberCollapsingToolbarScaffoldState()
         CollapsingToolbarScaffold(
@@ -53,16 +54,16 @@ fun DetailAccountScreen(
                         .graphicsLayer {
                             alpha = 1f - state.toolbarState.progress
                         },
-                    color = account.color
+                    color = accountData.color
                 )
                 DetailAccountExpandedAppBar(
                     modifier = Modifier
                         .parallax(0.4f),
                     contentAlpha = state.toolbarState.progress,
-                    color = account.color,
-                    amount = account.balance,
-                    currency = account.currency,
-                    iconId = account.iconId
+                    color = accountData.color,
+                    amount = accountData.balance,
+                    currency = accountData.currency,
+                    iconId = accountData.iconId
                 )
 
                 AppBarIcon(
@@ -76,13 +77,13 @@ fun DetailAccountScreen(
                 )
 
                 AccountNameText(
-                    name = account.name,
+                    name = accountData.name,
                     state = state
                 )
 
                 EditButton(
                     state = state,
-                    tint = account.color,
+                    tint = accountData.color,
                     onClick = {
                         navController.push(
                             screen = MainNavigationTree.AddAccount.name,

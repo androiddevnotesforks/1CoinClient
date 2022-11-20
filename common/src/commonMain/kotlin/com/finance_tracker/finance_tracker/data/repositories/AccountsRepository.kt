@@ -63,4 +63,36 @@ class AccountsRepository(
             accountsEntityQueries.reduceBalanceByAccountId(value, id)
         }
     }
+
+    suspend fun updateAccount(
+        type: Account.Type,
+        name: String,
+        balance: Double,
+        colorHex: String,
+        currency: Currency,
+        id: Long
+    ) {
+        withContext(Dispatchers.IO) {
+            accountsEntityQueries.updateAccountById(
+                type = type,
+                name = name,
+                balance = balance,
+                colorHex = colorHex,
+                currency = currency.name,
+                id = id,
+            )
+        }
+    }
+
+    suspend fun getAccountById(id: Long): Account {
+        return withContext(Dispatchers.IO) {
+            accountsEntityQueries.getAccountById(id).executeAsOne().accountToDomainModel()
+        }
+    }
+
+    suspend fun deleteAccountById(id: Long) {
+        withContext(Dispatchers.IO) {
+            accountsEntityQueries.deleteAccountById(id)
+        }
+    }
 }

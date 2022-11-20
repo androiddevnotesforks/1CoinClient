@@ -12,9 +12,10 @@ import ru.alexgladkov.odyssey.compose.extensions.screen
 import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
 
 fun RootComposeBuilder.navigationGraph() {
-    screen(MainNavigationTree.AddTransaction.name) { transaction ->
+
+    screen(MainNavigationTree.AddTransaction.name) {
         AddTransactionScreen(
-            transaction = transaction as? Transaction ?: Transaction.EMPTY
+            transaction = Transaction.EMPTY
         )
     }
 

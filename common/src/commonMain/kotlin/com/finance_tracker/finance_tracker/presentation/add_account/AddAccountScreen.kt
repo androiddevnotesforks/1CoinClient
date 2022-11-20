@@ -13,9 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Scaffold
-import androidx.compose.material.SnackbarHost
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberScaffoldState
@@ -27,6 +27,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.platform.LocalFocusManager
@@ -37,12 +38,12 @@ import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedSelectTextField
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
-import com.finance_tracker.finance_tracker.core.ui.DefaultSnackbar
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -64,107 +65,159 @@ fun AddAccountScreen(
     StoredViewModel<AddAccountViewModel>(
         parameters = { parametersOf(account) }
     ) { viewModel ->
-        val scaffoldState = rememberScaffoldState()
+        val rootController = LocalRootController.current
+        val context = LocalContext.current
         val coroutineScope = rememberCoroutineScope()
-        Scaffold(
-            scaffoldState = scaffoldState,
-            snackbarHost = {
-                SnackbarHost(it) { data ->
-                    DefaultSnackbar(data)
+        val scaffoldState = rememberScaffoldState()
+        LaunchedEffect(Unit) {
+            viewModel.events
+                .onEach { event ->
+                    handleEvent(
+                        event = event,
+                        context = context,
+                        coroutineScope = coroutineScope,
+                        scaffoldState = scaffoldState,
+                        rootController = rootController,
+                    )
                 }
-            }
-        ) {
-            val rootController = LocalRootController.current
-            val context = LocalContext.current
-            LaunchedEffect(Unit) {
-                viewModel.events
-                    .onEach { event ->
-                        handleEvent(event, context, rootController, coroutineScope,  scaffoldState)
-                    }
-                    .launchIn(this)
-            }
-            Column {
-                AddAccountTopBar(
-                    modifier = Modifier
-                        .statusBarsPadding()
-                )
-
-                val titleAccount by viewModel.enteredAccountName.collectAsState()
-                CoinOutlinedTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp),
-                    value = titleAccount,
-                    label = {
-                        Text(
-                            text = stringResource("new_account_field_name_label")
-                        )
-                    },
-                    placeholder = {
-                        Text(
-                            text = stringResource("new_account_field_name_placeholder"),
-                            style = CoinTheme.typography.body1.staticTextSize()
-                        )
-                    },
-                    onValueChange = viewModel::onAccountNameChange,
-                    maxLines = 1,
-                    singleLine = true,
-                    charsLimit = AccountNameCharsLimit,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
-                )
-
-                Row(
-                    modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp)
-                ) {
-                    AccountTypeTextField(viewModel = viewModel)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    AccountColorTextField(viewModel = viewModel)
+                .launchIn(this)
+        }
+        Column {
+            AddAccountTopBar(
+                modifier = Modifier
+                    .statusBarsPadding(),
+                topBarTextId = if (account == Account.EMPTY) {
+                    "new_account_title"
+                } else {
+                    "accounts_screen_top_bar"
                 }
+            )
 
-                val amountAccount by viewModel.enteredAmount.collectAsState()
-                val amountCurrencies by viewModel.amountCurrencies.collectAsState()
-                val selectedCurrency by viewModel.selectedCurrency.collectAsState()
-                CoinOutlinedTextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp),
-                    value = amountAccount,
-                    label = {
-                        Text(
-                            text = stringResource("new_account_field_amount_label"),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                        )
-                    },
-                    placeholder = {
-                        Text(
-                            text = stringResource("new_account_field_amount_placeholder"),
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            style = CoinTheme.typography.body1.staticTextSize()
-                        )
-                    },
-                    onValueChange = viewModel::onAmountChange,
-                    maxLines = 1,
-                    trailingIcon = {
-                        CurrencySelector(
-                            items = amountCurrencies,
-                            selectedCurrency = selectedCurrency,
-                            onCurrencySelect = viewModel::onCurrencySelect
-                        )
-                    },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                )
+            val titleAccount by viewModel.enteredAccountName.collectAsState()
+            CoinOutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                value = titleAccount,
+                label = {
+                    Text(
+                        text = stringResource("new_account_field_name_label"),
+                        style = CoinTheme.typography.subtitle3
+                    )
+                },
+                placeholder = {
+                    Text(
+                        text = stringResource("new_account_field_name_placeholder"),
+                        style = CoinTheme.typography.body1.staticTextSize()
+                    )
+                },
+                onValueChange = viewModel::onAccountNameChange,
+                maxLines = 1,
+                singleLine = true,
+                charsLimit = AccountNameCharsLimit,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+            )
 
-                val isAddButtonEnabled by viewModel.isAddButtonEnabled.collectAsState()
+            Row(
+                modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp)
+            ) {
+                AccountTypeTextField(viewModel = viewModel)
+                Spacer(modifier = Modifier.width(8.dp))
+                AccountColorTextField(viewModel = viewModel)
+            }
+
+            val amountAccount by viewModel.enteredAmount.collectAsState()
+            val amountCurrencies by viewModel.amountCurrencies.collectAsState()
+            val selectedCurrency by viewModel.selectedCurrency.collectAsState()
+            CoinOutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                value = amountAccount,
+                label = {
+                    Text(
+                        text = stringResource("new_account_field_amount_label"),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                },
+                placeholder = {
+                    Text(
+                        text = stringResource("new_account_field_amount_placeholder"),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = CoinTheme.typography.body1.staticTextSize()
+                    )
+                },
+                onValueChange = viewModel::onAmountChange,
+                maxLines = 1,
+                trailingIcon = {
+                    CurrencySelector(
+                        items = amountCurrencies,
+                        selectedCurrency = selectedCurrency,
+                        onCurrencySelect = viewModel::onCurrencySelect
+                    )
+                },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            )
+
+            val isAddButtonEnabled by viewModel.isAddButtonEnabled.collectAsState()
+            if (account == Account.EMPTY) {
                 PrimaryButton(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp),
+                        .padding(
+                            top = 16.dp,
+                            start = 16.dp,
+                            end = 16.dp
+                        ),
                     text = stringResource("new_account_btn_add"),
                     onClick = viewModel::onAddAccountClick,
                     enabled = isAddButtonEnabled
                 )
+            } else {
+                Row(
+                    modifier = Modifier
+                        .padding(top = 16.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .padding(
+                                start = 16.dp,
+                                end = 8.dp
+                            )
+                            .size(40.dp)
+                            .clip(RoundedCornerShape(12.dp))
+                            .background(
+                                color = CoinTheme.color.secondaryBackground,
+                                shape = RoundedCornerShape(12.dp),
+                            )
+                            .clickable {
+                                viewModel.onDeleteClick(account)
+                                rootController.findRootController().backToScreen(MainNavigationTree.Main.name)
+                            },
+                    ) {
+                        Icon(
+                            painter = rememberVectorPainter("ic_recycle_bin"),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .padding(
+                                    start = 8.dp,
+                                    top = 8.dp
+                                )
+                                .size(24.dp),
+                            tint = CoinTheme.color.accentRed
+                        )
+                    }
+                    PrimaryButton(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 16.dp),
+                        text = stringResource("edit_account_btn_save"),
+                        onClick = viewModel::onAddAccountClick,
+                        enabled = isAddButtonEnabled
+                    )
+                }
             }
         }
     }
@@ -293,7 +346,8 @@ fun ColorIcon(accountColorData: AccountColorData?) {
 
 @Composable
 private fun AddAccountTopBar(
-    modifier: Modifier = Modifier
+    topBarTextId: String,
+    modifier: Modifier = Modifier,
 ) {
     val rootController = LocalRootController.current
     TopAppBar(
@@ -308,7 +362,7 @@ private fun AddAccountTopBar(
         },
         title = {
             Text(
-                text = stringResource("new_account_title"),
+                text = stringResource(topBarTextId),
                 style = CoinTheme.typography.h4
             )
         }

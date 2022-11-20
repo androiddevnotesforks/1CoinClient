@@ -41,6 +41,7 @@ private data class ConnectorStyleState(
     val straightLine: Boolean
 )
 
+@Suppress("MagicNumber")
 @OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
 fun PieChart(

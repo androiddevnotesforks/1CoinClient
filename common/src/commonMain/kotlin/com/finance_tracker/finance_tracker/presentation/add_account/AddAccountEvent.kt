@@ -19,7 +19,7 @@ fun handleEvent(
     context: Context,
     rootController: RootController,
     coroutineScope: CoroutineScope,
-    scaffoldState: ScaffoldState
+    scaffoldState: ScaffoldState,
 ) {
     when (event) {
         AddAccountEvent.Close -> {
