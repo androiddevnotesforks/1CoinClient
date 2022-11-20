@@ -524,7 +524,7 @@ style:
     maxJumpCount: 1
   MagicNumber:
     active: true
-    excludes: ['**/build/**', '**/*.kts', '**/analytics/**']
+    excludes: ['**/build/**', '**/*.kts']
     ignoreNumbers:
       - '-1'
       - '0'
