@@ -23,12 +23,9 @@ class TransactionsInteractor(
         for (transaction in allTransactions) {
             val lastUiTransactionModel = newTransactions.lastOrNull()
 
-            if (lastUiTransactionModel == null ||
-                (lastUiTransactionModel is TransactionListModel.Data &&
-                        !lastUiTransactionModel.transaction.date.isCalendarDateEquals(
-                            transaction.date
-                        ))
-            ) {
+            val isTransactionForNextDay = lastUiTransactionModel is TransactionListModel.Data &&
+                    !lastUiTransactionModel.transaction.date.isCalendarDateEquals(transaction.date)
+            if (lastUiTransactionModel == null || isTransactionForNextDay) {
                 val totalIncomeAmount =
                     transactionsRepository.getTotalTransactionAmountByDateAndType(
                         date = transaction.date,

@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION")
+import io.gitlab.arturbosch.detekt.Detekt
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
@@ -22,26 +22,20 @@ plugins {
     id("com.android.library") apply false
     id("org.jetbrains.compose") apply false
     id("org.jetbrains.kotlin.plugin.serialization") apply false
-    id("io.gitlab.arturbosch.detekt") apply false
+    id("io.gitlab.arturbosch.detekt")
 }
 
-val detekt by configurations.creating
-
-val detektTask = tasks.register<JavaExec>("detektAll") {
-    main = "io.gitlab.arturbosch.detekt.cli.Main"
-    classpath = detekt
-
-    val input = projectDir
-    val config = ("$projectDir/config/detekt/detekt.yml")
-
-    val exclude = ".*/build/.*,.*/resources/.*"
-    val params = listOf("-i", input, "-c", config, "-ex", exclude)
-
-    args(params)
+tasks.register<Detekt>("detektAll") {
+    parallel = true
+    setSource(projectDir)
+    include("**/*.kt", "**/*.kts")
+    exclude("**/resources/**", "**/build/**")
+    config.setFrom(project.file("config/detekt/detekt.yml"))
 }
 
 dependencies {
     detekt("io.gitlab.arturbosch.detekt:detekt-cli:1.22.0-RC3")
+    detektPlugins("ru.kode:detekt-rules-compose:1.2.2")
 }
 
 allprojects {
@@ -49,6 +43,19 @@ allprojects {
         google()
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    }
+    afterEvaluate {
+        // Remove log pollution until Android support in KMP improves.
+        project.extensions.findByType<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension>()?.let { kmpExt ->
+            kmpExt.sourceSets.removeAll { sourceSet ->
+                setOf(
+                    "androidAndroidTestRelease",
+                    "androidTestFixtures",
+                    "androidTestFixturesDebug",
+                    "androidTestFixturesRelease",
+                ).contains(sourceSet.name)
+            }
+        }
     }
 }
 
