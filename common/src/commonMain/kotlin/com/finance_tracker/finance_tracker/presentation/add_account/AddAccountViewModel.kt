@@ -133,8 +133,7 @@ class AddAccountViewModel(
                     type = type,
                     currency = selectedCurrency.value
                 )
-            }
-            else {
+            } else {
                 accountsRepository.updateAccount(
                     type = type,
                     name = accountName,

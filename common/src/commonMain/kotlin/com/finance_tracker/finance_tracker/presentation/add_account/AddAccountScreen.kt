@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -19,12 +18,14 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -66,16 +67,26 @@ fun AddAccountScreen(
     ) { viewModel ->
         val rootController = LocalRootController.current
         val context = LocalContext.current
+        val coroutineScope = rememberCoroutineScope()
+        val scaffoldState = rememberScaffoldState()
         LaunchedEffect(Unit) {
             viewModel.events
-                .onEach { event -> handleEvent(event, context, rootController) }
+                .onEach { event ->
+                    handleEvent(
+                        event = event,
+                        context = context,
+                        coroutineScope = coroutineScope,
+                        scaffoldState = scaffoldState,
+                        rootController = rootController,
+                    )
+                }
                 .launchIn(this)
         }
         Column {
             AddAccountTopBar(
                 modifier = Modifier
                     .statusBarsPadding(),
-                topBarText = if (account == Account.EMPTY) {
+                topBarTextId = if (account == Account.EMPTY) {
                     "new_account_title"
                 } else {
                     "accounts_screen_top_bar"
@@ -198,7 +209,6 @@ fun AddAccountScreen(
                     PrimaryButton(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(40.dp)
                             .padding(end = 16.dp),
                         text = stringResource("edit_account_btn_save"),
                         onClick = viewModel::onAddAccountClick,
@@ -333,7 +343,7 @@ fun ColorIcon(accountColorData: AccountColorData?) {
 
 @Composable
 private fun AddAccountTopBar(
-    topBarText: String,
+    topBarTextId: String,
     modifier: Modifier = Modifier,
 ) {
     val rootController = LocalRootController.current
@@ -349,7 +359,7 @@ private fun AddAccountTopBar(
         },
         title = {
             Text(
-                text = stringResource(topBarText),
+                text = stringResource(topBarTextId),
                 style = CoinTheme.typography.h4
             )
         }
