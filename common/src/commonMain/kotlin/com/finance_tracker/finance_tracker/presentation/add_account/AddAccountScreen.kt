@@ -69,6 +69,7 @@ fun AddAccountScreen(
         parameters = { parametersOf(account) }
     ) { viewModel ->
         val rootController = LocalRootController.current
+        val navController = rootController.findRootController()
         val context = LocalContext.current
         val modalNavController = rootController.findModalController()
         val coroutineScope = rememberCoroutineScope()
@@ -206,7 +207,7 @@ fun AddAccountScreen(
                                         onDeleteClick = {
                                             modalNavController.popBackStack(key, animate = false)
                                             viewModel.onDeleteClick(account)
-                                            rootController.findRootController().backToScreen(
+                                            navController.backToScreen(
                                                 MainNavigationTree.Main.name
                                             )
                                         }
