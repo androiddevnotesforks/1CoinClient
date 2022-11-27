@@ -1,5 +1,6 @@
 package com.finance_tracker.finance_tracker.core.ui.transactions
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -53,6 +54,7 @@ fun CommonTransactionsList(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun TransactionsList(
     transactions: List<TransactionListModel>,
@@ -64,10 +66,11 @@ private fun TransactionsList(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(bottom = 96.dp)
     ) {
-        items(transactions) { transactionModel ->
+        items(transactions, key = { it.id }) { transactionModel ->
             when (transactionModel) {
                 is TransactionListModel.Data -> {
                     TransactionItem(
+                        modifier = Modifier.animateItemPlacement(),
                         transactionData = transactionModel,
                         onClick = { onClick.invoke(transactionModel) },
                         onLongClick = { onLongClick.invoke(transactionModel) }
