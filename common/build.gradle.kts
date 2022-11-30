@@ -22,6 +22,8 @@ kotlin {
                 implementation(libs.sqldelight.coroutines)
                 implementation(libs.bundles.ktor)
                 implementation(libs.koalaplot)
+                implementation(libs.settings)
+                implementation(libs.uuid)
             }
         }
         named("desktopMain") {
@@ -30,6 +32,8 @@ kotlin {
                 implementation(libs.datepicker.desktop)
                 implementation(libs.ktor.jvm)
                 implementation(libs.slf4j)
+                implementation(libs.json)
+                implementation(libs.amplitude.java)
             }
         }
         named("androidMain") {
@@ -38,6 +42,7 @@ kotlin {
                 implementation(libs.bundles.koin.android)
                 implementation(libs.sqldelight.android)
                 implementation(libs.ktor.android)
+                implementation(libs.amplitude.android)
             }
         }
     }
