@@ -24,6 +24,7 @@ kotlin {
                 implementation(libs.koalaplot)
                 implementation(libs.settings)
                 implementation(libs.uuid)
+                implementation(libs.datetime)
             }
         }
         named("desktopMain") {

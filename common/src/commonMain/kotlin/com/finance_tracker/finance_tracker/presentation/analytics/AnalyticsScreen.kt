@@ -4,38 +4,44 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
-import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabRow
 
 @Composable
 fun AnalyticsScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(CoinTheme.color.background)
-            .statusBarsPadding()
-    ) {
-        AnalyticsScreenAppBar()
-        var selectedTransactionType by remember { mutableStateOf(TransactionTypeTab.Expense) }
-        TransactionTypesTabRow(
-            selectedType = selectedTransactionType,
-            onSelect = { selectedTransactionType = it }
-        )
-
-        CoinWidget(
-            title = stringResource(selectedTransactionType.textId) + " " +
-                    stringResource("analytics_by_category")
+    StoredViewModel<AnalyticsViewModel> { viewModel ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(CoinTheme.color.background)
+                .statusBarsPadding()
         ) {
-            CategoriesPieChart()
+            AnalyticsScreenAppBar()
+            val selectedTransactionTypeTab by viewModel.transactionTypeTab.collectAsState()
+            TransactionTypesTabRow(
+                selectedType = selectedTransactionTypeTab,
+                onSelect = viewModel::onTransactionTypeSelect
+            )
+
+            CoinWidget(
+                title = stringResource(selectedTransactionTypeTab.textId) + " " +
+                        stringResource("analytics_by_category")
+            ) {
+                val selectedMonth by viewModel.selectedMonth.collectAsState()
+                val monthTransactionsByCategory by viewModel.monthTransactionsByCategory.collectAsState()
+                CategoriesPieChart(
+                    selectedMonth = selectedMonth,
+                    monthTransactionsByCategory = monthTransactionsByCategory,
+                    onMonthSelect = viewModel::onMonthSelect
+                )
+            }
         }
     }
 }

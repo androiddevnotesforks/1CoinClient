@@ -10,6 +10,7 @@ import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.financetracker.financetracker.data.TransactionsEntityQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.Month
 import java.util.Date
 
 class TransactionsRepository(
@@ -73,6 +74,16 @@ class TransactionsRepository(
     suspend fun getTransactions(accountId: Long): List<Transaction> {
         return withContext(Dispatchers.IO) {
             transactionsEntityQueries.getFullTransactionsByAccountId(accountId, fullTransactionMapper).executeAsList()
+        }
+    }
+
+    suspend fun getTransactions(transactionType: TransactionType, month: Month): List<Transaction> {
+        return withContext(Dispatchers.IO) {
+            transactionsEntityQueries.getFullTransactions(
+                transactionType = transactionType,
+                monthNumber = String.format(format = "%02d", month.value),
+                mapper = fullTransactionMapper
+            ).executeAsList()
         }
     }
 
