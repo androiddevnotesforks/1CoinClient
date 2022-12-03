@@ -126,7 +126,10 @@ fun CoinTheme(
         LocalRippleTheme provides CoinRippleTheme,
         content = content
     )
+}
 
+object CoinPaddings {
+    val bottomNavigationBar = 96.dp
 }
 
 object CoinTheme {

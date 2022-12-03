@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.DateFormatType
 import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
 import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
@@ -64,7 +65,7 @@ private fun TransactionsList(
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
-        contentPadding = PaddingValues(bottom = 96.dp)
+        contentPadding = PaddingValues(bottom = CoinPaddings.bottomNavigationBar)
     ) {
         items(transactions, key = { it.id }) { transactionModel ->
             when (transactionModel) {

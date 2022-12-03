@@ -6,6 +6,7 @@ import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -25,6 +26,22 @@ class AnalyticsViewModel(
     private val _transactionTypeTab = MutableStateFlow(TransactionTypeTab.Expense)
     val transactionTypeTab = _transactionTypeTab.asStateFlow()
 
+    private val _isLoadingMonthTxsByCategory = MutableStateFlow(false)
+    val isLoadingMonthTxsByCategory = _isLoadingMonthTxsByCategory.asStateFlow()
+
+    private var loadMonthTxsByCategoryJob: Job? = null
+
+    fun onScreenComposed() {
+        updateMonthTxsByCategory()
+    }
+
+    private fun updateMonthTxsByCategory() {
+        loadMonthTxsByCategory(
+            transactionTypeTab = transactionTypeTab.value,
+            month = selectedMonth.value
+        )
+    }
+
     fun onMonthSelect(month: Month) {
         _selectedMonth.value = month
         loadMonthTxsByCategory(
@@ -42,11 +59,14 @@ class AnalyticsViewModel(
     }
 
     private fun loadMonthTxsByCategory(transactionTypeTab: TransactionTypeTab, month: Month) {
-        viewModelScope.launch {
+        loadMonthTxsByCategoryJob?.cancel()
+        loadMonthTxsByCategoryJob = viewModelScope.launch {
+            _isLoadingMonthTxsByCategory.value = true
             _monthTransactionsByCategory.value = transactionsInteractor.getTransactions(
                 transactionType = transactionTypeTab.toTransactionType(),
                 month = month
             )
+            _isLoadingMonthTxsByCategory.value = false
         }
     }
 }

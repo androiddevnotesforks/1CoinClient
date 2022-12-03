@@ -1,24 +1,25 @@
 package com.finance_tracker.finance_tracker.domain.interactors
 
-import androidx.compose.ui.graphics.Color
+import com.finance_tracker.finance_tracker.core.theme.ChartConfig
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
+import com.finance_tracker.finance_tracker.domain.models.Category
+import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
+import io.github.koalaplot.core.util.toString
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.Month
 import java.util.Calendar
 import java.util.Date
-import kotlin.math.pow
 
 class TransactionsInteractor(
     private val transactionsRepository: TransactionsRepository,
     private val accountsRepository: AccountsRepository,
 ) {
-
-    @Suppress("MagicNumber")
-    private val minPercentValue = MIN_PERCENT_PRECISION / 10f.pow(MIN_PERCENT_PRECISION)
 
     suspend fun getTransactions(accountId: Long? = null): List<TransactionListModel> {
         val allTransactions = if (accountId == null) {
@@ -99,44 +100,99 @@ class TransactionsInteractor(
     suspend fun getTransactions(
         transactionType: TransactionType, month: Month
     ): TxsByCategoryChart {
-        val transactions = transactionsRepository.getTransactions(transactionType, month)
-        val totalAmount = transactions.sumOf { it.amount }
+        return withContext(Dispatchers.Default) {
+            val transactions = transactionsRepository.getTransactions(transactionType, month)
+            val totalAmount = transactions.sumOf { it.amount }
 
-        val rawCategoryPieces = transactions
-            .groupBy { it.category }
-            .mapValues { (_, amounts) -> amounts.sumOf { it.amount } }
-            .map { (category, amount) ->
-                TxsByCategoryChart.Piece(
-                    category = category,
-                    amount = amount,
-                    color = Color(
-                        red = (0..255).random().toFloat() / 255f,
-                        green = (0..255).random().toFloat() / 255f,
-                        blue = (0..255).random().toFloat() / 255f
+            val sortRules: (TxsByCategoryChart.Piece) -> Double = { it.amount }
+            val rawCategoryPieces = transactions
+                .groupBy { it.category }
+                .map { (category, transactions) ->
+                    TxsByCategoryChart.Piece(
+                        category = category ?: Category.EMPTY,
+                        amount = transactions.sumOf { it.amount },
+                        amountCurrency = Currency.default, // TODO: Change to real currency
+                        percentValue = 0f,
+                        transactionsCount = transactions.size
                     )
-                )
+                }.sortedByDescending { sortRules.invoke(it) }
+
+            val categoryPercentValues = calculateCategoryPercentValues(
+                rawCategoryPieces, totalAmount
+            )
+            val allPieces = rawCategoryPieces.mapIndexed { index, piece ->
+                piece.copy(
+                    percentValue = categoryPercentValues[index].toFloat()
+                ).apply {
+
+                }
             }
 
-        val categoryPieces = rawCategoryPieces
-            .filter {
-                it.amount / totalAmount >= minPercentValue
+            val otherPieces = (allPieces.drop(OtherCategoryCountThreshold) +
+                    allPieces.filter { it.percentValue < OtherMinPercentThreshold }).toSet()
+                .sortedByDescending { sortRules.invoke(it) }
+                .takeIf { it.size > 1 }
+                .orEmpty()
+
+            allPieces.forEachIndexed { index, piece ->
+                piece.color = if (piece in otherPieces) {
+                    ChartConfig.colorOther
+                } else {
+                    ChartConfig.colors[index % ChartConfig.colors.size]
+                }
             }
 
-        val otherPieces = rawCategoryPieces - categoryPieces.toSet()
-        val allCategoryPieces = if (otherPieces.sumOf { it.amount } >= minPercentValue) {
-            categoryPieces + otherPieces
-        } else {
-            categoryPieces
+            val mainPieces = if (otherPieces.isNotEmpty()) {
+                allPieces - otherPieces.toSet() + TxsByCategoryChart.Piece(
+                    category = Category(
+                        id = -2,
+                        name = "Other",
+                        iconId = "ic_more_horiz"
+                    ),
+                    amount = otherPieces.sumOf { it.amount },
+                    amountCurrency = otherPieces.first().amountCurrency,
+                    percentValue = otherPieces.sumOf {
+                        it.percentValue.toDouble()
+                    }.toFloat(),
+                    transactionsCount = otherPieces.sumOf { it.transactionsCount }
+                ).apply {
+                    color = ChartConfig.colorOther
+                }
+            } else {
+                allPieces
+            }
+
+            return@withContext TxsByCategoryChart(
+                mainPieces = mainPieces,
+                allPieces = allPieces,
+                total = totalAmount
+            )
         }
-            .sortedBy { (_, amount) -> amount }
+    }
 
-        return TxsByCategoryChart(
-            pieces = allCategoryPieces,
-            total = totalAmount
-        )
+    private fun calculateCategoryPercentValues(
+        allCategoryPieces: List<TxsByCategoryChart.Piece>,
+        totalAmount: Double
+    ): List<Double> {
+        var accumulatedTotalPercent = 0.0
+        val reversedCategoryPercentValues = mutableListOf<Double>()
+        for (index in allCategoryPieces.size - 1 downTo  0) {
+            val piece = allCategoryPieces[index]
+            if (index == 0) {
+                reversedCategoryPercentValues.add(100.0 - accumulatedTotalPercent)
+            } else {
+                val percentValue = (piece.amount / totalAmount * 100).toString(
+                    TxsByCategoryChart.Piece.PERCENT_PRECISION
+                ).toDouble()
+                accumulatedTotalPercent += percentValue
+                reversedCategoryPercentValues.add(accumulatedTotalPercent)
+            }
+        }
+        return reversedCategoryPercentValues.reversed()
     }
 
     companion object {
-        private const val MIN_PERCENT_PRECISION = 1
+        private const val OtherMinPercentThreshold = 1
+        private val OtherCategoryCountThreshold = ChartConfig.colors.size
     }
 }

@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
+import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.AccountCard
 
 @Composable
@@ -33,7 +34,7 @@ fun AccountsScreen() {
                 modifier = Modifier
                     .fillMaxHeight(),
                 contentPadding = PaddingValues(
-                    bottom = 96.dp,
+                    bottom = CoinPaddings.bottomNavigationBar,
                     start = 16.dp,
                     end = 16.dp,
                     top = 16.dp
