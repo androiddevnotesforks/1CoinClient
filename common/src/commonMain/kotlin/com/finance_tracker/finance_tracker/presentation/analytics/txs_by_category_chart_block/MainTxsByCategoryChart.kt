@@ -10,16 +10,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.toPx
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
+import com.finance_tracker.finance_tracker.presentation.analytics.PieChartLabelSize
 import com.finance_tracker.finance_tracker.presentation.analytics.PieChartSize
+import com.finance_tracker.finance_tracker.presentation.analytics.views.CoinBezierLabelConnector
 import io.github.koalaplot.core.ChartLayout
-import io.github.koalaplot.core.pie.BezierLabelConnector
 import io.github.koalaplot.core.pie.DefaultSlice
 import io.github.koalaplot.core.pie.PieChart
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
@@ -35,8 +34,6 @@ fun MainTxsByCategoryChart(
 ) {
     val totalAmount = monthTransactionsByCategory?.total ?: 0.0
     val txsByCategoryChartPieces = monthTransactionsByCategory?.mainPieces.orEmpty()
-
-    val strokeWidth = 1.dp.toPx()
 
     ChartLayout(
         modifier = modifier.padding(
@@ -63,7 +60,7 @@ fun MainTxsByCategoryChart(
                 val chartPiece = txsByCategoryChartPieces[index]
                 Icon(
                     modifier = Modifier
-                        .size(20.dp)
+                        .size(PieChartLabelSize)
                         .clip(CircleShape)
                         .background(chartPiece.color)
                         .padding(3.dp),
@@ -75,11 +72,8 @@ fun MainTxsByCategoryChart(
                 )
             },
             labelConnector = { index ->
-                BezierLabelConnector(
-                    connectorColor = txsByCategoryChartPieces[index].color,
-                    connectorStroke = Stroke(
-                        width = strokeWidth
-                    )
+                CoinBezierLabelConnector(
+                    connectorColor = txsByCategoryChartPieces[index].color
                 )
             },
             holeSize = 0.8f,

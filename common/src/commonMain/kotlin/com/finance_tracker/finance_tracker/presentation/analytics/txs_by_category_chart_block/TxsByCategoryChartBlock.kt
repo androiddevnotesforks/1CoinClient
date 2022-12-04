@@ -45,9 +45,7 @@ fun TxsByCategoryChartBlock(
     modifier: Modifier = Modifier,
     onMonthSelect: (Month) -> Unit = {}
 ) {
-    val totalAmount = monthTransactionsByCategory?.total ?: 0.0
     val mainTxsByCategoryPieces = monthTransactionsByCategory?.mainPieces.orEmpty()
-    val allTxsByCategoryPieces = monthTransactionsByCategory?.allPieces.orEmpty()
 
     Column(
         modifier = modifier
@@ -70,83 +68,110 @@ fun TxsByCategoryChartBlock(
                     selectedMonth = selectedMonth
                 )
             }
-            !isLoading && mainTxsByCategoryPieces.isNotEmpty() -> {
-                MainTxsByCategoryChart(
+            !isLoading && monthTransactionsByCategory != null && mainTxsByCategoryPieces.isNotEmpty() -> {
+                ContentPieChartLayout(
                     monthTransactionsByCategory = monthTransactionsByCategory,
                     selectedMonth = selectedMonth
                 )
-
-                // Opening Animation
-                val expandTransition = remember {
-                    expandVertically(
-                        expandFrom = Alignment.Top,
-                        animationSpec = tween(ExpandAnimationDuration)
-                    ) + fadeIn(
-                        animationSpec = tween(ExpandAnimationDuration)
-                    )
-                }
-
-                // Closing Animation
-                val collapseTransition = remember {
-                    shrinkVertically(
-                        shrinkTowards = Alignment.Top,
-                        animationSpec = tween(ExpandAnimationDuration)
-                    ) + fadeOut(
-                        animationSpec = tween(ExpandAnimationDuration)
-                    )
-                }
-
-                var isCategoriesExpanded by rememberSaveable { mutableStateOf(false) }
-                ExpandButton(
-                    modifier = Modifier
-                        .padding(bottom = 4.dp),
-                    expand = isCategoriesExpanded,
-                    onClick = {
-                        isCategoriesExpanded = !isCategoriesExpanded
-                    }
-                )
-
-                AnimatedVisibility(
-                    visible = isCategoriesExpanded,
-                    enter = expandTransition,
-                    exit = collapseTransition
-                ) {
-                    CategoriesList(
-                        pieces = allTxsByCategoryPieces,
-                        totalAmount = totalAmount
-                    )
-                }
             }
             else -> {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    EmptyPieChart(
-                        selectedMonth = selectedMonth
-                    )
-
-                    Row(
-                        modifier = Modifier.padding(
-                            bottom = 32.dp
-                        )
-                    ) {
-                        Icon(
-                            painter = rememberVectorPainter("ic_error"),
-                            contentDescription = null,
-                            tint = CoinTheme.color.secondary
-                        )
-
-                        Text(
-                            modifier = Modifier
-                                .padding(start = 8.dp),
-                            text = stringResource("analytics_make_first_transactions"),
-                            style = CoinTheme.typography.subtitle2,
-                            color = CoinTheme.color.secondary
-                        )
-                    }
-                }
+                EmptyPieChartLayout(
+                    selectedMonth = selectedMonth
+                )
             }
+        }
+    }
+}
+
+@Composable
+private fun ContentPieChartLayout(
+    monthTransactionsByCategory: TxsByCategoryChart,
+    selectedMonth: Month,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        MainTxsByCategoryChart(
+            monthTransactionsByCategory = monthTransactionsByCategory,
+            selectedMonth = selectedMonth
+        )
+
+        // Opening Animation
+        val expandTransition = remember {
+            expandVertically(
+                expandFrom = Alignment.Top,
+                animationSpec = tween(ExpandAnimationDuration)
+            ) + fadeIn(
+                animationSpec = tween(ExpandAnimationDuration)
+            )
+        }
+
+        // Closing Animation
+        val collapseTransition = remember {
+            shrinkVertically(
+                shrinkTowards = Alignment.Top,
+                animationSpec = tween(ExpandAnimationDuration)
+            ) + fadeOut(
+                animationSpec = tween(ExpandAnimationDuration)
+            )
+        }
+
+        var isCategoriesExpanded by rememberSaveable { mutableStateOf(false) }
+        ExpandButton(
+            modifier = Modifier
+                .padding(bottom = 4.dp),
+            expand = isCategoriesExpanded,
+            onClick = {
+                isCategoriesExpanded = !isCategoriesExpanded
+            }
+        )
+
+        AnimatedVisibility(
+            visible = isCategoriesExpanded,
+            enter = expandTransition,
+            exit = collapseTransition
+        ) {
+            CategoriesList(
+                pieces = monthTransactionsByCategory.allPieces,
+                totalAmount = monthTransactionsByCategory.total
+            )
+        }
+    }
+}
+
+@Composable
+private fun EmptyPieChartLayout(
+    selectedMonth: Month,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        EmptyPieChart(
+            selectedMonth = selectedMonth
+        )
+
+        Row(
+            modifier = Modifier.padding(
+                bottom = 32.dp
+            )
+        ) {
+            Icon(
+                painter = rememberVectorPainter("ic_error"),
+                contentDescription = null,
+                tint = CoinTheme.color.secondary
+            )
+
+            Text(
+                modifier = Modifier
+                    .padding(start = 8.dp),
+                text = stringResource("analytics_make_first_transactions"),
+                style = CoinTheme.typography.subtitle2,
+                color = CoinTheme.color.secondary
+            )
         }
     }
 }

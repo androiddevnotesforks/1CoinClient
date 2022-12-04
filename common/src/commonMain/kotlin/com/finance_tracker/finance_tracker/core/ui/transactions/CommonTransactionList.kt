@@ -27,6 +27,7 @@ import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -116,14 +117,14 @@ private fun DayTotalHeader(
             .defaultMinSize(minWidth = 16.dp))
         Text(
             modifier = Modifier.padding(end = 16.dp),
-            text = "+${DecimalFormatType.Amount.format(dayTotalModel.income)}",
+            text = "+${Currency.default.sign}${DecimalFormatType.Amount.format(dayTotalModel.income)}",
             style = CoinTheme.typography.subtitle2,
             color = CoinTheme.color.accentGreen
         )
 
         Text(
             modifier = Modifier.padding(end = 16.dp),
-            text = "-${DecimalFormatType.Amount.format(dayTotalModel.expense)}",
+            text = "-${Currency.default.sign}${DecimalFormatType.Amount.format(dayTotalModel.expense)}",
             style = CoinTheme.typography.subtitle2,
             color = CoinTheme.color.content
         )

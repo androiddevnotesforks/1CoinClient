@@ -23,6 +23,7 @@ import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabR
 import com.finance_tracker.finance_tracker.presentation.analytics.txs_by_category_chart_block.TxsByCategoryChartBlock
 
 val PieChartSize = 240.dp
+val PieChartLabelSize = 20.dp
 
 @Composable
 fun AnalyticsScreen() {

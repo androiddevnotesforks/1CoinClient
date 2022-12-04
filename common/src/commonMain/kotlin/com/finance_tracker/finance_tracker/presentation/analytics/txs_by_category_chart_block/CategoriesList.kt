@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -37,15 +38,12 @@ fun CategoriesList(
     }
 }
 
-@OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
 fun CategoryItem(
     piece: TxsByCategoryChart.Piece,
     total: Double,
     modifier: Modifier = Modifier,
 ) {
-
-    val percentage = remember { (piece.amount / total * 100).toFloat() }
     Row(
         modifier = modifier
             .padding(
@@ -54,56 +52,7 @@ fun CategoryItem(
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        val chartSize = 32.dp
-        Box(
-            modifier = Modifier
-                .size(chartSize),
-            contentAlignment = Alignment.Center
-        ) {
-            val values = listOf(percentage, 100f - percentage)
-            PieChart(
-                modifier = Modifier.matchParentSize(),
-                minPieDiameter = chartSize,
-                maxPieDiameter = chartSize,
-                values = values,
-                slice = { index: Int ->
-                    DefaultSlice(
-                        color = if (index == 0) {
-                            piece.color
-                        } else {
-                            Color.Transparent
-                        }
-                    )
-                },
-                holeSize = 0.77f,
-                labelConnector = { Spacer(modifier = Modifier.size(0.dp)) },
-                animationSpec = tween(durationMillis = 0)
-            )
-
-            PieChart(
-                modifier = Modifier.matchParentSize(),
-                minPieDiameter = chartSize,
-                maxPieDiameter = chartSize,
-                values = values,
-                slice = { index: Int ->
-                    DefaultSlice(
-                        color = if (index == 0) {
-                            Color.Transparent
-                        } else {
-                            CoinTheme.color.dividers
-                        }
-                    )
-                },
-                holeSize = 0.84f,
-                labelConnector = { Spacer(modifier = Modifier.size(0.dp)) },
-                animationSpec = tween(durationMillis = 0)
-            )
-
-            Text(
-                text = piece.percentage,
-                style = CoinTheme.typography.subtitle4
-            )
-        }
+        CategoryPieChart(piece, total)
 
         Column(
             modifier = Modifier
@@ -125,6 +74,67 @@ fun CategoryItem(
         Text(
             text = piece.formattedAmount,
             style = CoinTheme.typography.body2
+        )
+    }
+}
+
+@OptIn(ExperimentalKoalaPlotApi::class)
+@Composable
+private fun CategoryPieChart(
+    piece: TxsByCategoryChart.Piece,
+    total: Double,
+    modifier: Modifier = Modifier
+) {
+    val percentage = remember { (piece.amount / total * 100).toFloat() }
+    val chartSize = 32.dp
+    Box(
+        modifier = modifier
+            .size(chartSize),
+        contentAlignment = Alignment.Center
+    ) {
+        val values = listOf(percentage, 100f - percentage)
+        PieChart(
+            modifier = Modifier.matchParentSize(),
+            minPieDiameter = chartSize,
+            maxPieDiameter = chartSize,
+            values = values,
+            slice = { index: Int ->
+                DefaultSlice(
+                    color = if (index == 0) {
+                        piece.color
+                    } else {
+                        Color.Transparent
+                    }
+                )
+            },
+            holeSize = 0.77f,
+            labelConnector = { Spacer(modifier = Modifier.size(0.dp)) },
+            animationSpec = tween(durationMillis = 0)
+        )
+
+        PieChart(
+            modifier = Modifier.matchParentSize(),
+            minPieDiameter = chartSize,
+            maxPieDiameter = chartSize,
+            values = values,
+            slice = { index: Int ->
+                DefaultSlice(
+                    color = if (index == 0) {
+                        Color.Transparent
+                    } else {
+                        CoinTheme.color.dividers
+                    }
+                )
+            },
+            holeSize = 0.84f,
+            labelConnector = { Spacer(modifier = Modifier.size(0.dp)) },
+            animationSpec = tween(durationMillis = 0)
+        )
+
+        Text(
+            text = piece.percentage,
+            style = CoinTheme.typography.subtitle4,
+            textAlign = TextAlign.Center
         )
     }
 }

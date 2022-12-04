@@ -10,13 +10,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.toPx
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.presentation.analytics.PieChartLabelSize
 import com.finance_tracker.finance_tracker.presentation.analytics.PieChartSize
+import com.finance_tracker.finance_tracker.presentation.analytics.views.CoinBezierLabelConnector
 import io.github.koalaplot.core.ChartLayout
-import io.github.koalaplot.core.pie.BezierLabelConnector
 import io.github.koalaplot.core.pie.DefaultSlice
 import io.github.koalaplot.core.pie.PieChart
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
@@ -31,7 +30,6 @@ fun LoadingPieChart(
     modifier: Modifier = Modifier
 ) {
     val mockValues = listOf(30f, 20f, 10f, 10f, 10f, 10f, 10f)
-    val strokeWidth = 1.dp.toPx()
     val loadingColor = CoinTheme.color.secondaryBackground
 
     ChartLayout(
@@ -54,18 +52,13 @@ fun LoadingPieChart(
             label = {
                 Box(
                     modifier = Modifier
-                        .size(20.dp)
+                        .size(PieChartLabelSize)
                         .clip(CircleShape)
                         .background(loadingColor)
                 )
             },
             labelConnector = {
-                BezierLabelConnector(
-                    connectorColor = loadingColor,
-                    connectorStroke = Stroke(
-                        width = strokeWidth
-                    )
-                )
+                CoinBezierLabelConnector(connectorColor = loadingColor)
             },
             holeSize = 0.8f,
             holeContent = {
