@@ -4,11 +4,12 @@ import com.finance_tracker.finance_tracker.presentation.accounts.AccountsViewMod
 import com.finance_tracker.finance_tracker.presentation.add_account.AddAccountViewModel
 import com.finance_tracker.finance_tracker.presentation.add_category.AddCategoryViewModel
 import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionViewModel
+import com.finance_tracker.finance_tracker.presentation.analytics.AnalyticsViewModel
 import com.finance_tracker.finance_tracker.presentation.categories.CategorySettingsViewModel
 import com.finance_tracker.finance_tracker.presentation.detail_account.DetailAccountViewModel
 import com.finance_tracker.finance_tracker.presentation.home.HomeViewModel
-import com.finance_tracker.finance_tracker.presentation.transactions.TransactionsViewModel
 import com.finance_tracker.finance_tracker.presentation.settings.SettingsSheetViewModel
+import com.finance_tracker.finance_tracker.presentation.transactions.TransactionsViewModel
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
@@ -22,4 +23,5 @@ internal val viewModelsModule = module {
     factoryOf(::AddCategoryViewModel)
     factoryOf(::DetailAccountViewModel)
     factoryOf(::SettingsSheetViewModel)
+    factoryOf(::AnalyticsViewModel)
 }

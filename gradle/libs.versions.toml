@@ -86,6 +86,8 @@ settings = "com.russhwolf:multiplatform-settings:1.0.0-RC"
 
 uuid = "com.benasher44:uuid:0.6.0"
 
+datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.4.0"
+
 [bundles]
 odyssey = ["odyssey-core", "odyssey-compose"]
 compose = ["compose-animation", "compose-foundation", "compose-material", "compose-ui", "compose-tooling"]

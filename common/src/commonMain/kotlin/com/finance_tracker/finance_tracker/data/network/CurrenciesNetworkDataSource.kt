@@ -13,9 +13,11 @@ class CurrenciesNetworkDataSource(
     private val httpClient: HttpClient,
     private val jsonFactory: Json
 ) {
-    suspend fun getCurrenciesRates(): JsonObject {
-        val jsonBody = httpClient.get("https://api.exchangerate.host/latest?base=USD").bodyAsText()
-        return jsonFactory.decodeFromString<JsonObject>(jsonBody)
-            .getOrThrow("rates").jsonObject
+    suspend fun getCurrenciesRates(): Result<JsonObject> {
+        return runCatching {
+            val jsonBody = httpClient.get("https://api.exchangerate.host/latest?base=USD").bodyAsText()
+            jsonFactory.decodeFromString<JsonObject>(jsonBody)
+                .getOrThrow("rates").jsonObject
+        }
     }
 }

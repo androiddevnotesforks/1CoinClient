@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
+import com.finance_tracker.finance_tracker.core.common.math.stringSign
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
@@ -22,6 +23,7 @@ import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.presentation.settings.SettingsSheet
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
+import kotlin.math.absoluteValue
 
 @Composable
 fun HomeTopBar(
@@ -38,7 +40,8 @@ fun HomeTopBar(
         title = {
             Column {
                 Text(
-                    text = "${totalCurrency.sign}${DecimalFormatType.Amount.format(totalAmount)}",
+                    text = "${totalAmount.stringSign}${totalCurrency.sign}" +
+                            DecimalFormatType.Amount.format(totalAmount.absoluteValue),
                     style = CoinTheme.typography.h4
                 )
                 Text(

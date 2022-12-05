@@ -30,6 +30,7 @@ class CurrenciesRepository(
     suspend fun updateCurrencyRates() {
         return withContext(Dispatchers.IO) {
             val currencyRates = currenciesNetworkDataSource.getCurrenciesRates()
+                .getOrNull() ?: return@withContext
             currencyRatesEntityQueries.transaction {
                 currencyRates.forEach { (key, value) ->
                     currencyRatesEntityQueries.insertNewRate(
