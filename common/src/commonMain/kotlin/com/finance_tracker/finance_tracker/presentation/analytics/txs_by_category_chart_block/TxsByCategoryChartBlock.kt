@@ -135,7 +135,7 @@ private fun ContentPieChartLayout(
         ) {
             CategoriesList(
                 pieces = monthTransactionsByCategory.allPieces,
-                totalAmount = monthTransactionsByCategory.total
+                totalAmount = monthTransactionsByCategory.total.amountValue
             )
         }
     }

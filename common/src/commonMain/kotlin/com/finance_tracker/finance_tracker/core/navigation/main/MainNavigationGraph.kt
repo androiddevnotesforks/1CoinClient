@@ -15,7 +15,7 @@ fun RootComposeBuilder.navigationGraph() {
 
     screen(MainNavigationTree.AddTransaction.name) {
         AddTransactionScreen(
-            transaction = Transaction.EMPTY
+            transaction = it as? Transaction
         )
     }
 

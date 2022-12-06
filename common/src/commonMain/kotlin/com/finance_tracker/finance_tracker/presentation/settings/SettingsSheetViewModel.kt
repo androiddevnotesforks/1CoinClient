@@ -1,16 +1,22 @@
 package com.finance_tracker.finance_tracker.presentation.settings
 
 import com.adeo.kviewmodel.KViewModel
+import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.models.Currency
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
-class SettingsSheetViewModel: KViewModel() {
+class SettingsSheetViewModel(
+    private val currenciesInteractor: CurrenciesInteractor
+): KViewModel() {
 
-    private val _chosenCurrency = MutableStateFlow(Currency.default)
-    val chosenCurrency = _chosenCurrency.asStateFlow()
+    val chosenCurrency = currenciesInteractor.getPrimaryCurrencyFlow()
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = Currency.default)
 
     fun onCurrencySelect(currency: Currency) {
-        _chosenCurrency.value = currency
+        viewModelScope.launch {
+            currenciesInteractor.savePrimaryCurrency(currency)
+        }
     }
 }

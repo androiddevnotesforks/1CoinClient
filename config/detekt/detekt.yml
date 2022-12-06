@@ -473,7 +473,7 @@ style:
   CollapsibleIfStatements:
     active: true
   DataClassContainsFunctions:
-    active: true
+    active: false
   DataClassShouldBeImmutable:
     active: true
   DestructuringDeclarationWithTooManyEntries:

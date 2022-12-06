@@ -1,8 +1,8 @@
 package com.finance_tracker.finance_tracker.data.repositories
 
-import com.finance_tracker.finance_tracker.core.common.DateFormatType
 import com.finance_tracker.finance_tracker.core.common.hexToColor
 import com.finance_tracker.finance_tracker.domain.models.Account
+import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.Transaction
@@ -39,19 +39,21 @@ class TransactionsRepository(
         isExpense: Boolean,
         isIncome: Boolean
     ) -> Transaction = { id, type, amount, amountCurrency, categoryId,
-                         accountId, _, date, _, accountType, accountName, balance, accountColorHex, currency,
+                         accountId, _, date, _, accountType, accountName, balance, accountColorHex, _,
                          _, categoryName, categoryIcon, _, _, _ ->
+        val currency = Currency.getByCode(amountCurrency)
         Transaction(
             id = id,
             type = type,
-            amountCurrency = Currency.getByName(amountCurrency),
             account = Account(
                 id = accountId ?: 0L,
                 type = accountType,
                 color = accountColorHex.hexToColor(),
                 name = accountName,
-                balance = balance,
-                currency = Currency.getByName(currency)
+                balance = Amount(
+                    amountValue = balance,
+                    currency = currency
+                )
             ),
             category = categoryId?.let {
                 Category(
@@ -60,7 +62,10 @@ class TransactionsRepository(
                     iconId = categoryIcon
                 )
             },
-            amount = amount,
+            amount = Amount(
+                currency = currency,
+                amountValue = amount
+            ),
             date = date
         )
     }
@@ -107,25 +112,13 @@ class TransactionsRepository(
             transactionsEntityQueries.insertTransaction(
                 id = transaction.id,
                 type = transaction.type,
-                amount = transaction.amount,
-                amountCurrency = transaction.amountCurrency.name,
+                amount = transaction.amount.amountValue,
+                amountCurrency = transaction.amount.currency.code,
                 categoryId = transaction.category?.id,
                 accountId = transaction.account.id,
                 insertionDate = Date(),
                 date = transaction.date,
             )
-        }
-    }
-
-    suspend fun getTotalTransactionAmountByDateAndType(
-        date: Date,
-        type: TransactionType
-    ): Double {
-        return withContext(Dispatchers.IO) {
-            transactionsEntityQueries.getTotalTransactionAmountByDateAndType(
-                date = DateFormatType.CommonDateFormat.format(date),
-                type = type
-            ).executeAsOneOrNull()?.SUM ?: 0.0
         }
     }
 }

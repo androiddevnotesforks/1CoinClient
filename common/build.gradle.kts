@@ -31,7 +31,7 @@ kotlin {
                 implementation(libs.sqldelight.coroutines)
                 implementation(libs.bundles.ktor)
                 implementation(libs.koalaplot)
-                implementation(libs.settings)
+                implementation(libs.bundles.settings)
                 implementation(libs.uuid)
                 implementation(libs.datetime)
             }

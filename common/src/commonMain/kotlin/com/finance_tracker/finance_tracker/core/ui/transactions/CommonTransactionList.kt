@@ -22,12 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.DateFormatType
-import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
-import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -112,21 +110,10 @@ private fun DayTotalHeader(
             style = CoinTheme.typography.subtitle2,
             color = CoinTheme.color.secondary
         )
-        Spacer(modifier = Modifier
-            .weight(1f)
-            .defaultMinSize(minWidth = 16.dp))
-        Text(
-            modifier = Modifier.padding(end = 16.dp),
-            text = "+${Currency.default.sign}${DecimalFormatType.Amount.format(dayTotalModel.income)}",
-            style = CoinTheme.typography.subtitle2,
-            color = CoinTheme.color.accentGreen
-        )
-
-        Text(
-            modifier = Modifier.padding(end = 16.dp),
-            text = "-${Currency.default.sign}${DecimalFormatType.Amount.format(dayTotalModel.expense)}",
-            style = CoinTheme.typography.subtitle2,
-            color = CoinTheme.color.content
+        Spacer(
+            modifier = Modifier
+                .weight(1f)
+                .defaultMinSize(minWidth = 16.dp)
         )
     }
 }

@@ -43,8 +43,8 @@ class SmsBroadcastReceiver : BroadcastReceiver(), KoinComponent {
         transactionsEntityQueries.insertTransaction(
             id = null,
             type = transaction.type,
-            amount = transaction.amount,
-            amountCurrency = transaction.amountCurrency.name,
+            amount = transaction.amount.amountValue,
+            amountCurrency = transaction.amount.currency.code,
             categoryId = transaction.category?.id,
             accountId = transaction.account.id,
             insertionDate = Date(),

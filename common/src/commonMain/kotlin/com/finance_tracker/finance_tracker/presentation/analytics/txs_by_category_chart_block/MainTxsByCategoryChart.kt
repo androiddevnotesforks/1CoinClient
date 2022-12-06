@@ -13,7 +13,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
-import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
 import com.finance_tracker.finance_tracker.presentation.analytics.PieChartLabelSize
 import com.finance_tracker.finance_tracker.presentation.analytics.PieChartSize
@@ -28,12 +27,12 @@ import kotlinx.datetime.Month
 @OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
 fun MainTxsByCategoryChart(
-    monthTransactionsByCategory: TxsByCategoryChart?,
+    monthTransactionsByCategory: TxsByCategoryChart,
     selectedMonth: Month,
     modifier: Modifier = Modifier
 ) {
-    val totalAmount = monthTransactionsByCategory?.total ?: 0.0
-    val txsByCategoryChartPieces = monthTransactionsByCategory?.mainPieces.orEmpty()
+    val totalAmount = monthTransactionsByCategory.total
+    val txsByCategoryChartPieces = monthTransactionsByCategory.mainPieces
 
     ChartLayout(
         modifier = modifier.padding(
@@ -46,7 +45,7 @@ fun MainTxsByCategoryChart(
             modifier = Modifier
                 .padding(8.dp)
                 .fillMaxWidth(),
-            values = txsByCategoryChartPieces.map { it.amount.toFloat() },
+            values = txsByCategoryChartPieces.map { it.amount.amountValue.toFloat() },
             minPieDiameter = PieChartSize,
             maxPieDiameter = PieChartSize,
             slice = { i: Int ->
@@ -81,7 +80,6 @@ fun MainTxsByCategoryChart(
                 HoleTotalLabel(
                     data = HoleTotalLabelData.Content(
                         month = selectedMonth,
-                        currency = Currency.default,
                         amount = totalAmount
                     )
                 )

@@ -11,14 +11,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
-import com.finance_tracker.finance_tracker.core.common.math.stringSign
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Account
+import com.finance_tracker.finance_tracker.presentation.common.formatters.AmountFormatMode
+import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
-import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -55,8 +54,7 @@ fun AccountCard(
                 tint = CoinTheme.color.primaryVariant
             )
             Text(
-                text = data.balance.stringSign + data.currency.sign +
-                        DecimalFormatType.Amount.format(data.balance.absoluteValue),
+                text = data.balance.format(mode = AmountFormatMode.NegativeSign),
                 style = CoinTheme.typography.h5,
                 color = CoinTheme.color.primaryVariant,
                 modifier = Modifier
@@ -66,7 +64,7 @@ fun AccountCard(
                     )
             )
             val accountName = if (data.type == Account.Type.Cash) {
-                "${data.name} (${data.currency.sign})"
+                "${data.name} (${data.balance.currency.symbol})"
             } else {
                 data.name
             }

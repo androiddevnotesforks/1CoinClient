@@ -35,7 +35,7 @@ fun AmountCurrenciesDropdownMenu(
                 }
             ) {
                 Text(
-                    text = "${item.name} (${item.sign})",
+                    text = "${item.code} (${item.symbol})",
                     style = CoinTheme.typography.body1
                 )
             }

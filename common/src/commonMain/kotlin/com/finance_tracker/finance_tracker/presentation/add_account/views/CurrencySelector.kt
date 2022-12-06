@@ -52,7 +52,7 @@ fun CurrencySelector(
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
-            text = selectedCurrency.sign,
+            text = selectedCurrency.symbol,
             color = CoinTheme.color.content,
             style = CoinTheme.typography.body2_medium
         )

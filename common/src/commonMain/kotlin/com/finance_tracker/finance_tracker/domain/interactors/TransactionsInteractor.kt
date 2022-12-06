@@ -3,8 +3,10 @@ package com.finance_tracker.finance_tracker.domain.interactors
 import com.finance_tracker.finance_tracker.core.theme.ChartConfig
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
+import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Currency
+import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
@@ -34,21 +36,9 @@ class TransactionsInteractor(
             val isTransactionForNextDay = lastUiTransactionModel is TransactionListModel.Data &&
                     !lastUiTransactionModel.transaction.date.isCalendarDateEquals(transaction.date)
             if (lastUiTransactionModel == null || isTransactionForNextDay) {
-                val totalIncomeAmount =
-                    transactionsRepository.getTotalTransactionAmountByDateAndType(
-                        date = transaction.date,
-                        type = TransactionType.Income
-                    )
-                val totalExpenseAmount =
-                    transactionsRepository.getTotalTransactionAmountByDateAndType(
-                        date = transaction.date,
-                        type = TransactionType.Expense
-                    )
                 newTransactions += TransactionListModel.DateAndDayTotal(
-                    date = transaction.date,
-                    income = totalIncomeAmount,
-                    expense = totalExpenseAmount
-                ) // получение общего дохода и расхода за 1 день
+                    date = transaction.date
+                )
             }
             newTransactions += TransactionListModel.Data(transaction)
         }
@@ -57,17 +47,17 @@ class TransactionsInteractor(
 
     private suspend fun updateAccountBalanceForDeleteTransaction(transaction: Transaction) {
         if (transaction.type == TransactionType.Expense) {
-            accountsRepository.increaseAccountBalance(transaction.account.id, transaction.amount)
+            accountsRepository.increaseAccountBalance(transaction.account.id, transaction.amount.amountValue)
         } else {
-            accountsRepository.reduceAccountBalance(transaction.account.id, transaction.amount)
+            accountsRepository.reduceAccountBalance(transaction.account.id, transaction.amount.amountValue)
         }
     }
 
     private suspend fun updateAccountBalanceForAddTransaction(transaction: Transaction) {
         if (transaction.type == TransactionType.Expense) {
-            accountsRepository.reduceAccountBalance(transaction.account.id, transaction.amount)
+            accountsRepository.reduceAccountBalance(transaction.account.id, transaction.amount.amountValue)
         } else {
-            accountsRepository.increaseAccountBalance(transaction.account.id, transaction.amount)
+            accountsRepository.increaseAccountBalance(transaction.account.id, transaction.amount.amountValue)
         }
     }
 
@@ -98,20 +88,31 @@ class TransactionsInteractor(
 
     @Suppress("MagicNumber")
     suspend fun getTransactions(
-        transactionType: TransactionType, month: Month
+        transactionType: TransactionType,
+        month: Month,
+        primaryCurrency: Currency,
+        currencyRates: CurrencyRates
     ): TxsByCategoryChart {
         return withContext(Dispatchers.Default) {
             val transactions = transactionsRepository.getTransactions(transactionType, month)
-            val totalAmount = transactions.sumOf { it.amount }
+            val totalAmount = transactions.sumOf {
+                it.amount.convertToCurrency(currencyRates, primaryCurrency)
+            }
 
-            val sortRules: (TxsByCategoryChart.Piece) -> Double = { it.amount }
+            val sortRules: (TxsByCategoryChart.Piece) -> Double = {
+                it.amount.convertToCurrency(currencyRates, primaryCurrency)
+            }
             val rawCategoryPieces = transactions
                 .groupBy { it.category }
                 .map { (category, transactions) ->
                     TxsByCategoryChart.Piece(
                         category = category ?: Category.EMPTY,
-                        amount = transactions.sumOf { it.amount },
-                        amountCurrency = Currency.default, // TODO: Change to real currency
+                        amount = Amount(
+                            currency = primaryCurrency,
+                            amountValue = transactions.sumOf {
+                                it.amount.convertToCurrency(currencyRates, primaryCurrency)
+                            }
+                        ),
                         percentValue = 0f,
                         transactionsCount = transactions.size
                     )
@@ -123,9 +124,7 @@ class TransactionsInteractor(
             val allPieces = rawCategoryPieces.mapIndexed { index, piece ->
                 piece.copy(
                     percentValue = categoryPercentValues[index].toFloat()
-                ).apply {
-
-                }
+                )
             }
 
             val otherPieces = (allPieces.drop(OtherCategoryCountThreshold) +
@@ -149,8 +148,12 @@ class TransactionsInteractor(
                         name = "Other",
                         iconId = "ic_more_horiz"
                     ),
-                    amount = otherPieces.sumOf { it.amount },
-                    amountCurrency = otherPieces.first().amountCurrency,
+                    amount = Amount(
+                        currency = primaryCurrency,
+                        amountValue = otherPieces.sumOf {
+                            it.amount.convertToCurrency(currencyRates, primaryCurrency)
+                        }
+                    ),
                     percentValue = otherPieces.sumOf {
                         it.percentValue.toDouble()
                     }.toFloat(),
@@ -165,7 +168,10 @@ class TransactionsInteractor(
             return@withContext TxsByCategoryChart(
                 mainPieces = mainPieces,
                 allPieces = allPieces,
-                total = totalAmount
+                total = Amount(
+                    currency = primaryCurrency,
+                    amountValue = totalAmount
+                )
             )
         }
     }
@@ -181,11 +187,11 @@ class TransactionsInteractor(
             if (index == 0) {
                 reversedCategoryPercentValues.add(100.0 - accumulatedTotalPercent)
             } else {
-                val percentValue = (piece.amount / totalAmount * 100).toString(
+                val percentValue = (piece.amount.amountValue / totalAmount * 100).toString(
                     TxsByCategoryChart.Piece.PERCENT_PRECISION
                 ).toDouble()
                 accumulatedTotalPercent += percentValue
-                reversedCategoryPercentValues.add(accumulatedTotalPercent)
+                reversedCategoryPercentValues.add(percentValue)
             }
         }
         return reversedCategoryPercentValues.reversed()

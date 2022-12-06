@@ -15,11 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
 import com.finance_tracker.finance_tracker.core.common.date.localizedName
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
-import com.finance_tracker.finance_tracker.domain.models.Currency
+import com.finance_tracker.finance_tracker.domain.models.Amount
+import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 import kotlinx.datetime.Month
 
 sealed class HoleTotalLabelData {
@@ -28,8 +28,7 @@ sealed class HoleTotalLabelData {
 
     data class Content(
         override val month: Month,
-        val currency: Currency,
-        val amount: Double
+        val amount: Amount
     ): HoleTotalLabelData()
 
     data class Loading(
@@ -52,7 +51,7 @@ fun HoleTotalLabel(
     ) {
         if (data is HoleTotalLabelData.Content) {
             Text(
-                text = data.currency.sign + DecimalFormatType.Amount.format(data.amount),
+                text = data.amount.format(),
                 color = CoinTheme.color.content,
                 style = CoinTheme.typography.h2.staticTextSize()
             )

@@ -43,7 +43,7 @@ ORDER BY
     insertionDate DESC;
 
 getTotalTransactionAmountByDateAndType:
-SELECT SUM(amount)
+SELECT *
 FROM TransactionsEntity
 INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
 INNER JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id

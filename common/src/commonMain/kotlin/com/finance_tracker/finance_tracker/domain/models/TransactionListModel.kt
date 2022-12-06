@@ -17,9 +17,7 @@ sealed interface TransactionListModel {
         }
 
     data class DateAndDayTotal(
-        val date: Date,
-        val income: Double,
-        val expense: Double
+        val date: Date
     ): TransactionListModel
 
     data class Data(

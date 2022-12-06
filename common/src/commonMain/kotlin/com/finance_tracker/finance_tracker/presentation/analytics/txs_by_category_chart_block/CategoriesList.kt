@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
+import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 import io.github.koalaplot.core.pie.DefaultSlice
 import io.github.koalaplot.core.pie.PieChart
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
@@ -72,7 +73,7 @@ fun CategoryItem(
         }
 
         Text(
-            text = piece.formattedAmount,
+            text = piece.amount.format(),
             style = CoinTheme.typography.body2
         )
     }
@@ -85,7 +86,7 @@ private fun CategoryPieChart(
     total: Double,
     modifier: Modifier = Modifier
 ) {
-    val percentage = remember { (piece.amount / total * 100).toFloat() }
+    val percentage = remember { (piece.amount.amountValue / total * 100).toFloat() }
     val chartSize = 32.dp
     Box(
         modifier = modifier

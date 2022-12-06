@@ -13,22 +13,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
-import com.finance_tracker.finance_tracker.core.common.math.stringSign
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
-import com.finance_tracker.finance_tracker.domain.models.Currency
+import com.finance_tracker.finance_tracker.domain.models.Amount
+import com.finance_tracker.finance_tracker.presentation.common.formatters.AmountFormatMode
+import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 import com.finance_tracker.finance_tracker.presentation.settings.SettingsSheet
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
-import kotlin.math.absoluteValue
 
 @Composable
 fun HomeTopBar(
-    totalAmount: Double,
-    totalCurrency: Currency,
+    totalBalance: Amount,
     modifier: Modifier = Modifier
 ) {
     val rootController = LocalRootController.current
@@ -40,8 +38,7 @@ fun HomeTopBar(
         title = {
             Column {
                 Text(
-                    text = "${totalAmount.stringSign}${totalCurrency.sign}" +
-                            DecimalFormatType.Amount.format(totalAmount.absoluteValue),
+                    text = totalBalance.format(mode = AmountFormatMode.NegativeSign),
                     style = CoinTheme.typography.h4
                 )
                 Text(

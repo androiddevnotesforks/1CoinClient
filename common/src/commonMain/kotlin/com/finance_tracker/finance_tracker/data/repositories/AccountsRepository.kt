@@ -29,7 +29,7 @@ class AccountsRepository(
                 name = accountName,
                 balance = balance,
                 colorHex = colorHex,
-                currency = currency.name
+                currency = currency.code
             )
         }
     }
@@ -78,7 +78,7 @@ class AccountsRepository(
                 name = name,
                 balance = balance,
                 colorHex = colorHex,
-                currency = currency.name,
+                currency = currency.code,
                 id = id,
             )
         }

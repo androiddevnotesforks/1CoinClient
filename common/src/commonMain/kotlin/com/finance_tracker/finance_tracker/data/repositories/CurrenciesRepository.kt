@@ -1,7 +1,9 @@
 package com.finance_tracker.finance_tracker.data.repositories
 
 import com.finance_tracker.finance_tracker.data.network.CurrenciesNetworkDataSource
-import com.financetracker.financetracker.data.CurrencyRatesEntity
+import com.finance_tracker.finance_tracker.data.settings.AccountSettings
+import com.finance_tracker.finance_tracker.domain.models.Currency
+import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.financetracker.financetracker.data.CurrencyRatesEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
@@ -15,10 +17,11 @@ import kotlinx.serialization.json.jsonPrimitive
 
 class CurrenciesRepository(
     private val currencyRatesEntityQueries: CurrencyRatesEntityQueries,
-    private val currenciesNetworkDataSource: CurrenciesNetworkDataSource
+    private val currenciesNetworkDataSource: CurrenciesNetworkDataSource,
+    private val accountSettings: AccountSettings
 ) {
 
-    fun getCurrencyRatesAsMap(): Flow<Map<String, CurrencyRatesEntity>> {
+    fun getCurrencyRatesFlow(): Flow<CurrencyRates> {
         return currencyRatesEntityQueries.getAllRates().asFlow()
                 .mapToList()
                 .map { currencyRatesEntities ->
@@ -40,5 +43,16 @@ class CurrenciesRepository(
                 }
             }
         }
+    }
+
+    suspend fun savePrimaryCurrency(currency: Currency) {
+        accountSettings.savePrimaryCurrency(currency.code)
+    }
+
+    fun getPrimaryCurrencyFlow(): Flow<Currency> {
+        return accountSettings.getPrimaryCurrencyCodeFlow()
+            .map { currencyCode ->
+                currencyCode?.let(Currency::getByCode) ?: Currency.default
+            }
     }
 }
