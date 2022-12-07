@@ -34,6 +34,7 @@ kotlin {
                 implementation(libs.bundles.settings)
                 implementation(libs.uuid)
                 implementation(libs.datetime)
+                implementation(libs.bundles.paging)
             }
         }
         named("desktopMain") {

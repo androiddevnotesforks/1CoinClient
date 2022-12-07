@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
+import com.finance_tracker.finance_tracker.core.common.pagination.collectAsLazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -92,8 +93,16 @@ fun DetailAccountScreen(
                 )
             }
         ) {
-            val transactions by viewModel.transactions.collectAsState()
-            CommonTransactionsList(transactions)
+            val transactions = viewModel.paginatedTransactions.collectAsLazyPagingItems()
+            CommonTransactionsList(
+                transactions = transactions,
+                onClick = {
+                    navController.push(
+                        screen = MainNavigationTree.AddTransaction.name,
+                        params = it.transaction
+                    )
+                }
+            )
         }
     }
 }

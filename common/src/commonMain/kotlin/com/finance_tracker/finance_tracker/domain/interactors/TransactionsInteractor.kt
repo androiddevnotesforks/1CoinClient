@@ -1,5 +1,8 @@
 package com.finance_tracker.finance_tracker.domain.interactors
 
+import app.cash.paging.PagingData
+import app.cash.paging.insertSeparators
+import app.cash.paging.map
 import com.finance_tracker.finance_tracker.core.theme.ChartConfig
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
@@ -13,6 +16,8 @@ import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
 import io.github.koalaplot.core.util.toString
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Month
 import java.util.Calendar
@@ -22,28 +27,6 @@ class TransactionsInteractor(
     private val transactionsRepository: TransactionsRepository,
     private val accountsRepository: AccountsRepository,
 ) {
-
-    suspend fun getTransactions(accountId: Long? = null): List<TransactionListModel> {
-        val allTransactions = if (accountId == null) {
-            transactionsRepository.getAllTransactions()
-        } else {
-            transactionsRepository.getTransactions(accountId)
-        }
-        val newTransactions = mutableListOf<TransactionListModel>()
-        for (transaction in allTransactions) {
-            val lastUiTransactionModel = newTransactions.lastOrNull()
-
-            val isTransactionForNextDay = lastUiTransactionModel is TransactionListModel.Data &&
-                    !lastUiTransactionModel.transaction.date.isCalendarDateEquals(transaction.date)
-            if (lastUiTransactionModel == null || isTransactionForNextDay) {
-                newTransactions += TransactionListModel.DateAndDayTotal(
-                    date = transaction.date
-                )
-            }
-            newTransactions += TransactionListModel.Data(transaction)
-        }
-        return newTransactions
-    }
 
     private suspend fun updateAccountBalanceForDeleteTransaction(transaction: Transaction) {
         if (transaction.type == TransactionType.Expense) {
@@ -195,6 +178,44 @@ class TransactionsInteractor(
             }
         }
         return reversedCategoryPercentValues.reversed()
+    }
+
+    fun getPaginatedTransactions(): Flow<PagingData<TransactionListModel>> {
+        return transactionsRepository.getPaginatedTransactions()
+            .map {
+                it.map { TransactionListModel.Data(it) }
+            }
+            .map {
+                insertSeparators(it)
+            }
+    }
+
+    fun getPaginatedTransactionsByAccountId(id: Long): Flow<PagingData<TransactionListModel>> {
+        return transactionsRepository.getPaginatedTransactionsByAccountId(id)
+            .map {
+                it.map { TransactionListModel.Data(it) }
+            }
+            .map {
+                insertSeparators(it)
+            }
+    }
+
+    private fun insertSeparators(
+        pagingData: PagingData<TransactionListModel.Data>
+    ): PagingData<TransactionListModel> {
+        return pagingData.insertSeparators { data: TransactionListModel.Data?,
+                                             data2: TransactionListModel.Data? ->
+            val previousTransaction = data?.transaction
+            val currentTransaction = data2?.transaction ?: return@insertSeparators null
+            if (previousTransaction == null ||
+                !previousTransaction.date.isCalendarDateEquals(currentTransaction.date)) {
+                TransactionListModel.DateAndDayTotal(
+                    date = currentTransaction.date,
+                )
+            } else {
+                null
+            }
+        }
     }
 
     companion object {
