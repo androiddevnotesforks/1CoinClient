@@ -1,7 +1,7 @@
-package com.finance_tracker.finance_tracker.presentation.categories
+package com.finance_tracker.finance_tracker.presentation.category_settings
 
 import com.adeo.kviewmodel.KViewModel
-import com.finance_tracker.finance_tracker.core.ui.CategoryTab
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepository
 import com.finance_tracker.finance_tracker.domain.models.Category
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,11 +18,11 @@ class CategorySettingsViewModel(
     private val _incomeCategories = MutableStateFlow<List<Category>>(emptyList())
     val incomeCategories = _incomeCategories.asStateFlow()
 
-    private val _chosenScreen = MutableStateFlow(CategoryTab.Expense)
-    val chosenScreen = _chosenScreen.asStateFlow()
+    private val _selectedTransactionType = MutableStateFlow(TransactionTypeTab.Expense)
+    val selectedTransactionType = _selectedTransactionType.asStateFlow()
 
-    fun onCategorySelect(categoryTab: CategoryTab) {
-        _chosenScreen.value = categoryTab
+    fun onTransactionTypeSelect(transactionType: TransactionTypeTab) {
+        _selectedTransactionType.value = transactionType
     }
 
     fun onScreenComposed() {
@@ -79,7 +79,7 @@ class CategorySettingsViewModel(
         viewModelScope.launch {
             repository.deleteCategoryById(id)
 
-            if(_chosenScreen.value == CategoryTab.Expense) {
+            if(_selectedTransactionType.value == TransactionTypeTab.Expense) {
                 loadAllExpenseCategories()
             } else {
                 loadAllIncomeCategories()

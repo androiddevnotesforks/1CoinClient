@@ -5,7 +5,7 @@ import com.finance_tracker.finance_tracker.presentation.add_account.AddAccountVi
 import com.finance_tracker.finance_tracker.presentation.add_category.AddCategoryViewModel
 import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionViewModel
 import com.finance_tracker.finance_tracker.presentation.analytics.AnalyticsViewModel
-import com.finance_tracker.finance_tracker.presentation.categories.CategorySettingsViewModel
+import com.finance_tracker.finance_tracker.presentation.category_settings.CategorySettingsViewModel
 import com.finance_tracker.finance_tracker.presentation.detail_account.DetailAccountViewModel
 import com.finance_tracker.finance_tracker.presentation.home.HomeViewModel
 import com.finance_tracker.finance_tracker.presentation.settings.SettingsSheetViewModel

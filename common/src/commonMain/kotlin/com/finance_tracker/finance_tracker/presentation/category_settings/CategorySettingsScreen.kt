@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.categories
+package com.finance_tracker.finance_tracker.presentation.category_settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -18,10 +18,10 @@ import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
-import com.finance_tracker.finance_tracker.core.ui.CategoryTab
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
-import com.finance_tracker.finance_tracker.core.ui.ExpenseIncomeTabs
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabRow
 import com.finance_tracker.finance_tracker.domain.models.Category
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -45,23 +45,17 @@ fun CategorySettingsScreen() {
 
             val incomeCategories by viewModel.incomeCategories.collectAsState()
             val expenseCategories by viewModel.expenseCategories.collectAsState()
-            val selectedCategoryTab by viewModel.chosenScreen.collectAsState()
+            val selectedTransactionTypeTab by viewModel.selectedTransactionType.collectAsState()
 
-            CategorySettingsAppBar(selectedCategoryTab = selectedCategoryTab)
+            CategorySettingsAppBar(selectedTransactionTypeTab)
 
-            ExpenseIncomeTabs(
-                modifier = Modifier
-                    .padding(
-                        top = 24.dp,
-                        start = 12.dp,
-                        bottom = 4.dp,
-                    ),
-                onCategorySelect = viewModel::onCategorySelect,
-                selectedCategoryTab = selectedCategoryTab
+            TransactionTypesTabRow(
+                selectedType = selectedTransactionTypeTab,
+                onSelect = viewModel::onTransactionTypeSelect
             )
 
-            when (selectedCategoryTab) {
-                CategoryTab.Expense -> {
+            when (selectedTransactionTypeTab) {
+                TransactionTypeTab.Expense -> {
                     CategoriesLazyColumn(
                         categories = expenseCategories,
                         onSwap = viewModel::swapExpenseCategories,
@@ -81,8 +75,7 @@ fun CategorySettingsScreen() {
                         }
                     )
                 }
-
-                CategoryTab.Income -> {
+                TransactionTypeTab.Income -> {
                     CategoriesLazyColumn(
                         categories = incomeCategories,
                         onSwap = viewModel::swapIncomeCategories,
@@ -116,15 +109,14 @@ private fun CategoriesLazyColumn(
     LazyDragColumn(
         items = categories,
         onSwap = onSwap,
-        contentPaddingValues = PaddingValues(
-            start = 16.dp,
-            end = 16.dp,
-            bottom = 32.dp,
-        ),
+        contentPaddingValues = PaddingValues(16.dp),
+        afterContent = {
+            Spacer(modifier = Modifier.navigationBarsPadding())
+        }
     ) { index, category ->
         ItemWrapper(
             isFirstItem = index == 0,
-            isLastItem = index == categories.lastIndex,
+            isLastItem = index == categories.lastIndex
         ) {
             CategoryCard(
                 data = category,
@@ -139,9 +131,6 @@ private fun CategoriesLazyColumn(
                     onCrossDeleteClick.invoke(category.id)
                 }
             )
-            if (index == categories.lastIndex) {
-                Spacer(Modifier.navigationBarsPadding())
-            }
         }
     }
 }

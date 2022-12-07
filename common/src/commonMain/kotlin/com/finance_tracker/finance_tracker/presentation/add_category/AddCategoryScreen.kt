@@ -23,6 +23,7 @@ import com.finance_tracker.finance_tracker.core.common.getLocalizedString
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.presentation.add_category.views.AddCategoryAppBar
 import com.finance_tracker.finance_tracker.presentation.add_category.views.ChooseIconButton
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -30,7 +31,7 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 private const val MinCategoryNameLength = 2
 
 @Composable
-fun AddCategoryScreen(appBarText: String, ) {
+fun AddCategoryScreen(transactionTypeTab: TransactionTypeTab) {
     StoredViewModel<AddCategoryViewModel> { viewModel ->
         val rootController = LocalRootController.current
         val context = LocalContext.current
@@ -40,7 +41,11 @@ fun AddCategoryScreen(appBarText: String, ) {
                 .fillMaxSize()
                 .statusBarsPadding()
         ) {
-            AddCategoryAppBar(textValue = appBarText)
+            AddCategoryAppBar(textValue = if(transactionTypeTab == TransactionTypeTab.Expense) {
+                "new_expense_category"
+            } else {
+                "new_income_category"
+            })
 
             val chosenIcon by viewModel.chosenIcon.collectAsState()
             val newCategoryName by viewModel.categoryName.collectAsState()
@@ -84,13 +89,13 @@ fun AddCategoryScreen(appBarText: String, ) {
 
             Button(
                 onClick = {
-                    if (appBarText == "new_expense_category" && newCategoryName != "") {
+                    if (transactionTypeTab == TransactionTypeTab.Expense && newCategoryName != "") {
                         viewModel.addExpenseCategory(
                             categoryName = newCategoryName,
                             categoryIcon = chosenIcon
                         )
                         rootController.findRootController().popBackStack()
-                    } else if (appBarText == "new_income_category" && newCategoryName != "") {
+                    } else if (transactionTypeTab == TransactionTypeTab.Income && newCategoryName != "") {
                         viewModel.addIncomeCategory(
                             categoryName = newCategoryName,
                             categoryIcon = chosenIcon
