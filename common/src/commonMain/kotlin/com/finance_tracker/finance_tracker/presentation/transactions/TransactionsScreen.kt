@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,6 +32,15 @@ fun TransactionsScreen() {
 
         val lazyTransactionList =
             viewModel.paginatedTransactions.collectAsLazyPagingItems()
+
+        val event by viewModel.events.collectAsState(null)
+        event?.let {
+            when (it) {
+                TransactionEvents.RefreshTransactions -> {
+                    lazyTransactionList.refresh()
+                }
+            }
+        }
 
         LaunchedEffect(Unit) {
             launch(Dispatchers.Main) {
