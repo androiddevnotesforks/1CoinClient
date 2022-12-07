@@ -17,10 +17,19 @@ fun TransactionTypeTab.toTransactionType(): TransactionType {
     }
 }
 
+fun TransactionType.toTransactionTypeTab(): TransactionTypeTab {
+    return when (this) {
+        TransactionType.Expense -> TransactionTypeTab.Expense
+        TransactionType.Income -> TransactionTypeTab.Income
+    }
+}
+
 @Composable
 fun TransactionTypesTabRow(
     modifier: Modifier = Modifier,
     selectedType: TransactionTypeTab = TransactionTypeTab.Expense,
+    hasBottomDivider: Boolean = true,
+    isHorizontallyCentered: Boolean = false,
     onSelect: (TransactionTypeTab) -> Unit = {}
 ) {
     val tabs = TransactionTypeTab.values()
@@ -32,6 +41,8 @@ fun TransactionTypesTabRow(
         data = tabs.map { stringResource(it.textId) },
         modifier = modifier,
         selectedTabIndex = tabToIndexMap.getValue(selectedType),
+        hasBottomDivider = hasBottomDivider,
+        isHorizontallyCentered = isHorizontallyCentered,
         onTabSelect = { index -> onSelect.invoke(tabs[index]) }
     )
 }

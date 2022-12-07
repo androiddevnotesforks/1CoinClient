@@ -2,6 +2,8 @@ package com.finance_tracker.finance_tracker.presentation.add_transaction
 
 import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.core.common.toLocalDate
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionTypeTab
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
@@ -10,7 +12,6 @@ import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.Transaction
-import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.EnterTransactionStep
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.KeyboardCommand
 import com.financetracker.financetracker.data.AccountsEntityQueries
@@ -77,10 +78,10 @@ class AddTransactionViewModel(
     }
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = false)
 
-    private val initialSelectedTransactionType = transaction?.type ?: TransactionType.Expense
-    private val _selectedTransactionType: MutableStateFlow<TransactionType> =
+    private val initialSelectedTransactionType = transaction?.type?.toTransactionTypeTab() ?: TransactionTypeTab.Expense
+    private val _selectedTransactionType: MutableStateFlow<TransactionTypeTab> =
         MutableStateFlow(initialSelectedTransactionType)
-    val selectedTransactionType: StateFlow<TransactionType> = _selectedTransactionType.asStateFlow()
+    val selectedTransactionType: StateFlow<TransactionTypeTab> = _selectedTransactionType.asStateFlow()
 
     fun onScreenComposed() {
         loadAccounts()
@@ -183,7 +184,7 @@ class AddTransactionViewModel(
         }
     }
 
-    fun onTransactionTypeSelect(transactionType: TransactionType) {
-        _selectedTransactionType.value = transactionType
+    fun onTransactionTypeSelect(transactionTypeTab: TransactionTypeTab) {
+        _selectedTransactionType.value = transactionTypeTab
     }
 }

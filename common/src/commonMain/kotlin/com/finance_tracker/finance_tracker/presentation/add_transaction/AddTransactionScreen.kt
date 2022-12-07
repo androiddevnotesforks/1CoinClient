@@ -21,9 +21,10 @@ import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.toDate
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Transaction
-import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.ActionButtonsSection
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.AmountTextField
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.CalendarDayView
@@ -65,7 +66,7 @@ fun AddTransactionScreen(
                 if (account != null) {
                     viewModel.onAddTransactionClick(
                         Transaction(
-                            type = selectedTransactionType,
+                            type = selectedTransactionType.toTransactionType(),
                             account = account,
                             category = categoryData,
                             amount = Amount(
@@ -83,7 +84,7 @@ fun AddTransactionScreen(
                 if (account != null) {
                     viewModel.onEditTransactionClick(
                         Transaction(
-                            type = selectedTransactionType,
+                            type = selectedTransactionType.toTransactionType(),
                             account = account,
                             category = categoryData,
                             amount = Amount(
@@ -158,8 +159,8 @@ fun AddTransactionScreen(
                     )
 
                     val categoriesFlow = when (selectedTransactionType) {
-                        TransactionType.Expense -> viewModel.expenseCategories
-                        TransactionType.Income -> viewModel.incomeCategories
+                        TransactionTypeTab.Expense -> viewModel.expenseCategories
+                        TransactionTypeTab.Income -> viewModel.incomeCategories
                     }
                     val accounts by viewModel.accounts.collectAsState()
                     val categories by categoriesFlow.collectAsState()
