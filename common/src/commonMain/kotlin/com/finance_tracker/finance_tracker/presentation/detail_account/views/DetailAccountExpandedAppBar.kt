@@ -15,18 +15,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
 import com.finance_tracker.finance_tracker.core.common.asDp
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
-import com.finance_tracker.finance_tracker.domain.models.Currency
+import com.finance_tracker.finance_tracker.domain.models.Amount
+import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 
 @Composable
 fun DetailAccountExpandedAppBar(
     color: Color,
-    amount: Double,
-    currency: Currency,
+    amount: Amount,
     iconId: String,
     contentAlpha: Float,
     modifier: Modifier = Modifier
@@ -55,7 +54,7 @@ fun DetailAccountExpandedAppBar(
                 top = 16.dp,
                 bottom = 30.sp.asDp()
             ),
-            text = "${currency.sign}${DecimalFormatType.Amount.format(amount)}",
+            text = amount.format(),
             style = CoinTheme.typography.h2,
             color = CoinTheme.color.primaryVariant
         )

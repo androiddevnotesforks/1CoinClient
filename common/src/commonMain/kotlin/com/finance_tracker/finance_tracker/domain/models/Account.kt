@@ -6,9 +6,8 @@ data class Account(
     val id: Long,
     val type: Type,
     val name: String,
-    val balance: Double,
-    val color: Color,
-    val currency: Currency
+    val balance: Amount,
+    val color: Color
 ) {
     enum class Type(val textId: String) {
         DebitCard("account_type_debit_card"),
@@ -28,9 +27,11 @@ data class Account(
             id = -1,
             type = Type.Cash,
             name = "",
-            balance = 0.0,
-            color = Color.Black,
-            currency = Currency.default
+            balance = Amount(
+                currency = Currency.default,
+                amountValue = 0.0
+            ),
+            color = Color.Black
         )
     }
 }

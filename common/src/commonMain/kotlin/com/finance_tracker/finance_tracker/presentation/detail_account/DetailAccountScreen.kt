@@ -62,7 +62,6 @@ fun DetailAccountScreen(
                     contentAlpha = state.toolbarState.progress,
                     color = accountData.color,
                     amount = accountData.balance,
-                    currency = accountData.currency,
                     iconId = accountData.iconId
                 )
 

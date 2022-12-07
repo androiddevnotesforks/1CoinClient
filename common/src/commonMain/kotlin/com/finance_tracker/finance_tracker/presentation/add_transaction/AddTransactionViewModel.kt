@@ -1,7 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.add_transaction
 
 import com.adeo.kviewmodel.KViewModel
-import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
 import com.finance_tracker.finance_tracker.core.common.toLocalDate
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
@@ -16,10 +15,12 @@ import com.finance_tracker.finance_tracker.presentation.add_transaction.views.En
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.KeyboardCommand
 import com.financetracker.financetracker.data.AccountsEntityQueries
 import com.financetracker.financetracker.data.CategoriesEntityQueries
+import io.github.koalaplot.core.util.toString
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -44,7 +45,7 @@ class AddTransactionViewModel(
     val selectedAccount: StateFlow<Account?> = _selectedAccount.asStateFlow()
 
     val currency = selectedAccount
-        .map { it?.currency ?: Currency.default }
+        .map { it?.balance?.currency ?: Currency.default }
         .stateIn(viewModelScope, SharingStarted.Lazily, Currency.default)
 
     private val _selectedCategory: MutableStateFlow<Category?> = MutableStateFlow(transaction?.category)
@@ -54,9 +55,11 @@ class AddTransactionViewModel(
     private val _selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(initialSelectedDate)
     val selectedDate: StateFlow<LocalDate> = _selectedDate.asStateFlow()
 
-    private val initialAmount = transaction?.amount?.let { DecimalFormatType.Amount.format(it) } ?: "0"
-    private val _amount: MutableStateFlow<String> = MutableStateFlow(initialAmount)
-    val amount: StateFlow<String> = _amount.asStateFlow()
+    private val initialAmount = transaction?.amount
+    private val _amountText: MutableStateFlow<String> = MutableStateFlow(
+        initialAmount?.amountValue?.toString(precision = 2) ?: "0"
+    )
+    val amountText: StateFlow<String> = _amountText.asStateFlow()
 
     private val _expenseCategories: MutableStateFlow<List<Category>> = MutableStateFlow(emptyList())
     val expenseCategories: StateFlow<List<Category>> = _expenseCategories.asStateFlow()
@@ -66,6 +69,13 @@ class AddTransactionViewModel(
 
     private val steps = EnterTransactionStep.values()
     val firstStep = if (transaction == null) steps.first() else null
+
+    @Suppress("UnnecessaryParentheses")
+    val isAddTransactionEnabled = combine(selectedAccount, selectedCategory, amountText) {
+            selectedAccount, selectedCategory, amountText ->
+        selectedAccount != null && selectedCategory != null && (amountText.toDoubleOrNull() ?: 0.0) > 0.0
+    }
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = false)
 
     private val initialSelectedTransactionType = transaction?.type ?: TransactionType.Expense
     private val _selectedTransactionType: MutableStateFlow<TransactionType> =
@@ -135,7 +145,7 @@ class AddTransactionViewModel(
     }
 
     fun onKeyboardButtonClick(command: KeyboardCommand) {
-        val amountText = _amount.value
+        val amountText = _amountText.value
         var newAmountText = amountText
         when (command) {
             KeyboardCommand.Delete -> {
@@ -169,7 +179,7 @@ class AddTransactionViewModel(
             }
         }
         if (newAmountText.matches(Regex("^\\d*\\.?\\d*"))) {
-            _amount.value = newAmountText
+            _amountText.value = newAmountText
         }
     }
 

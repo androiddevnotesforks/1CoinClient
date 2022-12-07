@@ -53,6 +53,7 @@ import com.finance_tracker.finance_tracker.domain.models.AccountColorData
 import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AccountColorsDropdownMenu
 import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AccountTypesDropdownMenu
 import com.finance_tracker.finance_tracker.presentation.add_account.views.CurrencySelector
+import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.core.parameter.parametersOf
@@ -138,7 +139,7 @@ fun AddAccountScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp, start = 16.dp, end = 16.dp),
-                value = amountAccount,
+                value = amountAccount.format(),
                 label = {
                     Text(
                         text = stringResource("new_account_field_amount_label"),

@@ -17,12 +17,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.DecimalFormatType
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
+import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -78,7 +78,7 @@ fun TransactionItem(
 
         val sign = if (transaction.type == TransactionType.Income) "+" else "-"
         Text(
-            text = sign + transaction.amountCurrency.sign + DecimalFormatType.Amount.format(transaction.amount),
+            text = sign + transaction.amount.format(),
             style = CoinTheme.typography.body2,
             color = if (transaction.type == TransactionType.Income) {
                 CoinTheme.color.accentGreen

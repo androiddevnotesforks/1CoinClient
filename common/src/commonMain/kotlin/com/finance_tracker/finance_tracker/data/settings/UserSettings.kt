@@ -1,18 +1,23 @@
 package com.finance_tracker.finance_tracker.data.settings
 
+import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.Settings
+import com.russhwolf.settings.coroutines.SuspendSettings
+import com.russhwolf.settings.coroutines.toSuspendSettings
+import kotlinx.coroutines.Dispatchers
 
-@Suppress("RedundantSuspendModifier")
+@OptIn(ExperimentalSettingsApi::class)
 class UserSettings(factory: Settings.Factory) {
 
-    private val settings = factory.create("user")
+    private val settings: Settings = factory.create("user")
+    private val suspendSettings: SuspendSettings = settings.toSuspendSettings(Dispatchers.IO)
 
     suspend fun saveUserId(userId: String) {
-        settings.putString(KEY_USER_ID, userId)
+        suspendSettings.putString(KEY_USER_ID, userId)
     }
 
     suspend fun getUserId(): String? {
-        return settings.getStringOrNull(KEY_USER_ID)
+        return suspendSettings.getStringOrNull(KEY_USER_ID)
     }
 
     companion object {

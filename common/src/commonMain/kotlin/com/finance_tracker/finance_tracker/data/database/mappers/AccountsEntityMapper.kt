@@ -2,6 +2,7 @@ package com.finance_tracker.finance_tracker.data.database.mappers
 
 import com.finance_tracker.finance_tracker.core.common.hexToColor
 import com.finance_tracker.finance_tracker.domain.models.Account
+import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.financetracker.financetracker.data.AccountsEntity
 
@@ -10,8 +11,10 @@ fun AccountsEntity.accountToDomainModel(): Account {
         id = id,
         type = type,
         name = name,
-        balance = balance,
-        color = colorHex.hexToColor(),
-        currency = Currency.getByName(currency)
+        balance = Amount(
+            amountValue = balance,
+            currency = Currency.getByCode(currency)
+        ),
+        color = colorHex.hexToColor()
     )
 }

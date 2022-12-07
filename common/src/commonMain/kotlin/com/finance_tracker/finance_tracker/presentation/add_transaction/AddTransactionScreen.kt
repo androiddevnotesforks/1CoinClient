@@ -21,6 +21,7 @@ import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.toDate
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
+import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.ActionButtonsSection
@@ -32,15 +33,17 @@ import com.finance_tracker.finance_tracker.presentation.add_transaction.views.St
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBarData
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.EnterTransactionController
 import org.koin.core.parameter.parametersOf
+import ru.alexgladkov.odyssey.compose.controllers.ModalController
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
+@Suppress("CyclomaticComplexMethod")
 fun AddTransactionScreen(
-    transaction: Transaction
+    transaction: Transaction?
 ) {
     StoredViewModel<AddTransactionViewModel>(
-        parameters = { parametersOf(transaction) }
+        parameters = { parametersOf(transaction ?: Transaction.EMPTY) }
     ) { viewModel ->
         val navController = LocalRootController.current
         val modalNavController = navController.findModalController()
@@ -50,23 +53,25 @@ fun AddTransactionScreen(
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            val amountText by viewModel.amount.collectAsState()
+            val amountText by viewModel.amountText.collectAsState()
             val accountData by viewModel.selectedAccount.collectAsState()
             val categoryData by viewModel.selectedCategory.collectAsState()
             val localDate by viewModel.selectedDate.collectAsState()
             val currency by viewModel.currency.collectAsState()
-
-            val isAddTransactionEnabled = accountData != null && categoryData != null
+            val amountDouble = amountText.toDoubleOrNull() ?: 0.0
+            val isAddTransactionEnabled by viewModel.isAddTransactionEnabled.collectAsState()
             val onAddTransaction = {
                 val account = accountData
                 if (account != null) {
                     viewModel.onAddTransactionClick(
                         Transaction(
                             type = selectedTransactionType,
-                            amountCurrency = currency,
                             account = account,
                             category = categoryData,
-                            amount = amountText.toDouble(),
+                            amount = Amount(
+                                currency = currency,
+                                amountValue = amountDouble
+                            ),
                             date = localDate.toDate()
                         )
                     )
@@ -79,10 +84,12 @@ fun AddTransactionScreen(
                     viewModel.onEditTransactionClick(
                         Transaction(
                             type = selectedTransactionType,
-                            amountCurrency = currency,
                             account = account,
                             category = categoryData,
-                            amount = amountText.toDouble(),
+                            amount = Amount(
+                                currency = currency,
+                                amountValue = amountDouble
+                            ),
                             date = localDate.toDate()
                         )
                     )
@@ -110,7 +117,7 @@ fun AddTransactionScreen(
                     .clickable {
                         currentStep = EnterTransactionStep.Amount
                     },
-                currency = currency.sign,
+                currency = currency.symbol,
                 amount = amountText
             )
 
@@ -193,26 +200,47 @@ fun AddTransactionScreen(
                         isEditMode = viewModel.isEditMode,
                         onDeleteClick = {
                             modalNavController.present(DialogConfigurations.alert) { key ->
-                                DeleteDialog(
-                                    titleEntity = stringResource("transaction"),
-                                    onCancelClick = {
-                                        modalNavController.popBackStack(key, animate = false)
-                                    },
-                                    onDeleteClick = {
-                                        viewModel.onDeleteTransactionClick(transaction)
-                                        modalNavController.popBackStack(key, animate = false)
+                                DeleteTransactionDialog(
+                                    key = key,
+                                    transaction = transaction,
+                                    modalNavController = modalNavController,
+                                    onDeleteTransactionClick = {
+                                        viewModel.onDeleteTransactionClick(it)
                                         navController.popBackStack()
                                     }
                                 )
                             }
                         },
                         onDuplicateClick = {
-                            viewModel.onDuplicateTransactionClick(transaction)
-                            navController.popBackStack()
+                            transaction?.let {
+                                viewModel.onDuplicateTransactionClick(transaction)
+                                navController.popBackStack()
+                            }
                         }
                     )
                 }
             }
         }
     }
+}
+
+@Composable
+private fun DeleteTransactionDialog(
+    key: String,
+    transaction: Transaction?,
+    modalNavController: ModalController,
+    onDeleteTransactionClick: (Transaction) -> Unit
+) {
+    DeleteDialog(
+        titleEntity = stringResource("transaction"),
+        onCancelClick = {
+            modalNavController.popBackStack(key, animate = false)
+        },
+        onDeleteClick = {
+            transaction?.let {
+                onDeleteTransactionClick.invoke(it)
+                modalNavController.popBackStack(key, animate = false)
+            }
+        }
+    )
 }

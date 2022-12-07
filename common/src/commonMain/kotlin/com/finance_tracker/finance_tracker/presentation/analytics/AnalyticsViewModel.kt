@@ -4,18 +4,27 @@ import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.core.common.date.currentMonth
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
+import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Month
 
 class AnalyticsViewModel(
-    private val transactionsInteractor: TransactionsInteractor
+    private val transactionsInteractor: TransactionsInteractor,
+    currenciesInteractor: CurrenciesInteractor
 ): KViewModel() {
+
+    private val currencyRatesFlow = currenciesInteractor.getCurrencyRatesFlow()
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = mapOf())
 
     private val _monthTransactionsByCategory = MutableStateFlow<TxsByCategoryChart?>(null)
     val monthTransactionsByCategory = _monthTransactionsByCategory.asStateFlow()
@@ -28,6 +37,9 @@ class AnalyticsViewModel(
 
     private val _isLoadingMonthTxsByCategory = MutableStateFlow(false)
     val isLoadingMonthTxsByCategory = _isLoadingMonthTxsByCategory.asStateFlow()
+
+    val primaryCurrency = currenciesInteractor.getPrimaryCurrencyFlow()
+        .shareIn(viewModelScope, started = SharingStarted.Lazily, replay = 1)
 
     private var loadMonthTxsByCategoryJob: Job? = null
 
@@ -60,13 +72,15 @@ class AnalyticsViewModel(
 
     private fun loadMonthTxsByCategory(transactionTypeTab: TransactionTypeTab, month: Month) {
         loadMonthTxsByCategoryJob?.cancel()
-        loadMonthTxsByCategoryJob = viewModelScope.launch {
+        loadMonthTxsByCategoryJob = primaryCurrency.combine(currencyRatesFlow) { currency, currencyRates ->
             _isLoadingMonthTxsByCategory.value = true
             _monthTransactionsByCategory.value = transactionsInteractor.getTransactions(
                 transactionType = transactionTypeTab.toTransactionType(),
-                month = month
+                month = month,
+                primaryCurrency = currency,
+                currencyRates = currencyRates
             )
             _isLoadingMonthTxsByCategory.value = false
-        }
+        }.launchIn(viewModelScope)
     }
 }

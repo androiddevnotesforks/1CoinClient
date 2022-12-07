@@ -8,9 +8,10 @@ import com.finance_tracker.finance_tracker.data.broadcast_receivers.parsers.mode
 import com.finance_tracker.finance_tracker.data.broadcast_receivers.parsers.models.getAmountCurrency
 import com.finance_tracker.finance_tracker.data.broadcast_receivers.parsers.models.getTransactionType
 import com.finance_tracker.finance_tracker.domain.models.Account
+import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.Transaction
-import java.util.*
+import java.util.Date
 
 class SmsMessageParser(
     private val templates: List<SmsTemplate>
@@ -25,16 +26,20 @@ class SmsMessageParser(
         return Transaction(
             id = -1,
             type = fields.getTransactionType() ?: return null,
-            amount = fields.getAmount(),
+            amount = Amount(
+                currency = Currency.getByCode(fields.getAmountCurrency()),
+                amountValue = fields.getAmount()
+            ),
             account = Account(
                 id = 1,
                 type = Account.Type.DebitCard,
                 name = "Fake card",
-                balance = 0.0,
-                color = Color.Red,
-                currency = Currency.default
+                balance = Amount(
+                    amountValue = 0.0,
+                    currency = Currency.default
+                ),
+                color = Color.Red
             ),
-            amountCurrency = Currency.getByName(fields.getAmountCurrency()),
             category = null,
             date = date
         )
