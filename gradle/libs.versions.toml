@@ -86,7 +86,6 @@ amplitude-android = "com.amplitude:analytics-android:1.5.2"
 settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "settings" }
 settings-coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "settings" }
 
-
 uuid = "com.benasher44:uuid:0.6.0"
 
 datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.4.0"

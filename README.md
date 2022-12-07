@@ -71,17 +71,33 @@
 - __Quick info viewing at home tab__
 
 ## Tech stack
-- [Compose Multiplatform](https://github.com/JetBrains/compose-jb) - UI (Android + Desktop)
-- [Odyssey](https://github.com/AlexGladkov/Odyssey) - Navigation
-- [KViewModel](https://github.com/adeo-opensource/kviewmodel--mpp) - Shared ViewModel
-- [Koin](https://insert-koin.io/) - Dependency injection
-- [Koalaplot](https://github.com/KoalaPlot/koalaplot-core) - Charts
-- [SqlDelight](https://github.com/cashapp/sqldelight) - SQLite database
-- [Napier](https://github.com/AAkira/Napier) - Logger
-- [Firebase](https://firebase.google.com/) - Crashlytics
-- [LeakCanary](https://square.github.io/leakcanary/) - Android memory leaks checker
-- [Chucker](https://github.com/ChuckerTeam/chucker) - Android network logger
-- [Detekt](https://github.com/detekt/detekt) - Static code analysis
+- UI
+  - [Compose Multiplatform](https://github.com/JetBrains/compose-jb) - UI (Android + Desktop)
+  - [LGoodDatePicker](https://github.com/LGoodDatePicker/LGoodDatePicker) - DatePicker on Swing (Desktop)
+  - [Odyssey](https://github.com/AlexGladkov/Odyssey) - Navigation
+  - [Koalaplot](https://github.com/KoalaPlot/koalaplot-core) - Charts
+- Common
+  - [KViewModel](https://github.com/adeo-opensource/kviewmodel--mpp) - Shared ViewModel
+  - [Firebase](https://firebase.google.com) - Crashlytics
+  - [UUID](https://github.com/benasher44/uuid) - UUID generation
+  - [Kotlinx DateTime](https://github.com/Kotlin/kotlinx-datetime) - Date and Time
+- Data
+  - [Ktor](https://ktor.io/docs/welcome.html) - Network communication
+  - [SqlDelight](https://github.com/cashapp/sqldelight) - SQLite database
+  - [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization) - Serialization
+  - [Json](https://mvnrepository.com/artifact/org.json/json/20210307) - Java JSON objects (for storing data in Desktop)
+  - [Settings](https://github.com/russhwolf/multiplatform-settings) - Key-value persistent storage
+- Loggers
+  - [Napier](https://github.com/AAkira/Napier) - Common logger
+  - [Slf4j](https://www.slf4j.org) - JVM logger (Desktop)
+  - [Chucker](https://github.com/ChuckerTeam/chucker) - Network logger (Android)
+- Dependency Injection
+  - [Koin](https://insert-koin.io) - Dependency injection
+- Clean code analyzers
+  - [LeakCanary](https://square.github.io/leakcanary) - Memory leaks analysis (Android)
+  - [Detekt](https://github.com/detekt/detekt) - Static code analysis
+- Analytics
+  - [Amplitude](https://www.docs.developers.amplitude.com/getting-started) - General analytics
 
 ## How to build
 - Android
