@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.data.repositories
 
-import com.finance_tracker.finance_tracker.core.common.hexToColor
 import com.finance_tracker.finance_tracker.domain.models.Account
+import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Currency
@@ -30,7 +30,7 @@ class TransactionsRepository(
         type_: Account.Type,
         name: String,
         balance: Double,
-        colorHex: String,
+        colorId: Int,
         currency: String,
         id__: Long,
         name_: String,
@@ -39,7 +39,7 @@ class TransactionsRepository(
         isExpense: Boolean,
         isIncome: Boolean
     ) -> Transaction = { id, type, amount, amountCurrency, categoryId,
-                         accountId, _, date, _, accountType, accountName, balance, accountColorHex, _,
+                         accountId, _, date, _, accountType, accountName, balance, accountColorId, _,
                          _, categoryName, categoryIcon, _, _, _ ->
         val currency = Currency.getByCode(amountCurrency)
         Transaction(
@@ -48,7 +48,7 @@ class TransactionsRepository(
             account = Account(
                 id = accountId ?: 0L,
                 type = accountType,
-                color = accountColorHex.hexToColor(),
+                colorModel = AccountColorModel.from(accountColorId),
                 name = accountName,
                 balance = Amount(
                     amountValue = balance,

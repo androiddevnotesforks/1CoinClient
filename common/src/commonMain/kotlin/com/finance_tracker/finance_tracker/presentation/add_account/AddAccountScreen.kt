@@ -49,7 +49,7 @@ import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Account
-import com.finance_tracker.finance_tracker.domain.models.AccountColorData
+import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AccountColorsDropdownMenu
 import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AccountTypesDropdownMenu
 import com.finance_tracker.finance_tracker.presentation.add_account.views.CurrencySelector
@@ -350,13 +350,13 @@ fun RowScope.AccountColorTextField(
 }
 
 @Composable
-fun ColorIcon(accountColorData: AccountColorData?) {
-    if (accountColorData != null) {
+fun ColorIcon(accountColorModel: AccountColorModel?) {
+    if (accountColorModel != null) {
         Box(
             modifier = Modifier
                 .size(16.dp)
                 .background(
-                    color = accountColorData.color,
+                    color = accountColorModel.color,
                     shape = CircleShape
                 )
         )

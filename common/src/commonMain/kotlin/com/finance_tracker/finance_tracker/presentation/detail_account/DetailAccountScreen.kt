@@ -54,13 +54,13 @@ fun DetailAccountScreen(
                         .graphicsLayer {
                             alpha = 1f - state.toolbarState.progress
                         },
-                    color = accountData.color
+                    color = accountData.colorModel.color
                 )
                 DetailAccountExpandedAppBar(
                     modifier = Modifier
                         .parallax(0.4f),
                     contentAlpha = state.toolbarState.progress,
-                    color = accountData.color,
+                    color = accountData.colorModel.color,
                     amount = accountData.balance,
                     iconId = accountData.iconId
                 )
@@ -82,7 +82,7 @@ fun DetailAccountScreen(
 
                 EditButton(
                     state = state,
-                    tint = accountData.color,
+                    tint = accountData.colorModel.color,
                     onClick = {
                         navController.push(
                             screen = MainNavigationTree.AddAccount.name,

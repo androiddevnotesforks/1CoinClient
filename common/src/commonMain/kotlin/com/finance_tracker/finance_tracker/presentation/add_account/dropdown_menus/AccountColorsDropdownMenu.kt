@@ -17,15 +17,15 @@ import com.finance_tracker.finance_tracker.core.common.toDp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinDropdownMenu
 import com.finance_tracker.finance_tracker.core.ui.DropdownMenuItem
-import com.finance_tracker.finance_tracker.domain.models.AccountColorData
+import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 
 @Composable
 fun AccountColorsDropdownMenu(
-    items: List<AccountColorData>,
+    items: List<AccountColorModel>,
     offsetXState: MutableState<Int>,
     expandedState: MutableState<Boolean>,
     modifier: Modifier = Modifier,
-    onSelect: (AccountColorData) -> Unit = {}
+    onSelect: (AccountColorModel) -> Unit = {}
 ) {
     CoinDropdownMenu(
         modifier = modifier,
@@ -47,7 +47,7 @@ fun AccountColorsDropdownMenu(
 
 @Composable
 private fun AccountColorItem(
-    data: AccountColorData,
+    data: AccountColorModel,
     onClick: () -> Unit
 ) {
     DropdownMenuItem(onClick = onClick) {
@@ -67,7 +67,7 @@ private fun AccountColorItem(
             Text(
                 modifier = Modifier
                     .padding(start = 16.dp),
-                text = data.name,
+                text = data.colorName,
                 style = CoinTheme.typography.body1
             )
         }

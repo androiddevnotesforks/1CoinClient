@@ -19,7 +19,6 @@ internal val databaseModule = module {
     factory { get<AppDatabase>().smsMessageEntityQueries }
     factory { get<AppDatabase>().accountsEntityQueries }
     factory { get<AppDatabase>().categoriesEntityQueries }
-    factory { get<AppDatabase>().accountColorsEntityQueries }
     factory { get<AppDatabase>().defaultCategoriesEntityQueries }
     factory { get<AppDatabase>().currencyRatesEntityQueries }
 }

@@ -2,10 +2,9 @@ package com.finance_tracker.finance_tracker.presentation.add_account
 
 import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.core.common.EventChannel
-import com.finance_tracker.finance_tracker.core.common.toHexString
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.models.Account
-import com.finance_tracker.finance_tracker.domain.models.AccountColorData
+import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,10 +28,10 @@ class AddAccountViewModel(
     private val _types = MutableStateFlow(Account.Type.values().toList())
     val types = _types.asStateFlow()
 
-    private val _colors = MutableStateFlow(emptyList<AccountColorData>())
+    private val _colors = MutableStateFlow(emptyList<AccountColorModel>())
     val colors = _colors.asStateFlow()
 
-    private val _selectedColor = MutableStateFlow<AccountColorData?>(null)
+    private val _selectedColor = MutableStateFlow<AccountColorModel?>(null)
     val selectedColor = _selectedColor.asStateFlow()
 
     private val _selectedType = MutableStateFlow(account?.type)
@@ -69,7 +68,7 @@ class AddAccountViewModel(
     private fun loadAccountColors() {
         viewModelScope.launch {
             _colors.value = accountsRepository.getAllAccountColors()
-            _selectedColor.value = colors.value.firstOrNull { it.color == account?.color }
+            _selectedColor.value = colors.value.firstOrNull { it == account?.colorModel }
         }
     }
 
@@ -85,7 +84,7 @@ class AddAccountViewModel(
         _selectedCurrency.value = currency
     }
 
-    fun onAccountColorSelect(accountColor: AccountColorData) {
+    fun onAccountColorSelect(accountColor: AccountColorModel) {
         _selectedColor.value = accountColor
     }
 
@@ -110,7 +109,7 @@ class AddAccountViewModel(
                 ))
                 return@launch
             }
-            val selectedColor = selectedColor.value?.color ?: run {
+            val selectedColorId = selectedColor.value?.id ?: run {
                 _events.send(AddAccountEvent.ShowToast(
                     textId = "new_account_error_select_account_color"
                 ))
@@ -127,7 +126,7 @@ class AddAccountViewModel(
                 accountsRepository.insertAccount(
                     accountName = accountName,
                     balance = balance.amountValue,
-                    colorHex = selectedColor.toHexString(),
+                    colorId = selectedColorId,
                     type = type,
                     currency = selectedCurrency.value
                 )
@@ -136,7 +135,7 @@ class AddAccountViewModel(
                     type = type,
                     name = accountName,
                     balance = balance.amountValue,
-                    colorHex = selectedColor.toHexString(),
+                    colorId = selectedColorId,
                     currency = selectedCurrency.value,
                     id = account.id,
                 )

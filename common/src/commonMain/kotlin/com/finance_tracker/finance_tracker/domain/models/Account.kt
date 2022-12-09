@@ -1,13 +1,11 @@
 package com.finance_tracker.finance_tracker.domain.models
 
-import androidx.compose.ui.graphics.Color
-
 data class Account(
     val id: Long,
     val type: Type,
     val name: String,
     val balance: Amount,
-    val color: Color
+    val colorModel: AccountColorModel
 ) {
     enum class Type(val textId: String) {
         DebitCard("account_type_debit_card"),
@@ -31,7 +29,7 @@ data class Account(
                 currency = Currency.default,
                 amountValue = 0.0
             ),
-            color = Color.Black
+            colorModel = AccountColorModel.defaultAccountColor
         )
     }
 }

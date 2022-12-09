@@ -32,7 +32,7 @@ fun AccountCard(
                 width = 160.dp,
                 height = 128.dp
             ),
-        backgroundColor = data.color,
+        backgroundColor = data.colorModel.color,
         shape = RoundedCornerShape(12.dp),
         onClick = {
             navController.push(
