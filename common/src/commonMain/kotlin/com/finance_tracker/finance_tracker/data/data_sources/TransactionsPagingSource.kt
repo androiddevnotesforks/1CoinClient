@@ -9,10 +9,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
-class TransactionSource(
+class TransactionsPagingSource(
     private val transactionsEntityQueries: TransactionsEntityQueries,
     private val accountId: Long? = null,
 ): PagingSource<Long, Transaction>() {
+
     override fun getRefreshKey(state: PagingState<Long, Transaction>): Long? {
         return null
     }
@@ -80,10 +81,10 @@ class TransactionSource(
     }
 }
 
-class TransactionSourceFactory(
+class TransactionsPagingSourceFactory(
     private val transactionsEntityQueries: TransactionsEntityQueries
 ) {
-    fun create(accountId: Long): TransactionSource {
-        return TransactionSource(transactionsEntityQueries, accountId)
+    fun create(accountId: Long): TransactionsPagingSource {
+        return TransactionsPagingSource(transactionsEntityQueries, accountId)
     }
 }
