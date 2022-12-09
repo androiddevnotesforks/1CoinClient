@@ -1,30 +1,25 @@
 package com.finance_tracker.finance_tracker.presentation.transactions
 
+import androidx.paging.cachedIn
 import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 
 class TransactionsViewModel(
     private val transactionsInteractor: TransactionsInteractor
 ): KViewModel() {
 
-    private val _transactions: MutableStateFlow<List<TransactionListModel>> = MutableStateFlow(emptyList())
-    val transactions: StateFlow<List<TransactionListModel>> = _transactions.asStateFlow()
+    val paginatedTransactions = transactionsInteractor.getPaginatedTransactions()
+        .cachedIn(viewModelScope)
 
-    private var loadTransactionsJob: Job? = null
-
-    fun loadTransactions() {
-        loadTransactionsJob?.cancel()
-        loadTransactionsJob = viewModelScope.launch {
-            _transactions.update { transactionsInteractor.getTransactions() }
-        }
-    }
+    private val _events = MutableSharedFlow<TransactionEvents>(
+        replay = 0, extraBufferCapacity = 1, BufferOverflow.DROP_LATEST
+    )
+    val events = _events.asSharedFlow()
 
     fun onDeleteTransactions(
         transactions: List<TransactionListModel.Data>
@@ -33,7 +28,7 @@ class TransactionsViewModel(
             transactionsInteractor.deleteTransactions(
                 transactions = transactions.map { it.transaction }
             )
-            loadTransactions()
+            _events.tryEmit(TransactionEvents.RefreshTransactions)
         }
     }
 }

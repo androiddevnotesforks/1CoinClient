@@ -87,6 +87,7 @@
   - [Kotlinx Serialization](https://github.com/Kotlin/kotlinx.serialization) - Serialization
   - [Json](https://mvnrepository.com/artifact/org.json/json/20210307) - Java JSON objects (for storing data in Desktop)
   - [Settings](https://github.com/russhwolf/multiplatform-settings) - Key-value persistent storage
+  - [Paging](https://github.com/cashapp/multiplatform-paging) - Paging for multiplatform
 - Loggers
   - [Napier](https://github.com/AAkira/Napier) - Common logger
   - [Slf4j](https://www.slf4j.org) - JVM logger (Desktop)

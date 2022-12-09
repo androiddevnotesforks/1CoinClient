@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -22,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.DateFormatType
+import com.finance_tracker.finance_tracker.core.common.pagination.LazyPagingItems
+import com.finance_tracker.finance_tracker.core.common.pagination.items
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -35,12 +36,12 @@ private val DateFormatter = SimpleDateFormat("dd.MM")
 
 @Composable
 fun CommonTransactionsList(
-    transactions: List<TransactionListModel>,
+    transactions: LazyPagingItems<TransactionListModel>,
     modifier: Modifier = Modifier,
     onClick: (TransactionListModel.Data) -> Unit = {},
     onLongClick: (TransactionListModel.Data) -> Unit = {}
 ) {
-    if (transactions.isEmpty()) {
+    if (transactions.itemCount == 0) {
         EmptyTransactionsStub(
             modifier = modifier
         )
@@ -57,7 +58,7 @@ fun CommonTransactionsList(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun TransactionsList(
-    transactions: List<TransactionListModel>,
+    transactions: LazyPagingItems<TransactionListModel>,
     modifier: Modifier = Modifier,
     onClick: (TransactionListModel.Data) -> Unit = {},
     onLongClick: (TransactionListModel.Data) -> Unit = {}
@@ -67,6 +68,8 @@ private fun TransactionsList(
         contentPadding = PaddingValues(bottom = CoinPaddings.bottomNavigationBar)
     ) {
         items(transactions, key = { it.id }) { transactionModel ->
+            if (transactionModel == null) return@items
+
             when (transactionModel) {
                 is TransactionListModel.Data -> {
                     TransactionItem(

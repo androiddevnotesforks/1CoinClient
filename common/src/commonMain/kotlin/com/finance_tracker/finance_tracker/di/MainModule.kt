@@ -12,4 +12,5 @@ fun commonModules() = listOf(
     networkModule,
     repositoriesModule,
     domainModule,
+    sourcesModule,
 )
