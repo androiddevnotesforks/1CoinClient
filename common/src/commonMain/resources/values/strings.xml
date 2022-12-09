@@ -29,9 +29,11 @@
     <string name="month_12">December</string>
 
     <!-- Account -->
-    <string name="account_type_debit_card">Debit card</string>
-    <string name="account_type_credit_card">Credit card</string>
     <string name="account_type_cash">Cash</string>
+    <string name="account_type_card">Card</string>
+    <string name="account_type_bank_account">Bank account</string>
+    <string name="account_type_credit">Credit</string>
+    <string name="account_type_deposit">Deposit</string>
 
     <!-- Tabs -->
     <string name="tab_home">Home</string>

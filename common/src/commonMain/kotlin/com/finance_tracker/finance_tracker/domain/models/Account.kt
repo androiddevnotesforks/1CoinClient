@@ -8,9 +8,11 @@ data class Account(
     val colorModel: AccountColorModel
 ) {
     enum class Type(val textId: String) {
-        DebitCard("account_type_debit_card"),
-        CreditCard("account_type_credit_card"),
-        Cash("account_type_cash")
+        Cash("account_type_cash"),
+        Card("account_type_card"),
+        BankAccount("account_type_bank_account"),
+        Credit("account_type_credit"),
+        Deposit("account_type_deposit")
     }
 
     val iconId: String

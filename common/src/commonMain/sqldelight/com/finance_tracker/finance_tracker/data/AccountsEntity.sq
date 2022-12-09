@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS AccountsEntity (
     currency TEXT NOT NULL
 );
 
-INSERT OR IGNORE INTO AccountsEntity (id, type, name, balance, colorId, currency) VALUES(1, 'CreditCard', 'Credit card', 0, 0, 'USD');
+INSERT OR IGNORE INTO AccountsEntity (id, type, name, balance, colorId, currency) VALUES(1, 'Card', 'Card', 0, 0, 'USD');
 INSERT OR IGNORE INTO AccountsEntity (id, type, name, balance, colorId, currency) VALUES(2, 'Cash', 'Cash', 0, 1, 'USD');
 
 getAccountById:

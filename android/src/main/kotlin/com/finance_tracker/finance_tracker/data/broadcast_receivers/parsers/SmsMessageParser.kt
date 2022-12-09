@@ -32,7 +32,7 @@ class SmsMessageParser(
             ),
             account = Account(
                 id = 1,
-                type = Account.Type.DebitCard,
+                type = Account.Type.Card,
                 name = "Fake card",
                 balance = Amount(
                     amountValue = 0.0,
