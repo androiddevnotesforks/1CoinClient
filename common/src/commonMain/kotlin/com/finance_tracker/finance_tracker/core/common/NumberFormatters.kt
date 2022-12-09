@@ -12,11 +12,11 @@ object NumberFormatters {
             minimumFractionDigits = 0
         }
 
-        var currencyCode: String
+        var currencyCode: String?
             set(code) {
                 formatter.currency = Currency.getInstance(code)
             }
-            get() = formatter.currency.currencyCode
+            get() = formatter.currency?.currencyCode
 
         fun format(number: Double): String {
             return formatter.format(number)
