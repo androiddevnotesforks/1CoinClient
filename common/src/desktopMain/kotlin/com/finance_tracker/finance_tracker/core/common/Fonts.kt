@@ -6,6 +6,6 @@ import androidx.compose.ui.text.platform.Font
 
 
 actual val RubikFontFamily: FontFamily = FontFamily(
-    Font("rubik_regular.ttf", weight = FontWeight.Normal),
-    Font("rubik_medium.ttf", weight = FontWeight.Medium)
+    Font("font/rubik_regular.ttf", weight = FontWeight.Normal),
+    Font("font/rubik_medium.ttf", weight = FontWeight.Medium)
 )

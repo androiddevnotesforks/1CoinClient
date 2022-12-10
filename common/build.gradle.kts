@@ -3,8 +3,10 @@ plugins {
     id("multiplatform-compose-setup")
     id("com.squareup.sqldelight")
     id("io.gitlab.arturbosch.detekt")
+    id("com.google.firebase.crashlytics")
     id("org.jetbrains.kotlin.plugin.serialization")
 }
+
 android {
     signingConfigs {
         getByName("debug") {
@@ -34,7 +36,7 @@ kotlin {
                 implementation(libs.bundles.settings)
                 implementation(libs.uuid)
                 implementation(libs.datetime)
-                implementation(libs.bundles.paging)
+                implementation(libs.paging)
             }
         }
         named("desktopMain") {
@@ -54,6 +56,9 @@ kotlin {
                 implementation(libs.sqldelight.android)
                 implementation(libs.ktor.android)
                 implementation(libs.amplitude.android)
+
+                implementation(project.dependencies.platform(libs.firebase.bom))
+                implementation(libs.firebase.crashlytics)
             }
         }
     }
