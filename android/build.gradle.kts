@@ -78,9 +78,6 @@ android {
 dependencies {
     implementation(projects.common)
 
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlytics)
-
     debugImplementation(libs.leakcanary)
 
     debugImplementation(libs.chucker.debug)

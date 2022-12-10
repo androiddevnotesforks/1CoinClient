@@ -25,22 +25,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.paging.CombinedLoadStates
-import androidx.paging.DEBUG
 import androidx.paging.DifferCallback
 import androidx.paging.ItemSnapshotList
-import androidx.paging.LOGGER
-import androidx.paging.LOG_TAG
 import androidx.paging.LoadState
 import androidx.paging.LoadStates
-import androidx.paging.Logger
 import androidx.paging.NullPaddedList
 import androidx.paging.PagingData
 import androidx.paging.PagingDataDiffer
-import androidx.paging.VERBOSE
 import com.finance_tracker.finance_tracker.core.common.Parcelable
 import com.finance_tracker.finance_tracker.core.common.Parcelize
-import io.github.aakira.napier.LogLevel
-import io.github.aakira.napier.Napier
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -116,7 +109,7 @@ class LazyPagingItems<T : Any> internal constructor(
 
     private val pagingDataDiffer = object : PagingDataDiffer<T>(
         differCallback = differCallback,
-        mainContext = mainDispatcher
+        mainDispatcher = mainDispatcher
     ) {
         override suspend fun presentNewList(
             previousList: NullPaddedList<T>,
@@ -198,38 +191,6 @@ class LazyPagingItems<T : Any> internal constructor(
     internal suspend fun collectPagingData() {
         flow.collectLatest {
             pagingDataDiffer.collectFrom(it)
-        }
-    }
-
-    private companion object {
-        init {
-            /**
-             * Implements the Logger interface from paging-common and injects it into the LOGGER
-             * global var stored within Pager.
-             *
-             * Checks for null LOGGER because other runtime entry points to paging can also
-             * inject a Logger
-             */
-            LOGGER = LOGGER ?: object : Logger {
-                override fun isLoggable(level: Int): Boolean {
-                    return Napier.isEnable(LogLevel.values()[level], LOG_TAG)
-                }
-
-                override fun log(level: Int, message: String, tr: Throwable?) {
-                    when {
-                        tr != null && level == DEBUG -> Napier.d(message, tr, tag = LOG_TAG)
-                        tr != null && level == VERBOSE -> Napier.v(message, tr, tag = LOG_TAG)
-                        level == DEBUG -> Napier.d(message, tag = LOG_TAG)
-                        level == VERBOSE -> Napier.v(message, tag = LOG_TAG)
-                        else -> {
-                            throw IllegalArgumentException(
-                                "debug level $level is requested but Paging only supports " +
-                                        "default logging for level 2 (DEBUG) or level 3 (VERBOSE)"
-                            )
-                        }
-                    }
-                }
-            }
         }
     }
 }
