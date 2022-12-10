@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.core.theme
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.LocalContentColor
+import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme
@@ -124,6 +125,7 @@ fun CoinTheme(
         LocalContentColor provides CoinTheme.color.content,
         LocalIndication provides rememberRipple(),
         LocalRippleTheme provides CoinRippleTheme,
+        LocalTextStyle provides CoinTheme.typography.body1,
         content = content
     )
 }
