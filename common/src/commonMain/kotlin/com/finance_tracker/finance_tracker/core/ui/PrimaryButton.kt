@@ -23,19 +23,19 @@ fun PrimaryButton(
     text: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
-    enabled: Boolean = true,
+    enable: Boolean = true,
 ) {
     CompositionLocalProvider(
         LocalContentColor provides CoinTheme.color.primaryVariant
     ) {
         Text(
             modifier = modifier
-                .`if`(!enabled) {
+                .`if`(!enable) {
                     alpha(CoinAlpha.Medium)
                 }
                 .clip(RoundedCornerShape(12.dp))
                 .background(CoinTheme.color.primary)
-                .`if`(enabled) {
+                .`if`(enable) {
                     clickable { onClick.invoke() }
                 }
                 .padding(12.dp),

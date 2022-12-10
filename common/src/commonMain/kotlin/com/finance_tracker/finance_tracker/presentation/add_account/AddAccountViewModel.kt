@@ -2,11 +2,14 @@ package com.finance_tracker.finance_tracker.presentation.add_account
 
 import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.core.common.EventChannel
+import com.finance_tracker.finance_tracker.core.common.isFloatNumber
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
+import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
-import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
+import com.finance_tracker.finance_tracker.presentation.common.formatters.format
+import com.finance_tracker.finance_tracker.presentation.common.formatters.parse
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,6 +20,7 @@ import kotlinx.coroutines.launch
 
 class AddAccountViewModel(
     private val accountsRepository: AccountsRepository,
+    private val currenciesInteractor: CurrenciesInteractor,
     private val _account: Account
 ): KViewModel() {
 
@@ -37,16 +41,15 @@ class AddAccountViewModel(
     private val _selectedType = MutableStateFlow(account?.type)
     val selectedType = _selectedType.asStateFlow()
 
-    private val _selectedCurrency = MutableStateFlow(
-        account?.balance?.currency ?: amountCurrencies.value.first()
-    )
+    private val initEditAccountCurrency = account?.balance?.currency
+    private val _selectedCurrency = MutableStateFlow(initEditAccountCurrency ?: Currency.default)
     val selectedCurrency = _selectedCurrency.asStateFlow()
 
     private val _enteredAccountName = MutableStateFlow(account?.name.orEmpty())
     val enteredAccountName = _enteredAccountName.asStateFlow()
 
-    private val _enteredAmount = MutableStateFlow(account?.balance ?: Amount.default)
-    val enteredAmount = _enteredAmount.asStateFlow()
+    private val _enteredBalance = MutableStateFlow(account?.balance?.amountValue?.format().orEmpty())
+    val enteredBalance = _enteredBalance.asStateFlow()
 
     private val _events = EventChannel<AddAccountEvent>()
     val events = _events.receiveAsFlow()
@@ -54,21 +57,28 @@ class AddAccountViewModel(
     val isAddButtonEnabled = combine(
         enteredAccountName,
         selectedType,
-        selectedColor,
-        enteredAmount
-    ) { accountName, selectedType, selectedColor, enteredAmount ->
-        accountName.isNotBlank() && selectedType != null &&
-                selectedColor != null && enteredAmount.amountValue != 0.0
+        selectedColor
+    ) { accountName, selectedType, selectedColor ->
+        accountName.isNotBlank() && selectedType != null && selectedColor != null
     }.stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = false)
 
     init {
         loadAccountColors()
+        loadPrimaryCurrency()
     }
 
     private fun loadAccountColors() {
         viewModelScope.launch {
             _colors.value = accountsRepository.getAllAccountColors()
             _selectedColor.value = colors.value.firstOrNull { it == account?.colorModel }
+        }
+    }
+
+    private fun loadPrimaryCurrency() {
+        if (initEditAccountCurrency != null) return
+
+        viewModelScope.launch {
+            _selectedCurrency.value = currenciesInteractor.getPrimaryCurrency()
         }
     }
 
@@ -89,10 +99,9 @@ class AddAccountViewModel(
     }
 
     fun onAmountChange(amount: String) {
-        _enteredAmount.value = Amount(
-            currency = selectedCurrency.value,
-            amountValue = amount.toDouble()
-        )
+        if (amount.isFloatNumber(withComma = true) || amount.isEmpty()) {
+            _enteredBalance.value = amount
+        }
     }
 
     fun onDeleteClick(account: Account) {
@@ -115,7 +124,7 @@ class AddAccountViewModel(
                 ))
                 return@launch
             }
-            val balance = enteredAmount.value
+            val balance = enteredBalance.value.parse() ?: 0.0
             val type = selectedType.value ?: run {
                 _events.send(AddAccountEvent.ShowToast(
                     textId = "new_account_error_select_account_type"
@@ -125,7 +134,7 @@ class AddAccountViewModel(
             if (account == null) {
                 accountsRepository.insertAccount(
                     accountName = accountName,
-                    balance = balance.amountValue,
+                    balance = balance,
                     colorId = selectedColorId,
                     type = type,
                     currency = selectedCurrency.value
@@ -134,7 +143,7 @@ class AddAccountViewModel(
                 accountsRepository.updateAccount(
                     type = type,
                     name = accountName,
-                    balance = balance.amountValue,
+                    balance = balance,
                     colorId = selectedColorId,
                     currency = selectedCurrency.value,
                     id = account.id,

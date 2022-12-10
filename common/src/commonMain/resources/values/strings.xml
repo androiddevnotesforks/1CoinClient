@@ -86,7 +86,7 @@
     <string name="new_account_field_color_label">Color</string>
     <string name="new_account_field_color_placeholder">Select Color</string>
     <string name="new_account_field_amount_label">Amount</string>
-    <string name="new_account_field_amount_placeholder">Enter Amount</string>
+    <string name="new_account_field_amount_placeholder">0</string>
     <string name="new_account_error_enter_account_name">Enter account name</string>
     <string name="new_account_error_select_account_type">Select type</string>
     <string name="new_account_error_select_account_color">Select color</string>

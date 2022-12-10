@@ -24,4 +24,8 @@ class CurrenciesInteractor(
     fun getPrimaryCurrencyFlow(): Flow<Currency> {
         return currenciesRepository.getPrimaryCurrencyFlow()
     }
+
+    suspend fun getPrimaryCurrency(): Currency {
+        return currenciesRepository.getPrimaryCurrency()
+    }
 }
