@@ -18,12 +18,12 @@ fun Amount.format(
     mode: AmountFormatMode = AmountFormatMode.NoSigns
 ): String {
     val locale = Locale.current.toJavaLocale()
-    val formatter = NumberFormatters.AmountFormat(locale).apply {
-        currencyCode = currency.code
-    }
+    val formatter = NumberFormatters.AmountFormat(locale)
 
-    val formattedCurrencyNumber = formatter.format(amountValue.absoluteValue)
-        .replace(currency.code, currency.symbol)
+    val formattedCurrencyNumber = formatter.format(
+        number = amountValue.absoluteValue,
+        currencyCode = currency.code
+    ).replace(currency.code, currency.symbol)
 
     return when (mode) {
         AmountFormatMode.NegativeSign -> {

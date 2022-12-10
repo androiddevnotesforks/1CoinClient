@@ -72,7 +72,7 @@ fun ActionButtonsSection(
                         onAddClick.invoke()
                     }
                 },
-                enabled = enabled
+                enable = enabled
             )
         }
     }

@@ -12,14 +12,35 @@ object NumberFormatters {
             minimumFractionDigits = 0
         }
 
-        var currencyCode: String
-            set(code) {
-                formatter.currency = Currency.getInstance(code)
-            }
-            get() = formatter.currency.currencyCode
+        fun format(number: Double, currencyCode: String): String {
+            setCurrencyCode(currencyCode)
+            return formatter.format(number)
+        }
+
+        private fun setCurrencyCode(code: String) {
+            formatter.currency = Currency.getInstance(code)
+        }
+    }
+
+    class DoubleFormatter {
+
+        private val formatter = NumberFormat.getNumberInstance().apply {
+            maximumFractionDigits = 2
+            minimumFractionDigits = 0
+            isGroupingUsed = false
+        }
 
         fun format(number: Double): String {
             return formatter.format(number)
+        }
+
+        fun parse(text: String): Double? {
+            if (text.isBlank()) return null
+
+            val formattedText = text.replace(",", ".")
+            return runCatching {
+                formatter.parse(formattedText).toDouble()
+            }.getOrNull()
         }
     }
 }

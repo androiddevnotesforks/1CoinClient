@@ -51,8 +51,15 @@ class CurrenciesRepository(
 
     fun getPrimaryCurrencyFlow(): Flow<Currency> {
         return accountSettings.getPrimaryCurrencyCodeFlow()
-            .map { currencyCode ->
-                currencyCode?.let(Currency::getByCode) ?: Currency.default
-            }
+            .map(::mapCodeToCurrency)
+    }
+
+    suspend fun getPrimaryCurrency(): Currency {
+        val currencyCode = accountSettings.getPrimaryCurrencyCode()
+        return mapCodeToCurrency(currencyCode)
+    }
+
+    private fun mapCodeToCurrency(currencyCode: String?): Currency {
+        return currencyCode?.let(Currency::getByCode) ?: Currency.default
     }
 }

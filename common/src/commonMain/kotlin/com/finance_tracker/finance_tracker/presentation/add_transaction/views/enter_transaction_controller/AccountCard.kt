@@ -29,7 +29,10 @@ fun AccountCard(
     ) {
         Box(
             modifier = Modifier
-                .background(color = account.color, shape = CircleShape)
+                .background(
+                    color = account.colorModel.color,
+                    shape = CircleShape
+                )
                 .size(10.dp)
         )
         Text(
