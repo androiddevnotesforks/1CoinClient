@@ -46,7 +46,7 @@ fun AddTransactionScreen(
     StoredViewModel<AddTransactionViewModel>(
         parameters = { parametersOf(transaction ?: Transaction.EMPTY) }
     ) { viewModel ->
-        val navController = LocalRootController.current
+        val navController = LocalRootController.current.findRootController()
         val modalNavController = navController.findModalController()
         LaunchedEffect(Unit) { viewModel.onScreenComposed() }
 
@@ -207,6 +207,7 @@ fun AddTransactionScreen(
                                     modalNavController = modalNavController,
                                     onDeleteTransactionClick = {
                                         viewModel.onDeleteTransactionClick(it)
+                                        modalNavController.popBackStack(key, animate = false)
                                         navController.popBackStack()
                                     }
                                 )
@@ -240,7 +241,6 @@ private fun DeleteTransactionDialog(
         onDeleteClick = {
             transaction?.let {
                 onDeleteTransactionClick.invoke(it)
-                modalNavController.popBackStack(key, animate = false)
             }
         }
     )

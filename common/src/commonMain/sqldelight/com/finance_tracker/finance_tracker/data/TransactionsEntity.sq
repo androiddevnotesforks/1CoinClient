@@ -83,3 +83,13 @@ WHERE id IN :ids;
 deleteTransactionById:
 DELETE FROM TransactionsEntity
 WHERE id = :id;
+
+getLastTransactions:
+SELECT *
+FROM TransactionsEntity
+INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
+INNER JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
+ORDER BY
+    date DESC,
+    insertionDate DESC
+LIMIT 3;

@@ -28,6 +28,13 @@ class TransactionsInteractor(
     private val accountsRepository: AccountsRepository,
 ) {
 
+    fun getLastTransactions(): Flow<List<TransactionListModel.Data>> {
+        return transactionsRepository.getLastThreeTransactions()
+            .map { transactions ->
+                transactions.map(TransactionListModel::Data)
+            }
+    }
+
     private suspend fun updateAccountBalanceForDeleteTransaction(transaction: Transaction) {
         if (transaction.type == TransactionType.Expense) {
             accountsRepository.increaseAccountBalance(transaction.account.id, transaction.amount.amountValue)
