@@ -11,7 +11,7 @@ fun String?.hexToColor(defaultColor: Color = Color.Transparent): Color {
 
 fun String?.hexToColorOrNull(): Color? {
     if (this == null) return null
-    return runCatching { hexStringToColor() }.getOrNull()
+    return runSafeCatching { hexStringToColor() }.getOrNull()
 }
 
 @Suppress("MagicNumber")
