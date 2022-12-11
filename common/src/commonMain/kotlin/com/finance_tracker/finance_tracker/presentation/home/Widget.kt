@@ -29,7 +29,7 @@ fun Widget(
                 onClick.invoke()
             }
             .padding(
-                vertical = 16.dp
+                vertical = 12.dp
             )
     ) {
         Row(

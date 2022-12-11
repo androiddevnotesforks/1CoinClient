@@ -20,7 +20,7 @@ import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
-fun LastTransactionsWidget(
+fun LastTransactionsWidgetContent(
     lastTransactions: List<TransactionListModel.Data>,
     modifier: Modifier = Modifier
 ) {

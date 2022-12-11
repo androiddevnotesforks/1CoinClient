@@ -24,15 +24,13 @@ fun EmptyTransactionsStub(
     modifier: Modifier = Modifier,
     hasBorder: Boolean = true,
 ) {
-    val borderColor = CoinTheme.color.dividers
-
     Row(
         modifier = modifier
             .padding(16.dp)
             .`if`(hasBorder) {
                 border(
                     width = 1.dp,
-                    color = borderColor,
+                    color = CoinTheme.color.dividers,
                     shape = RoundedCornerShape(12.dp)
                 )
             }

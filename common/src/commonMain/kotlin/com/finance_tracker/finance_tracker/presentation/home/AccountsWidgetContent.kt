@@ -13,7 +13,7 @@ import com.finance_tracker.finance_tracker.core.ui.AccountCard
 import com.finance_tracker.finance_tracker.domain.models.Account
 
 @Composable
-fun AccountsWidget(
+fun AccountsWidgetContent(
     data: List<Account>,
     state: LazyListState,
     modifier: Modifier = Modifier

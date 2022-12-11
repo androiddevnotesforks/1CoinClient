@@ -3,13 +3,17 @@ package com.finance_tracker.finance_tracker.presentation.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.systemBarsPadding
 import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
@@ -46,24 +50,26 @@ fun HomeScreen() {
                 .launchIn(this)
         }
 
+        val scrollState = rememberScrollState()
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(CoinTheme.color.background)
                 .systemBarsPadding()
+                .verticalScroll(scrollState)
         ) {
-
-
             val totalBalance by viewModel.totalBalance.collectAsState()
             HomeTopBar(totalBalance = totalBalance)
 
             Widget(
+                modifier = Modifier.padding(top = 8.dp),
                 text = "home_my_accounts",
                 onClick = {
                     navController.switchTab(TabsNavigationTree.Accounts.ordinal)
                 }
             ) {
-                AccountsWidget(
+                AccountsWidgetContent(
                     data = accounts,
                     state = accountsLazyListState
                 )
@@ -76,7 +82,7 @@ fun HomeScreen() {
                 }
             ) {
                 val lastTransactions by viewModel.lastTransactions.collectAsState()
-                LastTransactionsWidget(lastTransactions)
+                LastTransactionsWidgetContent(lastTransactions)
             }
         }
     }
