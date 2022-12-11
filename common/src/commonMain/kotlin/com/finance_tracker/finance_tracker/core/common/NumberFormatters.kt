@@ -38,7 +38,7 @@ object NumberFormatters {
             if (text.isBlank()) return null
 
             val formattedText = text.replace(",", ".")
-            return runCatching {
+            return runSafeCatching {
                 formatter.parse(formattedText).toDouble()
             }.getOrNull()
         }
