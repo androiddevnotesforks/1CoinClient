@@ -92,4 +92,4 @@ INNER JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = cat
 ORDER BY
     date DESC,
     insertionDate DESC
-LIMIT 3;
+LIMIT :limit;

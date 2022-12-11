@@ -17,7 +17,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
-fun WidgetHeader(
+fun Widget(
     text: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},

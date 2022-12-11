@@ -121,7 +121,7 @@ class AddTransactionViewModel(
 
     fun onDeleteTransactionClick(transaction: Transaction) {
         viewModelScope.launch {
-            transactionsInteractor.deleteTransactions(listOf(transaction))
+            transactionsInteractor.deleteTransaction(transaction)
         }
     }
 

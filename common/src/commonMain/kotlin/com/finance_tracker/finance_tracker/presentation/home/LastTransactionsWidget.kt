@@ -12,9 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.core.ui.transactions.EmptyTransactionsStubWithoutBorders
+import com.finance_tracker.finance_tracker.core.ui.transactions.EmptyTransactionsStub
 import com.finance_tracker.finance_tracker.core.ui.transactions.TransactionItem
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
+import ru.alexgladkov.odyssey.compose.RootController
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
@@ -40,26 +41,37 @@ fun LastTransactionsWidget(
         )
     ) {
         if (lastTransactions.isEmpty()) {
-            EmptyTransactionsStubWithoutBorders()
+            EmptyTransactionsStub(hasBorder = false)
         } else {
-            LazyColumn(
-                modifier = Modifier
-                    .padding(
-                        vertical = 10.dp
-                    )
-            ) {
-                items(lastTransactions, key = { it.id }) { transactionData ->
-                    TransactionItem(
-                        transactionData = transactionData,
-                        onClick = {
-                            navController.push(
-                                screen = MainNavigationTree.AddTransaction.name,
-                                params = transactionData.transaction
-                            )
-                        }
+            LastTransactionsColumn(
+                transactions = lastTransactions,
+                navController = navController,
+            )
+        }
+    }
+}
+
+@Composable
+fun LastTransactionsColumn(
+    transactions: List<TransactionListModel.Data>,
+    navController: RootController,
+) {
+    LazyColumn(
+        modifier = Modifier
+            .padding(
+                vertical = 10.dp
+            )
+    ) {
+        items(transactions, key = { it.id }) { transactionData ->
+            TransactionItem(
+                transactionData = transactionData,
+                onClick = {
+                    navController.push(
+                        screen = MainNavigationTree.AddTransaction.name,
+                        params = transactionData.transaction
                     )
                 }
-            }
+            )
         }
     }
 }

@@ -20,18 +20,26 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
 fun EmptyTransactionsStub(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    hasBorder: Boolean = true,
 ) {
     Row(
-        modifier = modifier
-            .padding(16.dp)
-            .border(
-                width = 1.dp,
-                color = CoinTheme.color.dividers,
-                shape = RoundedCornerShape(12.dp)
-            )
-            .fillMaxWidth()
-            .padding(vertical = 28.dp, horizontal = 16.dp),
+        modifier = if (hasBorder) {
+            modifier
+                .padding(16.dp)
+                .border(
+                    width = 1.dp,
+                    color = CoinTheme.color.dividers,
+                    shape = RoundedCornerShape(12.dp)
+                )
+                .fillMaxWidth()
+                .padding(vertical = 28.dp, horizontal = 16.dp)
+        } else {
+            modifier
+                .padding(16.dp)
+                .fillMaxWidth()
+                .padding(vertical = 28.dp, horizontal = 16.dp)
+        },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {

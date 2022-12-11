@@ -137,8 +137,9 @@ class TransactionsRepository(
         }.flow
     }
 
-    fun getLastThreeTransactions() : Flow<List<Transaction>> {
+    fun getLastTransactions(limit: Long) : Flow<List<Transaction>> {
         return transactionsEntityQueries.getLastTransactions(
+            limit = limit,
             mapper = fullTransactionMapper
         )
             .asFlow()

@@ -35,7 +35,7 @@ class HomeViewModel(
     val accounts = _accounts.asStateFlow()
 
     val lastTransactions = transactionsInteractor.getLastTransactions()
-        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue =  emptyList())
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = emptyList())
 
     private val _totalBalance = MutableStateFlow(Amount.default)
     val totalBalance = _totalBalance.asStateFlow()

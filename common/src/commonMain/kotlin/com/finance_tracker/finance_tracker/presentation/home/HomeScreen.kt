@@ -57,7 +57,7 @@ fun HomeScreen() {
             val totalBalance by viewModel.totalBalance.collectAsState()
             HomeTopBar(totalBalance = totalBalance)
 
-            WidgetHeader(
+            Widget(
                 text = "home_my_accounts",
                 onClick = {
                     navController.switchTab(TabsNavigationTree.Accounts.ordinal)
@@ -69,7 +69,7 @@ fun HomeScreen() {
                 )
             }
 
-            WidgetHeader(
+            Widget(
                 text = "home_last_transactions",
                 onClick = {
                     navController.switchTab(TabsNavigationTree.Transactions.ordinal)
