@@ -52,7 +52,7 @@ fun LastTransactionsWidget(
 }
 
 @Composable
-fun LastTransactionsColumn(
+private fun LastTransactionsColumn(
     transactions: List<TransactionListModel.Data>,
     navController: RootController,
 ) {

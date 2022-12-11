@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
@@ -23,23 +24,23 @@ fun EmptyTransactionsStub(
     modifier: Modifier = Modifier,
     hasBorder: Boolean = true,
 ) {
+    val borderColor = CoinTheme.color.dividers
+
     Row(
-        modifier = if (hasBorder) {
-            modifier
-                .padding(16.dp)
-                .border(
+        modifier = modifier
+            .padding(16.dp)
+            .`if`(hasBorder) {
+                border(
                     width = 1.dp,
-                    color = CoinTheme.color.dividers,
+                    color = borderColor,
                     shape = RoundedCornerShape(12.dp)
                 )
-                .fillMaxWidth()
-                .padding(vertical = 28.dp, horizontal = 16.dp)
-        } else {
-            modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-                .padding(vertical = 28.dp, horizontal = 16.dp)
-        },
+            }
+            .fillMaxWidth()
+            .padding(
+                vertical = 28.dp,
+                horizontal = 16.dp
+            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {

@@ -1,10 +1,12 @@
 package com.finance_tracker.finance_tracker.core.common
 
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
+@Composable
 fun Modifier.`if`(
     condition: Boolean,
-    then: Modifier.() -> Modifier
+    then: @Composable Modifier.() -> Modifier
 ): Modifier {
     return if (condition) {
         then()
