@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.presentation.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
@@ -61,6 +62,7 @@ fun HomeScreen() {
 
             Column(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .verticalScroll(rememberScrollState())
             ) {
                 Widget(
