@@ -4,6 +4,7 @@ import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.core.common.EventChannel
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
@@ -23,7 +24,8 @@ import kotlinx.coroutines.plus
 
 class HomeViewModel(
     private val accountsRepository: AccountsRepository,
-    private val currenciesInteractor: CurrenciesInteractor
+    private val currenciesInteractor: CurrenciesInteractor,
+    transactionsInteractor: TransactionsInteractor,
 ): KViewModel() {
 
     private val currencyRatesFlow = currenciesInteractor.getCurrencyRatesFlow()
@@ -31,6 +33,9 @@ class HomeViewModel(
 
     private val _accounts = MutableStateFlow<List<Account>>(emptyList())
     val accounts = _accounts.asStateFlow()
+
+    val lastTransactions = transactionsInteractor.getLastTransactions()
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = emptyList())
 
     private val _totalBalance = MutableStateFlow(Amount.default)
     val totalBalance = _totalBalance.asStateFlow()

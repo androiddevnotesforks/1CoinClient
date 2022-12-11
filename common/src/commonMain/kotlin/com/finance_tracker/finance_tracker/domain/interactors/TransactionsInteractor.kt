@@ -23,10 +23,19 @@ import kotlinx.datetime.Month
 import java.util.Calendar
 import java.util.Date
 
+private const val LastTransactionsLimit = 3L
+
 class TransactionsInteractor(
     private val transactionsRepository: TransactionsRepository,
     private val accountsRepository: AccountsRepository,
 ) {
+
+    fun getLastTransactions(): Flow<List<TransactionListModel.Data>> {
+        return transactionsRepository.getLastTransactions(limit = LastTransactionsLimit)
+            .map { transactions ->
+                transactions.map(TransactionListModel::Data)
+            }
+    }
 
     private suspend fun updateAccountBalanceForDeleteTransaction(transaction: Transaction) {
         if (transaction.type == TransactionType.Expense) {
@@ -50,6 +59,11 @@ class TransactionsInteractor(
         transactions.forEach {
             updateAccountBalanceForDeleteTransaction(it)
         }
+    }
+
+    suspend fun deleteTransaction(transaction: Transaction) {
+        transactionsRepository.deleteTransaction(transaction)
+        updateAccountBalanceForDeleteTransaction(transaction)
     }
 
     suspend fun addOrUpdateTransaction(transaction: Transaction) {

@@ -32,7 +32,8 @@ import ru.alexgladkov.odyssey.core.toScreenBundle
 fun TabsNavigationScreen() {
 
     val rootController = LocalRootController.current as MultiStackRootController
-    val selectedTabItem by rootController.stackChangeObserver.collectAsState()
+    val nullableSelectedTabItem by rootController.stackChangeObserver.collectAsState()
+    val selectedTabItem = nullableSelectedTabItem ?: return
     val analytics: TabsNavigationAnalytics = remember { KoinJavaComponent.getKoin().get() }
 
     Scaffold(
@@ -42,7 +43,9 @@ fun TabsNavigationScreen() {
                 selectedTabItem = selectedTabItem,
                 onItemSelect = { tab ->
                     analytics.trackTabClick(tab)
-                    rootController.switchTab(tab)
+
+                    val position = rootController.tabItems.indexOf(tab)
+                    rootController.switchTab(position)
                 }
             )
         },
@@ -95,7 +98,7 @@ private fun TabNavigator(
                         onScreenRemove = currentTab.rootController.onScreenRemove
                     ) {
                         val rootController = currentTab.rootController
-                        rootController.RenderScreen(it.realKey, it.params)
+                        rootController.renderScreen(it.realKey, it.params)
                     }
                 }
             }

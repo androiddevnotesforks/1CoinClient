@@ -13,8 +13,11 @@ import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.financetracker.financetracker.data.TransactionsEntityQueries
+import com.squareup.sqldelight.runtime.coroutines.asFlow
+import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Month
 import java.util.Date
@@ -132,5 +135,15 @@ class TransactionsRepository(
         return Pager(PagingConfig(pageSize = PageSize)) {
             transactionsPagingSourceFactory.create(id)
         }.flow
+    }
+
+    fun getLastTransactions(limit: Long) : Flow<List<Transaction>> {
+        return transactionsEntityQueries.getLastTransactions(
+            limit = limit,
+            mapper = fullTransactionMapper
+        )
+            .asFlow()
+            .mapToList()
+            .flowOn(Dispatchers.IO)
     }
 }

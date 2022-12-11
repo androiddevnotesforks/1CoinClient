@@ -121,13 +121,13 @@ class AddTransactionViewModel(
 
     fun onDeleteTransactionClick(transaction: Transaction) {
         viewModelScope.launch {
-            transactionsRepository.deleteTransaction(transaction)
+            transactionsInteractor.deleteTransaction(transaction)
         }
     }
 
     fun onDuplicateTransactionClick(transaction: Transaction) {
         viewModelScope.launch {
-            transactionsRepository.addOrUpdateTransaction(
+            transactionsInteractor.addOrUpdateTransaction(
                 transaction = transaction.copy(id = null)
             )
         }
