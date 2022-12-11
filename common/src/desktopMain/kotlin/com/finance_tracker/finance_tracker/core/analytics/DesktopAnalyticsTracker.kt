@@ -3,7 +3,7 @@ package com.finance_tracker.finance_tracker.core.analytics
 import com.amplitude.Amplitude
 import com.amplitude.Event
 import com.finance_tracker.finance_tracker.core.common.DesktopContext
-import io.github.aakira.napier.Napier
+import com.finance_tracker.finance_tracker.core.common.runSafeCatching
 import org.json.JSONObject
 
 class DesktopAnalyticsTracker: AnalyticsTracker {
@@ -23,10 +23,8 @@ class DesktopAnalyticsTracker: AnalyticsTracker {
         val desktopEvent = Event(event.name, userId)
 
         val eventProps = JSONObject()
-        runCatching {
+        runSafeCatching {
             event.properties.forEach(eventProps::put)
-        }.onFailure { throwable ->
-            Napier.e("DesktopAnalyticsTracker", throwable)
         }
 
         desktopEvent.eventProperties = eventProps
