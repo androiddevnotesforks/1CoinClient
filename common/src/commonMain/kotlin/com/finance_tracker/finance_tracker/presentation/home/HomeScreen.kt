@@ -50,39 +50,41 @@ fun HomeScreen() {
                 .launchIn(this)
         }
 
-        val scrollState = rememberScrollState()
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(CoinTheme.color.background)
                 .systemBarsPadding()
-                .verticalScroll(scrollState)
         ) {
             val totalBalance by viewModel.totalBalance.collectAsState()
             HomeTopBar(totalBalance = totalBalance)
 
-            Widget(
-                modifier = Modifier.padding(top = 8.dp),
-                text = "home_my_accounts",
-                onClick = {
-                    navController.switchTab(TabsNavigationTree.Accounts.ordinal)
-                }
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
             ) {
-                AccountsWidgetContent(
-                    data = accounts,
-                    state = accountsLazyListState
-                )
-            }
+                Widget(
+                    modifier = Modifier.padding(top = 8.dp),
+                    text = "home_my_accounts",
+                    onClick = {
+                        navController.switchTab(TabsNavigationTree.Accounts.ordinal)
+                    }
+                ) {
+                    AccountsWidgetContent(
+                        data = accounts,
+                        state = accountsLazyListState
+                    )
+                }
 
-            Widget(
-                text = "home_last_transactions",
-                onClick = {
-                    navController.switchTab(TabsNavigationTree.Transactions.ordinal)
+                Widget(
+                    text = "home_last_transactions",
+                    onClick = {
+                        navController.switchTab(TabsNavigationTree.Transactions.ordinal)
+                    }
+                ) {
+                    val lastTransactions by viewModel.lastTransactions.collectAsState()
+                    LastTransactionsWidgetContent(lastTransactions)
                 }
-            ) {
-                val lastTransactions by viewModel.lastTransactions.collectAsState()
-                LastTransactionsWidgetContent(lastTransactions)
             }
         }
     }
