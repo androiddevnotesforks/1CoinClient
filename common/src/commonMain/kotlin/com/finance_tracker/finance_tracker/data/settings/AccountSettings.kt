@@ -22,6 +22,10 @@ class AccountSettings(factory: Settings.Factory) {
         return flowSettings.getStringOrNullFlow(KEY_PRIMARY_CURRENCY)
     }
 
+    suspend fun getPrimaryCurrencyCode(): String? {
+        return flowSettings.getStringOrNull(KEY_PRIMARY_CURRENCY)
+    }
+
     companion object {
         private const val KEY_PRIMARY_CURRENCY = "primary_currency"
     }

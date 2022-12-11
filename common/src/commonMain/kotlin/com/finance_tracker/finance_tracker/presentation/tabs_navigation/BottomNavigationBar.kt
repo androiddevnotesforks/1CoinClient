@@ -47,7 +47,7 @@ fun BottomNavigationBar(
 
 @Composable
 private fun EmptyBottomNavigationItem() {
-    Box(modifier = Modifier.width(48.dp))
+    Box(modifier = Modifier.width(46.dp))
 }
 
 @Composable

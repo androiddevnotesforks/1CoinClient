@@ -65,7 +65,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
@@ -77,9 +77,6 @@ android {
 
 dependencies {
     implementation(projects.common)
-
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.crashlytics)
 
     debugImplementation(libs.leakcanary)
 

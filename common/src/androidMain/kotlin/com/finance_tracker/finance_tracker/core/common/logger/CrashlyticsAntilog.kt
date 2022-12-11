@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker
+package com.finance_tracker.finance_tracker.core.common.logger
 
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase

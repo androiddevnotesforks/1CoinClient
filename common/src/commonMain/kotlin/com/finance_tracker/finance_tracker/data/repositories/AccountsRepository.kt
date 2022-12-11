@@ -1,25 +1,22 @@
 package com.finance_tracker.finance_tracker.data.repositories
 
-import com.finance_tracker.finance_tracker.core.common.hexToColor
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.domain.models.Account
-import com.finance_tracker.finance_tracker.domain.models.AccountColorData
+import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Currency
-import com.financetracker.financetracker.data.AccountColorsEntityQueries
 import com.financetracker.financetracker.data.AccountsEntityQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class AccountsRepository(
-    private val accountsEntityQueries: AccountsEntityQueries,
-    private val accountColorsEntityQueries: AccountColorsEntityQueries
+    private val accountsEntityQueries: AccountsEntityQueries
 ) {
 
     suspend fun insertAccount(
         accountName: String,
         type: Account.Type,
         balance: Double,
-        colorHex: String,
+        colorId: Int,
         currency: Currency
     ) {
         withContext(Dispatchers.IO) {
@@ -28,21 +25,14 @@ class AccountsRepository(
                 type = type,
                 name = accountName,
                 balance = balance,
-                colorHex = colorHex,
+                colorId = colorId,
                 currency = currency.code
             )
         }
     }
 
-    suspend fun getAllAccountColors(): List<AccountColorData> {
-        return withContext(Dispatchers.IO) {
-            accountColorsEntityQueries.getAllAccountColors { hex, name ->
-                AccountColorData(
-                    color = hex.hexToColor(),
-                    name = name
-                )
-            }.executeAsList()
-        }
+    fun getAllAccountColors(): List<AccountColorModel> {
+        return AccountColorModel.values().toList()
     }
 
     suspend fun getAllAccountsFromDatabase(): List<Account> {
@@ -68,7 +58,7 @@ class AccountsRepository(
         type: Account.Type,
         name: String,
         balance: Double,
-        colorHex: String,
+        colorId: Int,
         currency: Currency,
         id: Long
     ) {
@@ -77,7 +67,7 @@ class AccountsRepository(
                 type = type,
                 name = name,
                 balance = balance,
-                colorHex = colorHex,
+                colorId = colorId,
                 currency = currency.code,
                 id = id,
             )
