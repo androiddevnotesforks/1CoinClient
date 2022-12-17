@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -39,15 +38,18 @@ fun EditButton(
         modifier = modifier
             .statusBarsPadding()
             .padding(
-                vertical = 8.dp,
+                vertical = state.animate(16.dp, 8.dp),
                 horizontal = 16.dp
             )
-            .width(state.animate(84.dp, 50.dp))
+            .size(
+                width = state.animate(84.dp, 50.dp),
+                height = state.animate(42.dp, 34.dp)
+            )
             .clip(RoundedCornerShape(percent = 50))
             .clickable { onClick.invoke() }
             .road(Alignment.BottomEnd, Alignment.BottomEnd)
             .background(CoinTheme.color.background)
-            .padding(vertical = 12.dp)
+            .padding(vertical = state.animate(12.dp, 8.dp))
             .padding(start = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start

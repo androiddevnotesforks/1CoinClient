@@ -16,8 +16,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalContext
+import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.asSp
 import com.finance_tracker.finance_tracker.core.common.getContext
+import com.finance_tracker.finance_tracker.core.common.rememberFixedInsets
 
 @Immutable
 data class CoinColors(
@@ -126,6 +128,7 @@ fun CoinTheme(
         LocalIndication provides rememberRipple(),
         LocalRippleTheme provides CoinRippleTheme,
         LocalTextStyle provides CoinTheme.typography.body1,
+        LocalFixedInsets provides rememberFixedInsets(),
         content = content
     )
 }

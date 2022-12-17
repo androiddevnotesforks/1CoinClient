@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.core.navigation.main
 
 import com.finance_tracker.finance_tracker.core.navigation.tabs.tabsNavigationGraph
+import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Transaction
@@ -15,27 +16,37 @@ import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
 fun RootComposeBuilder.navigationGraph() {
 
     screen(MainNavigationTree.AddTransaction.name) {
-        AddTransactionScreen(
-            transaction = it as? Transaction
-        )
+        CoinTheme {
+            AddTransactionScreen(
+                transaction = it as? Transaction
+            )
+        }
     }
 
     screen(MainNavigationTree.CategorySettings.name) {
-        CategorySettingsScreen()
+        CoinTheme {
+            CategorySettingsScreen()
+        }
     }
 
     screen(MainNavigationTree.AddAccount.name) { account ->
-        AddAccountScreen(
-            account = account as? Account ?: Account.EMPTY
-        )
+        CoinTheme {
+            AddAccountScreen(
+                account = account as? Account ?: Account.EMPTY
+            )
+        }
     }
 
     screen(MainNavigationTree.AddCategory.name) {
-        AddCategoryScreen(transactionTypeTab = it as TransactionTypeTab)
+        CoinTheme {
+            AddCategoryScreen(transactionTypeTab = it as TransactionTypeTab)
+        }
     }
 
     screen(MainNavigationTree.DetailAccount.name) { params ->
-        DetailAccountScreen(account = params as Account)
+        CoinTheme {
+            DetailAccountScreen(account = params as Account)
+        }
     }
 
     tabsNavigationGraph()
