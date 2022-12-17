@@ -83,7 +83,6 @@ fun CoinOutlinedSelectTextField(
     leadingIcon: @Composable (() -> Unit)? = null,
     label: @Composable (() -> Unit)? = null,
     placeholder: @Composable (() -> Unit)? = null,
-    maxLines: Int = 1,
     selected: Boolean = false
 ) {
     val isEmpty = value.isBlank()
@@ -118,7 +117,8 @@ fun CoinOutlinedSelectTextField(
             disabledTextColor = textColor
         ),
         shape = RoundedCornerShape(12.dp),
-        maxLines = maxLines,
+        maxLines = 1,
+        singleLine = true,
         leadingIcon = leadingIcon,
         trailingIcon = {
             Icon(
@@ -163,7 +163,7 @@ private fun ClickableOutlinedTextField(
     val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
 
     @OptIn(ExperimentalMaterialApi::class)
-    (BasicTextField(
+    BasicTextField(
         value = value,
         modifier = if (label != null) {
             modifier
@@ -215,7 +215,7 @@ private fun ClickableOutlinedTextField(
                 }
             )
         }
-    ))
+    )
 }
 
 internal val OutlinedTextFieldTopPadding = 8.dp

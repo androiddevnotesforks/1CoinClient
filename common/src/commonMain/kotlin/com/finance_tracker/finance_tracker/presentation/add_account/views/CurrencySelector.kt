@@ -47,7 +47,12 @@ fun CurrencySelector(
                 focusManager.clearFocus()
                 currencyMenuExpanded.value = true
             }
-            .padding(horizontal = 10.dp, vertical = 4.dp),
+            .padding(
+                start = 14.dp,
+                end = 2.dp,
+                top = 4.dp,
+                bottom = 4.dp
+            ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
@@ -58,8 +63,7 @@ fun CurrencySelector(
         )
         Icon(
             modifier = Modifier
-                .size(24.dp)
-                .padding(start = 8.dp),
+                .size(24.dp),
             painter = rememberVectorPainter("ic_expand_more"),
             contentDescription = null,
             tint = CoinTheme.color.content
