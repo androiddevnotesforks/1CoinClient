@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.EnterTransactionStep
@@ -26,6 +27,7 @@ private const val ContentAnimationDuration = 200
 fun EnterTransactionController(
     accounts: List<Account>,
     categories: List<Category>,
+    selectedTransactionType: TransactionTypeTab,
     currentStep: EnterTransactionStep?,
     animationDirection: Int,
     modifier: Modifier = Modifier,
@@ -64,7 +66,13 @@ fun EnterTransactionController(
                 EnterTransactionStep.Category -> {
                     CategorySelector(
                         categories = categories,
-                        onCategorySelect = onCategorySelect
+                        onCategorySelect = onCategorySelect,
+                        onCategoryAdd = {
+                            navController.findRootController().push(
+                                screen = MainNavigationTree.AddCategory.name,
+                                params = selectedTransactionType
+                            )
+                        }
                     )
                 }
                 EnterTransactionStep.Amount -> {

@@ -42,7 +42,7 @@ fun ChooseIconButton(
                 .size(48.dp)
                 .border(
                     width = 1.dp,
-                    color = CoinTheme.color.content.copy(alpha = 0.2f),
+                    color = CoinTheme.color.dividers,
                     shape = RoundedCornerShape(12.dp)
                 )
                 .clip(RoundedCornerShape(12.dp))
