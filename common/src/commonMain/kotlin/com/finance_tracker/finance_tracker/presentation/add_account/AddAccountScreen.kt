@@ -36,10 +36,10 @@ fun AddAccountScreen(
     ) { viewModel ->
 
         val scaffoldState = rememberScaffoldState()
-        viewModel.watchViewActions { action, baseLocals ->
+        viewModel.watchViewActions { action, baseLocalsStorage ->
             handleAction(
                 action = action,
-                baseLocals = baseLocals,
+                baseLocalsStorage = baseLocalsStorage,
                 scaffoldState = scaffoldState
             )
         }

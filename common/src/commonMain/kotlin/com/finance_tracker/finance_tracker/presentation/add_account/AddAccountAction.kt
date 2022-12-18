@@ -14,18 +14,18 @@ sealed class AddAccountAction {
 
 fun handleAction(
     action: AddAccountAction,
-    baseLocals: BaseLocalsStorage,
+    baseLocalsStorage: BaseLocalsStorage,
     scaffoldState: ScaffoldState,
 ) {
     when (action) {
         AddAccountAction.Close -> {
-            baseLocals.rootController.popBackStack()
+            baseLocalsStorage.rootController.popBackStack()
         }
         is AddAccountAction.ShowToast -> {
-            baseLocals.coroutineScope.launch {
+            baseLocalsStorage.coroutineScope.launch {
                 scaffoldState.snackbarHostState.showSnackbar(
-                    message = getLocalizedString(action.textId, baseLocals.context),
-                    actionLabel = getLocalizedString("got_it", baseLocals.context)
+                    message = getLocalizedString(action.textId, baseLocalsStorage.context),
+                    actionLabel = getLocalizedString("got_it", baseLocalsStorage.context)
                 )
             }
         }

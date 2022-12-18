@@ -1,7 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.home
 
-import com.adeo.kviewmodel.KViewModel
-import com.finance_tracker.finance_tracker.core.common.EventChannel
+import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
@@ -17,7 +16,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
@@ -26,7 +24,7 @@ class HomeViewModel(
     private val accountsRepository: AccountsRepository,
     private val currenciesInteractor: CurrenciesInteractor,
     transactionsInteractor: TransactionsInteractor,
-): KViewModel() {
+): BaseViewModel<HomeAction>() {
 
     private val currencyRatesFlow = currenciesInteractor.getCurrencyRatesFlow()
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = mapOf())
@@ -39,9 +37,6 @@ class HomeViewModel(
 
     private val _totalBalance = MutableStateFlow(Amount.default)
     val totalBalance = _totalBalance.asStateFlow()
-
-    private val _events = EventChannel<HomeEvent>()
-    val events = _events.receiveAsFlow()
 
     private var loadTotalAmountJob: Job? = null
 
@@ -73,7 +68,7 @@ class HomeViewModel(
             _accounts.value  = accountsRepository.getAllAccountsFromDatabase()
             val newAccountsCount = _accounts.value.size
             if (oldAccountsCount in 1 until newAccountsCount) {
-                _events.send(HomeEvent.ScrollToItemAccounts(newAccountsCount - 1))
+                viewAction = HomeAction.ScrollToItemAccounts(newAccountsCount - 1)
             }
         }
     }

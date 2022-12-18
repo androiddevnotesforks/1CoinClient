@@ -12,16 +12,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.systemBarsPadding
+import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
@@ -37,18 +34,8 @@ fun HomeScreen() {
         }
 
         val accountsLazyListState = rememberLazyListState()
-        val coroutineScope = rememberCoroutineScope()
-        LaunchedEffect(Unit) {
-            viewModel.events
-                .filterNotNull()
-                .onEach { event ->
-                    handleEvent(
-                        event,
-                        coroutineScope,
-                        accountsLazyListState
-                    )
-                }
-                .launchIn(this)
+        viewModel.watchViewActions { action, baseLocalsStorage ->
+            handleAction(action, baseLocalsStorage, accountsLazyListState)
         }
 
         Column(
