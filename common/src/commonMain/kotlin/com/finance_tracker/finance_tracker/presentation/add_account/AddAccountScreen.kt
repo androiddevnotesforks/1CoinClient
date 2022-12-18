@@ -84,7 +84,7 @@ fun AddAccountScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            top = 16.dp,
+                            top = 24.dp,
                             start = 16.dp,
                             end = 16.dp
                         ),

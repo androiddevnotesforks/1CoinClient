@@ -31,7 +31,9 @@ import kotlin.math.roundToInt
 @Composable
 fun CategorySelector(
     categories: List<Category>,
-    onCategorySelect: (category: Category) -> Unit
+    onCategorySelect: (category: Category) -> Unit,
+    onCategoryAdd: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var gridWidth by remember { mutableStateOf(1) }
     var cellWidth by remember { mutableStateOf(1) }
@@ -48,7 +50,7 @@ fun CategorySelector(
 
     val cellHeight = 68.dp
     LazyVerticalGrid(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxHeight()
             .onSizeChanged {
                 gridWidth = it.width
@@ -78,6 +80,17 @@ fun CategorySelector(
                     category = category
                 )
             }
+        }
+        item {
+            AddCell(
+                columnCount = columnCount,
+                index = categories.size,
+                dividerWidth = dividerWidth,
+                dividerColor = dividerColor,
+                cellHeight = cellHeight,
+                onCellWidthChange = { cellWidth = it },
+                onClick = onCategoryAdd
+            )
         }
     }
 }

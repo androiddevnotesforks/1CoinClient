@@ -27,6 +27,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.theme.CoinTextFieldDefaults
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
@@ -56,17 +57,7 @@ fun CoinOutlinedTextField(
                 onValueChange.invoke(it)
             }
         },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            cursorColor = CoinTheme.color.primary,
-            focusedBorderColor = CoinTheme.color.primary,
-            unfocusedBorderColor = CoinTheme.color.content.copy(alpha = 0.2f),
-            focusedLabelColor = CoinTheme.color.primary,
-            unfocusedLabelColor = CoinTheme.color.content.copy(alpha = 0.2f),
-            placeholderColor = CoinTheme.color.content.copy(alpha = 0.2f),
-            disabledBorderColor = CoinTheme.color.content.copy(alpha = 0.2f),
-            disabledPlaceholderColor = CoinTheme.color.content.copy(alpha = 0.2f),
-            disabledLabelColor = CoinTheme.color.content.copy(alpha = 0.2f)
-        ),
+        colors = CoinTextFieldDefaults.outlinedTextFieldColors(),
         shape = RoundedCornerShape(12.dp),
         maxLines = maxLines,
         keyboardOptions = keyboardOptions,
@@ -83,42 +74,30 @@ fun CoinOutlinedSelectTextField(
     leadingIcon: @Composable (() -> Unit)? = null,
     label: @Composable (() -> Unit)? = null,
     placeholder: @Composable (() -> Unit)? = null,
-    maxLines: Int = 1,
     selected: Boolean = false
 ) {
     val isEmpty = value.isBlank()
-    val color = if (selected) {
-        CoinTheme.color.primary
-    } else {
-        CoinTheme.color.content.copy(alpha = 0.2f)
-    }
-    val labelColor = if (selected && !isEmpty) {
-        CoinTheme.color.primary
-    } else {
-        CoinTheme.color.content.copy(alpha = 0.2f)
-    }
-    val textColor = CoinTheme.color.content
     ClickableOutlinedTextField(
         modifier = modifier,
         value = value,
         label = label,
         placeholder = placeholder,
         onValueChange = onValueChange,
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            cursorColor = CoinTheme.color.primary,
-            focusedBorderColor = color,
-            unfocusedBorderColor = color,
-            focusedLabelColor = labelColor,
-            unfocusedLabelColor = labelColor,
-            placeholderColor = color,
-            disabledBorderColor = color,
-            disabledPlaceholderColor = color,
-            disabledLabelColor = labelColor,
-            textColor = textColor,
-            disabledTextColor = textColor
+        colors = CoinTextFieldDefaults.outlinedSelectTextFieldColors(
+            borderColor = if (selected) {
+                CoinTheme.color.primary
+            } else {
+                CoinTheme.color.dividers
+            },
+            labelColor = if (selected && !isEmpty) {
+                CoinTheme.color.primary
+            } else {
+                CoinTheme.color.content.copy(alpha = 0.5f)
+            }
         ),
         shape = RoundedCornerShape(12.dp),
-        maxLines = maxLines,
+        maxLines = 1,
+        singleLine = true,
         leadingIcon = leadingIcon,
         trailingIcon = {
             Icon(
@@ -163,7 +142,7 @@ private fun ClickableOutlinedTextField(
     val mergedTextStyle = textStyle.merge(TextStyle(color = textColor))
 
     @OptIn(ExperimentalMaterialApi::class)
-    (BasicTextField(
+    BasicTextField(
         value = value,
         modifier = if (label != null) {
             modifier
@@ -215,7 +194,7 @@ private fun ClickableOutlinedTextField(
                 }
             )
         }
-    ))
+    )
 }
 
 internal val OutlinedTextFieldTopPadding = 8.dp

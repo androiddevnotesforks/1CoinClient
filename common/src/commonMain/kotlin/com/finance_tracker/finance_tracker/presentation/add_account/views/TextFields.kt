@@ -173,7 +173,7 @@ fun RowScope.AccountColorTextField(
     val accountColorMenuExpanded = remember { mutableStateOf(false) }
     val selectedColor by viewModel.selectedColor.collectAsState()
     CoinOutlinedSelectTextField(
-        value = selectedColor?.name.orEmpty(),
+        value = selectedColor?.colorName.orEmpty(),
         modifier = modifier
             .onGloballyPositioned {
                 accountColorMenuOffsetX.value = it.positionInParent().x.toInt()

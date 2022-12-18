@@ -1,28 +1,22 @@
 package com.finance_tracker.finance_tracker.presentation.add_category
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.common.getLocalizedString
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
-import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
+import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.presentation.add_category.views.AddCategoryAppBar
 import com.finance_tracker.finance_tracker.presentation.add_category.views.ChooseIconButton
@@ -34,8 +28,6 @@ private const val MinCategoryNameLength = 2
 fun AddCategoryScreen(transactionTypeTab: TransactionTypeTab) {
     StoredViewModel<AddCategoryViewModel> { viewModel ->
         val rootController = LocalRootController.current
-        val context = LocalContext.current
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -82,12 +74,16 @@ fun AddCategoryScreen(transactionTypeTab: TransactionTypeTab) {
                 )
             }
 
-            val addButtonColor = ButtonDefaults.buttonColors(
-                backgroundColor = CoinTheme.color.primary,
-                contentColor = CoinTheme.color.primaryVariant,
-            )
-
-            Button(
+            PrimaryButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = 16.dp,
+                        start = 16.dp,
+                        end = 16.dp,
+                    ),
+                text = stringResource("new_account_btn_add"),
+                enable = newCategoryName.length >= MinCategoryNameLength,
                 onClick = {
                     if (transactionTypeTab == TransactionTypeTab.Expense && newCategoryName != "") {
                         viewModel.addExpenseCategory(
@@ -102,30 +98,8 @@ fun AddCategoryScreen(transactionTypeTab: TransactionTypeTab) {
                         )
                         rootController.findRootController().popBackStack()
                     }
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(
-                        top = 16.dp,
-                        start = 16.dp,
-                        end = 16.dp,
-                    ),
-                colors = addButtonColor,
-                contentPadding = PaddingValues(
-                    top = 12.dp,
-                    bottom = 12.dp
-                ),
-                shape = RoundedCornerShape(12.dp),
-                enabled = newCategoryName.length >= MinCategoryNameLength
-            ) {
-                Text(
-                    text = getLocalizedString(
-                        id = "new_account_btn_add",
-                        context = context,
-                    ),
-                    style = CoinTheme.typography.body2_medium,
-                )
-            }
+                }
+            )
         }
     }
 }
