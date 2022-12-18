@@ -11,52 +11,52 @@ enum class AccountColorModel(
     EastBay(
         id = 0,
         color = Color(0xFF4B3F72),
-        colorName = "East Bay"
+        colorName = "Purple"
     ),
     RobinsEggBlue(
         id = 1,
         color = Color(0xFF07BEB8),
-        colorName = "Robin's Egg Blue"
+        colorName = "Blue"
     ),
     GoldenTainoi(
         id = 2,
         color = Color(0xFFFFC857),
-        colorName = "Golden Tainoi"
+        colorName = "Yellow"
     ),
     CopperRose(
         id = 3,
         color = Color(0xFF9B6A6C),
-        colorName = "Copper Rose"
+        colorName = "Brown"
     ),
     Bouquet(
         id = 4,
         color = Color(0xFFB37BA4),
-        colorName = "Bouquet"
+        colorName = "Lavender"
     ),
     DeepBlush(
         id = 5,
         color = Color(0xFFE36588),
-        colorName = "Deep Blush"
+        colorName = "Pink"
     ),
     BreakerBay(
         id = 6,
         color = Color(0xFF519E8A),
-        colorName = "Breaker Bay"
+        colorName = "Green"
     ),
     RedDamask(
         id = 7,
         color = Color(0xFFD56F3E),
-        colorName = "Red Damask"
+        colorName = "Orange"
     ),
     Elm(
         id = 8,
         color = Color(0xFF1F7A8C),
-        colorName = "Elm"
+        colorName = "Seaweed"
     ),
     Stack(
         id = 9,
         color = Color(0xFF838E83),
-        colorName = "Stack"
+        colorName = "Grey"
     );
 
     companion object {
