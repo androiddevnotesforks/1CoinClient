@@ -37,19 +37,9 @@ data class CoinTypography(
         fontSize = 18.sp,
         fontFamily = defaultFontFamily
     ),
-    val h6: TextStyle = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 18.sp,
-        fontFamily = defaultFontFamily
-    ),
     val body1: TextStyle = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        fontFamily = defaultFontFamily
-    ),
-    val body1_medium: TextStyle = TextStyle(
-        fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
+        fontSize = 15.sp,
         fontFamily = defaultFontFamily
     ),
     val body2: TextStyle = TextStyle(
@@ -68,23 +58,23 @@ data class CoinTypography(
         fontFamily = defaultFontFamily
     ),
     val subtitle2: TextStyle = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp,
+        fontFamily = defaultFontFamily
+    ),
+    val subtitle2_medium: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
         fontSize = 12.sp,
         fontFamily = defaultFontFamily
     ),
     val subtitle3: TextStyle = TextStyle(
-        fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
-        fontFamily = defaultFontFamily
-    ),
-    val subtitle4: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
         fontSize = 11.sp,
         fontFamily = defaultFontFamily
     ),
-    val subtitle5: TextStyle = TextStyle(
+    val subtitle4: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 10.sp,
+        fontSize = 9.sp,
         fontFamily = defaultFontFamily
     )
 )

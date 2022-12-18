@@ -64,7 +64,7 @@ fun CurrencySelector(
         Icon(
             modifier = Modifier
                 .size(24.dp),
-            painter = rememberVectorPainter("ic_expand_more"),
+            painter = rememberVectorPainter("ic_expand_more_small"),
             contentDescription = null,
             tint = CoinTheme.color.content
         )

@@ -119,7 +119,8 @@ fun AddTransactionScreen(
                         currentStep = EnterTransactionStep.Amount
                     },
                 currency = currency.symbol,
-                amount = amountText
+                amount = amountText,
+                active = currentStep == EnterTransactionStep.Amount
             )
 
             CalendarDayView(

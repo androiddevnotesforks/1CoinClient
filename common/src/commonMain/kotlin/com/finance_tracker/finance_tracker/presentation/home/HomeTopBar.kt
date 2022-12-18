@@ -41,11 +41,11 @@ fun HomeTopBar(
             Column {
                 Text(
                     text = totalBalance.format(mode = AmountFormatMode.NegativeSign),
-                    style = CoinTheme.typography.h5
+                    style = CoinTheme.typography.h4
                 )
                 Text(
                     text = stringResource("home_topbar_text"),
-                    style = CoinTheme.typography.subtitle3,
+                    style = CoinTheme.typography.subtitle2,
                     color = CoinTheme.color.secondary
                 )
             }

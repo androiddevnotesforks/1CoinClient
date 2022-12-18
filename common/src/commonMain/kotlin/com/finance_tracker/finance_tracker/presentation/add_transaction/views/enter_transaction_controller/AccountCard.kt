@@ -11,16 +11,19 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.domain.models.Account
 
 @Composable
 fun AccountCard(
     account: Account,
     modifier: Modifier = Modifier,
-    maxLines: Int = 2
+    maxLines: Int = 2,
+    textStyle: TextStyle = CoinTheme.typography.body2
 ) {
     Row(
         modifier = modifier,
@@ -38,7 +41,7 @@ fun AccountCard(
         Text(
             modifier = Modifier.padding(start = 4.dp),
             text = account.name,
-            style = CoinTheme.typography.body2,
+            style = textStyle.staticTextSize(),
             maxLines = maxLines,
             overflow = TextOverflow.Ellipsis
         )
