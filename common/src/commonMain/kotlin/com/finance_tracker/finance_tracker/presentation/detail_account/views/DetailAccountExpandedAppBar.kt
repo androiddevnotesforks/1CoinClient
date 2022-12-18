@@ -43,7 +43,7 @@ fun DetailAccountExpandedAppBar(
                 .padding(top = 64.dp)
                 .size(48.dp)
                 .clip(CircleShape)
-                .background(Color.Black.copy(alpha = 0.2f))
+                .background(CoinTheme.color.content.copy(alpha = 0.2f))
                 .padding(12.dp),
             painter = rememberVectorPainter(iconId),
             contentDescription = null,

@@ -31,7 +31,7 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 fun EditButton(
     modifier: Modifier = Modifier,
     state: CollapsingToolbarScaffoldState = rememberCollapsingToolbarScaffoldState(),
-    tint: Color = Color.Black,
+    tint: Color = CoinTheme.color.content,
     onClick: () -> Unit = {}
 ) {
     Row(
