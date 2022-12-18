@@ -1,8 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.add_account
 
-import com.adeo.kviewmodel.KViewModel
-import com.finance_tracker.finance_tracker.core.common.EventChannel
 import com.finance_tracker.finance_tracker.core.common.isFloatNumber
+import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -14,7 +13,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -22,7 +20,7 @@ class AddAccountViewModel(
     private val accountsRepository: AccountsRepository,
     private val currenciesInteractor: CurrenciesInteractor,
     private val _account: Account
-): KViewModel() {
+): BaseViewModel<AddAccountAction>() {
 
     private val account: Account? = _account.takeIf { _account != Account.EMPTY }
 
@@ -50,9 +48,6 @@ class AddAccountViewModel(
 
     private val _enteredBalance = MutableStateFlow(account?.balance?.amountValue?.format().orEmpty())
     val enteredBalance = _enteredBalance.asStateFlow()
-
-    private val _events = EventChannel<AddAccountEvent>()
-    val events = _events.receiveAsFlow()
 
     val isAddButtonEnabled = combine(
         enteredAccountName,
@@ -113,22 +108,22 @@ class AddAccountViewModel(
     fun onAddAccountClick() {
         viewModelScope.launch {
             val accountName = enteredAccountName.value.takeIf { it.isNotBlank() } ?: run {
-                _events.send(AddAccountEvent.ShowToast(
+                viewAction = AddAccountAction.ShowToast(
                     textId = "new_account_error_enter_account_name"
-                ))
+                )
                 return@launch
             }
             val selectedColorId = selectedColor.value?.id ?: run {
-                _events.send(AddAccountEvent.ShowToast(
+                viewAction = AddAccountAction.ShowToast(
                     textId = "new_account_error_select_account_color"
-                ))
+                )
                 return@launch
             }
             val balance = enteredBalance.value.parse() ?: 0.0
             val type = selectedType.value ?: run {
-                _events.send(AddAccountEvent.ShowToast(
+                viewAction = AddAccountAction.ShowToast(
                     textId = "new_account_error_select_account_type"
-                ))
+                )
                 return@launch
             }
             if (account == null) {
@@ -149,7 +144,7 @@ class AddAccountViewModel(
                     id = account.id,
                 )
             }
-            _events.send(AddAccountEvent.Close)
+            viewAction = AddAccountAction.Close
         }
     }
 }

@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.theme.CoinAlpha
+import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
 fun AppBarIcon(
@@ -22,7 +23,7 @@ fun AppBarIcon(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
     contentDescription: String? = null,
-    tint: Color = Color.Black,
+    tint: Color = CoinTheme.color.content,
     enabled: Boolean = true,
     width: Dp = 40.dp,
     height: Dp = 40.dp

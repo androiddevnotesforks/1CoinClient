@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.detail_account
 
 import androidx.paging.cachedIn
-import com.adeo.kviewmodel.KViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -13,7 +13,7 @@ class DetailAccountViewModel(
     private val account: Account,
     transactionsInteractor: TransactionsInteractor,
     private val accountsRepository: AccountsRepository,
-): KViewModel() {
+): BaseViewModel<Nothing>() {
 
     val paginatedTransactions = transactionsInteractor.getPaginatedTransactionsByAccountId(account.id)
         .cachedIn(viewModelScope)

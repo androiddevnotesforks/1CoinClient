@@ -21,7 +21,7 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.presentation.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
-import com.finance_tracker.finance_tracker.presentation.settings.SettingsSheet
+import com.finance_tracker.finance_tracker.presentation.settings_sheet.SettingsSheet
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 

@@ -9,7 +9,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.SwingPanel
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.github.lgooddatepicker.components.DatePicker
 import com.github.lgooddatepicker.components.DatePickerSettings
@@ -43,7 +42,6 @@ actual fun CalendarDialog(
     }
     SwingPanel(
         modifier = Modifier.size(0.dp),
-        background = Color.Red,
         factory = { datePicker }
     )
     LaunchedEffect(datePickerSettings) {

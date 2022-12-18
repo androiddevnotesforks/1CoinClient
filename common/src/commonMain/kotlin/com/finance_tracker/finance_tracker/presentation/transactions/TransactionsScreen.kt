@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +14,7 @@ import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.pagination.collectAsLazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.transactions.CommonTransactionsList
@@ -33,13 +33,11 @@ fun TransactionsScreen() {
         val lazyTransactionList =
             viewModel.paginatedTransactions.collectAsLazyPagingItems()
 
-        val event by viewModel.events.collectAsState(null)
-        event?.let {
-            when (it) {
-                TransactionEvents.RefreshTransactions -> {
-                    lazyTransactionList.refresh()
-                }
-            }
+        viewModel.watchViewActions { action, _ ->
+            handleAction(
+                action = action,
+                lazyTransactionList = lazyTransactionList
+            )
         }
 
         LaunchedEffect(Unit) {

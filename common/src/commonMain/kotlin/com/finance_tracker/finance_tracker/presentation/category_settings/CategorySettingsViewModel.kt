@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.category_settings
 
-import com.adeo.kviewmodel.KViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepository
 import com.finance_tracker.finance_tracker.domain.models.Category
@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class CategorySettingsViewModel(
     private val repository: CategoriesRepository
-): KViewModel() {
+): BaseViewModel<Nothing>() {
 
     private val _expenseCategories = MutableStateFlow<List<Category>>(emptyList())
     val expenseCategories = _expenseCategories.asStateFlow()
