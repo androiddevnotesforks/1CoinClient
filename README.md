@@ -7,7 +7,7 @@
   <strong>Simple money manager</strong>
 </div>
 <div align="center">
-  It's superfast, simple and lightweigth.
+  It's superfast, simple and lightweight.
 </div>
 
 <br />
