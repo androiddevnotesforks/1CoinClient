@@ -67,7 +67,7 @@ private fun RowScope.BottomNavigationItem(
         label = {
             Text(
                 text = itemConfiguration.title,
-                style = CoinTheme.typography.subtitle5,
+                style = CoinTheme.typography.subtitle4,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

@@ -35,16 +35,15 @@ fun MainTxsByCategoryChart(
     val txsByCategoryChartPieces = monthTransactionsByCategory.mainPieces
 
     ChartLayout(
-        modifier = modifier.padding(
-            start = 24.dp,
-            end = 24.dp,
-            bottom = 24.dp,
-        )
+        modifier = modifier
+            .padding(
+                start = 24.dp,
+                end = 24.dp,
+                bottom = 24.dp,
+            )
     ) {
         PieChart(
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             values = txsByCategoryChartPieces.map { it.amount.amountValue.toFloat() },
             minPieDiameter = PieChartSize,
             maxPieDiameter = PieChartSize,

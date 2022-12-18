@@ -30,7 +30,8 @@ import com.finance_tracker.finance_tracker.core.ui.StubCalendarDialogController
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 @Composable
 fun CalendarDayView(
@@ -67,7 +68,7 @@ fun CalendarDayView(
             horizontalArrangement = Arrangement.Center
         ) {
             CompositionLocalProvider(
-                LocalContentColor provides LocalContentColor.current.copy(alpha = 0.8f)
+                LocalContentColor provides LocalContentColor.current.copy(alpha = 0.5f)
             ) {
                 Icon(
                     painter = rememberVectorPainter("ic_calendar"),
@@ -83,7 +84,7 @@ fun CalendarDayView(
                         date.isYesterday() -> "${stringResource("add_transaction_yesterday")}, $formattedDate"
                         else -> formattedDate
                     },
-                    style = CoinTheme.typography.subtitle2,
+                    style = CoinTheme.typography.subtitle1,
                     color = LocalContentColor.current
                 )
             }

@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.date.currentMonth
 import com.finance_tracker.finance_tracker.core.common.date.localizedName
-import com.finance_tracker.finance_tracker.core.common.date.next
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Month
@@ -25,7 +24,7 @@ import kotlinx.datetime.Month
 fun MonthsList(
     modifier: Modifier = Modifier,
     selectedMonth: Month = Clock.System.currentMonth(),
-    lastMonth: Month = Clock.System.currentMonth().next(),
+    lastMonth: Month = Clock.System.currentMonth(),
     monthCount: Int = 12,
     onMonthSelect: (Month) -> Unit = {}
 ) {

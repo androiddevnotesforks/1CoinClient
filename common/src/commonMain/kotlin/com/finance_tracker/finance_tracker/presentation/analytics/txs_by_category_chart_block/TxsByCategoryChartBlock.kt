@@ -36,7 +36,7 @@ import kotlinx.datetime.Month
 
 private const val ExpandAnimationDuration = 500
 
-@Suppress("MagicNumber")
+@Suppress("MagicNumber", "KotlinConstantConditions")
 @Composable
 fun TxsByCategoryChartBlock(
     isLoading: Boolean,
