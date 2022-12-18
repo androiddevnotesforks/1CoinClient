@@ -37,7 +37,7 @@ fun EditAccountActions(
     val modalNavController = rootController.findModalController()
     Row(
         modifier = modifier
-            .padding(top = 16.dp)
+            .padding(top = 24.dp)
     ) {
         Box(
             modifier = Modifier

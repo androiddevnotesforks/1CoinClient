@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.CollapsingToolbarScaffoldState
@@ -23,16 +24,19 @@ fun AccountNameText(
     modifier: Modifier = Modifier,
     state: CollapsingToolbarScaffoldState = rememberCollapsingToolbarScaffoldState()
 ) {
+    val statusBarsPadding = LocalFixedInsets.current.statusBarHeight
     Text(
         modifier = modifier
             .statusBarsPadding()
-            .padding(start = state.animate(16.dp, 64.dp))
-            .padding(top = state.animate(0.dp, 16.dp))
-            .padding(bottom = 16.dp)
+            .padding(
+                start = state.animate(16.dp, 64.dp),
+                bottom = state.animate(16.dp, 14.dp),
+                top = state.animate(0.dp, statusBarsPadding)
+            )
             .road(Alignment.BottomStart, Alignment.BottomStart),
         text = name,
         style = CoinTheme.typography.h5.copy(
-            fontWeight = FontWeight(state.animate(400, 500)),
+            fontWeight = FontWeight.Normal,
             fontSize = state.animate(12.sp, 18.sp),
             color = CoinTheme.color.primaryVariant.copy(
                 alpha = state.animate(0.5f, 1f)

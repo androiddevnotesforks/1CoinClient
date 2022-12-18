@@ -68,7 +68,10 @@ fun DetailAccountScreen(
 
                 AppBarIcon(
                     modifier = Modifier
-                        .padding(horizontal = 4.dp, vertical = 8.dp)
+                        .padding(
+                            horizontal = 4.dp,
+                            vertical = 6.dp
+                        )
                         .statusBarsPadding()
                         .align(Alignment.TopStart),
                     painter = rememberVectorPainter("ic_arrow_back"),

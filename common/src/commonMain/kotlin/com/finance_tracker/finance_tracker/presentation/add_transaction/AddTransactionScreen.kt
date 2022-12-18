@@ -175,6 +175,7 @@ fun AddTransactionScreen(
                             },
                         accounts = accounts,
                         categories = categories,
+                        selectedTransactionType = selectedTransactionType,
                         currentStep = currentStep,
                         animationDirection = when {
                             currentStep == null || previousStepIndex == null -> 0

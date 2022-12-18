@@ -152,7 +152,7 @@ private fun <T: Any> RowScope.StageText(
             .fillMaxHeight()
             .clickable(enabled = !isActiveStage) { onStepSelect.invoke(currentStep) }
             .weight(1f)
-            .padding(vertical = 16.dp, horizontal = 8.dp)
+            .padding(vertical = 8.dp, horizontal = 8.dp)
             .border(
                 width = 1.dp,
                 color = if (isActiveStage) {

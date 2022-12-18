@@ -3,8 +3,7 @@ package com.finance_tracker.finance_tracker.presentation.category_settings
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import com.finance_tracker.finance_tracker.core.common.LocalContext
-import com.finance_tracker.finance_tracker.core.common.getLocalizedString
+import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
@@ -17,9 +16,7 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 fun CategorySettingsAppBar(
     selectedTransactionTypeTab: TransactionTypeTab
 ) {
-
     val rootController = LocalRootController.current
-    val context = LocalContext.current
 
     TopAppBar(
         backgroundColor = CoinTheme.color.primaryVariant,
@@ -31,7 +28,7 @@ fun CategorySettingsAppBar(
         },
         title = {
             Text(
-                text = getLocalizedString(id = "category_settings", context = context),
+                text = stringResource("category_settings"),
                 style = CoinTheme.typography.h4
             )
         },
