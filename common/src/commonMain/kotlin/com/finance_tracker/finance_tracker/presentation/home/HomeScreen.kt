@@ -66,7 +66,7 @@ fun HomeScreen() {
                     .verticalScroll(rememberScrollState())
             ) {
                 Widget(
-                    modifier = Modifier.padding(top = 8.dp),
+                    modifier = Modifier.padding(top = 12.dp),
                     text = "home_my_accounts",
                     onClick = {
                         navController.switchTab(TabsNavigationTree.Accounts.ordinal)

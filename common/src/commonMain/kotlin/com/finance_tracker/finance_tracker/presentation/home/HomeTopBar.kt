@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.presentation.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -33,7 +34,8 @@ fun HomeTopBar(
     val modalController = rootController.findModalController()
 
     TopAppBar(
-        modifier = modifier,
+        modifier = modifier
+            .height(64.dp),
         backgroundColor = CoinTheme.color.primaryVariant,
         title = {
             Column {
@@ -53,7 +55,8 @@ fun HomeTopBar(
                 painter = rememberVectorPainter("ic_settings"),
                 contentDescription = null,
                 Modifier
-                    .size(42.dp)
+                    .padding(end = 8.dp)
+                    .size(44.dp)
                     .clip(CircleShape)
                     .background(
                         color = CoinTheme.color.secondaryBackground,

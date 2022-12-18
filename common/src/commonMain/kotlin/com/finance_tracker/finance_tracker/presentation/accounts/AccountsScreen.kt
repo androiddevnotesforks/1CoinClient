@@ -30,7 +30,7 @@ fun AccountsScreen() {
 
             val accounts by viewModel.accounts.collectAsState()
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
+                columns = GridCells.Fixed(count = 2),
                 modifier = Modifier
                     .fillMaxHeight(),
                 contentPadding = PaddingValues(
