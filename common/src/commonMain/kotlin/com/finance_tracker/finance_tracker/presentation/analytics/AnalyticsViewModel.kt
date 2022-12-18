@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.analytics
 
-import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.core.common.date.currentMonth
+import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
@@ -21,7 +21,7 @@ import kotlinx.datetime.Month
 class AnalyticsViewModel(
     private val transactionsInteractor: TransactionsInteractor,
     currenciesInteractor: CurrenciesInteractor
-): KViewModel() {
+): BaseViewModel<Nothing>() {
 
     private val currencyRatesFlow = currenciesInteractor.getCurrencyRatesFlow()
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = mapOf())

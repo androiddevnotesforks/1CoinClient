@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.add_transaction
 
-import com.adeo.kviewmodel.KViewModel
 import com.finance_tracker.finance_tracker.core.common.toLocalDate
+import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionTypeTab
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
@@ -33,7 +33,7 @@ class AddTransactionViewModel(
     private val accountsEntityQueries: AccountsEntityQueries,
     private val categoriesEntityQueries: CategoriesEntityQueries,
     private val _transaction: Transaction
-): KViewModel() {
+): BaseViewModel<Nothing>() {
 
     private val transaction: Transaction? = _transaction.takeIf { _transaction != Transaction.EMPTY }
 

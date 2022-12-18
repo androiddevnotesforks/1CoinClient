@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.settings
 
-import com.adeo.kviewmodel.KViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import kotlinx.coroutines.flow.SharingStarted
@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 class SettingsSheetViewModel(
     private val currenciesInteractor: CurrenciesInteractor
-): KViewModel() {
+): BaseViewModel<Nothing>() {
 
     val chosenCurrency = currenciesInteractor.getPrimaryCurrencyFlow()
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = Currency.default)
