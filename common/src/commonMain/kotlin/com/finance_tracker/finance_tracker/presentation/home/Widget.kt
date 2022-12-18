@@ -41,7 +41,7 @@ fun Widget(
         ) {
             Text(
                 text = stringResource(text),
-                style = CoinTheme.typography.h4
+                style = CoinTheme.typography.h5
             )
             Spacer(
                 modifier = Modifier.weight(1f)

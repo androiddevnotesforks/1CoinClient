@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,10 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.finance_tracker.finance_tracker.core.common.asDp
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
@@ -80,7 +78,13 @@ fun RowScope.AccountStage(
         data = data.accountData,
         selectedStep = data.currentStep,
         onStepSelect = onStageSelect,
-        dataContent = { AccountCard(account = it, maxLines = 1) }
+        dataContent = {
+            AccountCard(
+                account = it,
+                maxLines = 1,
+                textStyle = CoinTheme.typography.subtitle1
+            )
+        }
     )
 }
 
@@ -111,14 +115,14 @@ fun CategoryRow(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            modifier = Modifier.size(20.sp.asDp()),
+            modifier = Modifier.size(20.dp),
             painter = rememberVectorPainter(category.iconId),
             contentDescription = null
         )
         Text(
             modifier = Modifier.padding(start = 4.dp),
             text = category.name,
-            style = CoinTheme.typography.body2,
+            style = CoinTheme.typography.subtitle1.staticTextSize(),
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -149,7 +153,6 @@ private fun <T: Any> RowScope.StageText(
     val isActiveStage = currentStep == selectedStep
     Box(
         modifier = modifier
-            .fillMaxHeight()
             .clickable(enabled = !isActiveStage) { onStepSelect.invoke(currentStep) }
             .weight(1f)
             .padding(vertical = 8.dp, horizontal = 8.dp)
@@ -164,10 +167,9 @@ private fun <T: Any> RowScope.StageText(
             )
             .padding(
                 start = 8.dp,
-                end = 8.dp,
-                top = 10.dp,
-                bottom = 10.dp
-            ),
+                end = 8.dp
+            )
+            .height(36.dp),
         contentAlignment = Alignment.Center
     ) {
         if (data == null) {

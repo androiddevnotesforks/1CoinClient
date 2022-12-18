@@ -67,7 +67,7 @@ fun HoleTotalLabel(
         Text(
             text = data.month.localizedName(),
             color = CoinTheme.color.secondary,
-            style = CoinTheme.typography.subtitle2.staticTextSize()
+            style = CoinTheme.typography.subtitle2_medium.staticTextSize()
         )
     }
 }

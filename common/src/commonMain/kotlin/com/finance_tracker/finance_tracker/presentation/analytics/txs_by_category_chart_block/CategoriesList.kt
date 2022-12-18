@@ -134,7 +134,7 @@ private fun CategoryPieChart(
 
         Text(
             text = piece.percentage,
-            style = CoinTheme.typography.subtitle4,
+            style = CoinTheme.typography.subtitle3,
             textAlign = TextAlign.Center
         )
     }
