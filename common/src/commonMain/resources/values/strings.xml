@@ -69,7 +69,7 @@
     <string name="transactions_today">Today</string>
     <string name="transactions_yesterday">Yesterday</string>
     <string name="transactions_title_normal">Transactions</string>
-    <string name="transactions_title_selected">Selected: </string>
+    <string name="transactions_title_selected">Selected:</string>
     <string name="got_it">Got it</string>
 
     <!-- Categories -->

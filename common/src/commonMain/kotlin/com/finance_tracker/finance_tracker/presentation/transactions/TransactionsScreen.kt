@@ -99,8 +99,13 @@ fun TransactionsScreen() {
                 transactions = lazyTransactionList,
                 onClick = { transactionData ->
                     if (selectedItemsCount > 0) {
-                        transactionData.isSelected.value = !transactionData.isSelected.value
-                        selectedItems = selectedItems + transactionData
+                        if (transactionData.isSelected.value) {
+                            transactionData.isSelected.value = false
+                            selectedItems = selectedItems - transactionData
+                        } else {
+                            transactionData.isSelected.value = true
+                            selectedItems = selectedItems + transactionData
+                        }
                     } else {
                         navController.push(
                             screen = MainNavigationTree.AddTransaction.name,
