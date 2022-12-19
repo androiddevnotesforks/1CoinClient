@@ -33,7 +33,7 @@ class AddTransactionViewModel(
     private val accountsEntityQueries: AccountsEntityQueries,
     private val categoriesEntityQueries: CategoriesEntityQueries,
     private val _transaction: Transaction
-): BaseViewModel<Nothing>() {
+): BaseViewModel<AddTransactionAction>() {
 
     private val transaction: Transaction? = _transaction.takeIf { _transaction != Transaction.EMPTY }
 
@@ -119,17 +119,22 @@ class AddTransactionViewModel(
         }
     }
 
-    fun onDeleteTransactionClick(transaction: Transaction) {
+    fun onDeleteTransactionClick(transaction: Transaction, dialogKey: String) {
         viewModelScope.launch {
             transactionsInteractor.deleteTransaction(transaction)
+            viewAction = AddTransactionAction.DismissDialog(dialogKey)
+            viewAction = AddTransactionAction.Close
         }
     }
 
-    fun onDuplicateTransactionClick(transaction: Transaction) {
+    fun onDuplicateTransactionClick(transaction: Transaction?) {
+        if (transaction == null) return
+
         viewModelScope.launch {
             transactionsInteractor.addOrUpdateTransaction(
                 transaction = transaction.copy(id = null)
             )
+            viewAction = AddTransactionAction.Close
         }
     }
 

@@ -20,6 +20,7 @@ import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Amount
+import com.finance_tracker.finance_tracker.presentation.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 
 @Composable
@@ -54,7 +55,7 @@ fun DetailAccountExpandedAppBar(
                 top = 16.dp,
                 bottom = 30.sp.asDp()
             ),
-            text = amount.format(),
+            text = amount.format(mode = AmountFormatMode.NegativeSign),
             style = CoinTheme.typography.h2,
             color = CoinTheme.color.primaryVariant
         )

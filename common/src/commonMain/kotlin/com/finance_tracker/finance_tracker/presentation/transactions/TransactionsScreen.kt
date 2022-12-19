@@ -20,8 +20,6 @@ import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.transactions.CommonTransactionsList
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.presentation.transactions.views.TransactionsAppBar
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -41,9 +39,7 @@ fun TransactionsScreen() {
         }
 
         LaunchedEffect(Unit) {
-            launch(Dispatchers.Main) {
-                lazyTransactionList.refresh()
-            }
+            lazyTransactionList.refresh()
         }
         val navController = LocalRootController.current.findRootController()
         val modalController = navController.findModalController()

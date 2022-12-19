@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.core.common.view_models
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import com.finance_tracker.finance_tracker.core.common.Context
@@ -30,8 +31,13 @@ inline fun <Action> BaseViewModel<Action>.watchViewActions(
         )
     }
 
-    viewActions().watch { action ->
-        action ?: return@watch
-        onExecute.invoke(action, baseLocalsStorage)
+    DisposableEffect(Unit) {
+        val flow = viewActions().watch { action ->
+            action ?: return@watch
+            onExecute.invoke(action, baseLocalsStorage)
+        }
+        onDispose {
+            flow.close()
+        }
     }
 }
