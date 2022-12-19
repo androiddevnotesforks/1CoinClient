@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
@@ -133,6 +134,10 @@ private fun CategoryPieChart(
         )
 
         Text(
+            modifier = Modifier
+                .`if`(piece.percentage == "100") {
+                    padding(top = 1.dp)
+                },
             text = piece.percentage,
             style = CoinTheme.typography.subtitle3,
             textAlign = TextAlign.Center
