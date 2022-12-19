@@ -5,6 +5,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -69,6 +71,7 @@ fun TransactionItem(
                 text = category.name,
                 style = CoinTheme.typography.body2
             )
+            Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = transaction.account.name,
                 style = CoinTheme.typography.subtitle2,
