@@ -2,6 +2,7 @@ package com.finance_tracker.finance_tracker.presentation.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,10 +16,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
+import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.systemBarsPadding
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
+import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.CoinWidget
 import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
@@ -51,10 +55,11 @@ fun HomeScreen() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .verticalScroll(rememberScrollState())
+                    .padding(top = 12.dp)
             ) {
-                Widget(
-                    modifier = Modifier.padding(top = 12.dp),
-                    text = "home_my_accounts",
+                CoinWidget(
+                    title = stringResource("home_my_accounts"),
+                    withHorizontalPadding = false,
                     onClick = {
                         navController.switchTab(TabsNavigationTree.Accounts.ordinal)
                     }
@@ -65,8 +70,9 @@ fun HomeScreen() {
                     )
                 }
 
-                Widget(
-                    text = "home_last_transactions",
+                CoinWidget(
+                    title = stringResource("home_last_transactions"),
+                    withBorder = true,
                     onClick = {
                         navController.switchTab(TabsNavigationTree.Transactions.ordinal)
                     }
@@ -74,6 +80,11 @@ fun HomeScreen() {
                     val lastTransactions by viewModel.lastTransactions.collectAsState()
                     LastTransactionsWidgetContent(lastTransactions)
                 }
+
+                Spacer(
+                    modifier = Modifier
+                        .padding(bottom = CoinPaddings.bottomNavigationBar)
+                )
             }
         }
     }

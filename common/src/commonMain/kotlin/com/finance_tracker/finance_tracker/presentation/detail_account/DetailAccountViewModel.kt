@@ -5,28 +5,18 @@ import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 
 class DetailAccountViewModel(
-    private val account: Account,
+    account: Account,
     transactionsInteractor: TransactionsInteractor,
-    private val accountsRepository: AccountsRepository,
+    accountsRepository: AccountsRepository
 ): BaseViewModel<Nothing>() {
 
     val paginatedTransactions = transactionsInteractor.getPaginatedTransactionsByAccountId(account.id)
         .cachedIn(viewModelScope)
 
-    private val _accountData = MutableStateFlow(account)
-    val accountData = _accountData.asStateFlow()
-    fun onScreenComposed() {
-        loadAccount(account.id)
-    }
-
-    private fun loadAccount(id: Long) {
-        viewModelScope.launch {
-            _accountData.value = accountsRepository.getAccountById(id)
-        }
-    }
+    val accountData = accountsRepository.getAccountByIdFlow(account.id)
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = account)
 }

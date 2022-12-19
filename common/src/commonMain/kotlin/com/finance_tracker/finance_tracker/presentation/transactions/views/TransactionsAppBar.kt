@@ -31,7 +31,7 @@ fun TransactionsAppBar(
         title = {
             Text(
                 text = if (hasSelectedItems) {
-                    stringResource("transactions_title_selected") + selectedItemsCount
+                    stringResource("transactions_title_selected") + " " + selectedItemsCount
                 } else {
                     stringResource("transactions_title_normal")
                 },

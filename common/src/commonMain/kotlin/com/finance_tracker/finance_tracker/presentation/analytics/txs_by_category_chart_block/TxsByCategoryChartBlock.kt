@@ -157,7 +157,8 @@ private fun EmptyPieChartLayout(
         Row(
             modifier = Modifier.padding(
                 bottom = 32.dp
-            )
+            ),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 painter = rememberVectorPainter("ic_error"),

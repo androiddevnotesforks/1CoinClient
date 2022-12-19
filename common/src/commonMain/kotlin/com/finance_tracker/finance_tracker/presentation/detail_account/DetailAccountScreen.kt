@@ -39,9 +39,6 @@ fun DetailAccountScreen(
     StoredViewModel<DetailAccountViewModel>(
         parameters = { parametersOf(account) }
     ) { viewModel ->
-        LaunchedEffect(Unit) {
-            viewModel.onScreenComposed()
-        }
         val accountData by viewModel.accountData.collectAsState()
         val navController = LocalRootController.current.findRootController()
         val state = rememberCollapsingToolbarScaffoldState()
@@ -97,6 +94,10 @@ fun DetailAccountScreen(
             }
         ) {
             val transactions = viewModel.paginatedTransactions.collectAsLazyPagingItems()
+            LaunchedEffect(accountData.balance) {
+                transactions.refresh()
+            }
+
             CommonTransactionsList(
                 transactions = transactions,
                 onClick = {

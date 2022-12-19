@@ -20,6 +20,7 @@ import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.toDate
+import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
@@ -49,6 +50,10 @@ fun AddTransactionScreen(
         val navController = LocalRootController.current.findRootController()
         val modalNavController = navController.findModalController()
         LaunchedEffect(Unit) { viewModel.onScreenComposed() }
+
+        viewModel.watchViewActions { action, baseLocalsStorage ->
+            handleAction(action, baseLocalsStorage)
+        }
 
         val selectedTransactionType by viewModel.selectedTransactionType.collectAsState()
         Column(
@@ -202,24 +207,19 @@ fun AddTransactionScreen(
                         onEditClick = onEditTransaction,
                         isEditMode = viewModel.isEditMode,
                         onDeleteClick = {
-                            modalNavController.present(DialogConfigurations.alert) { key ->
+                            modalNavController.present(DialogConfigurations.alert) { dialogKey ->
                                 DeleteTransactionDialog(
-                                    key = key,
+                                    key = dialogKey,
                                     transaction = transaction,
                                     modalNavController = modalNavController,
-                                    onDeleteTransactionClick = {
-                                        viewModel.onDeleteTransactionClick(it)
-                                        modalNavController.popBackStack(key, animate = false)
-                                        navController.popBackStack()
+                                    onDeleteTransactionClick = { transaction ->
+                                        viewModel.onDeleteTransactionClick(transaction, dialogKey)
                                     }
                                 )
                             }
                         },
                         onDuplicateClick = {
-                            transaction?.let {
-                                viewModel.onDuplicateTransactionClick(transaction)
-                                navController.popBackStack()
-                            }
+                            viewModel.onDuplicateTransactionClick(transaction)
                         }
                     )
                 }
