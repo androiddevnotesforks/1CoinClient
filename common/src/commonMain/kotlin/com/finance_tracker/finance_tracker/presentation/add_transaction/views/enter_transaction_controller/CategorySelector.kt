@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
@@ -110,7 +109,6 @@ private fun CategoryCard(
             contentDescription = null
         )
         Text(
-            modifier = Modifier.padding(start = 4.dp),
             text = category.name,
             style = CoinTheme.typography.body2,
             maxLines = 2,
