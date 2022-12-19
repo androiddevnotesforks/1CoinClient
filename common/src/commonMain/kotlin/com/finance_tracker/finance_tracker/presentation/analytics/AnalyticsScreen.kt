@@ -49,10 +49,12 @@ fun AnalyticsScreen() {
             Column(
                 modifier = Modifier
                     .verticalScroll(rememberScrollState())
+                    .padding(top = 12.dp)
             ) {
                 CoinWidget(
                     title = stringResource(selectedTransactionTypeTab.textId) + " " +
-                            stringResource("analytics_by_category")
+                            stringResource("analytics_by_category"),
+                    withBorder = true
                 ) {
                     val isLoading by viewModel.isLoadingMonthTxsByCategory.collectAsState()
                     val selectedMonth by viewModel.selectedMonth.collectAsState()

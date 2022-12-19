@@ -1,16 +1,11 @@
 package com.finance_tracker.finance_tracker.presentation.home
 
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
-import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.transactions.EmptyTransactionsStub
 import com.finance_tracker.finance_tracker.core.ui.transactions.TransactionItem
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
@@ -26,27 +21,17 @@ fun LastTransactionsWidgetContent(
 
     val navController = LocalRootController.current.findRootController()
 
-    Box(modifier = modifier
-        .fillMaxWidth()
-        .padding(
-            top = 16.dp,
-            start = 16.dp,
-            end = 16.dp,
+    if (lastTransactions.isEmpty()) {
+        EmptyTransactionsStub(
+            modifier = modifier,
+            hasBorder = false
         )
-        .border(
-            width = 1.dp,
-            color = CoinTheme.color.dividers,
-            shape = RoundedCornerShape(12.dp)
+    } else {
+        LastTransactionsColumn(
+            modifier = modifier,
+            transactions = lastTransactions,
+            navController = navController,
         )
-    ) {
-        if (lastTransactions.isEmpty()) {
-            EmptyTransactionsStub(hasBorder = false)
-        } else {
-            LastTransactionsColumn(
-                transactions = lastTransactions,
-                navController = navController,
-            )
-        }
     }
 }
 
@@ -54,9 +39,10 @@ fun LastTransactionsWidgetContent(
 private fun LastTransactionsColumn(
     transactions: List<TransactionListModel.Data>,
     navController: RootController,
+    modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(
                 vertical = 10.dp
             )
