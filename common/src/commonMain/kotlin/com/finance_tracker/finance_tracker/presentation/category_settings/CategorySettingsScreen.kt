@@ -20,7 +20,6 @@ import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
-import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabRow
 import com.finance_tracker.finance_tracker.domain.models.Category
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -42,11 +41,9 @@ fun CategorySettingsScreen() {
             val expenseCategories by viewModel.expenseCategories.collectAsState()
             val selectedTransactionTypeTab by viewModel.selectedTransactionType.collectAsState()
 
-            CategorySettingsAppBar(selectedTransactionTypeTab)
-
-            TransactionTypesTabRow(
-                selectedType = selectedTransactionTypeTab,
-                onSelect = viewModel::onTransactionTypeSelect
+            CategorySettingsAppBar(
+                selectedTransactionTypeTab = selectedTransactionTypeTab,
+                onTransactionTypeSelect = viewModel::onTransactionTypeSelect
             )
 
             when (selectedTransactionTypeTab) {

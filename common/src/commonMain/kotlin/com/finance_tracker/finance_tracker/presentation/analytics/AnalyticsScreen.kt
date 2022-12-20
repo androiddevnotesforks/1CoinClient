@@ -16,7 +16,6 @@ import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
-import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabRow
 import com.finance_tracker.finance_tracker.presentation.analytics.txs_by_category_chart_block.TxsByCategoryChartBlock
 
 val PieChartSize = 240.dp
@@ -31,11 +30,10 @@ fun AnalyticsScreen() {
         }
 
         Column(modifier = Modifier.fillMaxSize()) {
-            AnalyticsScreenAppBar()
             val selectedTransactionTypeTab by viewModel.transactionTypeTab.collectAsState()
-            TransactionTypesTabRow(
-                selectedType = selectedTransactionTypeTab,
-                onSelect = viewModel::onTransactionTypeSelect
+            AnalyticsScreenAppBar(
+                selectedTransactionTypeTab = selectedTransactionTypeTab,
+                onTransactionTypeSelect = viewModel::onTransactionTypeSelect
             )
 
             Column(

@@ -43,4 +43,4 @@ fun CoinTopAppBar(
     }
 }
 
-private val AppBarHeight = 56.dp
+val AppBarHeight = 56.dp
