@@ -3,13 +3,11 @@ package com.finance_tracker.finance_tracker.presentation.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.presentation.common.formatters.AmountFormatMode
@@ -33,10 +32,9 @@ fun HomeTopBar(
     val rootController = LocalRootController.current
     val modalController = rootController.findModalController()
 
-    TopAppBar(
-        modifier = modifier
-            .height(64.dp),
-        backgroundColor = CoinTheme.color.primaryVariant,
+    CoinTopAppBar(
+        modifier = modifier,
+        appBarHeight = 64.dp,
         title = {
             Column {
                 Text(
@@ -72,6 +70,6 @@ fun HomeTopBar(
                     .padding(8.dp),
                 tint = CoinTheme.color.content.copy(alpha = 0.8f)
             )
-        },
+        }
     )
 }

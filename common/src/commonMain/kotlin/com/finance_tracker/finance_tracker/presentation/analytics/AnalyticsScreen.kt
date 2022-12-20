@@ -1,6 +1,5 @@
 package com.finance_tracker.finance_tracker.presentation.analytics
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,10 +13,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
-import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabRow
 import com.finance_tracker.finance_tracker.presentation.analytics.txs_by_category_chart_block.TxsByCategoryChartBlock
@@ -33,12 +30,7 @@ fun AnalyticsScreen() {
             viewModel.onScreenComposed()
         }
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(CoinTheme.color.background)
-                .statusBarsPadding()
-        ) {
+        Column(modifier = Modifier.fillMaxSize()) {
             AnalyticsScreenAppBar()
             val selectedTransactionTypeTab by viewModel.transactionTypeTab.collectAsState()
             TransactionTypesTabRow(

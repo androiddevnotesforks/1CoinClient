@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
+import com.finance_tracker.finance_tracker.core.common.UpdateSystemBarsConfigEffect
 import com.finance_tracker.finance_tracker.core.common.pagination.collectAsLazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
@@ -39,6 +40,10 @@ fun DetailAccountScreen(
     StoredViewModel<DetailAccountViewModel>(
         parameters = { parametersOf(account) }
     ) { viewModel ->
+        UpdateSystemBarsConfigEffect {
+            isLight = false
+        }
+
         val accountData by viewModel.accountData.collectAsState()
         val navController = LocalRootController.current.findRootController()
         val state = rememberCollapsingToolbarScaffoldState()

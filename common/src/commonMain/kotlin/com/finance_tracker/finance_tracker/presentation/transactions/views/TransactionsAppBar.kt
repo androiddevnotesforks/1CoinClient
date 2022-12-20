@@ -1,17 +1,15 @@
 package com.finance_tracker.finance_tracker.presentation.transactions.views
 
-import androidx.compose.foundation.background
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
+import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
@@ -24,10 +22,8 @@ fun TransactionsAppBar(
     val hasSelectedItems by remember(selectedItemsCount) {
         derivedStateOf { selectedItemsCount > 0 }
     }
-    TopAppBar(
-        modifier = modifier
-            .background(CoinTheme.color.background)
-            .statusBarsPadding(),
+    CoinTopAppBar(
+        modifier = modifier,
         title = {
             Text(
                 text = if (hasSelectedItems) {
@@ -52,7 +48,6 @@ fun TransactionsAppBar(
                     tint = CoinTheme.color.accentRed
                 )
             }
-        },
-        backgroundColor = CoinTheme.color.background
+        }
     )
 }
