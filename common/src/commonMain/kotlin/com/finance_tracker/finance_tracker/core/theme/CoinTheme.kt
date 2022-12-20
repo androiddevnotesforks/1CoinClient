@@ -17,9 +17,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
+import com.finance_tracker.finance_tracker.core.common.LocalSystemBarsConfig
 import com.finance_tracker.finance_tracker.core.common.asSp
 import com.finance_tracker.finance_tracker.core.common.getContext
-import com.finance_tracker.finance_tracker.core.common.rememberFixedInsets
+import com.finance_tracker.finance_tracker.core.common.getFixedInsets
+import com.finance_tracker.finance_tracker.core.common.updateSystemBarsConfig
 
 @Immutable
 data class CoinColors(
@@ -119,8 +121,11 @@ fun CoinTheme(
         LightColorPalette
     }
 
+    val context = getContext()
+    context.updateSystemBarsConfig(LocalSystemBarsConfig.current)
+
     CompositionLocalProvider(
-        LocalContext provides getContext(),
+        LocalContext provides context,
         LocalCoinColors provides coinColors,
         LocalCoinTypography provides CoinTheme.typography,
         LocalCoinElevation provides CoinTheme.elevation,
@@ -128,7 +133,7 @@ fun CoinTheme(
         LocalIndication provides rememberRipple(),
         LocalRippleTheme provides CoinRippleTheme,
         LocalTextStyle provides CoinTheme.typography.body1,
-        LocalFixedInsets provides rememberFixedInsets(),
+        LocalFixedInsets provides getFixedInsets(),
         content = content
     )
 }

@@ -10,6 +10,9 @@ import ru.alexgladkov.odyssey.compose.base.Navigator
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import ru.alexgladkov.odyssey.compose.navigation.RootComposeBuilder
 import ru.alexgladkov.odyssey.compose.navigation.modal_navigation.ModalNavigator
+import ru.alexgladkov.odyssey.compose.navigation.modal_navigation.configuration.DefaultModalConfiguration
+import ru.alexgladkov.odyssey.core.configuration.DisplayType
+import ru.alexgladkov.odyssey.core.configuration.RootConfiguration
 
 @Composable
 fun setupNavigation(
@@ -19,7 +22,9 @@ fun setupNavigation(
     navigationGraph: RootComposeBuilder.() -> Unit = {},
 ) {
     CoinTheme {
-        val rootController = RootComposeBuilder()
+        val rootController = RootComposeBuilder(
+            configuration = RootConfiguration(displayType = DisplayType.FullScreen)
+        )
             .apply(navigationGraph)
             .build()
             .apply {
@@ -32,7 +37,11 @@ fun setupNavigation(
             *providers,
             LocalRootController provides rootController
         ) {
-            ModalNavigator {
+            ModalNavigator(
+                configuration = DefaultModalConfiguration(
+                    displayType = DisplayType.EdgeToEdge
+                )
+            ) {
                 Navigator(startScreen)
             }
         }

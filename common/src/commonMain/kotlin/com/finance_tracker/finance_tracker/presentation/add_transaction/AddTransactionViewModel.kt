@@ -191,5 +191,16 @@ class AddTransactionViewModel(
 
     fun onTransactionTypeSelect(transactionTypeTab: TransactionTypeTab) {
         _selectedTransactionType.value = transactionTypeTab
+        resetSelectedCategory(transactionTypeTab)
+    }
+
+    private fun resetSelectedCategory(transactionTypeTab: TransactionTypeTab) {
+        val currentCategories = when (transactionTypeTab) {
+            TransactionTypeTab.Income -> _incomeCategories.value
+            TransactionTypeTab.Expense -> _expenseCategories.value
+        }
+        if (selectedCategory.value !in currentCategories) {
+            _selectedCategory.value = null
+        }
     }
 }

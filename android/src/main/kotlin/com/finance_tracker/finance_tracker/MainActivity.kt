@@ -11,6 +11,7 @@ import ru.alexgladkov.odyssey.compose.extensions.setupWithActivity
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.navigationBarColor = android.graphics.Color.TRANSPARENT
 
         setContent {
             setupNavigation(

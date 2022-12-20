@@ -14,7 +14,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Modifier
-import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -37,7 +36,6 @@ fun TabsNavigationScreen() {
     val analytics: TabsNavigationAnalytics = remember { KoinJavaComponent.getKoin().get() }
 
     Scaffold(
-        modifier = Modifier.navigationBarsPadding(),
         bottomBar = {
             BottomNavigationBar(
                 selectedTabItem = selectedTabItem,

@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.tabs_navigation
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -12,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
 import ru.alexgladkov.odyssey.compose.controllers.TabNavigationModel
@@ -25,11 +27,15 @@ fun BottomNavigationBar(
 ) {
     val rootController = LocalRootController.current as MultiStackRootController
     val tabItems = rootController.tabItems.take(2) + null + rootController.tabItems.takeLast(2)
+    val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
     BottomAppBar(
         modifier = modifier,
         backgroundColor = CoinTheme.color.background,
         contentColor = CoinTheme.color.primary,
-        cutoutShape = CircleShape
+        cutoutShape = CircleShape,
+        contentPadding = PaddingValues(
+            bottom = navigationBarsHeight
+        )
     ) {
         tabItems.forEach { item ->
             if (item != null) {

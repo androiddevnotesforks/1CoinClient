@@ -14,7 +14,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
@@ -49,8 +48,6 @@ fun AddAccountScreen(
         ) {
             Column {
                 AddAccountTopBar(
-                    modifier = Modifier
-                        .statusBarsPadding(),
                     topBarTextId = if (account == Account.EMPTY) {
                         "new_account_title"
                     } else {

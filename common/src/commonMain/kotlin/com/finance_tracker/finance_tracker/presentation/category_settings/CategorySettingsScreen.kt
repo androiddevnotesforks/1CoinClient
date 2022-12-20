@@ -15,13 +15,11 @@ import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.LazyDragColumn
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
-import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
-import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabRow
 import com.finance_tracker.finance_tracker.domain.models.Category
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -37,21 +35,15 @@ fun CategorySettingsScreen() {
             viewModel.onScreenComposed()
         }
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .statusBarsPadding()
-        ) {
+        Column(modifier = Modifier.fillMaxSize()) {
 
             val incomeCategories by viewModel.incomeCategories.collectAsState()
             val expenseCategories by viewModel.expenseCategories.collectAsState()
             val selectedTransactionTypeTab by viewModel.selectedTransactionType.collectAsState()
 
-            CategorySettingsAppBar(selectedTransactionTypeTab)
-
-            TransactionTypesTabRow(
-                selectedType = selectedTransactionTypeTab,
-                onSelect = viewModel::onTransactionTypeSelect
+            CategorySettingsAppBar(
+                selectedTransactionTypeTab = selectedTransactionTypeTab,
+                onTransactionTypeSelect = viewModel::onTransactionTypeSelect
             )
 
             when (selectedTransactionTypeTab) {

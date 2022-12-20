@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.stringResource
-import com.finance_tracker.finance_tracker.core.common.systemBarsPadding
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
@@ -46,7 +45,6 @@ fun HomeScreen() {
             modifier = Modifier
                 .fillMaxSize()
                 .background(CoinTheme.color.background)
-                .systemBarsPadding()
         ) {
             val totalBalance by viewModel.totalBalance.collectAsState()
             HomeTopBar(totalBalance = totalBalance)

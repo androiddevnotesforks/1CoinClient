@@ -6,6 +6,4 @@ actual fun Modifier.statusBarsPadding(): Modifier = this
 
 actual fun Modifier.navigationBarsPadding(): Modifier = this
 
-actual fun Modifier.systemBarsPadding(): Modifier = this
-
 actual fun Modifier.imePadding(): Modifier = this
