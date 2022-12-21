@@ -4,7 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
@@ -26,10 +28,8 @@ fun AddAccountCard(modifier: Modifier = Modifier) {
 
     Box(
         modifier = modifier
-            .size(
-                height = 128.dp,
-                width = 38.dp,
-            )
+            .fillMaxHeight()
+            .width(38.dp)
             .clip(RoundedCornerShape(12.dp))
             .border(
                 width = 1.dp,
@@ -49,7 +49,7 @@ fun AddAccountCard(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .size(20.dp)
                 .align(Alignment.Center),
-            tint = CoinTheme.color.content.copy(0.5f)
+            tint = CoinTheme.color.content.copy(alpha = 0.5f)
         )
     }
 }

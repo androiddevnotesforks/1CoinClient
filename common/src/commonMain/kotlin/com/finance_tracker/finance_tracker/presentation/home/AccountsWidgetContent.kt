@@ -2,6 +2,7 @@ package com.finance_tracker.finance_tracker.presentation.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -20,7 +21,8 @@ fun AccountsWidgetContent(
     modifier: Modifier = Modifier
 ) {
     LazyRow(
-        modifier = modifier,
+        modifier = modifier
+            .height(128.dp),
         contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
         state = state,
         horizontalArrangement = Arrangement.spacedBy(8.dp)

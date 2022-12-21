@@ -49,7 +49,7 @@ fun HomeTopBar(
         },
         actions = {
             Icon(
-                painter = rememberVectorPainter("ic_cogwheel"),
+                painter = rememberVectorPainter("ic_settings"),
                 contentDescription = null,
                 Modifier
                     .padding(end = 8.dp)
