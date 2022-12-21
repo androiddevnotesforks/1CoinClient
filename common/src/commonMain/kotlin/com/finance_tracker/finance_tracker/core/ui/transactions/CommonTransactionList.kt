@@ -16,7 +16,6 @@ import com.finance_tracker.finance_tracker.core.common.DateFormatType
 import com.finance_tracker.finance_tracker.core.common.pagination.LazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.pagination.items
 import com.finance_tracker.finance_tracker.core.common.stringResource
-import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import java.text.SimpleDateFormat
@@ -29,6 +28,7 @@ private val DateFormatter = SimpleDateFormat("dd.MM")
 fun CommonTransactionsList(
     transactions: LazyPagingItems<TransactionListModel>,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(),
     onClick: (TransactionListModel.Data) -> Unit = {},
     onLongClick: (TransactionListModel.Data) -> Unit = {}
 ) {
@@ -40,6 +40,7 @@ fun CommonTransactionsList(
         TransactionsList(
             modifier = modifier,
             transactions = transactions,
+            contentPadding = contentPadding,
             onClick = onClick,
             onLongClick = onLongClick
         )
@@ -51,12 +52,13 @@ fun CommonTransactionsList(
 private fun TransactionsList(
     transactions: LazyPagingItems<TransactionListModel>,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(),
     onClick: (TransactionListModel.Data) -> Unit = {},
     onLongClick: (TransactionListModel.Data) -> Unit = {}
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
-        contentPadding = PaddingValues(bottom = CoinPaddings.bottomNavigationBar)
+        contentPadding = contentPadding
     ) {
         items(transactions, key = { it.id }) { transactionModel ->
             if (transactionModel == null) return@items

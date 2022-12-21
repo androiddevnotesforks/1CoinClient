@@ -15,7 +15,9 @@ class TransactionsPagingSource(
 ): PagingSource<Long, Transaction>() {
 
     override fun getRefreshKey(state: PagingState<Long, Transaction>): Long? {
-        return null
+        return state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.prevKey
+        }
     }
 
     override suspend fun load(params: LoadParams<Long>): LoadResult<Long, Transaction> {

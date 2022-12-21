@@ -31,8 +31,8 @@ val fullTransactionMapper: (
     isExpense: Boolean,
     isIncome: Boolean
 ) -> Transaction = { id, type, amount, amountCurrency, categoryId,
-                     accountId, _, date, _, accountType, accountName, balance, accountColorId, _,
-                     _, categoryName, categoryIcon, _, _, _ ->
+                     accountId, insertionDate, date, _, accountType, accountName, balance,
+                     accountColorId, _, _, categoryName, categoryIcon, _, _, _ ->
     val currency = Currency.getByCode(amountCurrency)
     Transaction(
         id = id,
@@ -58,6 +58,7 @@ val fullTransactionMapper: (
             currency = currency,
             amountValue = amount
         ),
-        date = date
+        date = date,
+        insertionDate = insertionDate
     )
 }

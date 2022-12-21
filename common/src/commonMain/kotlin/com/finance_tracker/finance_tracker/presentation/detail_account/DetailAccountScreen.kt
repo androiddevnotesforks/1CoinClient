@@ -1,17 +1,19 @@
 package com.finance_tracker.finance_tracker.presentation.detail_account
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.UpdateSystemBarsConfigEffect
+import com.finance_tracker.finance_tracker.core.common.pagination.AutoRefreshList
 import com.finance_tracker.finance_tracker.core.common.pagination.collectAsLazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
@@ -41,7 +43,7 @@ fun DetailAccountScreen(
         parameters = { parametersOf(account) }
     ) { viewModel ->
         UpdateSystemBarsConfigEffect {
-            isLight = false
+            isStatusBarLight = false
         }
 
         val accountData by viewModel.accountData.collectAsState()
@@ -99,12 +101,15 @@ fun DetailAccountScreen(
             }
         ) {
             val transactions = viewModel.paginatedTransactions.collectAsLazyPagingItems()
-            LaunchedEffect(accountData.balance) {
-                transactions.refresh()
-            }
 
+            AutoRefreshList(transactions)
+
+            val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
             CommonTransactionsList(
                 transactions = transactions,
+                contentPadding = PaddingValues(
+                    bottom = navigationBarsHeight
+                ),
                 onClick = {
                     navController.push(
                         screen = MainNavigationTree.AddTransaction.name,
