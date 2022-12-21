@@ -97,7 +97,7 @@
     <!-- Analytics -->
     <string name="analytics_by_category">by Category</string>
     <string name="analytics_transactions">transactions</string>
-    <string name="analytics_make_first_transactions">Make your first transactions</string>
+    <string name="analytics_make_first_transactions">No transactions for this period</string>
 
     <!-- Detail account -->
     <string name="detail_account_btn_edit">Edit</string>

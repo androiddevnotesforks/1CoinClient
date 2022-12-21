@@ -74,7 +74,7 @@ data class CoinTypography(
     ),
     val subtitle4: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 9.sp,
+        fontSize = 10.sp,
         fontFamily = defaultFontFamily
     )
 )
