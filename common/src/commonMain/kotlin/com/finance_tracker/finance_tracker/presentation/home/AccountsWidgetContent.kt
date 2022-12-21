@@ -11,6 +11,8 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.ui.AccountCard
 import com.finance_tracker.finance_tracker.domain.models.Account
 
+private const val MaxAccountsForAddAccountWidget = 2
+
 @Composable
 fun AccountsWidgetContent(
     data: List<Account>,
@@ -25,6 +27,11 @@ fun AccountsWidgetContent(
     ) {
         items(data) { account ->
             AccountCard(data = account)
+        }
+        if (data.size < MaxAccountsForAddAccountWidget) {
+            item {
+                AddAccountCard()
+            }
         }
     }
 }

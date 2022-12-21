@@ -1,6 +1,5 @@
 package com.finance_tracker.finance_tracker.presentation.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -50,25 +49,20 @@ fun HomeTopBar(
         },
         actions = {
             Icon(
-                painter = rememberVectorPainter("ic_settings"),
+                painter = rememberVectorPainter("ic_cogwheel"),
                 contentDescription = null,
                 Modifier
                     .padding(end = 8.dp)
-                    .size(44.dp)
+                    .size(28.dp)
                     .clip(CircleShape)
-                    .background(
-                        color = CoinTheme.color.secondaryBackground,
-                        shape = CircleShape
-                    )
                     .clickable {
                         modalController.present(DialogConfigurations.bottomSheet) { key ->
                             SettingsSheet(
                                 onCloseClick = { modalController.popBackStack(key) }
                             )
                         }
-                    }
-                    .padding(8.dp),
-                tint = CoinTheme.color.content.copy(alpha = 0.8f)
+                    },
+                tint = CoinTheme.color.content
             )
         }
     )
