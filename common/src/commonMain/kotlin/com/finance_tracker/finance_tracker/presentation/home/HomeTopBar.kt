@@ -53,7 +53,7 @@ fun HomeTopBar(
                 contentDescription = null,
                 Modifier
                     .padding(end = 8.dp)
-                    .size(28.dp)
+                    .size(36.dp)
                     .clip(CircleShape)
                     .clickable {
                         modalController.present(DialogConfigurations.bottomSheet) { key ->
@@ -61,7 +61,8 @@ fun HomeTopBar(
                                 onCloseClick = { modalController.popBackStack(key) }
                             )
                         }
-                    },
+                    }
+                    .padding(4.dp),
                 tint = CoinTheme.color.content
             )
         }
