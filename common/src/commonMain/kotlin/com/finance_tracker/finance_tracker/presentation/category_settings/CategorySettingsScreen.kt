@@ -2,7 +2,6 @@ package com.finance_tracker.finance_tracker.presentation.category_settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -13,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.LazyDragColumn
+import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
@@ -23,6 +22,8 @@ import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.domain.models.Category
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
+
+private val CategoriesListContentPadding = 16.dp
 
 @Composable
 fun CategorySettingsScreen() {
@@ -98,13 +99,16 @@ private fun CategoriesLazyColumn(
     onSwap: (Int, Int) -> Unit,
     onCrossDeleteClick: (Long) -> Unit,
 ) {
+    val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
     LazyDragColumn(
         items = categories,
         onSwap = onSwap,
-        contentPaddingValues = PaddingValues(16.dp),
-        afterContent = {
-            Spacer(modifier = Modifier.navigationBarsPadding())
-        }
+        contentPaddingValues = PaddingValues(
+            top = CategoriesListContentPadding,
+            start = CategoriesListContentPadding,
+            end = CategoriesListContentPadding,
+            bottom = CategoriesListContentPadding + navigationBarsHeight
+        )
     ) { index, category ->
         ItemWrapper(
             isFirstItem = index == 0,

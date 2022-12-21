@@ -33,8 +33,6 @@ fun <T : Any> LazyDragColumn(
     items: List<T>,
     onSwap: (Int, Int) -> Unit,
     contentPaddingValues: PaddingValues,
-    beforeContent: @Composable LazyItemScope.() -> Unit = {},
-    afterContent: @Composable LazyItemScope.() -> Unit = {},
     dragItemContent: @Composable (LazyItemScope.(index : Int, item: T) -> Unit) = { _, _ -> },
 ) {
     var overscrollJob by remember { mutableStateOf<Job?>(null) }
@@ -82,10 +80,6 @@ fun <T : Any> LazyDragColumn(
         state = listState,
         contentPadding = contentPaddingValues
     ) {
-        item {
-            beforeContent.invoke(this)
-        }
-
         itemsIndexed(items = items) { index, item ->
             DraggableItem(
                 dragDropState = dragDropState,
@@ -101,12 +95,14 @@ fun <T : Any> LazyDragColumn(
                                 topEnd = 12.dp,
                             )
                         }
+
                         items.lastIndex -> {
                             RoundedCornerShape(
                                 bottomStart = 12.dp,
                                 bottomEnd = 12.dp
                             )
                         }
+
                         else -> {
                             RoundedCornerShape(0.dp)
                         }
@@ -115,10 +111,6 @@ fun <T : Any> LazyDragColumn(
                     dragItemContent(index, item)
                 }
             }
-        }
-
-        item {
-            afterContent.invoke(this)
         }
     }
 }
