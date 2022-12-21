@@ -30,7 +30,7 @@ fun AccountNameText(
             .statusBarsPadding()
             .padding(
                 start = state.animate(16.dp, 64.dp),
-                bottom = state.animate(16.dp, 14.dp),
+                bottom = state.animate(16.dp, 12.dp),
                 top = state.animate(0.dp, statusBarsPadding)
             )
             .road(Alignment.BottomStart, Alignment.BottomStart),

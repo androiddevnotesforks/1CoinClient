@@ -9,12 +9,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 
 class SystemBarsConfig(
-    initIsLight: Boolean = true
+    initIsStatusBarLight: Boolean = true,
+    initIsNavigationBarLight: Boolean = true
 ) {
-    var isLight: Boolean by mutableStateOf(initIsLight)
+    var isStatusBarLight: Boolean by mutableStateOf(initIsStatusBarLight)
+    var isNavigationBarLight: Boolean by mutableStateOf(initIsNavigationBarLight)
 
     fun copy() = SystemBarsConfig(
-        initIsLight = isLight
+        initIsStatusBarLight = isStatusBarLight,
+        initIsNavigationBarLight = isNavigationBarLight
     )
 }
 
@@ -25,7 +28,7 @@ fun UpdateSystemBarsConfigEffect(action: SystemBarsConfig.() -> Unit) {
     DisposableEffect(Unit) {
         action.invoke(currentSystemBarsConfig)
         onDispose {
-            currentSystemBarsConfig.isLight = oldSystemBarsConfig.isLight
+            currentSystemBarsConfig.isStatusBarLight = oldSystemBarsConfig.isStatusBarLight
         }
     }
 }

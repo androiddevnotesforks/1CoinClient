@@ -1,10 +1,9 @@
 package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -21,6 +20,8 @@ import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
+val AccountCardHeight = 128.dp
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AccountCard(
@@ -30,8 +31,10 @@ fun AccountCard(
     val navController = LocalRootController.current.findRootController()
     Card(
         modifier = modifier
-            .fillMaxHeight()
-            .width(160.dp),
+            .size(
+                width = 160.dp,
+                height = AccountCardHeight
+            ),
         backgroundColor = data.colorModel.color,
         shape = RoundedCornerShape(12.dp),
         onClick = {
@@ -53,15 +56,13 @@ fun AccountCard(
                     .size(29.dp),
                 tint = CoinTheme.color.primaryVariant
             )
+            Spacer(modifier = Modifier.weight(1f))
             Text(
                 text = data.balance.format(mode = AmountFormatMode.NegativeSign),
                 style = CoinTheme.typography.h5,
                 color = CoinTheme.color.primaryVariant,
                 modifier = Modifier
-                    .padding(
-                        top = 30.dp,
-                        start = 16.dp
-                    )
+                    .padding(start = 16.dp)
             )
             val accountName = if (data.type == Account.Type.Cash) {
                 "${data.name} (${data.balance.currency.symbol})"
@@ -73,7 +74,10 @@ fun AccountCard(
                 style = CoinTheme.typography.subtitle2,
                 color = CoinTheme.color.primaryVariant.copy(alpha = 0.5f),
                 modifier = Modifier
-                    .padding(start = 16.dp)
+                    .padding(
+                        start = 16.dp,
+                        bottom = 16.dp
+                    )
             )
         }
     }

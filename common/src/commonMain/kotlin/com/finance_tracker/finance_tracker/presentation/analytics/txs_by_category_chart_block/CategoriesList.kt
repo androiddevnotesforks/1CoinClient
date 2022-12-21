@@ -25,6 +25,8 @@ import io.github.koalaplot.core.pie.DefaultSlice
 import io.github.koalaplot.core.pie.PieChart
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 
+private val CircleChartRange = 10f..90f
+
 @Composable
 fun CategoriesList(
     pieces: List<TxsByCategoryChart.Piece>,
@@ -135,8 +137,9 @@ private fun CategoryPieChart(
 
         Text(
             modifier = Modifier
-                .`if`(piece.percentage == "100") {
-                    padding(top = 1.dp)
+                .`if`(piece.percentage.toFloat() !in CircleChartRange) {
+                    // Necessary because chart has oval form
+                    padding(top = 2.dp)
                 },
             text = piece.percentage,
             style = CoinTheme.typography.subtitle3,

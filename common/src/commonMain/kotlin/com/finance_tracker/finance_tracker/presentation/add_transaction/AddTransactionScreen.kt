@@ -66,6 +66,7 @@ fun AddTransactionScreen(
             val currency by viewModel.currency.collectAsState()
             val amountDouble = amountText.toDoubleOrNull() ?: 0.0
             val isAddTransactionEnabled by viewModel.isAddTransactionEnabled.collectAsState()
+            val transactionInsertionDate = viewModel.transactionInsertionDate
             val onAddTransaction = {
                 val account = accountData
                 if (account != null) {
@@ -78,7 +79,8 @@ fun AddTransactionScreen(
                                 currency = currency,
                                 amountValue = amountDouble
                             ),
-                            date = localDate.toDate()
+                            date = localDate.toDate(),
+                            insertionDate = transactionInsertionDate
                         )
                     )
                     navController.popBackStack()
@@ -96,7 +98,8 @@ fun AddTransactionScreen(
                                 currency = currency,
                                 amountValue = amountDouble
                             ),
-                            date = localDate.toDate()
+                            date = localDate.toDate(),
+                            insertionDate = transactionInsertionDate
                         )
                     )
                     navController.popBackStack()

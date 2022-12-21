@@ -8,7 +8,8 @@ data class Transaction(
     val account: Account,
     val amount: Amount = Amount.default,
     val category: Category? = null,
-    val date: Date
+    val date: Date,
+    val insertionDate: Date?,
 ) {
     companion object {
         val EMPTY = Transaction(
@@ -17,7 +18,8 @@ data class Transaction(
             account = Account.EMPTY,
             amount = Amount.default,
             category = null,
-            date = Date()
+            date = Date(),
+            insertionDate = null
         )
     }
 }

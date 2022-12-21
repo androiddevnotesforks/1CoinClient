@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
+import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
@@ -58,6 +59,7 @@ fun AnalyticsScreen() {
                 }
                 Spacer(
                     modifier = Modifier
+                        .navigationBarsPadding()
                         .padding(bottom = CoinPaddings.bottomNavigationBar)
                 )
             }

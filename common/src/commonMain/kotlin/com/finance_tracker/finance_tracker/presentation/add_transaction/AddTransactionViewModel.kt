@@ -6,7 +6,6 @@ import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionTypeTab
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
-import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
 import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
@@ -26,10 +25,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.util.Date
 
 class AddTransactionViewModel(
     private val transactionsInteractor: TransactionsInteractor,
-    private val transactionsRepository: TransactionsRepository,
     private val accountsEntityQueries: AccountsEntityQueries,
     private val categoriesEntityQueries: CategoriesEntityQueries,
     private val _transaction: Transaction
@@ -45,6 +44,7 @@ class AddTransactionViewModel(
     private val _selectedAccount: MutableStateFlow<Account?> = MutableStateFlow(transaction?.account)
     val selectedAccount: StateFlow<Account?> = _selectedAccount.asStateFlow()
 
+    val transactionInsertionDate = transaction?.insertionDate
     val currency = selectedAccount
         .map { it?.balance?.currency ?: Currency.default }
         .stateIn(viewModelScope, SharingStarted.Lazily, Currency.default)
@@ -113,7 +113,7 @@ class AddTransactionViewModel(
     fun onEditTransactionClick(transaction: Transaction) {
         viewModelScope.launch {
             val transactionId = this@AddTransactionViewModel.transaction?.id
-            transactionsRepository.addOrUpdateTransaction(
+            transactionsInteractor.addOrUpdateTransaction(
                 transaction = transaction.copy(id = transactionId)
             )
         }
@@ -132,7 +132,7 @@ class AddTransactionViewModel(
 
         viewModelScope.launch {
             transactionsInteractor.addOrUpdateTransaction(
-                transaction = transaction.copy(id = null)
+                transaction = transaction.copy(id = null, insertionDate = Date())
             )
             viewAction = AddTransactionAction.Close
         }

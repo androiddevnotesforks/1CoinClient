@@ -1,9 +1,9 @@
 package com.finance_tracker.finance_tracker.presentation.transactions
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -11,11 +11,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
+import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
+import com.finance_tracker.finance_tracker.core.common.pagination.AutoRefreshList
 import com.finance_tracker.finance_tracker.core.common.pagination.collectAsLazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
+import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.transactions.CommonTransactionsList
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
@@ -38,9 +41,8 @@ fun TransactionsScreen() {
             )
         }
 
-        LaunchedEffect(Unit) {
-            lazyTransactionList.refresh()
-        }
+        AutoRefreshList(lazyTransactionList)
+
         val navController = LocalRootController.current.findRootController()
         val modalController = navController.findModalController()
 
@@ -91,8 +93,12 @@ fun TransactionsScreen() {
                 }
             )
 
+            val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
             CommonTransactionsList(
                 transactions = lazyTransactionList,
+                contentPadding = PaddingValues(
+                    bottom = CoinPaddings.bottomNavigationBar + navigationBarsHeight
+                ),
                 onClick = { transactionData ->
                     if (selectedItemsCount > 0) {
                         if (transactionData.isSelected.value) {

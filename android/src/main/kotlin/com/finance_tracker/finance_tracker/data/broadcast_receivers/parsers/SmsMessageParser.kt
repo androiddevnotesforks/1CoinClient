@@ -41,7 +41,8 @@ class SmsMessageParser(
                 colorModel = AccountColorModel.defaultAccountColor
             ),
             category = null,
-            date = date
+            date = date,
+            insertionDate = Date()
         )
     }
 
