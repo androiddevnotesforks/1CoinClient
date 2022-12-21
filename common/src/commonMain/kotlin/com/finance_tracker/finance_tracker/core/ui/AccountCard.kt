@@ -1,8 +1,10 @@
 package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -28,10 +30,8 @@ fun AccountCard(
     val navController = LocalRootController.current.findRootController()
     Card(
         modifier = modifier
-            .size(
-                width = 160.dp,
-                height = 128.dp
-            ),
+            .fillMaxHeight()
+            .width(160.dp),
         backgroundColor = data.colorModel.color,
         shape = RoundedCornerShape(12.dp),
         onClick = {

@@ -83,7 +83,7 @@ private val DarkColorPalette = CoinColors(
     secondary = Color.Black.copy(alpha = 0.4f),
     background = Color.White,
     secondaryBackground = Color(0xFFF7F7F7),
-    dividers = Color(0xFFF3F3F3),
+    dividers = Color(0xFFE6E6E6),
     content = Color.Black,
     accentGreen = Color(0xFF00BC2D),
     accentRed = Color(0xFFF62D2D)
@@ -94,7 +94,7 @@ private val LightColorPalette = CoinColors(
     secondary = Color.Black.copy(alpha = 0.4f),
     background = Color.White,
     secondaryBackground = Color(0xFFF7F7F7),
-    dividers = Color(0xFFF3F3F3),
+    dividers = Color(0xFFE6E6E6),
     content = Color.Black,
     accentGreen = Color(0xFF00BC2D),
     accentRed = Color(0xFFF62D2D)
