@@ -13,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.AccountCard
@@ -29,12 +30,13 @@ fun AccountsScreen() {
             AccountsAppBar()
 
             val accounts by viewModel.accounts.collectAsState()
+            val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
             LazyVerticalGrid(
                 columns = GridCells.Fixed(count = 2),
                 modifier = Modifier
                     .fillMaxHeight(),
                 contentPadding = PaddingValues(
-                    bottom = CoinPaddings.bottomNavigationBar,
+                    bottom = CoinPaddings.bottomNavigationBar + navigationBarsHeight,
                     start = 16.dp,
                     end = 16.dp,
                     top = 16.dp

@@ -10,9 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.ui.AccountCard
+import com.finance_tracker.finance_tracker.core.ui.AccountCardHeight
 import com.finance_tracker.finance_tracker.domain.models.Account
-
-private const val MaxAccountsForAddAccountWidget = 2
 
 @Composable
 fun AccountsWidgetContent(
@@ -22,7 +21,7 @@ fun AccountsWidgetContent(
 ) {
     LazyRow(
         modifier = modifier
-            .height(128.dp),
+            .height(AccountCardHeight),
         contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
         state = state,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -30,10 +29,8 @@ fun AccountsWidgetContent(
         items(data) { account ->
             AccountCard(data = account)
         }
-        if (data.size < MaxAccountsForAddAccountWidget) {
-            item {
-                AddAccountCard()
-            }
+        item {
+            AddAccountCard()
         }
     }
 }
