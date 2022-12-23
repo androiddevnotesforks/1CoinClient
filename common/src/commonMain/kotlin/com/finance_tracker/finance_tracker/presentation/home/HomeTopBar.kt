@@ -52,7 +52,7 @@ fun HomeTopBar(
                 painter = rememberVectorPainter("ic_settings"),
                 contentDescription = null,
                 Modifier
-                    .padding(end = 8.dp)
+                    .padding(end = 4.dp)
                     .size(36.dp)
                     .clip(CircleShape)
                     .clickable {
