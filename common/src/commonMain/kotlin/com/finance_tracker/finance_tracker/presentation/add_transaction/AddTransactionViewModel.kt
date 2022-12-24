@@ -106,16 +106,19 @@ class AddTransactionViewModel(
 
     fun onAddTransactionClick(transaction: Transaction) {
         viewModelScope.launch {
-            transactionsInteractor.addOrUpdateTransaction(transaction)
+            transactionsInteractor.addTransaction(transaction)
+            viewAction = AddTransactionAction.Close
         }
     }
 
     fun onEditTransactionClick(transaction: Transaction) {
         viewModelScope.launch {
-            val transactionId = this@AddTransactionViewModel.transaction?.id
-            transactionsInteractor.addOrUpdateTransaction(
-                transaction = transaction.copy(id = transactionId)
+            val oldTransaction = this@AddTransactionViewModel.transaction ?: return@launch
+            transactionsInteractor.updateTransaction(
+                oldTransaction = oldTransaction,
+                newTransaction = transaction.copy(id = oldTransaction.id)
             )
+            viewAction = AddTransactionAction.Close
         }
     }
 
@@ -131,7 +134,7 @@ class AddTransactionViewModel(
         if (transaction == null) return
 
         viewModelScope.launch {
-            transactionsInteractor.addOrUpdateTransaction(
+            transactionsInteractor.addTransaction(
                 transaction = transaction.copy(id = null, insertionDate = Date())
             )
             viewAction = AddTransactionAction.Close
