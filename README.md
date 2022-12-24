@@ -18,11 +18,7 @@
   <!-- Build status -->
   <a href="https://github.com/VitalyPeryatin/FinanceTracker/actions/workflows/android.yml" alt="Build status">
         <img src="https://img.shields.io/github/actions/workflow/status/VitalyPeryatin/FinanceTracker/android.yml" /></a>
-  <!-- Stability -->
-  <a href="https://nodejs.org/api/documentation.html#documentation_stability_index">
-    <img src="https://img.shields.io/badge/stability-experimental-orange.svg?style=flat-square"
-      alt="API stability" />
-  </a>
+  <!-- Telegram chat -->
   <a href="https://t.me/+FFK1aCS6uJs1NTBi">
         <img src="https://img.shields.io/badge/Telegram-2CA5E0?logo=telegram&logoColor=white"
             alt="chat on Telegram"></a>
