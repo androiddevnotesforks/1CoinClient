@@ -40,14 +40,6 @@ class TransactionsRepository(
         }
     }
 
-    suspend fun deleteTransactions(transactions: List<Transaction>) {
-        withContext(Dispatchers.IO) {
-            transactionsEntityQueries.deleteTransactionsById(
-                ids = transactions.mapNotNull { it.id }
-            )
-        }
-    }
-
     suspend fun deleteTransaction(transaction: Transaction) {
         withContext(Dispatchers.IO) {
             val transactionId = transaction.id ?: return@withContext

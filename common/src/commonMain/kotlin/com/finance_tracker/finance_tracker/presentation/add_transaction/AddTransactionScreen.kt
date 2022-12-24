@@ -83,7 +83,6 @@ fun AddTransactionScreen(
                             insertionDate = transactionInsertionDate
                         )
                     )
-                    navController.popBackStack()
                 }
             }
             val onEditTransaction = {
@@ -102,7 +101,6 @@ fun AddTransactionScreen(
                             insertionDate = transactionInsertionDate
                         )
                     )
-                    navController.popBackStack()
                 }
             }
             CategoriesAppBar(

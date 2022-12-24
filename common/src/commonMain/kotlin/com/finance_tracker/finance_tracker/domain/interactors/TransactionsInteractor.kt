@@ -37,38 +37,65 @@ class TransactionsInteractor(
             }
     }
 
-    private suspend fun updateAccountBalanceForDeleteTransaction(transaction: Transaction) {
-        if (transaction.type == TransactionType.Expense) {
-            accountsRepository.increaseAccountBalance(transaction.account.id, transaction.amount.amountValue)
-        } else {
-            accountsRepository.reduceAccountBalance(transaction.account.id, transaction.amount.amountValue)
-        }
+    private suspend fun updateAccountBalanceForTransaction(
+        oldTransaction: Transaction?,
+        newTransaction: Transaction?
+    ) {
+        val transaction = oldTransaction ?: newTransaction ?: return
+
+        val oldTransactionAmount = oldTransaction.signedAmountValue()
+        val newTransactionAmount = newTransaction.signedAmountValue()
+
+        val accountId = transaction.account.id
+        val accountBalanceDiff = newTransactionAmount - oldTransactionAmount
+        accountsRepository.increaseAccountBalance(accountId, accountBalanceDiff)
     }
 
-    private suspend fun updateAccountBalanceForAddTransaction(transaction: Transaction) {
-        if (transaction.type == TransactionType.Expense) {
-            accountsRepository.reduceAccountBalance(transaction.account.id, transaction.amount.amountValue)
+    private fun Transaction?.signedAmountValue(): Double {
+        if (this == null) return 0.0
+
+        return amount.amountValue.unaryMinusIf { type == TransactionType.Expense }
+    }
+
+    private fun Double.unaryMinusIf(condition: () -> Boolean): Double {
+        return if (condition()) {
+            unaryMinus()
         } else {
-            accountsRepository.increaseAccountBalance(transaction.account.id, transaction.amount.amountValue)
+            this
         }
     }
 
     suspend fun deleteTransactions(transactions: List<Transaction>) {
-        transactionsRepository.deleteTransactions(transactions)
-
         transactions.forEach {
-            updateAccountBalanceForDeleteTransaction(it)
+            deleteTransaction(it)
         }
     }
 
     suspend fun deleteTransaction(transaction: Transaction) {
         transactionsRepository.deleteTransaction(transaction)
-        updateAccountBalanceForDeleteTransaction(transaction)
+        updateAccountBalanceForTransaction(
+            oldTransaction = transaction,
+            newTransaction = null
+        )
     }
 
-    suspend fun addOrUpdateTransaction(transaction: Transaction) {
+    suspend fun addTransaction(transaction: Transaction) {
         transactionsRepository.addOrUpdateTransaction(transaction)
-        updateAccountBalanceForAddTransaction(transaction)
+        updateAccountBalanceForTransaction(
+            oldTransaction = null,
+            newTransaction = transaction
+        )
+    }
+
+    suspend fun updateTransaction(
+        oldTransaction: Transaction,
+        newTransaction: Transaction
+    ) {
+        transactionsRepository.addOrUpdateTransaction(newTransaction)
+        updateAccountBalanceForTransaction(
+            oldTransaction = oldTransaction,
+            newTransaction = newTransaction
+        )
     }
 
     private fun Date?.isCalendarDateEquals(date: Date?): Boolean {
