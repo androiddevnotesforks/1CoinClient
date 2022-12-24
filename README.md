@@ -1,8 +1,7 @@
 <h1 align="center">1Coin</h1>
 
-<div align="center">
-      (BIG LANDSCAPE IMAGE)
-</div>
+![Preview](https://github.com/VitalyPeryatin/1Coin/blob/image_preview/images/preview.png)
+
 <div align="center">
   <strong>Simple money manager</strong>
 </div>
