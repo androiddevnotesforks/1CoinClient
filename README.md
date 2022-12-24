@@ -1,6 +1,6 @@
 <h1 align="center">1Coin</h1>
 
-![Preview](https://github.com/VitalyPeryatin/1Coin/blob/image_preview/images/preview1.png)
+![Preview](https://github.com/VitalyPeryatin/1Coin/blob/image_preview/images/preview2.png)
 
 <div align="center">
   <strong>Simple money manager</strong>
