@@ -1,5 +1,8 @@
 package com.finance_tracker.finance_tracker.presentation.tabs_navigation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
@@ -11,6 +14,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
@@ -41,7 +45,7 @@ fun BottomNavigationBar(
             if (item != null) {
                 BottomNavigationItem(
                     item = item,
-                    isSelected = selectedTabItem == item,
+                    selected = selectedTabItem == item,
                     onClick = { onItemSelect.invoke(item) }
                 )
             } else {
@@ -59,14 +63,16 @@ private fun EmptyBottomNavigationItem() {
 @Composable
 private fun RowScope.BottomNavigationItem(
     item: TabNavigationModel,
-    isSelected: Boolean,
+    selected: Boolean,
     onClick: () -> Unit
 ) {
     val itemConfiguration = item.tabInfo.tabItem.configuration
     BottomNavigationItem(
         icon = {
-            Icon(
-                painter = itemConfiguration.selectedIcon!!,
+            NavBarIcon(
+                selected = selected,
+                selectedIcon = itemConfiguration.selectedIcon!!,
+                unselectedIcon = itemConfiguration.unselectedIcon!!,
                 contentDescription = itemConfiguration.title
             )
         },
@@ -81,9 +87,33 @@ private fun RowScope.BottomNavigationItem(
         selectedContentColor = CoinTheme.color.primary,
         unselectedContentColor = CoinTheme.color.secondary,
         alwaysShowLabel = true,
-        selected = isSelected,
+        selected = selected,
         onClick = {
             onClick.invoke()
         }
     )
+}
+
+@Composable
+private fun NavBarIcon(
+    selected: Boolean,
+    selectedIcon: Painter,
+    unselectedIcon: Painter,
+    contentDescription: String,
+    modifier: Modifier = Modifier,
+) {
+    Box(modifier = modifier) {
+        AnimatedVisibility(visible = selected, enter = fadeIn(), exit = fadeOut()) {
+            Icon(
+                painter = selectedIcon,
+                contentDescription = contentDescription
+            )
+        }
+        AnimatedVisibility(visible = !selected, enter = fadeIn(), exit = fadeOut()) {
+            Icon(
+                painter = unselectedIcon,
+                contentDescription = contentDescription
+            )
+        }
+    }
 }
