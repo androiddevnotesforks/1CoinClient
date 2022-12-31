@@ -12,8 +12,11 @@ import com.finance_tracker.finance_tracker.core.common.MessageKeyQueue
 import com.finance_tracker.finance_tracker.core.common.di.Di
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.navigation.main.navigationGraph
-import com.finance_tracker.finance_tracker.core.navigation.setupNavigation
+import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import org.koin.java.KoinJavaComponent.inject
+import ru.alexgladkov.odyssey.compose.setup.OdysseyConfiguration
+import ru.alexgladkov.odyssey.compose.setup.StartScreen
+import ru.alexgladkov.odyssey.compose.setup.setNavigationContent
 
 private val appInitializer: AppInitializer by inject(AppInitializer::class.java)
 
@@ -34,5 +37,14 @@ fun main() = singleWindowApplication(
     Di.init(EmptyContext)
     appInitializer.init()
 
-    setupNavigation(MainNavigationTree.Main.name) { navigationGraph() }
+    CoinTheme {
+        setNavigationContent(
+            configuration = OdysseyConfiguration(
+                startScreen = StartScreen.Custom(MainNavigationTree.Main.name),
+                backgroundColor = CoinTheme.color.background
+            )
+        ) {
+            navigationGraph()
+        }
+    }
 }
