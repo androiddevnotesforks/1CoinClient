@@ -84,6 +84,16 @@ deleteTransactionById:
 DELETE FROM TransactionsEntity
 WHERE id = :id;
 
+getTransactionsForPeriod:
+SELECT *
+FROM TransactionsEntity
+INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
+INNER JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
+WHERE TransactionsEntity.type = :transactionType AND date >= :fromDate AND date < :toDate
+ORDER BY
+    date DESC,
+    insertionDate DESC;
+
 getLastTransactions:
 SELECT *
 FROM TransactionsEntity

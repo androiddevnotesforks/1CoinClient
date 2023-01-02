@@ -7,6 +7,7 @@ import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
+import com.finance_tracker.finance_tracker.presentation.analytics.delegates.TrendsAnalyticsDelegate
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,7 +21,8 @@ import kotlinx.datetime.Month
 
 class AnalyticsViewModel(
     private val transactionsInteractor: TransactionsInteractor,
-    currenciesInteractor: CurrenciesInteractor
+    currenciesInteractor: CurrenciesInteractor,
+    val trendsAnalyticsDelegate: TrendsAnalyticsDelegate
 ): BaseViewModel<Nothing>() {
 
     private val currencyRatesFlow = currenciesInteractor.getCurrencyRatesFlow()
@@ -38,8 +40,23 @@ class AnalyticsViewModel(
     private val _isLoadingMonthTxsByCategory = MutableStateFlow(false)
     val isLoadingMonthTxsByCategory = _isLoadingMonthTxsByCategory.asStateFlow()
 
-    val primaryCurrency = currenciesInteractor.getPrimaryCurrencyFlow()
+    private val primaryCurrency = currenciesInteractor.getPrimaryCurrencyFlow()
         .shareIn(viewModelScope, started = SharingStarted.Lazily, replay = 1)
+
+    /*private val incomeTrendsWeekTotal = MutableStateFlow(100)
+    private val incomeTrendsWeekTrend = MutableStateFlow(listOf(1, 2, 3))
+    private val expenseTrendsWeekTotal = MutableStateFlow(100)
+    private val expenseTrendsWeekTrend = MutableStateFlow(listOf(1, 2, 3))
+
+    private val incomeTrendsMonthTotal = MutableStateFlow(100)
+    private val incomeTrendsMonthTrend = MutableStateFlow(listOf(1, 2, 3))
+    private val expenseTrendsMonthTotal = MutableStateFlow(100)
+    private val expenseTrendsMonthTrend = MutableStateFlow(listOf(1, 2, 3))
+
+    private val incomeTrendsYearTotal = MutableStateFlow(100)
+    private val incomeTrendsYearTrend = MutableStateFlow(listOf(1, 2, 3))
+    private val expenseTrendsYearTotal = MutableStateFlow(100)
+    private val expenseTrendsYearTrend = MutableStateFlow(listOf(1, 2, 3))*/
 
     private var loadMonthTxsByCategoryJob: Job? = null
 
