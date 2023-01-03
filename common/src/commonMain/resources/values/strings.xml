@@ -13,6 +13,32 @@
     <string name="account">Account</string>
     <string name="tab_income">Income</string>
     <string name="tab_expense">Expense</string>
+    <string name="total">Total</string>
+
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+
+    <string name="day_of_week_mon">Mon</string>
+    <string name="day_of_week_tue">Tue</string>
+    <string name="day_of_week_wed">Wed</string>
+    <string name="day_of_week_thu">Thu</string>
+    <string name="day_of_week_fri">Fri</string>
+    <string name="day_of_week_sat">Sat</string>
+    <string name="day_of_week_sun">Sun</string>
+
+    <string name="month_jan">Jan</string>
+    <string name="month_feb">Feb</string>
+    <string name="month_mar">Mar</string>
+    <string name="month_apr">Apr</string>
+    <string name="month_may">May</string>
+    <string name="month_jun">Jun</string>
+    <string name="month_jul">Jul</string>
+    <string name="month_aug">Aug</string>
+    <string name="month_sep">Sep</string>
+    <string name="month_oct">Oct</string>
+    <string name="month_nov">Nov</string>
+    <string name="month_dec">Dec</string>
 
     <!-- Months -->
     <string name="month_1">January</string>
@@ -95,6 +121,7 @@
     <string name="edit_account_btn_save">Save</string>
 
     <!-- Analytics -->
+    <string name="analytics_trend">Trend</string>
     <string name="analytics_by_category">by Category</string>
     <string name="analytics_transactions">transactions</string>
     <string name="analytics_make_first_transactions">No transactions for this period</string>
