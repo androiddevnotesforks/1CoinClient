@@ -1,11 +1,16 @@
 package com.finance_tracker.finance_tracker.presentation.analytics.delegates
 
+import androidx.compose.runtime.Composable
+import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.data.repositories.CurrenciesRepository
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
+import com.finance_tracker.finance_tracker.presentation.analytics.models.TrendBarDetails
 import com.finance_tracker.finance_tracker.presentation.analytics.peroid_bar_chart.PeriodChip
+import com.finance_tracker.finance_tracker.presentation.common.formatters.AmountFormatMode
+import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 import com.financetracker.financetracker.data.GetTransactionsForPeriod
 import com.financetracker.financetracker.data.TransactionsEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
@@ -22,8 +27,9 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import java.util.Calendar
 import java.util.Date
+import java.util.LinkedList
+import java.util.SortedMap
 import kotlin.coroutines.CoroutineContext
-import kotlin.time.Duration.Companion.days
 
 class TrendsAnalyticsDelegate(
     private val transactionsEntityQueries: TransactionsEntityQueries,
@@ -40,77 +46,76 @@ class TrendsAnalyticsDelegate(
 
     private val selectedTransactionTypeFlow = MutableStateFlow(TransactionType.Expense)
 
-    private val weekTrendTransform: (List<GetTransactionsForPeriod>, CurrencyRates, Currency) -> List<Double> = {
-            transactions, currencyRates, primaryCurrency ->
-
-        val startDayOfWeek = Calendar.getInstance().apply { time = getStartOfWeekDate() }
-
-        (0 until DaysInWeek).map { extraDays ->
-            val fromDayOfWeek = startDayOfWeek.timeInMillis + extraDays.days.inWholeMilliseconds
-            val toDayOfWeek = fromDayOfWeek + 1.days.inWholeMilliseconds
-            transactions.filter { transaction ->
-                transaction.date.time in fromDayOfWeek until toDayOfWeek
-            }.sumOf {
-                Amount(
-                    currency = Currency.getByCode(it.amountCurrency),
-                    amountValue = it.amount
-                ).convertToCurrency(
-                    currencyRates = currencyRates,
-                    toCurrency = primaryCurrency
+    private val weekTrendTransform: (
+        List<GetTransactionsForPeriod>, CurrencyRates, Currency
+    ) -> List<TrendBarDetails> = { transactions, currencyRates, primaryCurrency ->
+        associateTransactionsByBars(
+            transactions = transactions,
+            barsRange = 1..DaysInWeek,
+            transformDateToBarOrder = { calendar ->
+                var dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+                if (dayOfWeek == Calendar.SUNDAY) {
+                    dayOfWeek = 8
+                }
+                dayOfWeek -= 1
+                return@associateTransactionsByBars dayOfWeek
+            },
+            currencyRates = currencyRates,
+            primaryCurrency = primaryCurrency
+        )
+            .map { (dayOfWeek, txsAmounts) ->
+                mapTxsAmountsToTrendBarDetails(
+                    txsAmounts = txsAmounts,
+                    primaryCurrency = primaryCurrency,
+                    title = { stringResource("week_day_$dayOfWeek") }
                 )
             }
-        }
     }
 
-    private val monthTrendTransform: (List<GetTransactionsForPeriod>, CurrencyRates, Currency) -> List<Double> = {
-            transactions, currencyRates, primaryCurrency ->
-        val startDayOfMonth = Calendar.getInstance().apply { time = getStartOfMonthDate() }
+    private val monthTrendTransform: (
+        List<GetTransactionsForPeriod>, CurrencyRates, Currency
+    ) -> List<TrendBarDetails> = { transactions, currencyRates, primaryCurrency ->
+        val startDayOfMonthEpochMillis = getStartOfMonthDate().time
         val maxDayOfMonth = Calendar.getInstance().apply {
-            time = getStartOfNextMonthDate()
+            timeInMillis = startDayOfMonthEpochMillis
             add(Calendar.DAY_OF_YEAR, -1)
         }.get(Calendar.DAY_OF_MONTH)
 
-        (0 until maxDayOfMonth).map { extraDays ->
-            val fromDayOfMonth = startDayOfMonth.timeInMillis + extraDays.days.inWholeMilliseconds
-            val toDayOfMonth = fromDayOfMonth + 1.days.inWholeMilliseconds
-            transactions.filter { transaction ->
-                transaction.date.time in fromDayOfMonth until toDayOfMonth
-            }.sumOf {
-                Amount(
-                    currency = Currency.getByCode(it.amountCurrency),
-                    amountValue = it.amount
-                ).convertToCurrency(
-                    currencyRates = currencyRates,
-                    toCurrency = primaryCurrency
+        associateTransactionsByBars(
+            transactions = transactions,
+            barsRange = 1..maxDayOfMonth,
+            transformDateToBarOrder = { calendar -> calendar.get(Calendar.DAY_OF_MONTH) },
+            currencyRates = currencyRates,
+            primaryCurrency = primaryCurrency
+        )
+            .map { (dayOfMonth, txsAmounts) ->
+                mapTxsAmountsToTrendBarDetails(
+                    txsAmounts = txsAmounts,
+                    primaryCurrency = primaryCurrency,
+                    title = {
+                        "$dayOfMonth ${stringResource("month_${Calendar.getInstance().get(Calendar.MONTH) + 1}")}"
+                    }
                 )
             }
-        }
     }
 
-    private val yearTrendTransform: (List<GetTransactionsForPeriod>, CurrencyRates, Currency) -> List<Double> = {
-            transactions, currencyRates, primaryCurrency ->
-        val startDayOfYear = Calendar.getInstance().apply { time = getStartOfYearDate() }
-        (0 until MonthsInYear).map { extraMonths ->
-            val fromDayOfYear = Calendar.getInstance().apply {
-                time = startDayOfYear.time
-                add(Calendar.MONTH, extraMonths)
-            }.timeInMillis
-            val toDayOfYear = fromDayOfYear + Calendar.getInstance().apply {
-                timeInMillis = fromDayOfYear
-                add(Calendar.MONTH, 1)
-            }.timeInMillis
-            transactions.filter { transaction ->
-                transaction.date.time in fromDayOfYear until toDayOfYear
-            }.sumOf {
-                Amount(
-                    currency = Currency.getByCode(it.amountCurrency),
-                    amountValue = it.amount
-                ).convertToCurrency(
-                    currencyRates = currencyRates,
-                    toCurrency = primaryCurrency
+    private val yearTrendTransform: (
+        List<GetTransactionsForPeriod>, CurrencyRates, Currency
+    ) -> List<TrendBarDetails> = { transactions, currencyRates, primaryCurrency ->
+        associateTransactionsByBars(
+            transactions = transactions,
+            barsRange = 1..MonthsInYear,
+            transformDateToBarOrder = { calendar -> calendar.get(Calendar.MONTH) + 1 },
+            currencyRates = currencyRates,
+            primaryCurrency = primaryCurrency
+        )
+            .map { (monthNumberOfYear, txsAmounts) ->
+                mapTxsAmountsToTrendBarDetails(
+                    txsAmounts = txsAmounts,
+                    primaryCurrency = primaryCurrency,
+                    title = { stringResource("month_$monthNumberOfYear") }
                 )
             }
-        }
     }
 
     private val expenseWeekTrendFlow = subscribeTransactionsData(
@@ -193,19 +198,67 @@ class TrendsAnalyticsDelegate(
     val totalFlow = combine(trendFlow, primaryCurrencyFlow) {
         trend, primaryCurrency ->
         Amount(
-            amountValue = trend.sum(),
+            amountValue = trend.sumOf { it.value },
             currency = primaryCurrency
         )
     }
         .flowOn(Dispatchers.IO)
         .stateIn(this@TrendsAnalyticsDelegate, started = SharingStarted.Lazily, initialValue = Amount.default)
 
+    private fun associateTransactionsByBars(
+        transactions: List<GetTransactionsForPeriod>,
+        barsRange: IntRange,
+        transformDateToBarOrder: (Calendar) -> Int,
+        currencyRates: CurrencyRates,
+        primaryCurrency: Currency
+    ): SortedMap<Int, LinkedList<Double>> {
+        val map = mutableMapOf<Int, LinkedList<Double>>()
+        barsRange.onEach { map[it] = LinkedList() }
+
+        transactions.forEach { transaction ->
+            val calendar = Calendar.getInstance().apply {
+                timeInMillis = transaction.date.time
+            }
+
+            val amount = Amount(
+                currency = Currency.getByCode(transaction.amountCurrency),
+                amountValue = transaction.amount
+            ).convertToCurrency(
+                currencyRates = currencyRates,
+                toCurrency = primaryCurrency
+            )
+
+            val dayOfWeek = transformDateToBarOrder.invoke(calendar)
+            map[dayOfWeek]?.add(amount)
+        }
+
+        return map.toSortedMap()
+    }
+
+    private fun mapTxsAmountsToTrendBarDetails(
+        txsAmounts: List<Double>,
+        primaryCurrency: Currency,
+        title: @Composable () -> String
+    ): TrendBarDetails {
+        val value = txsAmounts.sum()
+        return TrendBarDetails(
+            title = title,
+            formattedValue = {
+                Amount(
+                    amountValue = value,
+                    currency = primaryCurrency
+                ).format(mode = AmountFormatMode.NoSigns)
+            },
+            value = value
+        )
+    }
+
     private fun subscribeTransactionsData(
         transactionType: TransactionType,
         fromDate: Date,
         toDate: Date,
-        transform: (List<GetTransactionsForPeriod>, CurrencyRates, Currency) -> List<Double>
-    ): Flow<List<Double>> {
+        transform: (List<GetTransactionsForPeriod>, CurrencyRates, Currency) -> List<TrendBarDetails>
+    ): Flow<List<TrendBarDetails>> {
         return combine(transactionsEntityQueries.getTransactionsForPeriod(
             transactionType = transactionType,
             fromDate = fromDate,

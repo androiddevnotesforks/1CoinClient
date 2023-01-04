@@ -40,6 +40,15 @@
     <string name="month_nov">Nov</string>
     <string name="month_dec">Dec</string>
 
+    <!-- Week days -->
+    <string name="week_day_1">Monday</string>
+    <string name="week_day_2">Tuesday</string>
+    <string name="week_day_3">Wednesday</string>
+    <string name="week_day_4">Thursday</string>
+    <string name="week_day_5">Friday</string>
+    <string name="week_day_6">Saturday</string>
+    <string name="week_day_7">Sunday</string>
+
     <!-- Months -->
     <string name="month_1">January</string>
     <string name="month_2">February</string>

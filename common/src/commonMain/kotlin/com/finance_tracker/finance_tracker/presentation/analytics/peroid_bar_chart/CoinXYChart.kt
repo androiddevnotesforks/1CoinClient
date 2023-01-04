@@ -28,6 +28,7 @@ import io.github.koalaplot.core.bar.VerticalBarChart
 import io.github.koalaplot.core.xychart.LineStyle
 import io.github.koalaplot.core.xychart.LinearAxisModel
 import io.github.koalaplot.core.xychart.TickPosition
+import io.github.koalaplot.core.xychart.XYChart
 import io.github.koalaplot.core.xychart.rememberAxisStyle
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.isActive
@@ -35,7 +36,7 @@ import kotlinx.coroutines.isActive
 private const val BarShartShift = 0.5f
 
 @Composable
-fun XYChart(
+fun CoinXYChart(
     barChartEntries: List<CoinBarChartEntry<Float, Float>>,
     modifier: Modifier = Modifier,
     onBarChartSelect: (CoinBarChartEntry<*, *>?) -> Unit = {}
@@ -47,6 +48,8 @@ fun XYChart(
     }
     var position by remember { mutableStateOf(Offset(0f, 0f)) }
     var barWidth by remember { mutableStateOf(0) }
+    var chartHeight by remember { mutableStateOf(0) }
+    var chartOffsetY by remember { mutableStateOf(0f) }
 
     @Suppress("UnnecessaryParentheses")
     val activeBarIndex by remember(bars, position, barWidth) {
@@ -55,7 +58,10 @@ fun XYChart(
                 return@derivedStateOf null
             }
             bars
-                .filter { position.x in it.value.x..(it.value.x + barWidth) }
+                .filter {
+                    position.x in it.value.x..(it.value.x + barWidth) &&
+                            position.y in chartOffsetY..(chartOffsetY + chartHeight)
+                }
                 .keys.firstOrNull()
         }
     }
@@ -64,7 +70,7 @@ fun XYChart(
         val entry = barChartEntries.getOrNull(barChartEntryIndex)
         onBarChartSelect.invoke(entry)
     }
-    io.github.koalaplot.core.xychart.XYChart(
+    XYChart(
         modifier = modifier
             .pointerInput(Unit) {
                 val currentContext = currentCoroutineContext()
@@ -79,7 +85,9 @@ fun XYChart(
                         }
                     }
                 }
-            },
+            }
+            .onSizeChanged { chartHeight = it.height }
+            .onGloballyPositioned { chartOffsetY = it.positionInParent().y },
         xAxisModel = LinearAxisModel(
             BarShartShift..barChartEntries.count().toFloat() + BarShartShift,
             allowZooming = false,

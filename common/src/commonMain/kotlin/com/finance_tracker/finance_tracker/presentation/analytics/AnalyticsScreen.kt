@@ -18,6 +18,7 @@ import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
+import com.finance_tracker.finance_tracker.presentation.analytics.models.TrendBarDetails
 import com.finance_tracker.finance_tracker.presentation.analytics.peroid_bar_chart.CoinBarChartEntry
 import com.finance_tracker.finance_tracker.presentation.analytics.peroid_bar_chart.PeriodBarChart
 import com.finance_tracker.finance_tracker.presentation.analytics.txs_by_category_chart_block.TxsByCategoryChartBlock
@@ -27,14 +28,15 @@ import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 val PieChartSize = 240.dp
 val PieChartLabelSize = 20.dp
 
-private fun List<Double>.mapToBarChartEntities(): List<CoinBarChartEntry<Float, Float>> {
-    return mapIndexed { index, value ->
+@Composable
+private fun List<TrendBarDetails>.mapToBarChartEntities(): List<CoinBarChartEntry<Float, Float>> {
+    return mapIndexed { index, trendBarDetails ->
         CoinBarChartEntry(
             xValue = (index + 1).toFloat(),
             yMin = 0f,
-            yMax = value.toFloat(),
-            overviewTitle = (index + 1).toString(),
-            overviewValue = value.toString()
+            yMax = trendBarDetails.value.toFloat(),
+            overviewTitle = trendBarDetails.title(),
+            overviewValue = trendBarDetails.formattedValue()
         )
     }
 }
@@ -97,7 +99,7 @@ fun AnalyticsScreen() {
                                 stringResource(selectedTransactionTypeTab.textId),
                         defaultValue = total.format(mode = AmountFormatMode.NoSigns),
                         selectedPeriodChip = selectedPeriodChip,
-                        onChipSelect = { viewModel.trendsAnalyticsDelegate.setPeriodChip(it)}
+                        onChipSelect = { viewModel.trendsAnalyticsDelegate.setPeriodChip(it) }
                     )
                 }
 

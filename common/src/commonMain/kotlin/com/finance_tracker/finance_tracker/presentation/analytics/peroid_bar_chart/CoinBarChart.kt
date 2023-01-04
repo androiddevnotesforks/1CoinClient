@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,6 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.presentation.analytics.views.NoTransactionsStub
 
 @Composable
 fun CoinBarChart(
@@ -24,15 +26,26 @@ fun CoinBarChart(
     onBarChartSelect: (CoinBarChartEntry<*, *>?) -> Unit = {}
 ) {
     Column(modifier = modifier) {
-        if (barChartEntries.isNotEmpty()) {
-            XYChart(
+        if (barChartEntries.any { it.yMax > 0 }) {
+            CoinXYChart(
                 modifier = Modifier
                     .height(chartHeight),
                 barChartEntries = barChartEntries,
                 onBarChartSelect = onBarChartSelect
             )
         } else {
-            Text(text = "EMPTY") // TODO
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(chartHeight)
+            ) {
+                NoTransactionsStub(
+                    modifier = Modifier.weight(1f)
+                )
+                Divider(
+                    color = CoinTheme.color.dividers
+                )
+            }
         }
         LabelsRow(
             modifier = Modifier.padding(top = 12.dp),

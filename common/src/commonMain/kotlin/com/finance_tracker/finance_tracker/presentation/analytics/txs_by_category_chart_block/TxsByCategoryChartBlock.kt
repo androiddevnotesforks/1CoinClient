@@ -9,13 +9,11 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,16 +25,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.MonthsList
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
+import com.finance_tracker.finance_tracker.presentation.analytics.views.NoTransactionsStub
 import kotlinx.datetime.Month
 
 private const val ExpandAnimationDuration = 500
 
-@Suppress("MagicNumber", "KotlinConstantConditions")
+@Suppress("MagicNumber")
 @Composable
 fun TxsByCategoryChartBlock(
     isLoading: Boolean,
@@ -154,26 +152,11 @@ private fun EmptyPieChartLayout(
             selectedMonth = selectedMonth
         )
 
-        Row(
+        NoTransactionsStub(
             modifier = Modifier.padding(
                 bottom = 32.dp
-            ),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = rememberVectorPainter("ic_error"),
-                contentDescription = null,
-                tint = CoinTheme.color.secondary
             )
-
-            Text(
-                modifier = Modifier
-                    .padding(start = 8.dp),
-                text = stringResource("analytics_make_first_transactions"),
-                style = CoinTheme.typography.subtitle2,
-                color = CoinTheme.color.secondary
-            )
-        }
+        )
     }
 }
 
