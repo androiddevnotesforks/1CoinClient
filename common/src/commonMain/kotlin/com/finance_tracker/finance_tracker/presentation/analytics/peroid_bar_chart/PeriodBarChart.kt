@@ -27,6 +27,8 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
+private val ChartHeight = 160.dp
+
 @Composable
 fun PeriodBarChart(
     defaultTitle: String,
@@ -55,7 +57,12 @@ fun PeriodBarChart(
         Text(
             modifier = Modifier.padding(top = 4.dp),
             text = selectedBarChatEntity?.overviewValue ?: defaultValue,
-            style = CoinTheme.typography.h2
+            style = CoinTheme.typography.h2,
+            color = if (selectedBarChatEntity == null) {
+                CoinTheme.color.content
+            } else {
+                CoinTheme.color.primary
+            }
         )
 
         Row(
@@ -76,7 +83,7 @@ fun PeriodBarChart(
             barChartEntries = barChartEntries,
             labelsArrangement = getLabelsArrangementFor(selectedPeriodChip),
             labels = getLabelsFor(selectedPeriodChip),
-            chartHeight = 160.dp,
+            chartHeight = ChartHeight,
             onBarChartSelect = { selectedBarChatEntity = it }
         )
     }
