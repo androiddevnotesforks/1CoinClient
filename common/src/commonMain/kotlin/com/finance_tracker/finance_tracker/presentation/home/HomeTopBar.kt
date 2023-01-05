@@ -52,7 +52,7 @@ fun HomeTopBar(
                 painter = rememberVectorPainter("ic_settings"),
                 contentDescription = null,
                 Modifier
-                    .padding(end = 4.dp)
+                    .padding(end = 2.dp)
                     .size(36.dp)
                     .clip(CircleShape)
                     .clickable {
@@ -62,7 +62,7 @@ fun HomeTopBar(
                             )
                         }
                     }
-                    .padding(4.dp),
+                    .padding(6.dp),
                 tint = CoinTheme.color.content
             )
         }

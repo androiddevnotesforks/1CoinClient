@@ -38,7 +38,7 @@ fun SettingsSheet(onCloseClick: () -> Unit) {
                     )
                     .align(Alignment.CenterHorizontally),
                 text = stringResource("settings_top_text"),
-                style = CoinTheme.typography.h4
+                style = CoinTheme.typography.h5
             )
             Divider(
                 color = CoinTheme.color.dividers,
