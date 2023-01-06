@@ -18,4 +18,12 @@ sealed class AnalyticsEvent(
     ) : AnalyticsEvent(
         name = "${source}_${clickName}_Click"
     )
+
+    open class Event(
+        source: String,
+        eventName: String,
+        override val properties: Map<String, Any> = mapOf()
+    ) : AnalyticsEvent(
+        name = "${source}_${eventName}"
+    )
 }

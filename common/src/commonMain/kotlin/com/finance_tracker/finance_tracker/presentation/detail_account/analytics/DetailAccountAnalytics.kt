@@ -17,7 +17,7 @@ class DetailAccountAnalytics: BaseAnalytics() {
             eventName = "EditAccount",
             properties = mapOf(
                 "name" to account.name,
-                "type" to account.type,
+                "type" to account.type.analyticsName,
             )
         )
     }
@@ -27,7 +27,7 @@ class DetailAccountAnalytics: BaseAnalytics() {
             eventName = "Transaction",
             properties = mapOf(
                 "account_name" to transaction.account.name,
-                "type" to transaction.type
+                "type" to transaction.type.analyticsName
             )
         )
     }

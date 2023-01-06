@@ -21,7 +21,7 @@ class HomeAnalytics: BaseAnalytics() {
             eventName = "Account",
             properties = mapOf(
                 "name" to account.name,
-                "type" to account.type,
+                "type" to account.type.analyticsName,
             )
         )
     }
@@ -35,7 +35,7 @@ class HomeAnalytics: BaseAnalytics() {
             eventName = "Transaction",
             properties = mapOf(
                 "account_name" to transaction.account.name,
-                "type" to transaction.type
+                "type" to transaction.type.analyticsName
             )
         )
     }

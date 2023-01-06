@@ -11,7 +11,7 @@ class TransactionsAnalytics: BaseAnalytics() {
         trackClick(
             eventName = "Transaction",
             properties = mapOf(
-                "transaction_type" to transaction.type.name
+                "transaction_type" to transaction.type.analyticsName
             )
         )
     }

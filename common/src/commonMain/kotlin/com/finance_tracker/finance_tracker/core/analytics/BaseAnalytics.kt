@@ -23,6 +23,21 @@ abstract class BaseAnalytics {
         )
     }
 
+    fun trackEvent(
+        eventName: String,
+        properties: Map<String, Any> = mapOf()
+    ) {
+        if (!isAnalyticsEnabled) return
+
+        analyticsTracker.track(
+            AnalyticsEvent.Event(
+                source = screenName,
+                eventName = eventName,
+                properties = properties
+            )
+        )
+    }
+
     fun trackScreenOpen() {
         if (!isAnalyticsEnabled) return
 

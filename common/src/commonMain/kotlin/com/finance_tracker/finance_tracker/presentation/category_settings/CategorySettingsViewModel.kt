@@ -4,13 +4,15 @@ import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepository
 import com.finance_tracker.finance_tracker.domain.models.Category
+import com.finance_tracker.finance_tracker.presentation.category_settings.analytcis.CategorySettingsAnalytics
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CategorySettingsViewModel(
-    private val repository: CategoriesRepository
-): BaseViewModel<Nothing>() {
+    private val repository: CategoriesRepository,
+    private val categorySettingsAnalytics: CategorySettingsAnalytics
+): BaseViewModel<CategorySettingsAction>() {
 
     private val _expenseCategories = MutableStateFlow<List<Category>>(emptyList())
     val expenseCategories = _expenseCategories.asStateFlow()
@@ -21,7 +23,12 @@ class CategorySettingsViewModel(
     private val _selectedTransactionType = MutableStateFlow(TransactionTypeTab.Expense)
     val selectedTransactionType = _selectedTransactionType.asStateFlow()
 
+    init {
+        categorySettingsAnalytics.trackScreenOpen()
+    }
+
     fun onTransactionTypeSelect(transactionType: TransactionTypeTab) {
+        categorySettingsAnalytics.trackTransactionTypeClick(transactionType)
         _selectedTransactionType.value = transactionType
     }
 
@@ -53,6 +60,12 @@ class CategorySettingsViewModel(
         newList[from] = toItem
         newList[to] = fromItem
 
+        categorySettingsAnalytics.trackSwapItems(
+            from = from,
+            to = to,
+            category = fromItem
+        )
+
         _expenseCategories.value = newList
         saveListState(fromItem.id, toItem.id)
     }
@@ -61,9 +74,14 @@ class CategorySettingsViewModel(
         val fromItem = _incomeCategories.value[from]
         val toItem = _incomeCategories.value[to]
         val newList = _incomeCategories.value.toMutableList()
-
         newList[from] = toItem
         newList[to] = fromItem
+
+        categorySettingsAnalytics.trackSwapItems(
+            from = from,
+            to = to,
+            category = fromItem
+        )
 
         _incomeCategories.value = newList
         saveListState(fromItem.id, toItem.id)
@@ -75,15 +93,39 @@ class CategorySettingsViewModel(
         }
     }
 
-    fun deleteCategory(id: Long) {
+    fun onConfirmDeleteCategory(category: Category, dialogKey: String) {
+        categorySettingsAnalytics.trackConfirmDeleteCategoryClick(category)
         viewModelScope.launch {
-            repository.deleteCategoryById(id)
+            repository.deleteCategoryById(category.id)
 
-            if(_selectedTransactionType.value == TransactionTypeTab.Expense) {
+            if (_selectedTransactionType.value == TransactionTypeTab.Expense) {
                 loadAllExpenseCategories()
             } else {
                 loadAllIncomeCategories()
             }
         }
+        viewAction = CategorySettingsAction.DismissDialog(dialogKey)
+    }
+
+    fun onCancelDeleting(category: Category, dialogKey: String) {
+        categorySettingsAnalytics.trackCancelDeleteCategoryClick(category)
+        viewAction = CategorySettingsAction.DismissDialog(dialogKey)
+    }
+
+    fun onBackClick() {
+        categorySettingsAnalytics.trackBackClick()
+        viewAction = CategorySettingsAction.CloseScreen
+    }
+
+    fun onAddCategoryClick() {
+        categorySettingsAnalytics.trackAddCategoryClick()
+        viewAction = CategorySettingsAction.OpenAddCategoryScreen(
+            selectedTransactionTypeTab = selectedTransactionType.value
+        )
+    }
+
+    fun onDeleteCategoryClick(category: Category) {
+        categorySettingsAnalytics.trackDeleteCategoryClick(category)
+        viewAction = CategorySettingsAction.OpenDeleteDialog(category)
     }
 }
