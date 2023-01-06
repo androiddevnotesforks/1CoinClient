@@ -12,27 +12,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.stringResource
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun SettingsSheetCategorySettingsItem(
-    modifier: Modifier = Modifier,
-    onCloseClick: () -> Unit = {}
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-
-    val rootController = LocalRootController.current
-
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clickable {
-                rootController.findRootController().push(MainNavigationTree.CategorySettings.name)
-                onCloseClick()
-            }
+            .clickable { onClick.invoke() }
             .padding(vertical = 12.dp),
     ) {
         Icon(

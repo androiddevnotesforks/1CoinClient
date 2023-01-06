@@ -1,0 +1,34 @@
+package com.finance_tracker.finance_tracker.presentation.transactions.analytics
+
+import com.finance_tracker.finance_tracker.core.analytics.BaseAnalytics
+import com.finance_tracker.finance_tracker.domain.models.Transaction
+
+class TransactionsAnalytics: BaseAnalytics() {
+
+    override val screenName = "Transactions"
+
+    fun trackTransactionClick(transaction: Transaction) {
+        trackClick(
+            eventName = "Transaction",
+            properties = mapOf(
+                "transaction_type" to transaction.type.name
+            )
+        )
+    }
+
+    fun trackCancelDeletingTransactionsClick() {
+        trackClick(eventName = "CancelDeletingTransactions")
+    }
+
+    fun trackConfirmDeleteTransactionsClick() {
+        trackClick(eventName = "ConfirmDeleteTransactions")
+    }
+
+    fun trackCloseAppBarMenuClick() {
+        trackClick(eventName = "CloseAppBarMenu")
+    }
+
+    fun trackDeleteTransactionsClick() {
+        trackClick(eventName = "DeleteTransactions")
+    }
+}

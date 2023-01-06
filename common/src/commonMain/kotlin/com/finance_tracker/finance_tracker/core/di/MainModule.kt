@@ -19,6 +19,7 @@ import com.finance_tracker.finance_tracker.presentation.category_settings.di.cat
 import com.finance_tracker.finance_tracker.presentation.detail_account.di.detailAccountModule
 import com.finance_tracker.finance_tracker.presentation.home.di.homeModule
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.di.settingsSheetModule
+import com.finance_tracker.finance_tracker.presentation.tabs_navigation.di.tabsNavigationModule
 import com.finance_tracker.finance_tracker.presentation.transactions.di.transactionsModule
 
 fun commonModules() = listOf(
@@ -26,7 +27,6 @@ fun commonModules() = listOf(
     DriverFactoryModule().module,
     AnalyticsFactoryModule().module,
     SettingsFactoryModule().module,
-    coreAnalyticsModule,
     coreDatabaseModule,
     settingsModule,
     networkModule,
@@ -45,5 +45,6 @@ fun featureModules() = listOf(
     detailAccountModule,
     homeModule,
     settingsSheetModule,
+    tabsNavigationModule,
     transactionsModule
 )
