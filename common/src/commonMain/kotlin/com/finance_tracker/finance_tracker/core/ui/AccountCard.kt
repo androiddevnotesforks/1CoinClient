@@ -12,13 +12,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.presentation.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 val AccountCardHeight = 128.dp
 
@@ -26,9 +23,9 @@ val AccountCardHeight = 128.dp
 @Composable
 fun AccountCard(
     data: Account,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val navController = LocalRootController.current.findRootController()
     Card(
         modifier = modifier
             .size(
@@ -37,12 +34,7 @@ fun AccountCard(
             ),
         backgroundColor = data.colorModel.color,
         shape = RoundedCornerShape(12.dp),
-        onClick = {
-            navController.push(
-                screen = MainNavigationTree.DetailAccount.name,
-                params = data
-            )
-        }
+        onClick = onClick
     ) {
         Column {
             Icon(

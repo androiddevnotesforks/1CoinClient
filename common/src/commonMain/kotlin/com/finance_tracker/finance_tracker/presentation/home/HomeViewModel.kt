@@ -8,6 +8,8 @@ import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
+import com.finance_tracker.finance_tracker.domain.models.Transaction
+import com.finance_tracker.finance_tracker.presentation.home.analytics.HomeAnalytics
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
@@ -24,6 +26,7 @@ class HomeViewModel(
     private val accountsRepository: AccountsRepository,
     private val currenciesInteractor: CurrenciesInteractor,
     transactionsInteractor: TransactionsInteractor,
+    private val homeAnalytics: HomeAnalytics
 ): BaseViewModel<HomeAction>() {
 
     private val currencyRatesFlow = currenciesInteractor.getCurrencyRatesFlow()
@@ -49,6 +52,7 @@ class HomeViewModel(
 
     init {
         updateCurrencyRates()
+        homeAnalytics.trackScreenOpen()
     }
 
     fun onScreenComposed() {
@@ -100,5 +104,35 @@ class HomeViewModel(
                     toCurrency = currency
                 )
             }
+    }
+
+    fun onMyAccountsClick() {
+        homeAnalytics.trackMyAccountsClick()
+        viewAction = HomeAction.OpenAccountsScreen
+    }
+
+    fun onAccountClick(account: Account) {
+        homeAnalytics.trackAccountClick(account)
+        viewAction = HomeAction.OpenAccountDetailScreen(account)
+    }
+
+    fun onAddAccountClick() {
+        homeAnalytics.trackAddAccountClick()
+        viewAction = HomeAction.OpenAddAccountScreen
+    }
+
+    fun onLastTransactionsClick() {
+        homeAnalytics.trackLastTransactionsClick()
+        viewAction = HomeAction.OpenTransactionsScreen
+    }
+
+    fun onTransactionClick(transaction: Transaction) {
+        homeAnalytics.trackTransactionClick(transaction)
+        viewAction = HomeAction.OpenEditTransactionScreen(transaction)
+    }
+
+    fun onSettingsClick() {
+        homeAnalytics.trackSettingsClick()
+        viewAction = HomeAction.ShowSettingsDialog
     }
 }

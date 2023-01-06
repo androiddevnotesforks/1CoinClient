@@ -5,22 +5,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.ui.transactions.EmptyTransactionsStub
 import com.finance_tracker.finance_tracker.core.ui.transactions.TransactionItem
+import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
-import ru.alexgladkov.odyssey.compose.RootController
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun LastTransactionsWidgetContent(
     lastTransactions: List<TransactionListModel.Data>,
+    onTransactionClick: (transaction: Transaction) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-    val navController = LocalRootController.current.findRootController()
-
     if (lastTransactions.isEmpty()) {
         EmptyTransactionsStub(
             modifier = modifier,
@@ -30,7 +25,7 @@ fun LastTransactionsWidgetContent(
         LastTransactionsColumn(
             modifier = modifier,
             transactions = lastTransactions,
-            navController = navController,
+            onTransactionClick = onTransactionClick
         )
     }
 }
@@ -38,7 +33,7 @@ fun LastTransactionsWidgetContent(
 @Composable
 private fun LastTransactionsColumn(
     transactions: List<TransactionListModel.Data>,
-    navController: RootController,
+    onTransactionClick: (transaction: Transaction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -51,10 +46,7 @@ private fun LastTransactionsColumn(
             TransactionItem(
                 transactionData = transactionData,
                 onClick = {
-                    navController.push(
-                        screen = MainNavigationTree.AddTransaction.name,
-                        params = transactionData.transaction
-                    )
+                    onTransactionClick.invoke(transactionData.transaction)
                 }
             )
         }

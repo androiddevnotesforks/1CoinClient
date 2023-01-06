@@ -15,8 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
+import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.AccountCard
+import ru.alexgladkov.odyssey.compose.extensions.push
+import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun AccountsScreen() {
@@ -25,6 +28,8 @@ fun AccountsScreen() {
         LaunchedEffect(Unit) {
             viewModel.onScreenComposed()
         }
+
+        val navController = LocalRootController.current.findRootController()
 
         Column {
             AccountsAppBar()
@@ -45,7 +50,15 @@ fun AccountsScreen() {
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(accounts) { account ->
-                    AccountCard(data = account)
+                    AccountCard(
+                        data = account,
+                        onClick = {
+                            navController.push(
+                                screen = MainNavigationTree.DetailAccount.name,
+                                params = account
+                            )
+                        }
+                    )
                 }
             }
         }

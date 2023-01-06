@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
@@ -19,18 +18,13 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.presentation.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
-import com.finance_tracker.finance_tracker.presentation.settings_sheet.SettingsSheet
-import ru.alexgladkov.odyssey.compose.extensions.present
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun HomeTopBar(
     totalBalance: Amount,
+    onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val rootController = LocalRootController.current
-    val modalController = rootController.findModalController()
-
     CoinTopAppBar(
         modifier = modifier,
         appBarHeight = 64.dp,
@@ -55,11 +49,7 @@ fun HomeTopBar(
                     .padding(end = 2.dp)
                     .size(36.dp)
                     .clip(CircleShape)
-                    .clickable {
-                        modalController.present(DialogConfigurations.bottomSheet) { dialogKey ->
-                            SettingsSheet(dialogKey = dialogKey)
-                        }
-                    }
+                    .clickable { onSettingsClick.invoke() }
                     .padding(6.dp),
                 tint = CoinTheme.color.content
             )

@@ -18,18 +18,13 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
-import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
-import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun HomeScreen() {
     StoredViewModel<HomeViewModel> { viewModel ->
-        val rootController = LocalRootController.current
-        val navController = rootController.parentRootController as MultiStackRootController
         val accounts by viewModel.accounts.collectAsState()
 
         LaunchedEffect(Unit) {
@@ -47,7 +42,10 @@ fun HomeScreen() {
                 .background(CoinTheme.color.background)
         ) {
             val totalBalance by viewModel.totalBalance.collectAsState()
-            HomeTopBar(totalBalance = totalBalance)
+            HomeTopBar(
+                totalBalance = totalBalance,
+                onSettingsClick = viewModel::onSettingsClick
+            )
 
             Column(
                 modifier = Modifier
@@ -58,25 +56,26 @@ fun HomeScreen() {
                 CoinWidget(
                     title = stringResource("home_my_accounts"),
                     withHorizontalPadding = false,
-                    onClick = {
-                        navController.switchTab(TabsNavigationTree.Accounts.ordinal)
-                    }
+                    onClick = viewModel::onMyAccountsClick
                 ) {
                     AccountsWidgetContent(
                         data = accounts,
-                        state = accountsLazyListState
+                        state = accountsLazyListState,
+                        onAccountClick = viewModel::onAccountClick,
+                        onAddAccountClick = viewModel::onAddAccountClick
                     )
                 }
 
                 CoinWidget(
                     title = stringResource("home_last_transactions"),
                     withBorder = true,
-                    onClick = {
-                        navController.switchTab(TabsNavigationTree.Transactions.ordinal)
-                    }
+                    onClick = viewModel::onLastTransactionsClick
                 ) {
                     val lastTransactions by viewModel.lastTransactions.collectAsState()
-                    LastTransactionsWidgetContent(lastTransactions)
+                    LastTransactionsWidgetContent(
+                        lastTransactions = lastTransactions,
+                        onTransactionClick = viewModel::onTransactionClick
+                    )
                 }
 
                 Spacer(
