@@ -16,7 +16,7 @@ import com.finance_tracker.finance_tracker.core.common.UpdateSystemBarsConfigEff
 import com.finance_tracker.finance_tracker.core.common.pagination.AutoRefreshList
 import com.finance_tracker.finance_tracker.core.common.pagination.collectAsLazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
+import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.CollapsingToolbarScaffold
@@ -31,8 +31,6 @@ import com.finance_tracker.finance_tracker.presentation.detail_account.views.Det
 import com.finance_tracker.finance_tracker.presentation.detail_account.views.DetailAccountExpandedAppBar
 import com.finance_tracker.finance_tracker.presentation.detail_account.views.EditButton
 import org.koin.core.parameter.parametersOf
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 @Suppress("MagicNumber")
@@ -46,8 +44,11 @@ fun DetailAccountScreen(
             isStatusBarLight = false
         }
 
+        viewModel.watchViewActions { action, baseLocalsStorage ->
+            handleAction(action, baseLocalsStorage)
+        }
+
         val accountData by viewModel.accountData.collectAsState()
-        val navController = LocalRootController.current.findRootController()
         val state = rememberCollapsingToolbarScaffoldState()
         CollapsingToolbarScaffold(
             modifier = Modifier.fillMaxSize(),
@@ -79,7 +80,7 @@ fun DetailAccountScreen(
                         .statusBarsPadding()
                         .align(Alignment.TopStart),
                     painter = rememberVectorPainter("ic_arrow_back"),
-                    onClick = { navController.popBackStack() },
+                    onClick = viewModel::onBackClick,
                     tint = CoinTheme.color.primaryVariant
                 )
 
@@ -91,12 +92,7 @@ fun DetailAccountScreen(
                 EditButton(
                     state = state,
                     tint = accountData.colorModel.color,
-                    onClick = {
-                        navController.push(
-                            screen = MainNavigationTree.AddAccount.name,
-                            params = account
-                        )
-                    }
+                    onClick = viewModel::onEditClick
                 )
             }
         ) {
@@ -111,10 +107,7 @@ fun DetailAccountScreen(
                     bottom = navigationBarsHeight
                 ),
                 onClick = {
-                    navController.push(
-                        screen = MainNavigationTree.AddTransaction.name,
-                        params = it.transaction
-                    )
+                    viewModel.onTransactionClick(transaction = it.transaction)
                 }
             )
         }

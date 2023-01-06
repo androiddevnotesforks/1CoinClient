@@ -1,33 +1,25 @@
-package com.finance_tracker.finance_tracker.presentation.home.analytics
+package com.finance_tracker.finance_tracker.presentation.detail_account.analytics
 
 import com.finance_tracker.finance_tracker.core.analytics.BaseAnalytics
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 
-class HomeAnalytics: BaseAnalytics() {
+class DetailAccountAnalytics: BaseAnalytics() {
 
-    override val screenName = "HomeScreen"
+    override val screenName = "DetailAccountScreen"
 
-    fun trackMyAccountsClick() {
-        trackClick(eventName = "MyAccounts")
+    fun trackBackClick() {
+        trackClick(eventName = "Back")
     }
 
-    fun trackAddAccountClick() {
-        trackClick(eventName = "AddAccount")
-    }
-
-    fun trackAccountClick(account: Account) {
+    fun trackEditAccountClick(account: Account) {
         trackClick(
-            eventName = "Account",
+            eventName = "EditAccount",
             properties = mapOf(
                 "name" to account.name,
                 "type" to account.type,
             )
         )
-    }
-
-    fun trackLastTransactionsClick() {
-        trackClick(eventName = "LastTransactions")
     }
 
     fun trackTransactionClick(transaction: Transaction) {
@@ -38,9 +30,5 @@ class HomeAnalytics: BaseAnalytics() {
                 "type" to transaction.type
             )
         )
-    }
-
-    fun trackSettingsClick() {
-        trackClick(eventName = "Settings")
     }
 }

@@ -9,7 +9,7 @@ import ru.alexgladkov.odyssey.compose.controllers.TabNavigationModel
 
 class TabsNavigationAnalytics: BaseAnalytics() {
 
-    override val screenName = "TabsNavigation"
+    override val screenName = "TabsNavigationScreen"
 
     fun trackTabClick(item: TabNavigationModel) {
         val eventName = when (item.tabInfo.tabItem) {
