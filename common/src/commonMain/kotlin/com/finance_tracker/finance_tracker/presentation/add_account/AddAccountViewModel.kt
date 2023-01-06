@@ -2,11 +2,13 @@ package com.finance_tracker.finance_tracker.presentation.add_account
 
 import com.finance_tracker.finance_tracker.core.common.isFloatNumber
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Currency
+import com.finance_tracker.finance_tracker.presentation.add_account.analytics.AddAccountAnalytics
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 import com.finance_tracker.finance_tracker.presentation.common.formatters.parse
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +21,8 @@ import kotlinx.coroutines.launch
 class AddAccountViewModel(
     private val accountsRepository: AccountsRepository,
     private val currenciesInteractor: CurrenciesInteractor,
-    private val _account: Account
+    private val _account: Account,
+    private val addAccountAnalytics: AddAccountAnalytics
 ): BaseViewModel<AddAccountAction>() {
 
     private val account: Account? = _account.takeIf { _account != Account.EMPTY }
@@ -60,6 +63,7 @@ class AddAccountViewModel(
     init {
         loadAccountColors()
         loadPrimaryCurrency()
+        addAccountAnalytics.trackScreenOpen(account)
     }
 
     private fun loadAccountColors() {
@@ -99,13 +103,18 @@ class AddAccountViewModel(
         }
     }
 
-    fun onDeleteClick(account: Account) {
+    fun onConfirmDeletingClick(account: Account, dialogKey: String) {
+        addAccountAnalytics.trackConfirmDeletingClick(account)
+        viewAction = AddAccountAction.DismissDeleteDialog(dialogKey)
         viewModelScope.launch {
             accountsRepository.deleteAccountById(account.id)
+            viewAction = AddAccountAction.BackToScreen(MainNavigationTree.Main.name)
         }
     }
 
     fun onAddAccountClick() {
+        trackAddAccountClick()
+
         viewModelScope.launch {
             val accountName = enteredAccountName.value.takeIf { it.isNotBlank() } ?: run {
                 viewAction = AddAccountAction.ShowToast(
@@ -146,5 +155,36 @@ class AddAccountViewModel(
             }
             viewAction = AddAccountAction.Close
         }
+    }
+
+    private fun trackAddAccountClick() {
+        if (account == null) {
+            addAccountAnalytics.trackAddClick(
+                accountName = enteredAccountName.value.takeIf { it.isNotBlank() },
+                accountType = selectedType.value,
+                colorModel = selectedColor.value?.id?.let { AccountColorModel.from(it) }
+            )
+        } else {
+            addAccountAnalytics.trackSaveClick(
+                accountName = enteredAccountName.value.takeIf { it.isNotBlank() },
+                accountType = selectedType.value,
+                colorModel = selectedColor.value?.id?.let { AccountColorModel.from(it) }
+            )
+        }
+    }
+
+    fun onBackClick() {
+        addAccountAnalytics.trackBackClick()
+        viewAction = AddAccountAction.Close
+    }
+
+    fun onDeleteClick(account: Account) {
+        addAccountAnalytics.trackDeleteClick(account)
+        viewAction = AddAccountAction.ShowDeleteDialog(account)
+    }
+
+    fun onCancelDeletingClick(account: Account, dialogKey: String) {
+        addAccountAnalytics.trackCancelDeletingClick(account)
+        viewAction = AddAccountAction.DismissDeleteDialog(dialogKey)
     }
 }

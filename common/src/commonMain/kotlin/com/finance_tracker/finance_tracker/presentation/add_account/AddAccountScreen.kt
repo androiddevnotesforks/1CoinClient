@@ -39,7 +39,9 @@ fun AddAccountScreen(
             handleAction(
                 action = action,
                 baseLocalsStorage = baseLocalsStorage,
-                scaffoldState = scaffoldState
+                scaffoldState = scaffoldState,
+                onCancelDeletingClick = viewModel::onCancelDeletingClick,
+                onConfirmDeletingClick = viewModel::onConfirmDeletingClick
             )
         }
 
@@ -52,7 +54,8 @@ fun AddAccountScreen(
                         "new_account_title"
                     } else {
                         "accounts_screen_top_bar"
-                    }
+                    },
+                    onBackClick = viewModel::onBackClick
                 )
 
                 AccountNameTextField(viewModel = viewModel)
