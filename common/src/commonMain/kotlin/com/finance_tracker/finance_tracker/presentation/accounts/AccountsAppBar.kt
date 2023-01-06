@@ -1,12 +1,20 @@
 package com.finance_tracker.finance_tracker.presentation.accounts
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import ru.alexgladkov.odyssey.compose.extensions.push
@@ -26,13 +34,31 @@ fun AccountsAppBar(
             )
         },
         actions = {
-            AppBarIcon(
-                painter = rememberVectorPainter("ic_plus"),
-                tint = CoinTheme.color.primary,
-                onClick = {
-                    navController.push(MainNavigationTree.AddAccount.name)
-                }
-            )
+            Row(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .clickable {
+                        navController.push(MainNavigationTree.AddAccount.name)
+                    }
+                    .padding(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .padding(end = 2.dp)
+                        .size(24.dp),
+                    painter = rememberVectorPainter("ic_plus"),
+                    contentDescription = null,
+                    tint = CoinTheme.color.primary,
+                )
+                Text(
+                    modifier = Modifier
+                        .padding(end = 4.dp),
+                    text = stringResource("accounts_screen_add_account"),
+                    style = CoinTheme.typography.subtitle1,
+                    color = CoinTheme.color.primary,
+                )
+            }
         }
     )
 }
