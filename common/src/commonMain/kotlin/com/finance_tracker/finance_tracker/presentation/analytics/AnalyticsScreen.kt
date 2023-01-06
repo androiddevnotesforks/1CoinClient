@@ -56,6 +56,9 @@ fun AnalyticsScreen() {
                 viewModel.trendsAnalyticsDelegate.setSelectedTransactionType(
                     transactionType = selectedTransactionTypeTab.toTransactionType()
                 )
+                viewModel.monthTxsByCategoryDelegate.setSelectedTransactionType(
+                    transactionType = selectedTransactionTypeTab.toTransactionType()
+                )
             }
 
             AnalyticsScreenAppBar(
@@ -73,9 +76,15 @@ fun AnalyticsScreen() {
                             stringResource("analytics_by_category"),
                     withBorder = true
                 ) {
-                    val isLoading by viewModel.isLoadingMonthTxsByCategory.collectAsState()
-                    val selectedMonth by viewModel.selectedMonth.collectAsState()
-                    val monthTransactionsByCategory by viewModel.monthTransactionsByCategory.collectAsState()
+                    val isLoading by viewModel.monthTxsByCategoryDelegate
+                        .isLoadingMonthTxsByCategory.collectAsState()
+
+                    val selectedMonth by viewModel.monthTxsByCategoryDelegate
+                        .selectedMonth.collectAsState()
+
+                    val monthTransactionsByCategory by viewModel.monthTxsByCategoryDelegate
+                        .monthTransactionsByCategory.collectAsState()
+
                     TxsByCategoryChartBlock(
                         isLoading = isLoading,
                         selectedMonth = selectedMonth,

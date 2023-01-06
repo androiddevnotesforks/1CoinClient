@@ -14,25 +14,38 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.presentation.add_category.views.AddCategoryAppBar
 import com.finance_tracker.finance_tracker.presentation.add_category.views.ChooseIconButton
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
+import org.koin.core.parameter.parametersOf
 
 private const val MinCategoryNameLength = 2
 
 @Composable
 fun AddCategoryScreen(transactionTypeTab: TransactionTypeTab) {
-    StoredViewModel<AddCategoryViewModel> { viewModel ->
-        val rootController = LocalRootController.current
+    StoredViewModel<AddCategoryViewModel>(
+        parameters = { parametersOf(transactionTypeTab) }
+    ) { viewModel ->
+
+        viewModel.watchViewActions { action, baseLocalsStorage ->
+            handleAction(
+                action = action,
+                baseLocalsStorage = baseLocalsStorage
+            )
+        }
+
         Column(modifier = Modifier.fillMaxSize()) {
-            AddCategoryAppBar(textValue = if(transactionTypeTab == TransactionTypeTab.Expense) {
-                "new_expense_category"
-            } else {
-                "new_income_category"
-            })
+            AddCategoryAppBar(
+                onBackClick = viewModel::onBackClick,
+                textValue = if (transactionTypeTab == TransactionTypeTab.Expense) {
+                    "new_expense_category"
+                } else {
+                    "new_income_category"
+                }
+            )
 
             val chosenIcon by viewModel.chosenIcon.collectAsState()
             val newCategoryName by viewModel.categoryName.collectAsState()
@@ -79,21 +92,7 @@ fun AddCategoryScreen(transactionTypeTab: TransactionTypeTab) {
                     ),
                 text = stringResource("new_account_btn_add"),
                 enable = newCategoryName.length >= MinCategoryNameLength,
-                onClick = {
-                    if (transactionTypeTab == TransactionTypeTab.Expense && newCategoryName != "") {
-                        viewModel.addExpenseCategory(
-                            categoryName = newCategoryName,
-                            categoryIcon = chosenIcon
-                        )
-                        rootController.findRootController().popBackStack()
-                    } else if (transactionTypeTab == TransactionTypeTab.Income && newCategoryName != "") {
-                        viewModel.addIncomeCategory(
-                            categoryName = newCategoryName,
-                            categoryIcon = chosenIcon
-                        )
-                        rootController.findRootController().popBackStack()
-                    }
-                }
+                onClick = viewModel::addCategory
             )
         }
     }

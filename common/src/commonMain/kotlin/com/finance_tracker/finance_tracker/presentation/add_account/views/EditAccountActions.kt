@@ -13,17 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.stringResource
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.presentation.add_account.AddAccountViewModel
-import ru.alexgladkov.odyssey.compose.extensions.present
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun EditAccountActions(
@@ -32,9 +27,6 @@ fun EditAccountActions(
     account: Account,
     modifier: Modifier = Modifier
 ) {
-    val rootController = LocalRootController.current
-    val navController = rootController.findRootController()
-    val modalNavController = rootController.findModalController()
     Row(
         modifier = modifier
             .padding(top = 24.dp)
@@ -51,23 +43,7 @@ fun EditAccountActions(
                     color = CoinTheme.color.secondaryBackground,
                     shape = RoundedCornerShape(12.dp),
                 )
-                .clickable {
-                    modalNavController.present(DialogConfigurations.alert) { key ->
-                        DeleteDialog(
-                            titleEntity = stringResource("account"),
-                            onCancelClick = {
-                                modalNavController.popBackStack(key, animate = false)
-                            },
-                            onDeleteClick = {
-                                modalNavController.popBackStack(key, animate = false)
-                                viewModel.onDeleteClick(account)
-                                navController.backToScreen(
-                                    MainNavigationTree.Main.name
-                                )
-                            }
-                        )
-                    }
-                },
+                .clickable { viewModel.onDeleteClick(account) },
         ) {
             Icon(
                 painter = rememberVectorPainter("ic_recycle_bin"),

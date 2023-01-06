@@ -8,20 +8,19 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun AddAccountTopBar(
     topBarTextId: String,
-    modifier: Modifier = Modifier,
+    onBackClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    val rootController = LocalRootController.current
     CoinTopAppBar(
         modifier = modifier,
         navigationIcon = {
             AppBarIcon(
                 painter = rememberVectorPainter("ic_arrow_back"),
-                onClick = { rootController.popBackStack() }
+                onClick = onBackClick
             )
         },
         title = {
