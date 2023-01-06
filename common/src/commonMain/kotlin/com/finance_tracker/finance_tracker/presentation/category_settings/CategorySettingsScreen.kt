@@ -10,18 +10,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.LazyDragColumn
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
-import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.domain.models.Category
-import ru.alexgladkov.odyssey.compose.extensions.present
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 private val CategoriesListContentPadding = 16.dp
 
@@ -29,8 +25,14 @@ private val CategoriesListContentPadding = 16.dp
 fun CategorySettingsScreen() {
     StoredViewModel<CategorySettingsViewModel> { viewModel ->
 
-        val navController = LocalRootController.current
-        val modalNavController = navController.findModalController()
+        viewModel.watchViewActions { action, baseLocalsStorage ->
+            handleAction(
+                action = action,
+                baseLocalsStorage = baseLocalsStorage,
+                onCancelClick = viewModel::onCancelDeleting,
+                onConfirmDeleteClick = viewModel::onConfirmDeleteCategory
+            )
+        }
 
         LaunchedEffect(Unit) {
             viewModel.onScreenComposed()
@@ -44,7 +46,9 @@ fun CategorySettingsScreen() {
 
             CategorySettingsAppBar(
                 selectedTransactionTypeTab = selectedTransactionTypeTab,
-                onTransactionTypeSelect = viewModel::onTransactionTypeSelect
+                onTransactionTypeSelect = viewModel::onTransactionTypeSelect,
+                onAddCategoryClick = viewModel::onAddCategoryClick,
+                onBackClick = viewModel::onBackClick
             )
 
             when (selectedTransactionTypeTab) {
@@ -52,40 +56,14 @@ fun CategorySettingsScreen() {
                     CategoriesLazyColumn(
                         categories = expenseCategories,
                         onSwap = viewModel::swapExpenseCategories,
-                        onCrossDeleteClick = {
-                            modalNavController.present(DialogConfigurations.alert) { key ->
-                                DeleteDialog(
-                                    titleEntity = stringResource("category"),
-                                    onCancelClick = {
-                                        modalNavController.popBackStack(key, animate = false)
-                                    },
-                                    onDeleteClick = {
-                                        viewModel.deleteCategory(it)
-                                        modalNavController.popBackStack(key, animate = false)
-                                    }
-                                )
-                            }
-                        }
+                        onCrossDeleteClick = viewModel::onDeleteCategoryClick
                     )
                 }
                 TransactionTypeTab.Income -> {
                     CategoriesLazyColumn(
                         categories = incomeCategories,
                         onSwap = viewModel::swapIncomeCategories,
-                        onCrossDeleteClick = {
-                            modalNavController.present(DialogConfigurations.alert) { key ->
-                                DeleteDialog(
-                                    titleEntity = stringResource("category"),
-                                    onCancelClick = {
-                                        modalNavController.popBackStack(key, animate = false)
-                                    },
-                                    onDeleteClick = {
-                                        viewModel.deleteCategory(it)
-                                        modalNavController.popBackStack(key, animate = false)
-                                    }
-                                )
-                            }
-                        }
+                        onCrossDeleteClick = viewModel::onDeleteCategoryClick
                     )
                 }
             }
@@ -97,7 +75,7 @@ fun CategorySettingsScreen() {
 private fun CategoriesLazyColumn(
     categories: List<Category>,
     onSwap: (Int, Int) -> Unit,
-    onCrossDeleteClick: (Long) -> Unit,
+    onCrossDeleteClick: (Category) -> Unit,
 ) {
     val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
     LazyDragColumn(
@@ -124,7 +102,7 @@ private fun CategoriesLazyColumn(
                         end = 16.dp
                     ),
                 onCrossDeleteClick = {
-                    onCrossDeleteClick.invoke(category.id)
+                    onCrossDeleteClick.invoke(category)
                 }
             )
         }

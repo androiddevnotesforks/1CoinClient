@@ -14,18 +14,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Suppress("MagicNumber")
 @Composable
-fun AddAccountCard(modifier: Modifier = Modifier) {
-
-    val navController = LocalRootController.current.findRootController()
-
+fun AddAccountCard(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = modifier
             .fillMaxHeight()
@@ -37,11 +34,7 @@ fun AddAccountCard(modifier: Modifier = Modifier) {
                 shape = RoundedCornerShape(12.dp)
             )
             .background(CoinTheme.color.secondaryBackground)
-            .clickable {
-                navController.push(
-                    screen = MainNavigationTree.AddAccount.name,
-                )
-            },
+            .clickable { onClick.invoke() },
     ) {
         Icon(
             painter = rememberVectorPainter("ic_plus"),

@@ -17,6 +17,8 @@ import com.finance_tracker.finance_tracker.domain.models.Account
 fun AccountsWidgetContent(
     data: List<Account>,
     state: LazyListState,
+    onAccountClick: (Account) -> Unit,
+    onAddAccountClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyRow(
@@ -27,10 +29,15 @@ fun AccountsWidgetContent(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(data) { account ->
-            AccountCard(data = account)
+            AccountCard(
+                data = account,
+                onClick = { onAccountClick.invoke(account) }
+            )
         }
         item {
-            AddAccountCard()
+            AddAccountCard(
+                onClick = onAddAccountClick
+            )
         }
     }
 }

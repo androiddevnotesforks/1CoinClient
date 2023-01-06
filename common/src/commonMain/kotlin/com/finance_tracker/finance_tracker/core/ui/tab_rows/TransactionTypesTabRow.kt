@@ -5,9 +5,18 @@ import androidx.compose.ui.Modifier
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 
-enum class TransactionTypeTab(val textId: String) {
-    Expense("tab_expense"),
-    Income("tab_income"),
+enum class TransactionTypeTab(
+    val textId: String,
+    val analyticsName: String
+) {
+    Expense(
+        textId = "tab_expense",
+        analyticsName = "Expense"
+    ),
+    Income(
+        textId = "tab_income",
+        analyticsName = "Income"
+    ),
 }
 
 fun TransactionTypeTab.toTransactionType(): TransactionType {

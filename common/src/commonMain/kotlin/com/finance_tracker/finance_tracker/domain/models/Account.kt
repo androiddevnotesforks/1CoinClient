@@ -7,12 +7,30 @@ data class Account(
     val balance: Amount,
     val colorModel: AccountColorModel
 ) {
-    enum class Type(val textId: String) {
-        Cash("account_type_cash"),
-        Card("account_type_card"),
-        BankAccount("account_type_bank_account"),
-        Credit("account_type_credit"),
-        Deposit("account_type_deposit")
+    enum class Type(
+        val textId: String,
+        val analyticsName: String
+    ) {
+        Cash(
+            textId = "account_type_cash",
+            analyticsName = "Cash"
+        ),
+        Card(
+            textId = "account_type_card",
+            analyticsName = "Card"
+        ),
+        BankAccount(
+            textId = "account_type_bank_account",
+            analyticsName = "BankAccount"
+        ),
+        Credit(
+            textId = "account_type_credit",
+            analyticsName = "Credit"
+        ),
+        Deposit(
+            textId = "account_type_deposit",
+            analyticsName = "Deposit"
+        )
     }
 
     val iconId: String

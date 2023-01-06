@@ -5,13 +5,13 @@ import com.finance_tracker.finance_tracker.domain.models.Transaction
 
 class TransactionsAnalytics: BaseAnalytics() {
 
-    override val screenName = "Transactions"
+    override val screenName = "TransactionsScreen"
 
     fun trackTransactionClick(transaction: Transaction) {
         trackClick(
             eventName = "Transaction",
             properties = mapOf(
-                "transaction_type" to transaction.type.name
+                "transaction_type" to transaction.type.analyticsName
             )
         )
     }

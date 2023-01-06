@@ -8,7 +8,7 @@ sealed class AnalyticsEvent(
     open class Open(
         screenName: String
     ) : AnalyticsEvent(
-        name = "${screenName}_Screen_Open"
+        name = "${screenName}_Open"
     )
 
     open class Click(
@@ -17,5 +17,13 @@ sealed class AnalyticsEvent(
         override val properties: Map<String, Any> = mapOf()
     ) : AnalyticsEvent(
         name = "${source}_${clickName}_Click"
+    )
+
+    open class Event(
+        source: String,
+        eventName: String,
+        override val properties: Map<String, Any> = mapOf()
+    ) : AnalyticsEvent(
+        name = "${source}_${eventName}"
     )
 }

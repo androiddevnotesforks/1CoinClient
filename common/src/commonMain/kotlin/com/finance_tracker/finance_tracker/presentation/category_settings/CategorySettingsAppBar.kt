@@ -4,28 +4,26 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.finance_tracker.finance_tracker.core.common.stringResource
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTxTypeTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun CategorySettingsAppBar(
     selectedTransactionTypeTab: TransactionTypeTab,
     onTransactionTypeSelect: (TransactionTypeTab) -> Unit,
+    onAddCategoryClick: () -> Unit,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val rootController = LocalRootController.current
     CoinTxTypeTopAppBar(
         modifier = modifier,
         navigationIcon = {
             AppBarIcon(
                 painter = rememberVectorPainter("ic_arrow_back"),
-                onClick = { rootController.findRootController().popBackStack() },
+                onClick = onBackClick,
             )
         },
         title = {
@@ -37,12 +35,7 @@ fun CategorySettingsAppBar(
         actions = {
             AppBarIcon(
                 rememberVectorPainter("ic_plus"),
-                onClick = {
-                    rootController.findRootController().push(
-                        MainNavigationTree.AddCategory.name,
-                        params = selectedTransactionTypeTab
-                    )
-                },
+                onClick = onAddCategoryClick,
                 tint = CoinTheme.color.primary,
             )
         },
