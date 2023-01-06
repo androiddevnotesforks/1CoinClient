@@ -156,10 +156,22 @@ private fun getLabelsFor(periodChip: PeriodChip): List<String> {
     }
 }
 
-enum class PeriodChip(val textId: String) {
-    Week("week"),
-    Month("month"),
-    Year("year")
+enum class PeriodChip(
+    val textId: String,
+    val analyticsName: String
+) {
+    Week(
+        textId = "week",
+        analyticsName = "Week"
+    ),
+    Month(
+        textId = "month",
+        analyticsName = "Month"
+    ),
+    Year(
+        textId = "year",
+        analyticsName = "Year"
+    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)

@@ -7,6 +7,7 @@ import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
+import com.finance_tracker.finance_tracker.presentation.analytics.analytics.AnalyticsScreenAnalytics
 import com.finance_tracker.finance_tracker.presentation.analytics.models.TrendBarDetails
 import com.finance_tracker.finance_tracker.presentation.analytics.peroid_bar_chart.PeriodChip
 import com.finance_tracker.finance_tracker.presentation.common.formatters.AmountFormatMode
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.stateIn
 import java.util.Calendar
 import java.util.Date
@@ -33,7 +35,8 @@ import kotlin.coroutines.CoroutineContext
 
 class TrendsAnalyticsDelegate(
     private val transactionsEntityQueries: TransactionsEntityQueries,
-    currenciesRepository: CurrenciesRepository
+    currenciesRepository: CurrenciesRepository,
+    private val analyticsScreenAnalytics: AnalyticsScreenAnalytics
 ): CoroutineScope {
 
     override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.Main.immediate
@@ -204,6 +207,16 @@ class TrendsAnalyticsDelegate(
     }
         .flowOn(Dispatchers.IO)
         .stateIn(this@TrendsAnalyticsDelegate, started = SharingStarted.Lazily, initialValue = Amount.default)
+
+    init {
+        subscribeAnalyticsEvents()
+    }
+
+    private fun subscribeAnalyticsEvents() {
+        combine(selectedTransactionTypeFlow, selectedPeriodChipFlow) { selectedTransactionType, selectedPeriodChip ->
+            analyticsScreenAnalytics.trackTrendEvent(selectedTransactionType, selectedPeriodChip)
+        }.launchIn(this)
+    }
 
     private fun associateTransactionsByBars(
         transactions: List<GetTransactionsForPeriod>,
