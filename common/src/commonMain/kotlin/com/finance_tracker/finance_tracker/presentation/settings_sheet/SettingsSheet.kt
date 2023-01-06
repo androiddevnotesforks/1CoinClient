@@ -11,20 +11,31 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingSheetTelegramChatItem
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetCategorySettingsItem
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetMainCurrencyItem
 
 @Composable
-fun SettingsSheet(onCloseClick: () -> Unit) {
+fun SettingsSheet(dialogKey: String) {
     StoredViewModel<SettingsSheetViewModel> { viewModel ->
-        val chosenCurrency by viewModel.chosenCurrency.collectAsState()
 
+        val uriHandler = LocalUriHandler.current
+        viewModel.watchViewActions { action, baseLocalsStorage ->
+            handleAction(
+                action = action,
+                baseLocalsStorage = baseLocalsStorage,
+                uriHandler = uriHandler
+            )
+        }
+
+        val chosenCurrency by viewModel.chosenCurrency.collectAsState()
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -48,12 +59,17 @@ fun SettingsSheet(onCloseClick: () -> Unit) {
             )
             SettingsSheetMainCurrencyItem(
                 selectedCurrency = chosenCurrency,
-                onCurrencySelect = viewModel::onCurrencySelect
+                onCurrencySelect = viewModel::onCurrencySelect,
+                onCurrencyClick = viewModel::onCurrencyClick
             )
-            SettingsSheetCategorySettingsItem {
-                onCloseClick()
-            }
-            SettingSheetTelegramChatItem()
+            SettingsSheetCategorySettingsItem(
+                onClick = {
+                    viewModel.onCategorySettingsClick(dialogKey)
+                }
+            )
+            SettingSheetTelegramChatItem(
+                onClick = viewModel::onTelegramCommunityClick
+            )
         }
     }
 }

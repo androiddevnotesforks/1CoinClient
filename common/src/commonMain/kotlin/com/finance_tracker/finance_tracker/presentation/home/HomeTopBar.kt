@@ -56,10 +56,8 @@ fun HomeTopBar(
                     .size(36.dp)
                     .clip(CircleShape)
                     .clickable {
-                        modalController.present(DialogConfigurations.bottomSheet) { key ->
-                            SettingsSheet(
-                                onCloseClick = { modalController.popBackStack(key) }
-                            )
+                        modalController.present(DialogConfigurations.bottomSheet) { dialogKey ->
+                            SettingsSheet(dialogKey = dialogKey)
                         }
                     }
                     .padding(6.dp),

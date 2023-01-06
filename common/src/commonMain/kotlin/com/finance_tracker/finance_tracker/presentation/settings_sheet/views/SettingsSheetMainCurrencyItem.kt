@@ -22,6 +22,7 @@ fun SettingsSheetMainCurrencyItem(
     selectedCurrency: Currency,
     modifier: Modifier = Modifier,
     onCurrencySelect: (Currency) -> Unit = {},
+    onCurrencyClick: (Currency) -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -54,6 +55,7 @@ fun SettingsSheetMainCurrencyItem(
             items = Currency.list,
             selectedCurrency = selectedCurrency,
             onCurrencySelect = onCurrencySelect,
+            onCurrencyClick = onCurrencyClick,
             modifier = Modifier
                 .align(Alignment.CenterVertically),
             xOffset = 240.dp,

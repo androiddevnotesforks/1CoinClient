@@ -10,7 +10,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -18,22 +17,17 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
 fun SettingSheetTelegramChatItem(
-    modifier: Modifier = Modifier
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-
-    val uriHandler = LocalUriHandler.current
-    val uri = "https://t.me/+FFK1aCS6uJs1NTBi"
-
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clickable {
-                uriHandler.openUri(uri)
-            }
+            .clickable { onClick.invoke() }
             .padding(vertical = 12.dp),
     ) {
         Image(
-            painter = rememberVectorPainter(id = "telegram"),
+            painter = rememberVectorPainter("telegram"),
             contentDescription = null,
             modifier = Modifier
                 .padding(
