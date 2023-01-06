@@ -15,24 +15,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
+import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.AccountCard
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun AccountsScreen() {
     StoredViewModel<AccountsViewModel> { viewModel ->
 
+        viewModel.watchViewActions { action, baseLocalsStorage ->
+            handleAction(action, baseLocalsStorage)
+        }
+
         LaunchedEffect(Unit) {
             viewModel.onScreenComposed()
         }
 
-        val navController = LocalRootController.current.findRootController()
-
         Column {
-            AccountsAppBar()
+            AccountsAppBar(
+                onAddAccountClick = viewModel::onAddAccountClick
+            )
 
             val accounts by viewModel.accounts.collectAsState()
             val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
@@ -52,12 +54,7 @@ fun AccountsScreen() {
                 items(accounts) { account ->
                     AccountCard(
                         data = account,
-                        onClick = {
-                            navController.push(
-                                screen = MainNavigationTree.DetailAccount.name,
-                                params = account
-                            )
-                        }
+                        onClick = { viewModel.onAccountClick(account) }
                     )
                 }
             }
