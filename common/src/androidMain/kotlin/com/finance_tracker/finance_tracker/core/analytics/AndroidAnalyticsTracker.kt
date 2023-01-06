@@ -32,6 +32,10 @@ class AndroidAnalyticsTracker: AnalyticsTracker {
     }
 
     private fun log(event: AnalyticsEvent) {
-        amplitude.logger.debug("${event.name}. properties: ${event.properties}")
+        var message = "${event.name}. "
+        if (event.properties.isNotEmpty()) {
+            message += "properties: ${event.properties}"
+        }
+        amplitude.logger.debug(message)
     }
 }

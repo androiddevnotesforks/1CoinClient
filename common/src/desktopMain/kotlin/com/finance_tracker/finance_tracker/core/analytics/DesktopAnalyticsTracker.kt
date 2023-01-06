@@ -38,6 +38,10 @@ class DesktopAnalyticsTracker: AnalyticsTracker {
     }
 
     private fun log(event: AnalyticsEvent) {
-        Napier.d(message = "${event.name}. properties: ${event.properties}", tag = "Amplitude")
+        var message = "${event.name}. "
+        if (event.properties.isNotEmpty()) {
+            message += "properties: ${event.properties}"
+        }
+        Napier.d(message = message, tag = "Amplitude")
     }
 }

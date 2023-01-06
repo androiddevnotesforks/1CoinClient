@@ -10,22 +10,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.pagination.AutoRefreshList
 import com.finance_tracker.finance_tracker.core.common.pagination.collectAsLazyPagingItems
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
-import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.transactions.CommonTransactionsList
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.presentation.transactions.views.TransactionsAppBar
-import ru.alexgladkov.odyssey.compose.extensions.present
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun TransactionsScreen() {
@@ -34,63 +27,46 @@ fun TransactionsScreen() {
         val lazyTransactionList =
             viewModel.paginatedTransactions.collectAsLazyPagingItems()
 
-        viewModel.watchViewActions { action, _ ->
+        var selectedItems by remember {
+            mutableStateOf(emptyList<TransactionListModel.Data>())
+        }
+
+        fun unselectAllItems() {
+            selectedItems.forEach {
+                it.isSelected.value = false
+            }
+            selectedItems = emptyList()
+        }
+
+        viewModel.watchViewActions { action, baseLocalsStorage ->
             handleAction(
                 action = action,
-                lazyTransactionList = lazyTransactionList
+                baseLocalsStorage = baseLocalsStorage,
+                lazyTransactionList = lazyTransactionList,
+                onUnselectItems = ::unselectAllItems,
+                onCancelClick = viewModel::onCancelDeletingTransactionsClick,
+                onConfirmDeleteClick =  { key ->
+                    viewModel.onConfirmDeleteTransactionsClick(
+                        transactions = selectedItems,
+                        dialogKey = key
+                    )
+                }
             )
         }
 
         AutoRefreshList(lazyTransactionList)
 
-        val navController = LocalRootController.current.findRootController()
-        val modalController = navController.findModalController()
-
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-
-            var selectedItems by remember {
-                mutableStateOf(emptyList<TransactionListModel.Data>())
-            }
-
-            fun unselectAllItems() {
-                selectedItems.forEach {
-                    it.isSelected.value = false
-                }
-                selectedItems = emptyList()
-            }
-
-
             val selectedItemsCount by remember {
                 derivedStateOf { selectedItems.count() }
             }
 
             TransactionsAppBar(
                 selectedItemsCount = selectedItemsCount,
-                onCloseClick = { unselectAllItems() },
-                onDeleteClick = {
-                    modalController.present(DialogConfigurations.alert) { key ->
-                        DeleteDialog(
-                            titleEntity = if (selectedItemsCount > 1) {
-                                stringResource("transactions")
-                            } else {
-                                stringResource("transaction")
-                            },
-                            onCancelClick = {
-                                modalController.popBackStack(key, animate = false)
-                                unselectAllItems()
-                            },
-                            onDeleteClick = {
-                                viewModel.onDeleteTransactions(
-                                    transactions = selectedItems
-                                )
-                                modalController.popBackStack(key, animate = false)
-                                unselectAllItems()
-                            }
-                        )
-                    }
-                }
+                onCloseClick = viewModel::onCloseAppBarMenuClick,
+                onDeleteClick = { viewModel.onDeleteTransactionsClick(selectedItemsCount) }
             )
 
             val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
@@ -109,10 +85,7 @@ fun TransactionsScreen() {
                             selectedItems = selectedItems + transactionData
                         }
                     } else {
-                        navController.push(
-                            screen = MainNavigationTree.AddTransaction.name,
-                            params = transactionData.transaction
-                        )
+                        viewModel.onTransactionClick(transactionData.transaction)
                     }
                 },
                 onLongClick = {

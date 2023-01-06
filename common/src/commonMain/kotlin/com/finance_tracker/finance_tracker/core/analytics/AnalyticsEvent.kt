@@ -8,7 +8,7 @@ sealed class AnalyticsEvent(
     open class Open(
         screenName: String
     ) : AnalyticsEvent(
-        name = "${screenName}_Open"
+        name = "${screenName}_Screen_Open"
     )
 
     open class Click(
