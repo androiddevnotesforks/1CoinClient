@@ -100,6 +100,7 @@
     <string name="settings_main_currency">Main Currency</string>
     <string name="settings_categories">Category Settings</string>
     <string name="settings_telegram_community">Telegram Community</string>
+    <string name="settings_sending_usage_data">Sending usage data</string>
 
     <!-- Transactions -->
     <string name="transactions_today">Today</string>

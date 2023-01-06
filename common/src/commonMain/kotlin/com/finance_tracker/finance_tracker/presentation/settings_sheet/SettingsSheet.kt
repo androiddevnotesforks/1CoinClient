@@ -21,6 +21,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingSheetTelegramChatItem
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetCategorySettingsItem
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetMainCurrencyItem
+import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetSendingUsageDataItem
 
 @Composable
 fun SettingsSheet(dialogKey: String) {
@@ -67,6 +68,7 @@ fun SettingsSheet(dialogKey: String) {
                     viewModel.onCategorySettingsClick(dialogKey)
                 }
             )
+            SettingsSheetSendingUsageDataItem()
             SettingSheetTelegramChatItem(
                 onClick = viewModel::onTelegramCommunityClick
             )
