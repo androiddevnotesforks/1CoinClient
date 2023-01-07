@@ -5,8 +5,10 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.CornerRadius
@@ -30,12 +32,12 @@ fun CoinSwitch(
     gapBetweenThumbAndTrackEdge: Dp = 2.dp
 ) {
 
-    val switchON = remember { mutableStateOf(true) }
+    var switchOn by remember { mutableStateOf(true) }
 
     val thumbRadius = height / 2 - gapBetweenThumbAndTrackEdge
 
     val animatePosition = animateFloatAsState(
-        targetValue = if (switchON.value) {
+        targetValue = if (switchOn) {
             with(LocalDensity.current) {
                 (width - thumbRadius - gapBetweenThumbAndTrackEdge).toPx()
             }
@@ -53,20 +55,25 @@ fun CoinSwitch(
             .pointerInput(Unit) {
                 detectTapGestures(
                     onTap = {
-                        switchON.value = !switchON.value
+                        switchOn = !switchOn
                     }
                 )
             }
     ) {
 
+        val cornerRadiusPx = (height / 2).toPx()
+
         // Track
         drawRoundRect(
-            color = if (switchON.value) {
+            color = if (switchOn) {
                 checkedTrackColor
             } else {
                 uncheckedTrackColor
             },
-            cornerRadius = CornerRadius(x = 10.dp.toPx(), y = 10.dp.toPx()),
+            cornerRadius = CornerRadius(
+                x = cornerRadiusPx,
+                y = cornerRadiusPx
+            ),
         )
 
         // Thumb
