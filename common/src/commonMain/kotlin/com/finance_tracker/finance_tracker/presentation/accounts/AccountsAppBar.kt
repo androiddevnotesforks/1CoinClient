@@ -13,18 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.stringResource
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun AccountsAppBar(
+    onAddAccountClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val navController = LocalRootController.current.findRootController()
     CoinTopAppBar(
         modifier = modifier,
         title = {
@@ -37,9 +34,7 @@ fun AccountsAppBar(
             Row(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .clickable {
-                        navController.push(MainNavigationTree.AddAccount.name)
-                    }
+                    .clickable { onAddAccountClick.invoke() }
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {

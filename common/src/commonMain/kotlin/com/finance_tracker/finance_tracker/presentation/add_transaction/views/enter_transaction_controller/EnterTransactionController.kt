@@ -11,14 +11,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.EnterTransactionStep
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 private const val ContentAnimationDuration = 200
 
@@ -27,12 +23,13 @@ private const val ContentAnimationDuration = 200
 fun EnterTransactionController(
     accounts: List<Account>,
     categories: List<Category>,
-    selectedTransactionType: TransactionTypeTab,
     currentStep: EnterTransactionStep?,
     animationDirection: Int,
     modifier: Modifier = Modifier,
     onAccountSelect: (Account) -> Unit = {},
+    onAccountAdd: () -> Unit = {},
     onCategorySelect: (Category) -> Unit = {},
+    onCategoryAdd: () -> Unit = {},
     onKeyboardButtonClick: (KeyboardCommand) -> Unit = {}
 ) {
     Box(
@@ -40,7 +37,6 @@ fun EnterTransactionController(
             .background(CoinTheme.color.secondaryBackground)
             .fillMaxSize()
     ) {
-        val navController = LocalRootController.current
         AnimatedContent(
             targetState = currentStep,
             transitionSpec = {
@@ -58,21 +54,14 @@ fun EnterTransactionController(
                     AccountSelector(
                         accounts = accounts,
                         onAccountSelect = onAccountSelect,
-                        onAccountAdd = {
-                            navController.push(MainNavigationTree.AddAccount.name)
-                        }
+                        onAccountAdd = onAccountAdd
                     )
                 }
                 EnterTransactionStep.Category -> {
                     CategorySelector(
                         categories = categories,
                         onCategorySelect = onCategorySelect,
-                        onCategoryAdd = {
-                            navController.findRootController().push(
-                                screen = MainNavigationTree.AddCategory.name,
-                                params = selectedTransactionType
-                            )
-                        }
+                        onCategoryAdd = onCategoryAdd
                     )
                 }
                 EnterTransactionStep.Amount -> {

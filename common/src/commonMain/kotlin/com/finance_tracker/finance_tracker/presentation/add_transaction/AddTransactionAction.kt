@@ -1,6 +1,9 @@
 package com.finance_tracker.finance_tracker.presentation.add_transaction
 
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
+import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import ru.alexgladkov.odyssey.compose.extensions.push
 
 sealed interface AddTransactionAction {
 
@@ -8,6 +11,12 @@ sealed interface AddTransactionAction {
 
     data class DismissDialog(
         val dialogKey: String
+    ): AddTransactionAction
+
+    object OpenAddAccountScreen: AddTransactionAction
+
+    data class OpenAddCategoryScreen(
+        val type: TransactionTypeTab
     ): AddTransactionAction
 }
 
@@ -24,6 +33,15 @@ fun handleAction(
             navController.findModalController().popBackStack(
                 key = action.dialogKey,
                 animate = false
+            )
+        }
+        AddTransactionAction.OpenAddAccountScreen -> {
+            navController.push(MainNavigationTree.AddAccount.name)
+        }
+        is AddTransactionAction.OpenAddCategoryScreen -> {
+            navController.push(
+                screen = MainNavigationTree.AddCategory.name,
+                params = action.type
             )
         }
     }

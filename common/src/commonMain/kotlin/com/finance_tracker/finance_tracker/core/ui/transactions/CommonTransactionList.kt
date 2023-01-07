@@ -33,8 +33,9 @@ fun CommonTransactionsList(
     onLongClick: (TransactionListModel.Data) -> Unit = {}
 ) {
     if (transactions.itemCount == 0) {
-        EmptyTransactionsStub(
-            modifier = modifier
+        EmptyStub(
+            modifier = modifier,
+            text = stringResource("general_no_transactions")
         )
     } else {
         TransactionsList(

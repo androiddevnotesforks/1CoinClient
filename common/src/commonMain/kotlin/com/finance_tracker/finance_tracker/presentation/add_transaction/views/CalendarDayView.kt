@@ -37,7 +37,8 @@ import java.util.Date
 fun CalendarDayView(
     date: LocalDate,
     modifier: Modifier = Modifier,
-    onDateChange: (LocalDate) -> Unit = {}
+    onDateChange: (LocalDate) -> Unit = {},
+    onCalendarClick: () -> Unit = {}
 ) {
     Box(
         modifier = modifier.fillMaxWidth(),
@@ -62,7 +63,10 @@ fun CalendarDayView(
                 .background(CoinTheme.color.background)
                 .padding(horizontal = 12.dp, vertical = 8.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .clickable { calendarDialogController.show() }
+                .clickable {
+                    onCalendarClick.invoke()
+                    calendarDialogController.show()
+                }
                 .padding(horizontal = 12.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center

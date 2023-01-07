@@ -6,7 +6,7 @@ import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.financetracker.financetracker.data.AccountsEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
-import com.squareup.sqldelight.runtime.coroutines.mapToOne
+import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -52,12 +52,6 @@ class AccountsRepository(
         }
     }
 
-    suspend fun reduceAccountBalance(id: Long, value: Double) {
-        withContext(Dispatchers.IO) {
-            accountsEntityQueries.reduceBalanceByAccountId(value, id)
-        }
-    }
-
     suspend fun updateAccount(
         type: Account.Type,
         name: String,
@@ -81,8 +75,10 @@ class AccountsRepository(
     fun getAccountByIdFlow(id: Long): Flow<Account> {
         return accountsEntityQueries.getAccountById(id)
             .asFlow()
-            .mapToOne(Dispatchers.IO)
-            .map { it.accountToDomainModel() }
+            .mapToOneOrNull(Dispatchers.IO)
+            .map {
+                it?.accountToDomainModel() ?: Account.EMPTY
+            }
     }
 
     suspend fun deleteAccountById(id: Long) {

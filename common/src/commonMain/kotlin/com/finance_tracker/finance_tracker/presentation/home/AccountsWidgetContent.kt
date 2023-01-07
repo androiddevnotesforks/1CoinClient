@@ -36,7 +36,8 @@ fun AccountsWidgetContent(
         }
         item {
             AddAccountCard(
-                onClick = onAddAccountClick
+                onClick = onAddAccountClick,
+                fullSize = data.isEmpty()
             )
         }
     }

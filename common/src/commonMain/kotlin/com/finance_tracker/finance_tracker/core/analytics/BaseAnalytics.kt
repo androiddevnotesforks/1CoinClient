@@ -10,7 +10,7 @@ abstract class BaseAnalytics {
 
     fun trackClick(
         eventName: String,
-        properties: Map<String, Any> = mapOf()
+        properties: Map<String, Any?> = mapOf()
     ) {
         if (!isAnalyticsEnabled) return
 
@@ -18,6 +18,21 @@ abstract class BaseAnalytics {
             AnalyticsEvent.Click(
                 source = screenName,
                 clickName = eventName,
+                properties = properties
+            )
+        )
+    }
+
+    fun trackSelect(
+        eventName: String,
+        properties: Map<String, Any?> = mapOf()
+    ) {
+        if (!isAnalyticsEnabled) return
+
+        analyticsTracker.track(
+            AnalyticsEvent.Select(
+                source = screenName,
+                selectName = eventName,
                 properties = properties
             )
         )
@@ -38,12 +53,15 @@ abstract class BaseAnalytics {
         )
     }
 
-    fun trackScreenOpen() {
+    fun trackScreenOpen(
+        properties: Map<String, Any> = mapOf()
+    ) {
         if (!isAnalyticsEnabled) return
 
         analyticsTracker.track(
             AnalyticsEvent.Open(
-                screenName = screenName
+                screenName = screenName,
+                properties = properties
             )
         )
     }

@@ -15,51 +15,71 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
+import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
+import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.AccountCard
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
+import com.finance_tracker.finance_tracker.core.ui.transactions.EmptyStub
+import com.finance_tracker.finance_tracker.domain.models.Account
 
 @Composable
 fun AccountsScreen() {
     StoredViewModel<AccountsViewModel> { viewModel ->
 
+        viewModel.watchViewActions { action, baseLocalsStorage ->
+            handleAction(action, baseLocalsStorage)
+        }
+
         LaunchedEffect(Unit) {
             viewModel.onScreenComposed()
         }
 
-        val navController = LocalRootController.current.findRootController()
-
         Column {
-            AccountsAppBar()
+            AccountsAppBar(
+                onAddAccountClick = viewModel::onAddAccountClick
+            )
 
             val accounts by viewModel.accounts.collectAsState()
-            val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(count = 2),
-                modifier = Modifier
-                    .fillMaxHeight(),
-                contentPadding = PaddingValues(
-                    bottom = CoinPaddings.bottomNavigationBar + navigationBarsHeight,
-                    start = 16.dp,
-                    end = 16.dp,
-                    top = 16.dp
-                ),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(accounts) { account ->
-                    AccountCard(
-                        data = account,
-                        onClick = {
-                            navController.push(
-                                screen = MainNavigationTree.DetailAccount.name,
-                                params = account
-                            )
-                        }
-                    )
-                }
+            AccountsList(
+                accounts = accounts,
+                onAccountClick = viewModel::onAccountClick
+            )
+        }
+    }
+}
+
+@Composable
+private fun AccountsList(
+    accounts: List<Account>,
+    onAccountClick: (Account) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    if (accounts.isEmpty()) {
+        EmptyStub(
+            modifier = modifier
+                .navigationBarsPadding(),
+            text = stringResource("accounts_screen_empty")
+        )
+    } else {
+        val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(count = 2),
+            modifier = modifier.fillMaxHeight(),
+            contentPadding = PaddingValues(
+                bottom = CoinPaddings.bottomNavigationBar + navigationBarsHeight,
+                start = 16.dp,
+                end = 16.dp,
+                top = 16.dp
+            ),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(accounts) { account ->
+                AccountCard(
+                    data = account,
+                    onClick = { onAccountClick.invoke(account) }
+                )
             }
         }
     }
