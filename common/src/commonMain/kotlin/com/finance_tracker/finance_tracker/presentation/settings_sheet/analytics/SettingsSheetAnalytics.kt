@@ -7,9 +7,9 @@ class SettingsSheetAnalytics: BaseAnalytics() {
 
     override val screenName = "SettingsSheet"
 
-    fun trackMainCurrencySelected(currency: Currency) {
-        trackClick(
-            eventName = "MainCurrencySelected",
+    fun trackMainCurrencySelect(currency: Currency) {
+        trackSelect(
+            eventName = "MainCurrency",
             properties = mapOf(
                 "currency" to currency.code
             )
@@ -18,7 +18,7 @@ class SettingsSheetAnalytics: BaseAnalytics() {
 
     fun trackChooseCurrencyClick(currency: Currency) {
         trackClick(
-            eventName = "ChooseMainCurrency",
+            eventName = "MainCurrency",
             properties = mapOf(
                 "currency" to currency.code
             )

@@ -218,6 +218,6 @@ class AddTransactionAnalytics: BaseAnalytics() {
     }
 
     companion object {
-        private const val ActionIdKey = "transactionId"
+        private const val ActionIdKey = "actionId"
     }
 }

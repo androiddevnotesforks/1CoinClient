@@ -22,7 +22,7 @@ class SettingsSheetViewModel(
 
     fun onCurrencySelect(currency: Currency) {
         viewModelScope.launch {
-            settingsSheetAnalytics.trackMainCurrencySelected(currency)
+            settingsSheetAnalytics.trackMainCurrencySelect(currency)
             currenciesInteractor.savePrimaryCurrency(currency)
         }
     }
