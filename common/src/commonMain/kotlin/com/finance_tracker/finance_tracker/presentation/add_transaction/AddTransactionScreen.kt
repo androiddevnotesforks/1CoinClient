@@ -40,7 +40,7 @@ import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
-@Suppress("CyclomaticComplexMethod")
+@Suppress("CyclomaticComplexMethod", "LongMethod")
 fun AddTransactionScreen(
     transaction: Transaction?
 ) {
@@ -67,11 +67,11 @@ fun AddTransactionScreen(
             val amountDouble = amountText.toDoubleOrNull() ?: 0.0
             val isAddTransactionEnabled by viewModel.isAddTransactionEnabled.collectAsState()
             val transactionInsertionDate = viewModel.transactionInsertionDate
-            val onAddTransaction = {
+            val onAddTransaction = { fromButtonClick: Boolean ->
                 val account = accountData
                 if (account != null) {
                     viewModel.onAddTransactionClick(
-                        Transaction(
+                        transaction = Transaction(
                             type = selectedTransactionType.toTransactionType(),
                             account = account,
                             category = categoryData,
@@ -81,15 +81,16 @@ fun AddTransactionScreen(
                             ),
                             date = localDate.toDate(),
                             insertionDate = transactionInsertionDate
-                        )
+                        ),
+                        isFromButtonClick = fromButtonClick
                     )
                 }
             }
-            val onEditTransaction = {
+            val onEditTransaction = { fromButtonClick: Boolean ->
                 val account = accountData
                 if (account != null) {
                     viewModel.onEditTransactionClick(
-                        Transaction(
+                        transaction = Transaction(
                             type = selectedTransactionType.toTransactionType(),
                             account = account,
                             category = categoryData,
@@ -99,7 +100,8 @@ fun AddTransactionScreen(
                             ),
                             date = localDate.toDate(),
                             insertionDate = transactionInsertionDate
-                        )
+                        ),
+                        isFromButtonClick = fromButtonClick
                     )
                 }
             }
@@ -109,9 +111,9 @@ fun AddTransactionScreen(
                 onTransactionTypeSelect = viewModel::onTransactionTypeSelect,
                 onDoneClick = {
                     if (viewModel.isEditMode) {
-                        onEditTransaction.invoke()
+                        onEditTransaction.invoke(false)
                     } else {
-                        onAddTransaction.invoke()
+                        onAddTransaction.invoke(false)
                     }
                 }
             )
@@ -122,6 +124,7 @@ fun AddTransactionScreen(
                 modifier = Modifier
                     .weight(1f)
                     .clickable {
+                        viewModel.onCurrentStepSelect(EnterTransactionStep.Amount)
                         currentStep = EnterTransactionStep.Amount
                     },
                 currency = currency.symbol,
@@ -131,7 +134,8 @@ fun AddTransactionScreen(
 
             CalendarDayView(
                 date = localDate,
-                onDateChange = viewModel::onDateSelect
+                onDateChange = viewModel::onDateSelect,
+                onCalendarClick = viewModel::onCalendarClick
             )
 
             Surface(
@@ -162,7 +166,10 @@ fun AddTransactionScreen(
                             accountData = accountData,
                             categoryData = categoryData
                         ),
-                        onStepSelect = { currentStep = it }
+                        onStepSelect = {
+                            viewModel.onCurrentStepSelect(it)
+                            currentStep = it
+                        }
                     )
 
                     val categoriesFlow = when (selectedTransactionType) {
@@ -182,7 +189,6 @@ fun AddTransactionScreen(
                             },
                         accounts = accounts,
                         categories = categories,
-                        selectedTransactionType = selectedTransactionType,
                         currentStep = currentStep,
                         animationDirection = when {
                             currentStep == null || previousStepIndex == null -> 0
@@ -193,10 +199,12 @@ fun AddTransactionScreen(
                             viewModel.onAccountSelect(it)
                             currentStep = currentStep?.next()
                         },
+                        onAccountAdd = viewModel::onAccountAdd,
                         onCategorySelect = {
                             viewModel.onCategorySelect(it)
                             currentStep = currentStep?.next()
                         },
+                        onCategoryAdd = viewModel::onCategoryAdd,
                         onKeyboardButtonClick = { command ->
                             viewModel.onKeyboardButtonClick(command)
                         }
@@ -204,8 +212,8 @@ fun AddTransactionScreen(
 
                     ActionButtonsSection(
                         enabled = isAddTransactionEnabled,
-                        onAddClick = onAddTransaction,
-                        onEditClick = onEditTransaction,
+                        onAddClick = { onAddTransaction.invoke(true) },
+                        onEditClick = { onEditTransaction.invoke(true) },
                         isEditMode = viewModel.isEditMode,
                         onDeleteClick = {
                             modalNavController.present(DialogConfigurations.alert) { dialogKey ->

@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.presentation.add_transaction
 import com.finance_tracker.finance_tracker.core.common.toLocalDate
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionTypeTab
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
@@ -11,6 +12,7 @@ import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.Transaction
+import com.finance_tracker.finance_tracker.presentation.add_transaction.analytics.AddTransactionAnalytics
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.EnterTransactionStep
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.KeyboardCommand
 import com.financetracker.financetracker.data.AccountsEntityQueries
@@ -31,7 +33,8 @@ class AddTransactionViewModel(
     private val transactionsInteractor: TransactionsInteractor,
     private val accountsEntityQueries: AccountsEntityQueries,
     private val categoriesEntityQueries: CategoriesEntityQueries,
-    private val _transaction: Transaction
+    private val _transaction: Transaction,
+    private val addTransactionAnalytics: AddTransactionAnalytics
 ): BaseViewModel<AddTransactionAction>() {
 
     private val transaction: Transaction? = _transaction.takeIf { _transaction != Transaction.EMPTY }
@@ -83,6 +86,10 @@ class AddTransactionViewModel(
         MutableStateFlow(initialSelectedTransactionType)
     val selectedTransactionType: StateFlow<TransactionTypeTab> = _selectedTransactionType.asStateFlow()
 
+    init {
+        addTransactionAnalytics.trackAddTransactionScreenOpen()
+    }
+
     fun onScreenComposed() {
         loadAccounts()
         loadCategories()
@@ -104,25 +111,37 @@ class AddTransactionViewModel(
         }
     }
 
-    fun onAddTransactionClick(transaction: Transaction) {
+    fun onAddTransactionClick(
+        transaction: Transaction,
+        isFromButtonClick: Boolean
+    ) {
+        addTransactionAnalytics.trackAddClick(isFromButtonClick, transaction)
         viewModelScope.launch {
             transactionsInteractor.addTransaction(transaction)
             viewAction = AddTransactionAction.Close
         }
     }
 
-    fun onEditTransactionClick(transaction: Transaction) {
+    fun onEditTransactionClick(
+        transaction: Transaction,
+        isFromButtonClick: Boolean
+    ) {
         viewModelScope.launch {
             val oldTransaction = this@AddTransactionViewModel.transaction ?: return@launch
+            val newTransaction = transaction.copy(id = oldTransaction.id)
+
+            addTransactionAnalytics.trackEditClick(isFromButtonClick, oldTransaction, newTransaction)
+
             transactionsInteractor.updateTransaction(
                 oldTransaction = oldTransaction,
-                newTransaction = transaction.copy(id = oldTransaction.id)
+                newTransaction = newTransaction
             )
             viewAction = AddTransactionAction.Close
         }
     }
 
     fun onDeleteTransactionClick(transaction: Transaction, dialogKey: String) {
+        addTransactionAnalytics.trackDeleteTransactionClick(transaction)
         viewModelScope.launch {
             transactionsInteractor.deleteTransaction(transaction)
             viewAction = AddTransactionAction.DismissDialog(dialogKey)
@@ -133,6 +152,7 @@ class AddTransactionViewModel(
     fun onDuplicateTransactionClick(transaction: Transaction?) {
         if (transaction == null) return
 
+        addTransactionAnalytics.trackDuplicateTransactionClick(transaction)
         viewModelScope.launch {
             transactionsInteractor.addTransaction(
                 transaction = transaction.copy(id = null, insertionDate = Date())
@@ -142,15 +162,22 @@ class AddTransactionViewModel(
     }
 
     fun onAccountSelect(account: Account) {
+        addTransactionAnalytics.trackAccountSelect(account)
         _selectedAccount.value = account
     }
 
     fun onCategorySelect(category: Category) {
+        addTransactionAnalytics.trackCategorySelect(category)
         _selectedCategory.value = category
     }
 
     fun onDateSelect(date: LocalDate) {
+        addTransactionAnalytics.trackDateSelect(date)
         _selectedDate.value = date
+    }
+
+    fun onCalendarClick() {
+        addTransactionAnalytics.trackCalendarClick()
     }
 
     fun onKeyboardButtonClick(command: KeyboardCommand) {
@@ -193,6 +220,9 @@ class AddTransactionViewModel(
     }
 
     fun onTransactionTypeSelect(transactionTypeTab: TransactionTypeTab) {
+        addTransactionAnalytics.trackTransactionTypeSelect(
+            transactionType = transactionTypeTab.toTransactionType()
+        )
         _selectedTransactionType.value = transactionTypeTab
         resetSelectedCategory(transactionTypeTab)
     }
@@ -204,6 +234,35 @@ class AddTransactionViewModel(
         }
         if (selectedCategory.value !in currentCategories) {
             _selectedCategory.value = null
+        }
+    }
+
+    fun onAccountAdd() {
+        addTransactionAnalytics.trackAddAccountClick()
+        viewAction = AddTransactionAction.OpenAddAccountScreen
+    }
+
+    fun onCategoryAdd() {
+        val transactionTypeTab = selectedTransactionType.value
+        addTransactionAnalytics.trackAddCategoryClick(
+            transactionType = transactionTypeTab.toTransactionType()
+        )
+        viewAction = AddTransactionAction.OpenAddCategoryScreen(
+            type = transactionTypeTab
+        )
+    }
+
+    fun onCurrentStepSelect(step: EnterTransactionStep) {
+        when (step) {
+            EnterTransactionStep.Account -> {
+                addTransactionAnalytics.trackAccountClick()
+            }
+            EnterTransactionStep.Category -> {
+                addTransactionAnalytics.trackCategoryClick()
+            }
+            EnterTransactionStep.Amount -> {
+                addTransactionAnalytics.trackAmountClick(amountText.value)
+            }
         }
     }
 }
