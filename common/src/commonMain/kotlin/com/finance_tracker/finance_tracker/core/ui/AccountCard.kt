@@ -18,6 +18,7 @@ import com.finance_tracker.finance_tracker.presentation.common.formatters.Amount
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 
 val AccountCardHeight = 128.dp
+val AccountCardWidth = 160.dp
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -29,7 +30,7 @@ fun AccountCard(
     Card(
         modifier = modifier
             .size(
-                width = 160.dp,
+                width = AccountCardWidth,
                 height = AccountCardHeight
             ),
         backgroundColor = data.colorModel.color,

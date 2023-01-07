@@ -89,11 +89,13 @@
     <string name="home_topbar_text">Total Balance</string>
     <string name="home_my_accounts">My Accounts</string>
     <string name="home_last_transactions">Last Transactions</string>
+    <string name="home_add_account">Add Account</string>
 
     <!--Accounts -->
     <string name="accounts_screen_header">Accounts</string>
     <string name="accounts_screen_top_bar">Account Settings</string>
     <string name="accounts_screen_add_account">Add Account</string>
+    <string name="accounts_screen_empty">No accounts</string>
 
     <!-- Settings -->
     <string name="settings_top_text">Settings</string>
@@ -112,6 +114,7 @@
     <string name="category_settings">Category Settings</string>
     <string name="new_expense_category">New Expense Category</string>
     <string name="new_income_category">New Income Category</string>
+    <string name="categories_empty">No categories</string>
 
     <!-- New account -->
     <string name="new_account_title">New Account</string>
