@@ -33,6 +33,7 @@ fun <T : Any> LazyDragColumn(
     items: List<T>,
     onSwap: (Int, Int) -> Unit,
     contentPaddingValues: PaddingValues,
+    modifier: Modifier = Modifier,
     dragItemContent: @Composable (LazyItemScope.(index : Int, item: T) -> Unit) = { _, _ -> },
 ) {
     var overscrollJob by remember { mutableStateOf<Job?>(null) }
@@ -43,7 +44,7 @@ fun <T : Any> LazyDragColumn(
     }
 
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .pointerInput(dragDropState) {
                 detectDragGesturesAfterLongPress(
                     onDrag = { change, offset ->

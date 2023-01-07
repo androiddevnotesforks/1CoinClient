@@ -13,10 +13,13 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LazyDragColumn
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
+import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
+import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import com.finance_tracker.finance_tracker.core.ui.transactions.EmptyStub
 import com.finance_tracker.finance_tracker.domain.models.Category
 
 private val CategoriesListContentPadding = 16.dp
@@ -76,35 +79,44 @@ private fun CategoriesLazyColumn(
     categories: List<Category>,
     onSwap: (Int, Int) -> Unit,
     onCrossDeleteClick: (Category) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
-    LazyDragColumn(
-        items = categories,
-        onSwap = onSwap,
-        contentPaddingValues = PaddingValues(
-            top = CategoriesListContentPadding,
-            start = CategoriesListContentPadding,
-            end = CategoriesListContentPadding,
-            bottom = CategoriesListContentPadding + navigationBarsHeight
+    if (categories.isEmpty()) {
+        EmptyStub(
+            modifier = modifier.navigationBarsPadding(),
+            text = stringResource("categories_empty")
         )
-    ) { index, category ->
-        ItemWrapper(
-            isFirstItem = index == 0,
-            isLastItem = index == categories.lastIndex
-        ) {
-            CategoryCard(
-                data = category,
-                modifier = Modifier
-                    .padding(
-                        start = 16.dp,
-                        top = 8.dp,
-                        bottom = 8.dp,
-                        end = 16.dp
-                    ),
-                onCrossDeleteClick = {
-                    onCrossDeleteClick.invoke(category)
-                }
+    } else {
+        val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
+        LazyDragColumn(
+            modifier = modifier,
+            items = categories,
+            onSwap = onSwap,
+            contentPaddingValues = PaddingValues(
+                top = CategoriesListContentPadding,
+                start = CategoriesListContentPadding,
+                end = CategoriesListContentPadding,
+                bottom = CategoriesListContentPadding + navigationBarsHeight
             )
+        ) { index, category ->
+            ItemWrapper(
+                isFirstItem = index == 0,
+                isLastItem = index == categories.lastIndex
+            ) {
+                CategoryCard(
+                    data = category,
+                    modifier = Modifier
+                        .padding(
+                            start = 16.dp,
+                            top = 8.dp,
+                            bottom = 8.dp,
+                            end = 16.dp
+                        ),
+                    onCrossDeleteClick = {
+                        onCrossDeleteClick.invoke(category)
+                    }
+                )
+            }
         }
     }
 }
