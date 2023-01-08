@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-private const val MaxCategoryLength = 32
+private const val MaxCategoryLength = 28
 
 class AddCategoryViewModel(
     private val repository: CategoriesRepository,
