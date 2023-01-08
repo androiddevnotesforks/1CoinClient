@@ -56,9 +56,7 @@ fun SettingsSheetMainCurrencyItem(
             selectedCurrency = selectedCurrency,
             onCurrencySelect = onCurrencySelect,
             onCurrencyClick = onCurrencyClick,
-            modifier = Modifier
-                .align(Alignment.CenterVertically),
-            xOffset = 240.dp,
+            xOffset = 248.dp,
             yOffset = 12.dp
         )
     }
