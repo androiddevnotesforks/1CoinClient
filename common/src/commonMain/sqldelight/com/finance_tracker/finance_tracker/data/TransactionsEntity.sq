@@ -37,7 +37,10 @@ SELECT *
 FROM TransactionsEntity
 INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
 INNER JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
-WHERE TransactionsEntity.type = :transactionType AND strftime('%m', TransactionsEntity.date) = :monthNumber
+WHERE
+    TransactionsEntity.type = :transactionType AND
+    strftime('%m', TransactionsEntity.date) = :monthNumber AND
+    strftime('%Y', TransactionsEntity.date) = :year
 ORDER BY
     date DESC,
     insertionDate DESC;

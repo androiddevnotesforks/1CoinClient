@@ -3,6 +3,8 @@ package com.finance_tracker.finance_tracker.data.repositories
 import com.finance_tracker.finance_tracker.data.settings.AnalyticsSettings
 import com.finance_tracker.finance_tracker.data.settings.UserSettings
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 
 class UserRepository(
@@ -26,5 +28,10 @@ class UserRepository(
         withContext(Dispatchers.IO) {
             analyticsSettings.saveIsAnalyticsEnabled(enabled)
         }
+    }
+
+    fun isAnalyticsEnabledFlow(): Flow<Boolean> {
+        return analyticsSettings.isAnalyticsEnabledFlow()
+            .flowOn(Dispatchers.IO)
     }
 }

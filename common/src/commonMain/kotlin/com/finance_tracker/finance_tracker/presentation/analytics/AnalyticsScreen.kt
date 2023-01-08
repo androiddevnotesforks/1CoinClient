@@ -87,9 +87,9 @@ fun AnalyticsScreen() {
 
                     TxsByCategoryChartBlock(
                         isLoading = isLoading,
-                        selectedMonth = selectedMonth,
+                        selectedYearMonth = selectedMonth,
                         monthTransactionsByCategory = monthTransactionsByCategory,
-                        onMonthSelect = viewModel::onMonthSelect
+                        onYearMonthSelect = viewModel::onYearMonthSelect
                     )
                 }
 

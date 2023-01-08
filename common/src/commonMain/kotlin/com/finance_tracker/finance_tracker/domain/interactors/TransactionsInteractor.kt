@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.domain.interactors
 import app.cash.paging.PagingData
 import app.cash.paging.insertSeparators
 import app.cash.paging.map
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.theme.ChartConfig
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
@@ -19,7 +20,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.Month
 import java.util.Calendar
 import java.util.Date
 
@@ -113,12 +113,12 @@ class TransactionsInteractor(
     @Suppress("MagicNumber")
     suspend fun getTransactions(
         transactionType: TransactionType,
-        month: Month,
+        yearMonth: YearMonth,
         primaryCurrency: Currency,
         currencyRates: CurrencyRates
     ): TxsByCategoryChart {
         return withContext(Dispatchers.Default) {
-            val transactions = transactionsRepository.getTransactions(transactionType, month)
+            val transactions = transactionsRepository.getTransactions(transactionType, yearMonth)
             val totalAmount = transactions.sumOf {
                 it.amount.convertToCurrency(currencyRates, primaryCurrency)
             }

@@ -22,7 +22,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
-private val DateFormatter = SimpleDateFormat("dd.MM")
+private val ShortDateFormatter = SimpleDateFormat("dd.MM")
+private val FullDateFormatter = SimpleDateFormat("dd.MM.yyyy")
 
 @Composable
 fun CommonTransactionsList(
@@ -97,8 +98,11 @@ private fun DayTotalHeader(
             dayTotalModel.date.isYesterday() -> {
                 stringResource("transactions_yesterday")
             }
+            dayTotalModel.date.isCurrentYear() -> {
+                ShortDateFormatter.format(dayTotalModel.date)
+            }
             else -> {
-                DateFormatter.format(dayTotalModel.date)
+                FullDateFormatter.format(dayTotalModel.date)
             }
         }
         Text(
@@ -129,4 +133,14 @@ private fun Date.isYesterday(): Boolean {
     val currentDateString = DateFormatType.CommonDateFormat.format(this)
     val previousDateString = DateFormatType.CommonDateFormat.format(previousDate)
     return previousDateString == currentDateString
+}
+
+private fun Date.isCurrentYear(): Boolean {
+    val nowCalendar = Calendar.getInstance().apply { time = Date() }
+    val currentYear = nowCalendar.get(Calendar.YEAR)
+
+    val dateCalendar = Calendar.getInstance().apply { time = this@isCurrentYear }
+    val dateYear = dateCalendar.get(Calendar.YEAR)
+
+    return currentYear == dateYear
 }

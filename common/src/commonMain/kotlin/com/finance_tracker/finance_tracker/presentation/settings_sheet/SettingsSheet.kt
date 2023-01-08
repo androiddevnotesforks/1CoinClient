@@ -68,8 +68,11 @@ fun SettingsSheet(dialogKey: String) {
                     viewModel.onCategorySettingsClick(dialogKey)
                 }
             )
+            val isSendingUsageDataEnabled by viewModel.isSendingUsageDataEnabled.collectAsState()
             SettingsSheetSendingUsageDataItem(
-                onSendEnableChange = viewModel::onSendingUsageDataClick
+                isEnabled = isSendingUsageDataEnabled,
+                onChange = viewModel::onSendingUsageDataClick,
+                onInfoClick = viewModel::onSendingUsageDataInfoClick
             )
             SettingSheetTelegramChatItem(
                 onClick = viewModel::onTelegramCommunityClick

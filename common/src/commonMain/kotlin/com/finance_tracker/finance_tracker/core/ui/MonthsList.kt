@@ -11,31 +11,39 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.date.currentMonth
+import com.finance_tracker.finance_tracker.core.common.date.currentYearMonth
 import com.finance_tracker.finance_tracker.core.common.date.localizedName
+import com.finance_tracker.finance_tracker.core.common.date.minusMonth
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import kotlinx.datetime.Clock
-import kotlinx.datetime.Month
 
 @Composable
 fun MonthsList(
     modifier: Modifier = Modifier,
-    selectedMonth: Month = Clock.System.currentMonth(),
-    lastMonth: Month = Clock.System.currentMonth(),
+    selectedMonth: YearMonth = Clock.System.currentYearMonth(),
+    lastMonth: YearMonth = Clock.System.currentYearMonth(),
     monthCount: Int = 12,
-    onMonthSelect: (Month) -> Unit = {}
+    onYearMonthSelect: (YearMonth) -> Unit = {}
 ) {
     require(monthCount > 0) { "monthCount must be more than 0" }
 
-    val months = (monthCount - 1 downTo 0).map { index ->
-        lastMonth.minus(index.toLong())
+    val yearMonths by remember(monthCount) {
+        derivedStateOf {
+            (monthCount - 1 downTo 0).map { index ->
+                lastMonth.minusMonth(index)
+            }
+        }
     }
     val scrollState = rememberLazyListState()
     LaunchedEffect(Unit) {
-        scrollState.scrollToItem(months.lastIndex)
+        scrollState.scrollToItem(yearMonths.lastIndex)
     }
     LazyRow(
         modifier = modifier,
@@ -46,12 +54,12 @@ fun MonthsList(
         ),
         state = scrollState
     ) {
-        items(months) { month ->
+        items(yearMonths) { yearMonth ->
             Button(
                 modifier = Modifier
                     .padding(),
-                enabled = selectedMonth != month,
-                onClick = { onMonthSelect.invoke(month) },
+                enabled = selectedMonth != yearMonth,
+                onClick = { onYearMonthSelect.invoke(yearMonth) },
                 elevation = ButtonDefaults.elevation(
                     defaultElevation = 0.dp,
                     pressedElevation = 0.dp,
@@ -68,7 +76,7 @@ fun MonthsList(
                 )
             ) {
                 Text(
-                    text = month.localizedName(),
+                    text = yearMonth.month.localizedName(),
                     style = CoinTheme.typography.body2_medium
                 )
             }

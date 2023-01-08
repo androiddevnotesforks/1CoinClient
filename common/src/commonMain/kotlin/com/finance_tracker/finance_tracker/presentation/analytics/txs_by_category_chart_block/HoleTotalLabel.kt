@@ -16,23 +16,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.date.localizedName
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
-import kotlinx.datetime.Month
 
 sealed class HoleTotalLabelData {
 
-    abstract val month: Month
+    abstract val yearMonth: YearMonth
 
     data class Content(
-        override val month: Month,
+        override val yearMonth: YearMonth,
         val amount: Amount
     ): HoleTotalLabelData()
 
     data class Loading(
-        override val month: Month
+        override val yearMonth: YearMonth
     ): HoleTotalLabelData()
 }
 
@@ -65,7 +65,7 @@ fun HoleTotalLabel(
             )
         }
         Text(
-            text = data.month.localizedName(),
+            text = data.yearMonth.month.localizedName(),
             color = CoinTheme.color.secondary,
             style = CoinTheme.typography.subtitle2_medium.staticTextSize()
         )

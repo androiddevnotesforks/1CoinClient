@@ -25,12 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.MonthsList
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
 import com.finance_tracker.finance_tracker.presentation.analytics.views.NoTransactionsStub
-import kotlinx.datetime.Month
 
 private const val ExpandAnimationDuration = 500
 
@@ -39,9 +39,9 @@ private const val ExpandAnimationDuration = 500
 fun TxsByCategoryChartBlock(
     isLoading: Boolean,
     monthTransactionsByCategory: TxsByCategoryChart?,
-    selectedMonth: Month,
+    selectedYearMonth: YearMonth,
     modifier: Modifier = Modifier,
-    onMonthSelect: (Month) -> Unit = {}
+    onYearMonthSelect: (YearMonth) -> Unit = {}
 ) {
     val mainTxsByCategoryPieces = monthTransactionsByCategory?.mainPieces.orEmpty()
 
@@ -56,25 +56,25 @@ fun TxsByCategoryChartBlock(
                 top = 8.dp,
                 bottom = 24.dp
             ),
-            selectedMonth = selectedMonth,
-            onMonthSelect = onMonthSelect
+            selectedMonth = selectedYearMonth,
+            onYearMonthSelect = onYearMonthSelect
         )
 
         when {
             isLoading -> {
                 LoadingPieChart(
-                    selectedMonth = selectedMonth
+                    selectedYearMonth = selectedYearMonth
                 )
             }
             !isLoading && monthTransactionsByCategory != null && mainTxsByCategoryPieces.isNotEmpty() -> {
                 ContentPieChartLayout(
                     monthTransactionsByCategory = monthTransactionsByCategory,
-                    selectedMonth = selectedMonth
+                    selectedYearMonth = selectedYearMonth
                 )
             }
             else -> {
                 EmptyPieChartLayout(
-                    selectedMonth = selectedMonth
+                    selectedYearMonth = selectedYearMonth
                 )
             }
         }
@@ -84,7 +84,7 @@ fun TxsByCategoryChartBlock(
 @Composable
 private fun ContentPieChartLayout(
     monthTransactionsByCategory: TxsByCategoryChart,
-    selectedMonth: Month,
+    selectedYearMonth: YearMonth,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -93,7 +93,7 @@ private fun ContentPieChartLayout(
     ) {
         MainTxsByCategoryChart(
             monthTransactionsByCategory = monthTransactionsByCategory,
-            selectedMonth = selectedMonth
+            selectedYearMonth = selectedYearMonth
         )
 
         // Opening Animation
@@ -141,7 +141,7 @@ private fun ContentPieChartLayout(
 
 @Composable
 private fun EmptyPieChartLayout(
-    selectedMonth: Month,
+    selectedYearMonth: YearMonth,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -149,7 +149,7 @@ private fun EmptyPieChartLayout(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         EmptyPieChart(
-            selectedMonth = selectedMonth
+            selectedYearMonth = selectedYearMonth
         )
 
         NoTransactionsStub(

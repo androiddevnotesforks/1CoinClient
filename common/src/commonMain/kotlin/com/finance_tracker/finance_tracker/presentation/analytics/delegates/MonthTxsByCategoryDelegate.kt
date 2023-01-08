@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.analytics.delegates
 
-import com.finance_tracker.finance_tracker.core.common.date.currentMonth
+import com.finance_tracker.finance_tracker.core.common.date.currentYearMonth
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
@@ -18,7 +19,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.datetime.Clock
-import kotlinx.datetime.Month
 import kotlin.coroutines.CoroutineContext
 
 class MonthTxsByCategoryDelegate(
@@ -38,8 +38,8 @@ class MonthTxsByCategoryDelegate(
     private val _monthTransactionsByCategory = MutableStateFlow<TxsByCategoryChart?>(null)
     val monthTransactionsByCategory = _monthTransactionsByCategory.asStateFlow()
 
-    private val _selectedMonth = MutableStateFlow(Clock.System.currentMonth())
-    val selectedMonth = _selectedMonth.asStateFlow()
+    private val _selectedYearMonth = MutableStateFlow(Clock.System.currentYearMonth())
+    val selectedMonth = _selectedYearMonth.asStateFlow()
 
     private val _isLoadingMonthTxsByCategory = MutableStateFlow(false)
     val isLoadingMonthTxsByCategory = _isLoadingMonthTxsByCategory.asStateFlow()
@@ -55,17 +55,17 @@ class MonthTxsByCategoryDelegate(
     fun updateMonthTxsByCategory() {
         loadMonthTxsByCategory(
             transactionType = selectedTransactionTypeFlow.value,
-            month = selectedMonth.value
+            yearMonth = selectedMonth.value
         )
     }
 
-    private fun loadMonthTxsByCategory(transactionType: TransactionType, month: Month) {
+    private fun loadMonthTxsByCategory(transactionType: TransactionType, yearMonth: YearMonth) {
         loadMonthTxsByCategoryJob?.cancel()
         loadMonthTxsByCategoryJob = primaryCurrency.combine(currencyRatesFlow) { currency, currencyRates ->
             _isLoadingMonthTxsByCategory.value = true
             _monthTransactionsByCategory.value = transactionsInteractor.getTransactions(
                 transactionType = transactionType,
-                month = month,
+                yearMonth = yearMonth,
                 primaryCurrency = currency,
                 currencyRates = currencyRates
             )
@@ -79,18 +79,18 @@ class MonthTxsByCategoryDelegate(
         }.launchIn(this)
     }
 
-    fun onMonthSelect(month: Month) {
-        _selectedMonth.value = month
+    fun onMonthSelect(yearMonth: YearMonth) {
+        _selectedYearMonth.value = yearMonth
         loadMonthTxsByCategory(
             transactionType = selectedTransactionTypeFlow.value,
-            month = month
+            yearMonth = yearMonth
         )
     }
 
     fun onTransactionTypeSelect(transactionType: TransactionType) {
         loadMonthTxsByCategory(
             transactionType = transactionType,
-            month = selectedMonth.value
+            yearMonth = selectedMonth.value
         )
     }
 

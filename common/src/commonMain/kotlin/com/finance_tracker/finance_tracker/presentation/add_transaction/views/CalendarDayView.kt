@@ -13,6 +13,7 @@ import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -80,13 +81,18 @@ fun CalendarDayView(
                     tint = LocalContentColor.current
                 )
 
-                val formattedDate = date.format(DateTimeFormatter.ofPattern("dd.MM"))
+                val shortFormattedDate by remember(date) {
+                    derivedStateOf {
+                        date.format(DateTimeFormatter.ofPattern("dd.MM"))
+                    }
+                }
                 Text(
                     modifier = Modifier.padding(start = 4.dp),
                     text = when {
-                        date.isToday() -> "${stringResource("add_transaction_today")}, $formattedDate"
-                        date.isYesterday() -> "${stringResource("add_transaction_yesterday")}, $formattedDate"
-                        else -> formattedDate
+                        date.isToday() -> "${stringResource("add_transaction_today")}, $shortFormattedDate"
+                        date.isYesterday() -> "${stringResource("add_transaction_yesterday")}, $shortFormattedDate"
+                        date.isCurrentYear() -> shortFormattedDate
+                        else -> date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
                     },
                     style = CoinTheme.typography.subtitle1,
                     color = LocalContentColor.current
@@ -108,4 +114,9 @@ private fun LocalDate.isYesterday(): Boolean {
     }
     return yesterdayCalendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) &&
             yesterdayCalendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR)
+}
+
+private fun LocalDate.isCurrentYear(): Boolean {
+    val todayDate = LocalDate.now()
+    return todayDate.year == year
 }
