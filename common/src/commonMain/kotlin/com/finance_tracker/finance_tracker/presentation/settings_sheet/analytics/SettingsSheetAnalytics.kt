@@ -33,7 +33,16 @@ class SettingsSheetAnalytics: BaseAnalytics() {
         trackClick(eventName = "TelegramCommunity")
     }
 
-    fun trackSendingUsageDataSwitchClick() {
-        trackClick(eventName = "SendingUsageData")
+    fun trackSendingUsageDataSwitchClick(isEnabled: Boolean) {
+        trackSelect(
+            eventName = "SendingUsageData",
+            properties = mapOf(
+                "is_enabled" to isEnabled
+            )
+        )
+    }
+
+    fun trackSendingUsageDataInfoClick() {
+        trackClick(eventName = "SendingUsageDataInfo")
     }
 }

@@ -10,9 +10,8 @@ import com.finance_tracker.finance_tracker.data.settings.AnalyticsSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlin.coroutines.CoroutineContext
 
 class AndroidAnalyticsTracker(
@@ -23,11 +22,9 @@ class AndroidAnalyticsTracker(
     private lateinit var amplitude: Amplitude
 
     override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
-    private val isAnalyticsEnabledFlow: StateFlow<Boolean> = analyticsSettings.isAnalyticsEnabledFlow()
-        .stateIn(this, SharingStarted.Lazily, initialValue = false)
+    private val isAnalyticsEnabledFlow = analyticsSettings.isAnalyticsEnabledFlow()
 
-    private val isAnalyticsDisabled: Boolean
-        get() = !isAnalyticsEnabledFlow.value
+    private var isAnalyticsDisabled = true
 
     override fun init(context: Context) {
         amplitude = Amplitude(
@@ -43,6 +40,9 @@ class AndroidAnalyticsTracker(
                 Logger.LogMode.OFF
             }
         }
+        isAnalyticsEnabledFlow
+            .onEach { isEnabled -> isAnalyticsDisabled = !isEnabled }
+            .launchIn(this)
     }
 
     override fun setUserProperty(property: String, value: Any) {

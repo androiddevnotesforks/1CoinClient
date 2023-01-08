@@ -2,6 +2,7 @@ package com.finance_tracker.finance_tracker.domain.interactors
 
 import com.benasher44.uuid.Uuid
 import com.finance_tracker.finance_tracker.data.repositories.UserRepository
+import kotlinx.coroutines.flow.Flow
 
 class UserInteractor(
     private val userRepository: UserRepository
@@ -18,5 +19,9 @@ class UserInteractor(
 
     suspend fun saveIsAnalyticsEnabled(enabled: Boolean) {
         userRepository.saveIsAnalyticsEnabled(enabled)
+    }
+
+    fun isAnalyticsEnabledFlow(): Flow<Boolean> {
+        return userRepository.isAnalyticsEnabledFlow()
     }
 }

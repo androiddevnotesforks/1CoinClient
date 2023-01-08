@@ -5,10 +5,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.CornerRadius
@@ -22,6 +18,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
 fun CoinSwitch(
+    value: Boolean,
     modifier: Modifier = Modifier,
     scale: Float = 1f,
     width: Dp = 38.dp,
@@ -29,15 +26,13 @@ fun CoinSwitch(
     checkedTrackColor: Color = CoinTheme.color.primary,
     uncheckedTrackColor: Color = CoinTheme.color.dividers,
     thumbColor: Color = CoinTheme.color.background,
-    gapBetweenThumbAndTrackEdge: Dp = 2.dp
+    gapBetweenThumbAndTrackEdge: Dp = 2.dp,
+    onChange: (Boolean) -> Unit = {}
 ) {
-
-    var switchOn by remember { mutableStateOf(true) }
-
     val thumbRadius = height / 2 - gapBetweenThumbAndTrackEdge
 
     val animatePosition = animateFloatAsState(
-        targetValue = if (switchOn) {
+        targetValue = if (value) {
             with(LocalDensity.current) {
                 (width - thumbRadius - gapBetweenThumbAndTrackEdge).toPx()
             }
@@ -52,11 +47,9 @@ fun CoinSwitch(
         modifier = modifier
             .size(width = width, height = height)
             .scale(scale = scale)
-            .pointerInput(Unit) {
+            .pointerInput(value) {
                 detectTapGestures(
-                    onTap = {
-                        switchOn = !switchOn
-                    }
+                    onTap = { onChange(!value) }
                 )
             }
     ) {
@@ -65,7 +58,7 @@ fun CoinSwitch(
 
         // Track
         drawRoundRect(
-            color = if (switchOn) {
+            color = if (value) {
                 checkedTrackColor
             } else {
                 uncheckedTrackColor

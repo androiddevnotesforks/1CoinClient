@@ -2,6 +2,7 @@ package com.finance_tracker.finance_tracker.presentation.settings_sheet
 
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.analytics.SettingsSheetAnalytics
 import kotlinx.coroutines.flow.SharingStarted
@@ -10,15 +11,18 @@ import kotlinx.coroutines.launch
 
 class SettingsSheetViewModel(
     private val currenciesInteractor: CurrenciesInteractor,
-    private val settingsSheetAnalytics: SettingsSheetAnalytics
+    private val userInteractor: UserInteractor,
+    private val settingsSheetAnalytics: SettingsSheetAnalytics,
 ): BaseViewModel<SettingsSheetAction>() {
+
+    val chosenCurrency = currenciesInteractor.getPrimaryCurrencyFlow()
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = Currency.default)
+    val isSendingUsageDataEnabled = userInteractor.isAnalyticsEnabledFlow()
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = false)
 
     init {
         settingsSheetAnalytics.trackScreenOpen()
     }
-
-    val chosenCurrency = currenciesInteractor.getPrimaryCurrencyFlow()
-        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = Currency.default)
 
     fun onCurrencySelect(currency: Currency) {
         viewModelScope.launch {
@@ -27,9 +31,16 @@ class SettingsSheetViewModel(
         }
     }
 
-    @Suppress("UnusedPrivateMember")
     fun onSendingUsageDataClick(isEnabled: Boolean) {
-        settingsSheetAnalytics.trackSendingUsageDataSwitchClick()
+        settingsSheetAnalytics.trackSendingUsageDataSwitchClick(isEnabled)
+        viewModelScope.launch {
+            userInteractor.saveIsAnalyticsEnabled(isEnabled)
+        }
+    }
+
+    fun onSendingUsageDataInfoClick() {
+        settingsSheetAnalytics.trackSendingUsageDataInfoClick()
+        viewAction = SettingsSheetAction.ShowUsageDataInfoDialog
     }
 
     fun onCategorySettingsClick(dialogKey: String) {
