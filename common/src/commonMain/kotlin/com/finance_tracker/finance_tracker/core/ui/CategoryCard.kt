@@ -22,11 +22,13 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 fun CategoryCard(
     data: Category,
     onCrossDeleteClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .clickable { onClick.invoke() }
     ) {
         Icon(
             painter = rememberVectorPainter("ic_three_stripes"),

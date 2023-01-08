@@ -64,4 +64,10 @@ class CategoriesRepository(
             .mapToOneOrNull(Dispatchers.IO)
             .map { it?.toInt() ?: 0 }
     }
+
+    suspend fun updateCategory(id: Long, name: String, iconId: String) {
+        withContext(Dispatchers.IO) {
+            categoriesEntityQueries.updateAccountById(name = name, icon = iconId, id = id)
+        }
+    }
 }

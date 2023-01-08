@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.add_category.analytics
 
 import com.finance_tracker.finance_tracker.core.analytics.BaseAnalytics
-import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import com.finance_tracker.finance_tracker.domain.models.TransactionType
 
 class AddCategoryAnalytics: BaseAnalytics() {
 
@@ -11,15 +11,20 @@ class AddCategoryAnalytics: BaseAnalytics() {
         trackClick(eventName = "Back")
     }
 
-    fun onAddCategoryClick(
-        transactionTypeTab: TransactionTypeTab,
+    fun onAddOrEditCategoryClick(
+        transactionType: TransactionType,
         iconName: String,
-        categoryName: String
+        categoryName: String,
+        isEdit: Boolean,
     ) {
         trackClick(
-            eventName = "Add",
+            eventName = if (isEdit) {
+                "Edit"
+            } else {
+                "Add"
+            },
             properties = mapOf(
-                "type" to transactionTypeTab.analyticsName,
+                "type" to transactionType.analyticsName,
                 "icon_name" to iconName,
                 "category_name" to categoryName
             )

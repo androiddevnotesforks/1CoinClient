@@ -6,7 +6,10 @@ import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsSto
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.domain.models.Category
+import com.finance_tracker.finance_tracker.domain.models.TransactionType
+import com.finance_tracker.finance_tracker.presentation.add_category.AddCategoryScreenParams
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.extensions.push
 
@@ -14,6 +17,11 @@ sealed interface CategorySettingsAction {
     data class OpenAddCategoryScreen(
         val selectedTransactionTypeTab: TransactionTypeTab
     ): CategorySettingsAction
+
+    data class OpenEditCategoryScreen(
+        val transactionType: TransactionType,
+        val category: Category
+    ) : CategorySettingsAction
     object CloseScreen: CategorySettingsAction
     data class OpenDeleteDialog(val category: Category): CategorySettingsAction
     data class DismissDialog(val dialogKey: String): CategorySettingsAction
@@ -23,7 +31,7 @@ fun handleAction(
     action: CategorySettingsAction,
     baseLocalsStorage: BaseLocalsStorage,
     onCancelClick: (category: Category, dialogKey: String) -> Unit,
-    onConfirmDeleteClick: (category: Category, dialogKey: String) -> Unit
+    onConfirmDeleteClick: (category: Category, dialogKey: String) -> Unit,
 ) {
     val rootController = baseLocalsStorage.rootController
     when (action) {
@@ -31,7 +39,9 @@ fun handleAction(
             val navController = rootController.findRootController()
             navController.push(
                 MainNavigationTree.AddCategory.name,
-                params = action.selectedTransactionTypeTab
+                params = AddCategoryScreenParams(
+                    transactionType = action.selectedTransactionTypeTab.toTransactionType()
+                )
             )
         }
         CategorySettingsAction.CloseScreen -> {
@@ -51,6 +61,16 @@ fun handleAction(
         is CategorySettingsAction.DismissDialog -> {
             val modalNavController = rootController.findModalController()
             modalNavController.popBackStack(action.dialogKey, animate = false)
+        }
+        is CategorySettingsAction.OpenEditCategoryScreen -> {
+            val navController = rootController.findRootController()
+            navController.push(
+                screen = MainNavigationTree.AddCategory.name,
+                params = AddCategoryScreenParams(
+                    transactionType = action.transactionType,
+                    category = action.category
+                )
+            )
         }
     }
 }

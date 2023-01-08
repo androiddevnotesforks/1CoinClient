@@ -2,11 +2,11 @@ package com.finance_tracker.finance_tracker.core.navigation.main
 
 import com.finance_tracker.finance_tracker.core.navigation.tabs.tabsNavigationGraph
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.presentation.add_account.AddAccountScreen
 import com.finance_tracker.finance_tracker.presentation.add_category.AddCategoryScreen
+import com.finance_tracker.finance_tracker.presentation.add_category.AddCategoryScreenParams
 import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionScreen
 import com.finance_tracker.finance_tracker.presentation.category_settings.CategorySettingsScreen
 import com.finance_tracker.finance_tracker.presentation.detail_account.DetailAccountScreen
@@ -37,9 +37,11 @@ fun RootComposeBuilder.navigationGraph() {
         }
     }
 
-    screen(MainNavigationTree.AddCategory.name) {
+    screen(MainNavigationTree.AddCategory.name) { params ->
         CoinTheme {
-            AddCategoryScreen(transactionTypeTab = it as TransactionTypeTab)
+            AddCategoryScreen(
+                addCategoryScreenParams = params as AddCategoryScreenParams
+            )
         }
     }
 

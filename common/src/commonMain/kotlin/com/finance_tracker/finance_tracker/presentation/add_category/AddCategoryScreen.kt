@@ -17,17 +17,25 @@ import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
-import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import com.finance_tracker.finance_tracker.domain.models.Category
+import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.add_category.views.AddCategoryAppBar
 import com.finance_tracker.finance_tracker.presentation.add_category.views.ChooseIconButton
 import org.koin.core.parameter.parametersOf
 
 private const val MinCategoryNameLength = 2
 
+data class AddCategoryScreenParams(
+    val transactionType: TransactionType,
+    val category: Category? = null
+)
+
 @Composable
-fun AddCategoryScreen(transactionTypeTab: TransactionTypeTab) {
+fun AddCategoryScreen(
+    addCategoryScreenParams: AddCategoryScreenParams
+) {
     StoredViewModel<AddCategoryViewModel>(
-        parameters = { parametersOf(transactionTypeTab) }
+        parameters = { parametersOf(addCategoryScreenParams) }
     ) { viewModel ->
 
         viewModel.watchViewActions { action, baseLocalsStorage ->
@@ -40,7 +48,9 @@ fun AddCategoryScreen(transactionTypeTab: TransactionTypeTab) {
         Column(modifier = Modifier.fillMaxSize()) {
             AddCategoryAppBar(
                 onBackClick = viewModel::onBackClick,
-                textValue = if (transactionTypeTab == TransactionTypeTab.Expense) {
+                textValue = if (
+                    addCategoryScreenParams.transactionType == TransactionType.Expense
+                ) {
                     "new_expense_category"
                 } else {
                     "new_income_category"
@@ -78,7 +88,7 @@ fun AddCategoryScreen(transactionTypeTab: TransactionTypeTab) {
                         ),
                     onValueChange = {
                         viewModel.setCategoryName(it)
-                    }
+                    },
                 )
             }
 
@@ -90,9 +100,13 @@ fun AddCategoryScreen(transactionTypeTab: TransactionTypeTab) {
                         start = 16.dp,
                         end = 16.dp,
                     ),
-                text = stringResource("new_account_btn_add"),
+                text = if (viewModel.isEditMode) {
+                    stringResource("edit_account_btn_save")
+                } else {
+                    stringResource("new_account_btn_add")
+                },
                 enable = newCategoryName.length >= MinCategoryNameLength,
-                onClick = viewModel::addCategory
+                onClick = viewModel::addOrUpdateCategory
             )
         }
     }

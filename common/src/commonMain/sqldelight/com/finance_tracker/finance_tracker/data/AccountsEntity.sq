@@ -43,7 +43,6 @@ UPDATE AccountsEntity
 SET balance = balance - :balance
 WHERE id = :id;
 
-
 updateAccountById:
 UPDATE AccountsEntity
 SET type = :type, name = :name, balance = :balance, colorId = :colorId, currency = :currency
