@@ -62,4 +62,13 @@ class CategorySettingsAnalytics: BaseAnalytics() {
             )
         )
     }
+
+    fun trackCategoryClick(category: Category) {
+        trackClick(
+            eventName = "Category",
+            properties = mapOf(
+                "name" to category.name
+            )
+        )
+    }
 }

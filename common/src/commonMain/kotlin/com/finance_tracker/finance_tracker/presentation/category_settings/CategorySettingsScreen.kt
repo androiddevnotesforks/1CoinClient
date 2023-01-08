@@ -59,14 +59,16 @@ fun CategorySettingsScreen() {
                     CategoriesLazyColumn(
                         categories = expenseCategories,
                         onSwap = viewModel::swapExpenseCategories,
-                        onCrossDeleteClick = viewModel::onDeleteCategoryClick
+                        onCrossDeleteClick = viewModel::onDeleteCategoryClick,
+                        onClick = viewModel::onCategoryCardClick
                     )
                 }
                 TransactionTypeTab.Income -> {
                     CategoriesLazyColumn(
                         categories = incomeCategories,
                         onSwap = viewModel::swapIncomeCategories,
-                        onCrossDeleteClick = viewModel::onDeleteCategoryClick
+                        onCrossDeleteClick = viewModel::onDeleteCategoryClick,
+                        onClick = viewModel::onCategoryCardClick
                     )
                 }
             }
@@ -79,6 +81,7 @@ private fun CategoriesLazyColumn(
     categories: List<Category>,
     onSwap: (Int, Int) -> Unit,
     onCrossDeleteClick: (Category) -> Unit,
+    onClick: (Category) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (categories.isEmpty()) {
@@ -114,7 +117,8 @@ private fun CategoriesLazyColumn(
                         ),
                     onCrossDeleteClick = {
                         onCrossDeleteClick.invoke(category)
-                    }
+                    },
+                    onClick = { onClick.invoke(category) }
                 )
             }
         }

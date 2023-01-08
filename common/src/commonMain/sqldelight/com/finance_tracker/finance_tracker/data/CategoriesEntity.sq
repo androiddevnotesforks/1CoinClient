@@ -45,3 +45,8 @@ WHERE id = :id;
 replaceCategory:
 UPDATE CategoriesEntity SET position = :position
 WHERE id = :id;
+
+updateAccountById:
+UPDATE CategoriesEntity
+SET name = :name, icon = :icon
+WHERE id = :id;

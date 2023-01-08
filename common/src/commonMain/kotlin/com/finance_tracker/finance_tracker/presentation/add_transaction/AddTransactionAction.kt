@@ -3,6 +3,8 @@ package com.finance_tracker.finance_tracker.presentation.add_transaction
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
+import com.finance_tracker.finance_tracker.presentation.add_category.AddCategoryScreenParams
 import ru.alexgladkov.odyssey.compose.extensions.push
 
 sealed interface AddTransactionAction {
@@ -41,7 +43,9 @@ fun handleAction(
         is AddTransactionAction.OpenAddCategoryScreen -> {
             navController.push(
                 screen = MainNavigationTree.AddCategory.name,
-                params = action.type
+                params = AddCategoryScreenParams(
+                    transactionType = action.type.toTransactionType()
+                )
             )
         }
     }

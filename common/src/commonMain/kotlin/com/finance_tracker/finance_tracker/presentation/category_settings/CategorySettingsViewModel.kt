@@ -2,6 +2,7 @@ package com.finance_tracker.finance_tracker.presentation.category_settings
 
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepository
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.presentation.category_settings.analytcis.CategorySettingsAnalytics
@@ -127,5 +128,13 @@ class CategorySettingsViewModel(
     fun onDeleteCategoryClick(category: Category) {
         categorySettingsAnalytics.trackDeleteCategoryClick(category)
         viewAction = CategorySettingsAction.OpenDeleteDialog(category)
+    }
+
+    fun onCategoryCardClick(category: Category) {
+        categorySettingsAnalytics.trackCategoryClick(category)
+        viewAction = CategorySettingsAction.OpenEditCategoryScreen(
+            category = category,
+            transactionType = selectedTransactionType.value.toTransactionType()
+        )
     }
 }
