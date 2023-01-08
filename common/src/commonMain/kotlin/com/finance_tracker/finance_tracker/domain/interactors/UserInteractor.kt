@@ -15,4 +15,8 @@ class UserInteractor(
         userRepository.saveUserId(newUserId)
         return newUserId
     }
+
+    suspend fun saveIsAnalyticsEnabled(enabled: Boolean) {
+        userRepository.saveIsAnalyticsEnabled(enabled)
+    }
 }

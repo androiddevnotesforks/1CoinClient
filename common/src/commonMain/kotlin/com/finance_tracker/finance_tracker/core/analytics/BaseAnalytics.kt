@@ -6,14 +6,11 @@ abstract class BaseAnalytics {
 
     private val analyticsTracker: AnalyticsTracker by lazy { KoinJavaComponent.getKoin().get() }
     protected abstract val screenName: String
-    private val isAnalyticsEnabled = true
 
     fun trackClick(
         eventName: String,
         properties: Map<String, Any?> = mapOf()
     ) {
-        if (!isAnalyticsEnabled) return
-
         analyticsTracker.track(
             AnalyticsEvent.Click(
                 source = screenName,
@@ -27,8 +24,6 @@ abstract class BaseAnalytics {
         eventName: String,
         properties: Map<String, Any?> = mapOf()
     ) {
-        if (!isAnalyticsEnabled) return
-
         analyticsTracker.track(
             AnalyticsEvent.Select(
                 source = screenName,
@@ -42,8 +37,6 @@ abstract class BaseAnalytics {
         eventName: String,
         properties: Map<String, Any> = mapOf()
     ) {
-        if (!isAnalyticsEnabled) return
-
         analyticsTracker.track(
             AnalyticsEvent.Event(
                 source = screenName,
@@ -56,8 +49,6 @@ abstract class BaseAnalytics {
     fun trackScreenOpen(
         properties: Map<String, Any> = mapOf()
     ) {
-        if (!isAnalyticsEnabled) return
-
         analyticsTracker.track(
             AnalyticsEvent.Open(
                 screenName = screenName,

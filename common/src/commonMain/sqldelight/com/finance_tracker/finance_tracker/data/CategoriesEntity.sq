@@ -16,6 +16,10 @@ SELECT *
 FROM CategoriesEntity
 ORDER BY position;
 
+getCategoriesCount:
+SELECT COUNT(*)
+FROM CategoriesEntity;
+
 getAllExpenseCategories:
 SELECT *
 FROM CategoriesEntity
