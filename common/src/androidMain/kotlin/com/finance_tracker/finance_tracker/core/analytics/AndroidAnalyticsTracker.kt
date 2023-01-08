@@ -6,11 +6,28 @@ import com.amplitude.common.Logger
 import com.amplitude.core.events.Identify
 import com.finance_tracker.finance_tracker.common.BuildConfig
 import com.finance_tracker.finance_tracker.core.common.Context
+import com.finance_tracker.finance_tracker.data.settings.AnalyticsSettings
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlin.coroutines.CoroutineContext
 
-class AndroidAnalyticsTracker: AnalyticsTracker {
+class AndroidAnalyticsTracker(
+    analyticsSettings: AnalyticsSettings
+): AnalyticsTracker, CoroutineScope {
 
     @Suppress("LateinitUsage")
     private lateinit var amplitude: Amplitude
+
+    override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
+    private val isAnalyticsEnabledFlow: StateFlow<Boolean> = analyticsSettings.isAnalyticsEnabledFlow()
+        .stateIn(this, SharingStarted.Lazily, initialValue = false)
+
+    private val isAnalyticsDisabled: Boolean
+        get() = !isAnalyticsEnabledFlow.value
 
     override fun init(context: Context) {
         amplitude = Amplitude(
@@ -29,6 +46,8 @@ class AndroidAnalyticsTracker: AnalyticsTracker {
     }
 
     override fun setUserProperty(property: String, value: Any) {
+        if (isAnalyticsDisabled) return
+
         amplitude.identify(Identify().apply { set(property, value) })
         logUserProperties(property, value)
     }
@@ -38,6 +57,8 @@ class AndroidAnalyticsTracker: AnalyticsTracker {
     }
 
     override fun track(event: AnalyticsEvent) {
+        if (isAnalyticsDisabled) return
+
         amplitude.track(event.name, event.properties)
         log(event)
     }

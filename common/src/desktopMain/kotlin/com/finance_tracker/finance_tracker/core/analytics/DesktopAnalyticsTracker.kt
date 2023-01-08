@@ -5,13 +5,30 @@ import com.amplitude.AmplitudeLog
 import com.amplitude.Event
 import com.finance_tracker.finance_tracker.core.common.DesktopContext
 import com.finance_tracker.finance_tracker.core.common.runSafeCatching
+import com.finance_tracker.finance_tracker.data.settings.AnalyticsSettings
 import io.github.aakira.napier.Napier
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import org.json.JSONObject
+import kotlin.coroutines.CoroutineContext
 
-class DesktopAnalyticsTracker: AnalyticsTracker {
+class DesktopAnalyticsTracker(
+    analyticsSettings: AnalyticsSettings
+): AnalyticsTracker, CoroutineScope {
 
     private val amplitude = Amplitude.getInstance()
     private var userId = AnalyticsTracker.ANONYM_USER_ID
+
+    override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
+    private val isAnalyticsEnabledFlow: StateFlow<Boolean> = analyticsSettings.isAnalyticsEnabledFlow()
+        .stateIn(this, SharingStarted.Lazily, initialValue = false)
+
+    private val isAnalyticsDisabled: Boolean
+        get() = !isAnalyticsEnabledFlow.value
 
     override fun init(context: DesktopContext) {
         amplitude.init(AnalyticsTracker.AMPLITUDE_API_KEY)
@@ -19,6 +36,8 @@ class DesktopAnalyticsTracker: AnalyticsTracker {
     }
 
     override fun setUserProperty(property: String, value: Any) {
+        if (isAnalyticsDisabled) return
+
         val desktopEvent = Event("UserPropertiesEvent", userId)
 
         val userProperties = JSONObject()
@@ -34,6 +53,8 @@ class DesktopAnalyticsTracker: AnalyticsTracker {
     }
 
     override fun track(event: AnalyticsEvent) {
+        if (isAnalyticsDisabled) return
+
         val desktopEvent = Event(event.name, userId)
 
         val eventProps = JSONObject()
