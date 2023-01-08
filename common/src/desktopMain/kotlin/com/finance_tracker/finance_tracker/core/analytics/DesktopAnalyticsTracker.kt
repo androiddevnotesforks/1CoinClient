@@ -18,6 +18,17 @@ class DesktopAnalyticsTracker: AnalyticsTracker {
         amplitude.setLogMode(AmplitudeLog.LogMode.DEBUG)
     }
 
+    override fun setUserProperty(property: String, value: Any) {
+        val desktopEvent = Event("UserPropertiesEvent", userId)
+
+        val userProperties = JSONObject()
+        desktopEvent.userProperties = userProperties
+        desktopEvent.platform  = "Desktop"
+
+        amplitude.logEvent(desktopEvent)
+        logUserProperties(userProperties)
+    }
+
     override fun setUserId(userId: String) {
         this.userId = userId
     }
@@ -42,6 +53,11 @@ class DesktopAnalyticsTracker: AnalyticsTracker {
         if (event.properties.isNotEmpty()) {
             message += "properties: ${event.properties}"
         }
+        Napier.d(message = message, tag = "Amplitude")
+    }
+
+    private fun logUserProperties(userProperties: JSONObject) {
+        val message = "UserProperties: $userProperties"
         Napier.d(message = message, tag = "Amplitude")
     }
 }

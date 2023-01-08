@@ -20,6 +20,10 @@ getAllAccounts:
 SELECT *
 FROM AccountsEntity;
 
+getAccountsCount:
+SELECT COUNT(*)
+FROM AccountsEntity;
+
 insertAccount:
 INSERT OR REPLACE
 INTO AccountsEntity

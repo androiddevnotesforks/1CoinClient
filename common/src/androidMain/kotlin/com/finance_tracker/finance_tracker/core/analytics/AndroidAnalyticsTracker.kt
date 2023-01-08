@@ -3,7 +3,9 @@ package com.finance_tracker.finance_tracker.core.analytics
 import com.amplitude.android.Amplitude
 import com.amplitude.android.Configuration
 import com.amplitude.common.Logger
+import com.amplitude.core.events.Identify
 import com.finance_tracker.finance_tracker.core.common.Context
+import io.github.aakira.napier.Napier
 
 class AndroidAnalyticsTracker: AnalyticsTracker {
 
@@ -22,6 +24,11 @@ class AndroidAnalyticsTracker: AnalyticsTracker {
         }
     }
 
+    override fun setUserProperty(property: String, value: Any) {
+        amplitude.identify(Identify().apply { set(property, value) })
+        logUserProperties(property, value)
+    }
+
     override fun setUserId(userId: String) {
         amplitude.setUserId(userId)
     }
@@ -37,5 +44,10 @@ class AndroidAnalyticsTracker: AnalyticsTracker {
             message += "properties: ${event.properties}"
         }
         amplitude.logger.debug(message)
+    }
+
+    private fun logUserProperties(property: String, value: Any) {
+        val message = "UserProperties: {$property=$value}"
+        Napier.d(message = message, tag = "Amplitude")
     }
 }
