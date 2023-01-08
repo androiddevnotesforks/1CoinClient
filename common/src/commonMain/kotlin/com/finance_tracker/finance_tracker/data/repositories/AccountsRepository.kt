@@ -86,4 +86,11 @@ class AccountsRepository(
             accountsEntityQueries.deleteAccountById(id)
         }
     }
+
+    fun getAccountsCountFlow(): Flow<Int> {
+        return accountsEntityQueries.getAccountsCount()
+            .asFlow()
+            .mapToOneOrNull(Dispatchers.IO)
+            .map { it?.toInt() ?: 0 }
+    }
 }

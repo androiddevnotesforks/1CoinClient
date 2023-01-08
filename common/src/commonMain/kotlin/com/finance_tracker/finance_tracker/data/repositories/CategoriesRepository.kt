@@ -3,13 +3,15 @@ package com.finance_tracker.finance_tracker.data.repositories
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.financetracker.financetracker.data.CategoriesEntityQueries
-import com.financetracker.financetracker.data.DefaultCategoriesEntityQueries
+import com.squareup.sqldelight.runtime.coroutines.asFlow
+import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class CategoriesRepository(
-    private val categoriesEntityQueries: CategoriesEntityQueries,
-    private val defaultCategoriesEntityQueries: DefaultCategoriesEntityQueries
+    private val categoriesEntityQueries: CategoriesEntityQueries
 ) {
     suspend fun insertCategory(
         categoryName: String,
@@ -26,20 +28,6 @@ class CategoriesRepository(
                 isExpense = isExpense,
                 isIncome = isIncome,
             )
-        }
-    }
-
-    suspend fun getAllDefaultCategories(): List<Category> {
-        return withContext(Dispatchers.IO) {
-            defaultCategoriesEntityQueries.getAllCategories().executeAsList()
-                .map { it.categoryToDomainModel() }
-        }
-    }
-
-    suspend fun getAllCategories(): List<Category> {
-        return withContext(Dispatchers.IO) {
-            categoriesEntityQueries.getAllCategories().executeAsList()
-                .map { it.categoryToDomainModel() }
         }
     }
 
@@ -68,5 +56,12 @@ class CategoriesRepository(
             categoriesEntityQueries.getAllIncomeCategories().executeAsList()
                 .map { it.categoryToDomainModel() }
         }
+    }
+
+    fun getCategoriesCountFlow(): Flow<Int> {
+        return categoriesEntityQueries.getCategoriesCount()
+            .asFlow()
+            .mapToOneOrNull(Dispatchers.IO)
+            .map { it?.toInt() ?: 0 }
     }
 }
