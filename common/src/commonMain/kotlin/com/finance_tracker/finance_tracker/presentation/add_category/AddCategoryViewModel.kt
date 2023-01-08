@@ -27,7 +27,7 @@ class AddCategoryViewModel(
     private val _categoryName = MutableStateFlow(screenParams.category?.name.orEmpty())
     val categoryName = _categoryName.asStateFlow()
 
-    val transactionType = screenParams.transactionType
+    private val transactionType = screenParams.transactionType
     val isEditMode = screenParams.category != null
 
     init {
