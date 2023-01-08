@@ -6,6 +6,8 @@ import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import java.time.LocalDate
 
 class AddTransactionAnalytics: BaseAnalytics() {
@@ -13,9 +15,11 @@ class AddTransactionAnalytics: BaseAnalytics() {
     override val screenName = "AddTransactionScreen"
 
     private var actionId = ""
+    private var startOfAction: Instant? = null
 
     fun trackAddTransactionScreenOpen() {
         actionId = Uuid.randomUUID().toString()
+        startOfAction = Clock.System.now()
         trackScreenOpen(mapOf(
             ActionIdKey to actionId
         ))
@@ -125,15 +129,25 @@ class AddTransactionAnalytics: BaseAnalytics() {
         val transactionProperties = transaction.getTransactionProperties()
         trackClick(
             eventName = "MenuAdd",
-            properties = mapOf(ActionIdKey to actionId) + transactionProperties
+            properties = mapOf(
+                ActionIdKey to actionId,
+                DurationKey to getActionDuration()
+            ) + transactionProperties
         )
+    }
+
+    private fun getActionDuration(): Long? {
+        return startOfAction?.let { Clock.System.now().minus(it).inWholeMilliseconds }
     }
 
     private fun trackButtonAddClick(transaction: Transaction) {
         val transactionProperties = transaction.getTransactionProperties()
         trackClick(
             eventName = "ButtonAdd",
-            properties = mapOf(ActionIdKey to actionId) + transactionProperties
+            properties = mapOf(
+                ActionIdKey to actionId,
+                DurationKey to getActionDuration()
+            ) + transactionProperties
         )
     }
 
@@ -149,8 +163,10 @@ class AddTransactionAnalytics: BaseAnalytics() {
         )
         trackClick(
             eventName = "MenuEdit",
-            properties = mapOf(ActionIdKey to actionId) +
-                    oldTransactionProperties + newTransactionProperties
+            properties = mapOf(
+                ActionIdKey to actionId,
+                DurationKey to getActionDuration()
+            ) + oldTransactionProperties + newTransactionProperties
         )
     }
 
@@ -166,8 +182,10 @@ class AddTransactionAnalytics: BaseAnalytics() {
         )
         trackClick(
             eventName = "ButtonEdit",
-            properties = mapOf(ActionIdKey to actionId) +
-                    oldTransactionProperties + newTransactionProperties
+            properties = mapOf(
+                ActionIdKey to actionId,
+                DurationKey to getActionDuration()
+            ) + oldTransactionProperties + newTransactionProperties
         )
     }
 
@@ -218,6 +236,7 @@ class AddTransactionAnalytics: BaseAnalytics() {
     }
 
     companion object {
-        private const val ActionIdKey = "actionId"
+        private const val ActionIdKey = "action_id"
+        private const val DurationKey = "duration"
     }
 }

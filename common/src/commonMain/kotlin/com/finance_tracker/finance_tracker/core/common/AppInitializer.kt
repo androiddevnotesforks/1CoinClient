@@ -10,6 +10,7 @@ import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -47,10 +48,12 @@ class AppInitializer(
             analyticsTracker.setUserId(userId)
 
             categoriesInteractor.getCategoriesCountFlow()
+                .distinctUntilChanged()
                 .onEach { analyticsTracker.setUserProperty(UserPropCategoriesCount, it) }
                 .launchIn(this)
 
             accountsInteractor.getAccountsCountFlow()
+                .distinctUntilChanged()
                 .onEach { analyticsTracker.setUserProperty(UserPropAccountsCount, it) }
                 .launchIn(this)
         }
