@@ -4,8 +4,8 @@ import com.amplitude.android.Amplitude
 import com.amplitude.android.Configuration
 import com.amplitude.common.Logger
 import com.amplitude.core.events.Identify
+import com.finance_tracker.finance_tracker.common.BuildConfig
 import com.finance_tracker.finance_tracker.core.common.Context
-import io.github.aakira.napier.Napier
 
 class AndroidAnalyticsTracker: AnalyticsTracker {
 
@@ -20,7 +20,11 @@ class AndroidAnalyticsTracker: AnalyticsTracker {
             )
         ).apply {
             setUserId(AnalyticsTracker.ANONYM_USER_ID)
-            logger.logMode = Logger.LogMode.DEBUG
+            logger.logMode = if (BuildConfig.DEBUG) {
+                Logger.LogMode.DEBUG
+            } else {
+                Logger.LogMode.OFF
+            }
         }
     }
 
@@ -47,7 +51,6 @@ class AndroidAnalyticsTracker: AnalyticsTracker {
     }
 
     private fun logUserProperties(property: String, value: Any) {
-        val message = "UserProperties: {$property=$value}"
-        Napier.d(message = message, tag = "Amplitude")
+        amplitude.logger.debug("UserProperties: {$property=$value}")
     }
 }
