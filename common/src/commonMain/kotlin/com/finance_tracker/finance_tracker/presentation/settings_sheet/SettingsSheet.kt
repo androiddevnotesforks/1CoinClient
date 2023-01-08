@@ -69,7 +69,7 @@ fun SettingsSheet(dialogKey: String) {
                 }
             )
             SettingsSheetSendingUsageDataItem(
-                onSendEnableChange = {}
+                onSendEnableChange = viewModel::onSendingUsageDataClick
             )
             SettingSheetTelegramChatItem(
                 onClick = viewModel::onTelegramCommunityClick

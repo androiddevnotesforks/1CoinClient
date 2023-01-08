@@ -21,15 +21,18 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
 fun SendingUsageDataDialog(
-    onOkClick: () -> Unit
+    onOkClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier.padding(8.dp),
+        modifier = modifier.padding(8.dp),
     ) {
         Text(
             modifier = Modifier
-                .padding(start = 16.dp)
-                .padding(top = 16.dp),
+                .padding(
+                    start = 16.dp,
+                    top = 16.dp,
+                ),
             text = stringResource("sending_usage_data_description"),
             style = CoinTheme.typography.body2
         )

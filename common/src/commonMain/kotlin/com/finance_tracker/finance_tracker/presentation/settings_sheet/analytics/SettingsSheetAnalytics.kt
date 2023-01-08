@@ -32,4 +32,8 @@ class SettingsSheetAnalytics: BaseAnalytics() {
     fun trackTelegramCommunityClick() {
         trackClick(eventName = "TelegramCommunity")
     }
+
+    fun trackSendingUsageDataSwitchClick() {
+        trackClick(eventName = "SendingUsageData")
+    }
 }

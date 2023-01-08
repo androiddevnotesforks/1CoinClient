@@ -27,6 +27,11 @@ class SettingsSheetViewModel(
         }
     }
 
+    @Suppress("UnusedPrivateMember")
+    fun onSendingUsageDataClick(isEnabled: Boolean) {
+        settingsSheetAnalytics.trackSendingUsageDataSwitchClick()
+    }
+
     fun onCategorySettingsClick(dialogKey: String) {
         settingsSheetAnalytics.trackCategorySettingsClick()
         viewAction = SettingsSheetAction.DismissDialog(dialogKey)
