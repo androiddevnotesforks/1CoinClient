@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
@@ -14,12 +15,11 @@ import io.github.koalaplot.core.ChartLayout
 import io.github.koalaplot.core.pie.DefaultSlice
 import io.github.koalaplot.core.pie.PieChart
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
-import kotlinx.datetime.Month
 
 @OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
 fun EmptyPieChart(
-    selectedMonth: Month,
+    selectedYearMonth: YearMonth,
     modifier: Modifier = Modifier
 ) {
     ChartLayout(
@@ -44,7 +44,7 @@ fun EmptyPieChart(
             holeContent = {
                 HoleTotalLabel(
                     data = HoleTotalLabelData.Content(
-                        month = selectedMonth,
+                        yearMonth = selectedYearMonth,
                         amount = Amount(
                             currency = Currency.default,
                             amountValue = 0.0

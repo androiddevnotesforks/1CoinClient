@@ -1,5 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.analytics
 
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
@@ -9,7 +10,6 @@ import com.finance_tracker.finance_tracker.presentation.analytics.delegates.Tren
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.datetime.Month
 
 class AnalyticsViewModel(
     val trendsAnalyticsDelegate: TrendsAnalyticsDelegate,
@@ -28,8 +28,8 @@ class AnalyticsViewModel(
         monthTxsByCategoryDelegate.updateMonthTxsByCategory()
     }
 
-    fun onMonthSelect(month: Month) {
-        monthTxsByCategoryDelegate.onMonthSelect(month)
+    fun onYearMonthSelect(yearMonth: YearMonth) {
+        monthTxsByCategoryDelegate.onMonthSelect(yearMonth)
     }
 
     fun onTransactionTypeSelect(transactionTypeTab: TransactionTypeTab) {

@@ -1,9 +1,9 @@
 package com.finance_tracker.finance_tracker.presentation.analytics.analytics
 
 import com.finance_tracker.finance_tracker.core.analytics.BaseAnalytics
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.analytics.peroid_bar_chart.PeriodChip
-import kotlinx.datetime.Month
 
 class AnalyticsScreenAnalytics: BaseAnalytics() {
 
@@ -24,13 +24,14 @@ class AnalyticsScreenAnalytics: BaseAnalytics() {
 
     fun trackTxsByCategory(
         transactionType: TransactionType,
-        month: Month
+        yearMonth: YearMonth
     ) {
         trackEvent(
             eventName = "TxsByCategoryView",
             properties = mapOf(
                 "type" to transactionType.analyticsName,
-                "month" to month.name.lowercase()
+                "year" to yearMonth.year,
+                "month" to yearMonth.month.name.lowercase(),
             )
         )
     }

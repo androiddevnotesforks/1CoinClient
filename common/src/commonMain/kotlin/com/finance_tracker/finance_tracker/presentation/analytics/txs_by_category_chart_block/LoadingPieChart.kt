@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.presentation.analytics.PieChartLabelSize
 import com.finance_tracker.finance_tracker.presentation.analytics.PieChartSize
@@ -19,14 +20,13 @@ import io.github.koalaplot.core.ChartLayout
 import io.github.koalaplot.core.pie.DefaultSlice
 import io.github.koalaplot.core.pie.PieChart
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
-import kotlinx.datetime.Month
 
 
 @Suppress("MagicNumber")
 @OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
 fun LoadingPieChart(
-    selectedMonth: Month,
+    selectedYearMonth: YearMonth,
     modifier: Modifier = Modifier
 ) {
     val mockValues = listOf(30f, 20f, 10f, 10f, 10f, 10f, 10f)
@@ -64,7 +64,7 @@ fun LoadingPieChart(
             holeContent = {
                 HoleTotalLabel(
                     data = HoleTotalLabelData.Loading(
-                        month = selectedMonth,
+                        yearMonth = selectedYearMonth,
                     )
                 )
             },

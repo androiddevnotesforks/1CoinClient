@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
@@ -21,14 +22,13 @@ import io.github.koalaplot.core.ChartLayout
 import io.github.koalaplot.core.pie.DefaultSlice
 import io.github.koalaplot.core.pie.PieChart
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
-import kotlinx.datetime.Month
 
 @Suppress("MagicNumber")
 @OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
 fun MainTxsByCategoryChart(
     monthTransactionsByCategory: TxsByCategoryChart,
-    selectedMonth: Month,
+    selectedYearMonth: YearMonth,
     modifier: Modifier = Modifier
 ) {
     val totalAmount = monthTransactionsByCategory.total
@@ -78,7 +78,7 @@ fun MainTxsByCategoryChart(
             holeContent = {
                 HoleTotalLabel(
                     data = HoleTotalLabelData.Content(
-                        month = selectedMonth,
+                        yearMonth = selectedYearMonth,
                         amount = totalAmount
                     )
                 )
