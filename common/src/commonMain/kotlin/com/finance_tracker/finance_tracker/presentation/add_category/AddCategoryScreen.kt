@@ -48,12 +48,18 @@ fun AddCategoryScreen(
         Column(modifier = Modifier.fillMaxSize()) {
             AddCategoryAppBar(
                 onBackClick = viewModel::onBackClick,
-                textValue = if (
-                    addCategoryScreenParams.transactionType == TransactionType.Expense
-                ) {
-                    "new_expense_category"
+                textValue = if (viewModel.isEditMode) {
+                    if (addCategoryScreenParams.transactionType == TransactionType.Expense) {
+                        "expense_category"
+                    } else {
+                        "income_category"
+                    }
                 } else {
-                    "new_income_category"
+                    if (addCategoryScreenParams.transactionType == TransactionType.Expense) {
+                        "new_expense_category"
+                    } else {
+                        "new_income_category"
+                    }
                 }
             )
 
