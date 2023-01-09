@@ -117,6 +117,8 @@
     <string name="category_settings">Category Settings</string>
     <string name="new_expense_category">New Expense Category</string>
     <string name="new_income_category">New Income Category</string>
+    <string name="expense_category">Expense Category</string>
+    <string name="income_category">Income Category</string>
     <string name="categories_empty">No categories</string>
 
     <!-- New account -->
