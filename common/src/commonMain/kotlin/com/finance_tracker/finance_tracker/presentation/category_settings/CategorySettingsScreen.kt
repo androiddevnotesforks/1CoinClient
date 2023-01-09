@@ -110,15 +110,15 @@ private fun CategoriesLazyColumn(
                     data = category,
                     modifier = Modifier
                         .padding(
-                            start = 16.dp,
-                            top = 8.dp,
-                            bottom = 8.dp,
-                            end = 16.dp
+                            top = if (index == 0) 8.dp else 0.dp,
+                            bottom = if (index == categories.lastIndex) 8.dp else 0.dp
                         ),
+                    onClick = {
+                        onClick.invoke(category)
+                    },
                     onCrossDeleteClick = {
                         onCrossDeleteClick.invoke(category)
                     },
-                    onClick = { onClick.invoke(category) }
                 )
             }
         }

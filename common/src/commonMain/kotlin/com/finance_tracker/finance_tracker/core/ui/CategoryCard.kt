@@ -21,14 +21,20 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 @Composable
 fun CategoryCard(
     data: Category,
-    onCrossDeleteClick: () -> Unit,
     onClick: () -> Unit,
+    onCrossDeleteClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick.invoke() }
+            .padding(
+                start = 16.dp,
+                top = 8.dp,
+                bottom = 8.dp,
+                end = 8.dp
+            )
     ) {
         Icon(
             painter = rememberVectorPainter("ic_three_stripes"),
