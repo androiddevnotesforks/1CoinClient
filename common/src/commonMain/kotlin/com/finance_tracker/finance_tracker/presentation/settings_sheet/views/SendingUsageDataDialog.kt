@@ -13,8 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -32,8 +36,15 @@ fun SendingUsageDataDialog(
                 .padding(
                     start = 16.dp,
                     top = 16.dp,
+                    end = 16.dp
                 ),
-            text = stringResource("sending_usage_data_description"),
+            text = buildAnnotatedString {
+                withStyle(SpanStyle(fontWeight = FontWeight.Medium)) {
+                    append(stringResource("sending_usage_data_description_1"))
+                }
+                append("\n\n")
+                append(stringResource("sending_usage_data_description_2"))
+            },
             style = CoinTheme.typography.body2
         )
 
