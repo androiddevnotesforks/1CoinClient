@@ -102,6 +102,8 @@ fun AmountTextField(
         charsLimit = AmountCharsLimit,
         trailingIcon = {
             CurrencySelector(
+                modifier = Modifier
+                    .padding(end = 10.dp),
                 items = amountCurrencies,
                 selectedCurrency = selectedCurrency,
                 onCurrencySelect = viewModel::onCurrencySelect
