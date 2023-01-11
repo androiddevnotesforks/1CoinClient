@@ -43,7 +43,7 @@ fun AddAccountCard(
                 color = CoinTheme.color.dividers,
                 shape = RoundedCornerShape(12.dp)
             )
-            .background(CoinTheme.color.secondaryBackground)
+            .background(CoinTheme.color.background)
             .clickable { onClick.invoke() },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -52,13 +52,13 @@ fun AddAccountCard(
             painter = rememberVectorPainter("ic_plus"),
             contentDescription = null,
             modifier = Modifier.size(20.dp),
-            tint = CoinTheme.color.content.copy(alpha = 0.5f)
+            tint = CoinTheme.color.primary
         )
         if (fullSize) {
             Text(
                 modifier = Modifier.padding(horizontal = 4.dp),
                 text = stringResource("home_add_account"),
-                color = CoinTheme.color.content.copy(alpha = 0.5f),
+                color = CoinTheme.color.primary,
                 style = CoinTheme.typography.subtitle1
             )
         }
