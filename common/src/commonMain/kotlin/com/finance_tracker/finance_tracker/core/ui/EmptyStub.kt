@@ -29,7 +29,7 @@ fun EmptyStub(
     text: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
-    stubFraction: Float = 0.75f,
+    stubHeightAlignment: Float = 0.75f,
 ) {
     Box(
         modifier = modifier.fillMaxSize()
@@ -37,7 +37,7 @@ fun EmptyStub(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(stubFraction),
+                .fillMaxHeight(stubHeightAlignment),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {

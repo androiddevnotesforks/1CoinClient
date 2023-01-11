@@ -109,7 +109,7 @@ fun DetailAccountScreen(
                 onClick = {
                     viewModel.onTransactionClick(transaction = it.transaction)
                 },
-                stubFraction = 0.6f,
+                stubHeightAlignment = 0.6f,
             )
         }
     }

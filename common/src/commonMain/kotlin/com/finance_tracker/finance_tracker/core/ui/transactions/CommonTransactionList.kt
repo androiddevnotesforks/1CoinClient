@@ -35,7 +35,7 @@ fun CommonTransactionsList(
     onClick: (TransactionListModel.Data) -> Unit = {},
     onLongClick: (TransactionListModel.Data) -> Unit = {},
     onAddTransactionClick: () -> Unit = {},
-    stubFraction: Float = 0.75f,
+    stubHeightAlignment: Float = 0.75f,
 ) {
     if (transactions.itemCount == 0) {
         EmptyStub(
@@ -43,7 +43,7 @@ fun CommonTransactionsList(
             image = rememberVectorPainter("transactions_empty"),
             text = stringResource("add_transaction"),
             onClick = { onAddTransactionClick.invoke() },
-            stubFraction = stubFraction,
+            stubHeightAlignment = stubHeightAlignment,
         )
     } else {
         TransactionsList(
