@@ -68,13 +68,13 @@ fun HomeScreen() {
 
                 CoinWidget(
                     title = stringResource("home_last_transactions"),
-                    withBorder = true,
+                    withBorder = false,
                     onClick = viewModel::onLastTransactionsClick
                 ) {
                     val lastTransactions by viewModel.lastTransactions.collectAsState()
                     LastTransactionsWidgetContent(
                         lastTransactions = lastTransactions,
-                        onTransactionClick = viewModel::onTransactionClick
+                        onTransactionClick = viewModel::onTransactionClick,
                     )
                 }
 

@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
-import com.finance_tracker.finance_tracker.core.ui.transactions.EmptyStub
 import com.finance_tracker.finance_tracker.core.ui.transactions.TransactionItem
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
@@ -15,13 +13,10 @@ import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 fun LastTransactionsWidgetContent(
     lastTransactions: List<TransactionListModel.Data>,
     onTransactionClick: (transaction: Transaction) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     if (lastTransactions.isEmpty()) {
-        EmptyStub(
-            modifier = modifier,
-            text = stringResource("general_no_transactions")
-        )
+        LastTransactionsEmptyStub()
     } else {
         LastTransactionsColumn(
             modifier = modifier,

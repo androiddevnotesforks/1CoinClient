@@ -13,11 +13,10 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LazyDragColumn
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
+import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.transactions.EmptyStub
 import com.finance_tracker.finance_tracker.domain.models.Category
@@ -56,20 +55,36 @@ fun CategorySettingsScreen() {
 
             when (selectedTransactionTypeTab) {
                 TransactionTypeTab.Expense -> {
-                    CategoriesLazyColumn(
-                        categories = expenseCategories,
-                        onSwap = viewModel::swapExpenseCategories,
-                        onCrossDeleteClick = viewModel::onDeleteCategoryClick,
-                        onClick = viewModel::onCategoryCardClick
-                    )
+                    if (expenseCategories.isEmpty()) {
+                        EmptyStub(
+                            image = rememberVectorPainter("categories_empty"),
+                            text = "add_category",
+                            onClick = viewModel::onAddCategoryClick
+                        )
+                    } else {
+                        CategoriesLazyColumn(
+                            categories = expenseCategories,
+                            onSwap = viewModel::swapExpenseCategories,
+                            onCrossDeleteClick = viewModel::onDeleteCategoryClick,
+                            onClick = viewModel::onCategoryCardClick
+                        )
+                    }
                 }
                 TransactionTypeTab.Income -> {
-                    CategoriesLazyColumn(
-                        categories = incomeCategories,
-                        onSwap = viewModel::swapIncomeCategories,
-                        onCrossDeleteClick = viewModel::onDeleteCategoryClick,
-                        onClick = viewModel::onCategoryCardClick
-                    )
+                    if (incomeCategories.isEmpty()) {
+                        EmptyStub(
+                            image = rememberVectorPainter("categories_empty"),
+                            text = "add_category",
+                            onClick = viewModel::onAddCategoryClick
+                        )
+                    } else {
+                        CategoriesLazyColumn(
+                            categories = incomeCategories,
+                            onSwap = viewModel::swapIncomeCategories,
+                            onCrossDeleteClick = viewModel::onDeleteCategoryClick,
+                            onClick = viewModel::onCategoryCardClick
+                        )
+                    }
                 }
             }
         }
@@ -84,43 +99,36 @@ private fun CategoriesLazyColumn(
     onClick: (Category) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    if (categories.isEmpty()) {
-        EmptyStub(
-            modifier = modifier.navigationBarsPadding(),
-            text = stringResource("categories_empty")
+    val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
+    LazyDragColumn(
+        modifier = modifier,
+        items = categories,
+        onSwap = onSwap,
+        contentPaddingValues = PaddingValues(
+            top = CategoriesListContentPadding,
+            start = CategoriesListContentPadding,
+            end = CategoriesListContentPadding,
+            bottom = CategoriesListContentPadding + navigationBarsHeight
         )
-    } else {
-        val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
-        LazyDragColumn(
-            modifier = modifier,
-            items = categories,
-            onSwap = onSwap,
-            contentPaddingValues = PaddingValues(
-                top = CategoriesListContentPadding,
-                start = CategoriesListContentPadding,
-                end = CategoriesListContentPadding,
-                bottom = CategoriesListContentPadding + navigationBarsHeight
+    ) { index, category ->
+        ItemWrapper(
+            isFirstItem = index == 0,
+            isLastItem = index == categories.lastIndex
+        ) {
+            CategoryCard(
+                data = category,
+                modifier = Modifier
+                    .padding(
+                        top = if (index == 0) 8.dp else 0.dp,
+                        bottom = if (index == categories.lastIndex) 8.dp else 0.dp
+                    ),
+                onClick = {
+                    onClick.invoke(category)
+                },
+                onCrossDeleteClick = {
+                    onCrossDeleteClick.invoke(category)
+                },
             )
-        ) { index, category ->
-            ItemWrapper(
-                isFirstItem = index == 0,
-                isLastItem = index == categories.lastIndex
-            ) {
-                CategoryCard(
-                    data = category,
-                    modifier = Modifier
-                        .padding(
-                            top = if (index == 0) 8.dp else 0.dp,
-                            bottom = if (index == categories.lastIndex) 8.dp else 0.dp
-                        ),
-                    onClick = {
-                        onClick.invoke(category)
-                    },
-                    onCrossDeleteClick = {
-                        onCrossDeleteClick.invoke(category)
-                    },
-                )
-            }
         }
     }
 }

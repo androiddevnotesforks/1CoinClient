@@ -146,4 +146,10 @@
 
     <!-- Detail account -->
     <string name="detail_account_btn_edit">Edit</string>
+
+    <!-- Empty stubs -->
+    <string name="add_transaction">Add Transaction</string>
+    <string name="add_account">Add Account</string>
+    <string name="add_category">Add Category</string>
+
 </resources>
