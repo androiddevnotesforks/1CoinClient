@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LazyDragColumn
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
+import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
@@ -58,7 +59,7 @@ fun CategorySettingsScreen() {
                     if (expenseCategories.isEmpty()) {
                         EmptyStub(
                             image = rememberVectorPainter("categories_empty"),
-                            text = "add_category",
+                            text = stringResource("add_category"),
                             onClick = viewModel::onAddCategoryClick
                         )
                     } else {
@@ -74,7 +75,7 @@ fun CategorySettingsScreen() {
                     if (incomeCategories.isEmpty()) {
                         EmptyStub(
                             image = rememberVectorPainter("categories_empty"),
-                            text = "add_category",
+                            text = stringResource("add_category"),
                             onClick = viewModel::onAddCategoryClick
                         )
                     } else {

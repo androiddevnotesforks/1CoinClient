@@ -55,4 +55,9 @@ class TransactionsViewModel(
         transactionsAnalytics.trackDeleteTransactionsClick()
         viewAction = TransactionsAction.ShowDeleteDialog(selectedItemsCount)
     }
+
+    fun onAddTransactionClick() {
+        transactionsAnalytics.onAddTransactionClick()
+        viewAction = TransactionsAction.OpenAddTransactionScreen
+    }
 }

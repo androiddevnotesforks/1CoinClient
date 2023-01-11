@@ -32,13 +32,15 @@ fun CommonTransactionsList(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
     onClick: (TransactionListModel.Data) -> Unit = {},
-    onLongClick: (TransactionListModel.Data) -> Unit = {}
+    onLongClick: (TransactionListModel.Data) -> Unit = {},
+    onAddTransactionClick: () -> Unit = {},
 ) {
     if (transactions.itemCount == 0) {
         EmptyStub(
             modifier = modifier,
             image = rememberVectorPainter("transactions_empty"),
             text = stringResource("add_transaction"),
+            onClick = { onAddTransactionClick.invoke() }
         )
     } else {
         TransactionsList(

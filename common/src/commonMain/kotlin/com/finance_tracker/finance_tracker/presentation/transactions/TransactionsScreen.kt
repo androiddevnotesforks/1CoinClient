@@ -91,7 +91,8 @@ fun TransactionsScreen() {
                 onLongClick = {
                     it.isSelected.value = !it.isSelected.value
                     selectedItems = selectedItems + it
-                }
+                },
+                onAddTransactionClick = viewModel::onAddTransactionClick
             )
         }
     }
