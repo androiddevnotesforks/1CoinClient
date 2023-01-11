@@ -17,6 +17,8 @@ import com.finance_tracker.finance_tracker.core.common.pagination.LazyPagingItem
 import com.finance_tracker.finance_tracker.core.common.pagination.items
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.EmptyStub
+import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -31,12 +33,17 @@ fun CommonTransactionsList(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
     onClick: (TransactionListModel.Data) -> Unit = {},
-    onLongClick: (TransactionListModel.Data) -> Unit = {}
+    onLongClick: (TransactionListModel.Data) -> Unit = {},
+    onAddTransactionClick: () -> Unit = {},
+    stubHeightAlignment: Float = 0.75f,
 ) {
     if (transactions.itemCount == 0) {
         EmptyStub(
             modifier = modifier,
-            text = stringResource("general_no_transactions")
+            image = rememberVectorPainter("transactions_empty"),
+            text = stringResource("add_transaction"),
+            onClick = { onAddTransactionClick.invoke() },
+            stubHeightAlignment = stubHeightAlignment,
         )
     } else {
         TransactionsList(

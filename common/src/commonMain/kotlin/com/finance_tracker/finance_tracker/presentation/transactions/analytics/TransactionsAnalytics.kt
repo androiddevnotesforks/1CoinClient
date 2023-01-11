@@ -31,4 +31,8 @@ class TransactionsAnalytics: BaseAnalytics() {
     fun trackDeleteTransactionsClick() {
         trackClick(eventName = "DeleteTransactions")
     }
+
+    fun onAddTransactionClick() {
+        trackClick(eventName = "AddTransaction")
+    }
 }

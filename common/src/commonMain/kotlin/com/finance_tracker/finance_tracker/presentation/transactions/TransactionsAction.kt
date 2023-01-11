@@ -17,6 +17,7 @@ sealed interface TransactionsAction {
     data class CloseDeleteTransactionDialog(val dialogKey: String): TransactionsAction
     object UnselectAllItems: TransactionsAction
     data class ShowDeleteDialog(val selectedItemsCount: Int): TransactionsAction
+    object OpenAddTransactionScreen: TransactionsAction
 }
 
 fun handleAction(
@@ -57,6 +58,11 @@ fun handleAction(
                     onDeleteClick = { onConfirmDeleteClick.invoke(key) }
                 )
             }
+        }
+        TransactionsAction.OpenAddTransactionScreen -> {
+            navController.push(
+                screen = MainNavigationTree.AddTransaction.name
+            )
         }
     }
 }
