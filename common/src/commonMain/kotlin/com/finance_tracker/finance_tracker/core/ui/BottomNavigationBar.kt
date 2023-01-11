@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.tabs_navigation
+package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -7,13 +7,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -22,6 +22,8 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
 import ru.alexgladkov.odyssey.compose.controllers.TabNavigationModel
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
+
+expect fun getBottomAppBarCutoutShape(): Shape?
 
 @Composable
 fun BottomNavigationBar(
@@ -36,7 +38,7 @@ fun BottomNavigationBar(
         modifier = modifier,
         backgroundColor = CoinTheme.color.background,
         contentColor = CoinTheme.color.primary,
-        cutoutShape = CircleShape,
+        cutoutShape = getBottomAppBarCutoutShape(),
         contentPadding = PaddingValues(
             bottom = navigationBarsHeight
         )

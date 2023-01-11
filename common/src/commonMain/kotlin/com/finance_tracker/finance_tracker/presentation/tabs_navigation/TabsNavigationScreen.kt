@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.BottomNavigationBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.presentation.tabs_navigation.analytics.TabsNavigationAnalytics
 import org.koin.java.KoinJavaComponent
