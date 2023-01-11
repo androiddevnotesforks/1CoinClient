@@ -35,7 +35,8 @@ fun AccountCard(
             ),
         backgroundColor = data.colorModel.color,
         shape = RoundedCornerShape(12.dp),
-        onClick = onClick
+        onClick = onClick,
+        elevation = 0.dp
     ) {
         Column {
             Icon(
