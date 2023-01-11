@@ -14,9 +14,6 @@ sealed interface DetailAccountAction {
     data class OpenEditTransactionScreen(
         val transaction: Transaction
     ): DetailAccountAction
-    data class OpenEditAccountScreenFromIconClick(
-        val account: Account
-    ): DetailAccountAction
 }
 
 fun handleAction(
@@ -41,13 +38,6 @@ fun handleAction(
             navController.push(
                 screen = MainNavigationTree.AddTransaction.name,
                 params = action.transaction
-            )
-        }
-        is DetailAccountAction.OpenEditAccountScreenFromIconClick -> {
-            val navController = rootController.findRootController()
-            navController.push(
-                screen = MainNavigationTree.AddAccount.name,
-                params = action.account
             )
         }
     }

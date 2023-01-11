@@ -44,6 +44,6 @@ class DetailAccountViewModel(
 
     fun onIconClick() {
         detailAccountAnalytics.trackIconClick(account)
-        viewAction = DetailAccountAction.OpenEditAccountScreenFromIconClick(account)
+        viewAction = DetailAccountAction.OpenEditAccountScreen(account)
     }
 }
