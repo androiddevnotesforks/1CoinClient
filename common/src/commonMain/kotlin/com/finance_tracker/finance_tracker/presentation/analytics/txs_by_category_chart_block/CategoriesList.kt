@@ -66,7 +66,7 @@ fun CategoryItem(
         ) {
             Text(
                 text = piece.category.name,
-                style = CoinTheme.typography.body2
+                style = CoinTheme.typography.body1
             )
             Text(
                 text = piece.transactionsCount.toString() + " " + stringResource("analytics_transactions"),
@@ -77,7 +77,7 @@ fun CategoryItem(
 
         Text(
             text = piece.amount.format(),
-            style = CoinTheme.typography.body2
+            style = CoinTheme.typography.body1
         )
     }
 }

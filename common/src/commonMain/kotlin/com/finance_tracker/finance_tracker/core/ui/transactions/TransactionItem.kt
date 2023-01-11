@@ -69,7 +69,7 @@ fun TransactionItem(
         ) {
             Text(
                 text = category.name,
-                style = CoinTheme.typography.body2
+                style = CoinTheme.typography.body1
             )
             Spacer(modifier = Modifier.height(2.dp))
             Text(
@@ -82,7 +82,7 @@ fun TransactionItem(
         val sign = if (transaction.type == TransactionType.Income) "+" else "-"
         Text(
             text = sign + transaction.amount.format(),
-            style = CoinTheme.typography.body2,
+            style = CoinTheme.typography.body1,
             color = if (transaction.type == TransactionType.Income) {
                 CoinTheme.color.accentGreen
             } else {

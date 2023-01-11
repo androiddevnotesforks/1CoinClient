@@ -41,7 +41,7 @@ fun DeleteDialog(
                 .padding(horizontal = 16.dp)
                 .padding(top = 8.dp),
             text = stringResource("dialog_body_delete"),
-            style = CoinTheme.typography.body2
+            style = CoinTheme.typography.body1
         )
         Row(
             modifier = Modifier
@@ -82,7 +82,7 @@ private fun ActionButton(
             .clickable { onClick.invoke() }
             .padding(8.dp),
         text = text,
-        style = CoinTheme.typography.body2_medium,
+        style = CoinTheme.typography.body1_medium,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         color = textColor,

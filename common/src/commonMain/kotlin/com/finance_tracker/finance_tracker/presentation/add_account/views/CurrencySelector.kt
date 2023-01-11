@@ -60,7 +60,7 @@ fun CurrencySelector(
         Text(
             text = selectedCurrency.symbol,
             color = CoinTheme.color.content,
-            style = CoinTheme.typography.body2_medium
+            style = CoinTheme.typography.body1_medium
         )
         Icon(
             modifier = Modifier

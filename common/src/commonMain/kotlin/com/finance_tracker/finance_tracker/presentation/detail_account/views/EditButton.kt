@@ -68,7 +68,7 @@ fun EditButton(
                 .padding(start = 4.dp),
             text = stringResource("detail_account_btn_edit"),
             color = tint,
-            style = CoinTheme.typography.body2_medium.staticTextSize(),
+            style = CoinTheme.typography.body1_medium.staticTextSize(),
             maxLines = 1,
             overflow = TextOverflow.Clip
         )
