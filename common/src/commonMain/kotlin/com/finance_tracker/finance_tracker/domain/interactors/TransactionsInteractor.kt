@@ -18,6 +18,7 @@ import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
 import io.github.koalaplot.core.util.toString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import java.util.Calendar
@@ -239,6 +240,7 @@ class TransactionsInteractor(
             .map {
                 insertSeparators(it)
             }
+            .flowOn(Dispatchers.IO)
     }
 
     private fun insertSeparators(

@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import java.util.Date
 
-private const val PageSize = 20
+private const val PageSize = 15
 
 class TransactionsRepository(
     private val transactionsEntityQueries: TransactionsEntityQueries,
@@ -29,6 +29,7 @@ class TransactionsRepository(
         Pager(PagingConfig(pageSize = PageSize)) {
             TransactionsPagingSource(transactionsEntityQueries)
         }.flow
+            .flowOn(Dispatchers.IO)
 
     suspend fun getTransactions(transactionType: TransactionType, yearMonth: YearMonth): List<Transaction> {
         return withContext(Dispatchers.IO) {
@@ -71,6 +72,7 @@ class TransactionsRepository(
         return Pager(PagingConfig(pageSize = PageSize)) {
             transactionsPagingSourceFactory.create(id)
         }.flow
+            .flowOn(Dispatchers.IO)
     }
 
     fun getLastTransactions(limit: Long) : Flow<List<Transaction>> {
