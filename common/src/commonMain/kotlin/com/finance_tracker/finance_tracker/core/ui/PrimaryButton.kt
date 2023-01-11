@@ -40,7 +40,7 @@ fun PrimaryButton(
                 }
                 .padding(12.dp),
             text = text,
-            style = CoinTheme.typography.body2_medium,
+            style = CoinTheme.typography.body1_medium,
             textAlign = TextAlign.Center,
             color = LocalContentColor.current
         )

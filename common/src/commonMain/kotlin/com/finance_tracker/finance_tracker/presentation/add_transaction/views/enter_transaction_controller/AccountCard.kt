@@ -23,7 +23,7 @@ fun AccountCard(
     account: Account,
     modifier: Modifier = Modifier,
     maxLines: Int = 2,
-    textStyle: TextStyle = CoinTheme.typography.body2
+    textStyle: TextStyle = CoinTheme.typography.body1
 ) {
     Row(
         modifier = modifier,
