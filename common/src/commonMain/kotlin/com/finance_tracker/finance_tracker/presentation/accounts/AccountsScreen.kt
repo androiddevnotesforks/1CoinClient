@@ -20,7 +20,7 @@ import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActi
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.AccountCard
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
-import com.finance_tracker.finance_tracker.core.ui.transactions.EmptyStub
+import com.finance_tracker.finance_tracker.core.ui.EmptyStub
 import com.finance_tracker.finance_tracker.domain.models.Account
 
 @Composable

@@ -19,7 +19,7 @@ import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
-import com.finance_tracker.finance_tracker.core.ui.transactions.EmptyStub
+import com.finance_tracker.finance_tracker.core.ui.EmptyStub
 import com.finance_tracker.finance_tracker.domain.models.Category
 
 private val CategoriesListContentPadding = 16.dp

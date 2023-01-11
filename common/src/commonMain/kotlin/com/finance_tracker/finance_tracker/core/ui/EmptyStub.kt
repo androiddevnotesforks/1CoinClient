@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.core.ui.transactions
+package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -21,7 +21,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Suppress("MagicNumber")
 @Composable
