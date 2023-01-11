@@ -11,16 +11,19 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.date.currentYearMonth
 import com.finance_tracker.finance_tracker.core.common.date.localizedName
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
+import kotlinx.datetime.Clock
 
 sealed class HoleTotalLabelData {
 
@@ -64,8 +67,14 @@ fun HoleTotalLabel(
                     .background(CoinTheme.color.secondaryBackground)
             )
         }
+        val currentYear = remember(Unit) { Clock.System.currentYearMonth().year }
+        val periodText = if (currentYear == data.yearMonth.year) {
+            data.yearMonth.month.localizedName()
+        } else {
+            "${data.yearMonth.month.localizedName()} ${data.yearMonth.year}"
+        }
         Text(
-            text = data.yearMonth.month.localizedName(),
+            text = periodText,
             color = CoinTheme.color.secondary,
             style = CoinTheme.typography.subtitle2_medium.staticTextSize()
         )
