@@ -31,4 +31,14 @@ class DetailAccountAnalytics: BaseAnalytics() {
             )
         )
     }
+
+    fun trackIconClick(account: Account) {
+        trackClick(
+            eventName = "IconClickEditAccount",
+            properties = mapOf(
+                "name" to account.name,
+                "type" to account.type.analyticsName,
+            )
+        )
+    }
 }

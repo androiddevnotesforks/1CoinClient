@@ -41,4 +41,9 @@ class DetailAccountViewModel(
         detailAccountAnalytics.trackTransactionClick(transaction)
         viewAction = DetailAccountAction.OpenEditTransactionScreen(transaction)
     }
+
+    fun onIconClick() {
+        detailAccountAnalytics.trackIconClick(account)
+        viewAction = DetailAccountAction.OpenEditAccountScreenFromIconClick(account)
+    }
 }

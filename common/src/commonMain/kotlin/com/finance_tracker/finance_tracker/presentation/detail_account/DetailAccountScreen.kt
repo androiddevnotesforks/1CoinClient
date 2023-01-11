@@ -68,7 +68,8 @@ fun DetailAccountScreen(
                     contentAlpha = state.toolbarState.progress,
                     color = accountData.colorModel.color,
                     amount = accountData.balance,
-                    iconId = accountData.iconId
+                    iconId = accountData.iconId,
+                    onIconClick = viewModel::onIconClick
                 )
 
                 AppBarIcon(

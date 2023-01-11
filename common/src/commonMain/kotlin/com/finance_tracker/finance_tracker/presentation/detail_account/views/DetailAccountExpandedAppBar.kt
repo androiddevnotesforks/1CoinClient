@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.detail_account.views
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -29,7 +30,8 @@ fun DetailAccountExpandedAppBar(
     amount: Amount,
     iconId: String,
     contentAlpha: Float,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onIconClick: () -> Unit = {},
 ) {
     Column(
         modifier = modifier
@@ -44,6 +46,9 @@ fun DetailAccountExpandedAppBar(
                 .padding(top = 64.dp)
                 .size(48.dp)
                 .clip(CircleShape)
+                .clickable {
+                    onIconClick.invoke()
+                }
                 .background(CoinTheme.color.content.copy(alpha = 0.2f))
                 .padding(12.dp),
             painter = rememberVectorPainter(iconId),
