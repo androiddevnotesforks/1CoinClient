@@ -45,7 +45,7 @@ fun SendingUsageDataDialog(
                 append("\n\n")
                 append(stringResource("sending_usage_data_description_2"))
             },
-            style = CoinTheme.typography.body2
+            style = CoinTheme.typography.body1
         )
 
         Row(
@@ -82,7 +82,7 @@ private fun ActionButton(
             .clickable { onClick.invoke() }
             .padding(8.dp),
         text = text,
-        style = CoinTheme.typography.body2_medium,
+        style = CoinTheme.typography.body1_medium,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         color = textColor,

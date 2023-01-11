@@ -129,7 +129,7 @@ private fun CoinTab(
         text = {
             Text(
                 text = text,
-                style = CoinTheme.typography.body2_medium.staticTextSize(),
+                style = CoinTheme.typography.body1_medium.staticTextSize(),
                 color = if (selected) {
                     CoinTheme.color.primary
                 } else {

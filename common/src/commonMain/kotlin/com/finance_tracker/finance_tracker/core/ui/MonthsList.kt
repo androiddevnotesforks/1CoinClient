@@ -77,7 +77,7 @@ fun MonthsList(
             ) {
                 Text(
                     text = yearMonth.month.localizedName(),
-                    style = CoinTheme.typography.body2_medium
+                    style = CoinTheme.typography.body1_medium
                 )
             }
         }

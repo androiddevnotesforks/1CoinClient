@@ -110,7 +110,7 @@ private fun CategoryCard(
         )
         Text(
             text = category.name,
-            style = CoinTheme.typography.body2,
+            style = CoinTheme.typography.body1,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )

@@ -61,7 +61,7 @@ fun CategoryCard(
         )
         Text(
             text = data.name,
-            style = CoinTheme.typography.body2,
+            style = CoinTheme.typography.body1,
             modifier = Modifier
                 .padding(start = 12.dp)
                 .align(Alignment.CenterVertically)

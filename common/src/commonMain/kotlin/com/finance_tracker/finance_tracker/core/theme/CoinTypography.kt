@@ -39,15 +39,10 @@ data class CoinTypography(
     ),
     val body1: TextStyle = TextStyle(
         fontWeight = FontWeight.Normal,
-        fontSize = 15.sp,
-        fontFamily = defaultFontFamily
-    ),
-    val body2: TextStyle = TextStyle(
-        fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         fontFamily = defaultFontFamily
     ),
-    val body2_medium: TextStyle = TextStyle(
+    val body1_medium: TextStyle = TextStyle(
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         fontFamily = defaultFontFamily
