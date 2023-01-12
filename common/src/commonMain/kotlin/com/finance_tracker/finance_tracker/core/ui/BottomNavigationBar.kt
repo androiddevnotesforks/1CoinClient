@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.tabs_navigation
+package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -35,8 +34,8 @@ fun BottomNavigationBar(
     BottomAppBar(
         modifier = modifier,
         backgroundColor = CoinTheme.color.background,
+        elevation = 12.dp,
         contentColor = CoinTheme.color.primary,
-        cutoutShape = CircleShape,
         contentPadding = PaddingValues(
             bottom = navigationBarsHeight
         )
