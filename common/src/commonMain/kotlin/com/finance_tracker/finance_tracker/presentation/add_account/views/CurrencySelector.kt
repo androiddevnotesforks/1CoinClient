@@ -40,7 +40,7 @@ fun CurrencySelector(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
             .background(
-                color = CoinTheme.color.secondaryBackground,
+                color = CoinTheme.color.background,
                 shape = RoundedCornerShape(8.dp)
             )
             .clickable {
@@ -58,9 +58,9 @@ fun CurrencySelector(
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
-            text = selectedCurrency.symbol,
+            text = "${selectedCurrency.code}(${selectedCurrency.symbol})",
             color = CoinTheme.color.content,
-            style = CoinTheme.typography.body1_medium
+            style = CoinTheme.typography.body1
         )
         Icon(
             modifier = Modifier
