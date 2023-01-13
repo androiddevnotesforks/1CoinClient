@@ -23,7 +23,6 @@ allprojects {
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         mavenLocal()
-        maven("https://jitpack.io")
     }
     afterEvaluate {
         // Remove log pollution until Android support in KMP improves.
