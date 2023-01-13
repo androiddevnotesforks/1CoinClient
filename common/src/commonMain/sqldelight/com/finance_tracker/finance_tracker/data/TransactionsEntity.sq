@@ -1,5 +1,5 @@
 import com.finance_tracker.finance_tracker.domain.models.TransactionType;
-import java.util.Date;
+import kotlinx.datetime.LocalDateTime;
 
 CREATE TABLE IF NOT EXISTS TransactionsEntity (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -8,8 +8,8 @@ CREATE TABLE IF NOT EXISTS TransactionsEntity (
     amountCurrency TEXT NOT NULL,
     categoryId INTEGER,
     accountId INTEGER,
-    insertionDate TEXT AS Date NOT NULL,
-    date TEXT AS Date NOT NULL
+    insertionDate TEXT AS LocalDateTime NOT NULL,
+    date TEXT AS LocalDateTime NOT NULL
 );
 
 getAllFullTransactions:

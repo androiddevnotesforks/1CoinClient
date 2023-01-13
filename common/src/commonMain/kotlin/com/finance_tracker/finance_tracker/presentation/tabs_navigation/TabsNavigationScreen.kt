@@ -14,13 +14,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Modifier
+import com.finance_tracker.finance_tracker.core.common.getKoin
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.BottomNavigationBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.presentation.tabs_navigation.analytics.TabsNavigationAnalytics
-import org.koin.java.KoinJavaComponent
 import ru.alexgladkov.odyssey.compose.base.AnimatedHost
 import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
 import ru.alexgladkov.odyssey.compose.controllers.TabNavigationModel
@@ -29,12 +29,12 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 import ru.alexgladkov.odyssey.core.toScreenBundle
 
 @Composable
-fun TabsNavigationScreen() {
+internal fun TabsNavigationScreen() {
 
     val rootController = LocalRootController.current as MultiStackRootController
     val nullableSelectedTabItem by rootController.stackChangeObserver.collectAsState()
     val selectedTabItem = nullableSelectedTabItem ?: return
-    val analytics: TabsNavigationAnalytics = remember { KoinJavaComponent.getKoin().get() }
+    val analytics: TabsNavigationAnalytics = remember { getKoin().get() }
 
     Scaffold(
         bottomBar = {

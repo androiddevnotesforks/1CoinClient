@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.Flow
 class AnalyticsSettings(factory: Settings.Factory) {
 
     private val settings: ObservableSettings = factory.create("analytics") as ObservableSettings
-    private val flowSettings: FlowSettings = settings.toFlowSettings(Dispatchers.IO)
+    private val flowSettings: FlowSettings = settings.toFlowSettings(Dispatchers.Default)
 
     suspend fun saveIsAnalyticsEnabled(enabled: Boolean) {
         settings.putBoolean(KEY_IS_ANALYTICS_ENABLED, enabled)

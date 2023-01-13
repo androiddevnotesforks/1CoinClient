@@ -24,7 +24,7 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Suppress("MagicNumber")
 @Composable
-fun AddAccountCard(
+internal fun AddAccountCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     fullSize: Boolean = false

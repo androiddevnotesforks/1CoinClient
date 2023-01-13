@@ -7,7 +7,7 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
-import java.util.Date
+import kotlinx.datetime.LocalDateTime
 
 val fullTransactionMapper: (
     id: Long,
@@ -16,8 +16,8 @@ val fullTransactionMapper: (
     amountCurrency: String,
     categoryId: Long?,
     accountId: Long?,
-    insertionDate: Date,
-    date: Date,
+    insertionDate: LocalDateTime,
+    date: LocalDateTime,
     id_: Long,
     type_: Account.Type,
     name: String,
@@ -58,7 +58,7 @@ val fullTransactionMapper: (
             currency = currency,
             amountValue = amount
         ),
-        date = date,
-        insertionDate = insertionDate
+        dateTime = date,
+        insertionDateTime = insertionDate
     )
 }

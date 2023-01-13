@@ -24,7 +24,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Suppress("MagicNumber")
 @Composable
-fun EmptyStub(
+internal fun EmptyStub(
     image: Painter,
     text: String,
     modifier: Modifier = Modifier,

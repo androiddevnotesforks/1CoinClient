@@ -21,8 +21,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import java.util.Calendar
-import java.util.Date
 
 private const val LastTransactionsLimit = 3L
 
@@ -97,18 +95,6 @@ class TransactionsInteractor(
             oldTransaction = oldTransaction,
             newTransaction = newTransaction
         )
-    }
-
-    private fun Date?.isCalendarDateEquals(date: Date?): Boolean {
-        if (this == date) return true
-        if (this == null) return false
-        if (date == null) return false
-
-        val calendar1 = Calendar.getInstance().apply { time = this@isCalendarDateEquals }
-        val calendar2 = Calendar.getInstance().apply { time = date }
-        return calendar1.get(Calendar.YEAR) == calendar2.get(Calendar.YEAR) &&
-                calendar1.get(Calendar.MONTH) == calendar2.get(Calendar.MONTH) &&
-                calendar1.get(Calendar.DAY_OF_MONTH) == calendar2.get(Calendar.DAY_OF_MONTH)
     }
 
     @Suppress("MagicNumber")
@@ -240,7 +226,7 @@ class TransactionsInteractor(
             .map {
                 insertSeparators(it)
             }
-            .flowOn(Dispatchers.IO)
+            .flowOn(Dispatchers.Default)
     }
 
     private fun insertSeparators(
@@ -251,9 +237,9 @@ class TransactionsInteractor(
             val previousTransaction = data?.transaction
             val currentTransaction = data2?.transaction ?: return@insertSeparators null
             if (previousTransaction == null ||
-                !previousTransaction.date.isCalendarDateEquals(currentTransaction.date)) {
+                previousTransaction.dateTime != currentTransaction.dateTime) {
                 TransactionListModel.DateAndDayTotal(
-                    date = currentTransaction.date,
+                    dateTime = currentTransaction.dateTime,
                 )
             } else {
                 null

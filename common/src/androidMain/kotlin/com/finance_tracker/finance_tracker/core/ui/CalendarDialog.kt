@@ -6,9 +6,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import com.finance_tracker.finance_tracker.common.R
 import com.finance_tracker.finance_tracker.core.common.LocalContext
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.toKotlinLocalDate
+import java.time.LocalDate as JavaLocalDate
 
-private val todayDate = LocalDate.now()
+private val todayDate = JavaLocalDate.now().toKotlinLocalDate()
 
 @Composable
 @Suppress("MissingModifierDefaultValue", "ModifierParameterPosition")
@@ -23,13 +25,15 @@ actual fun CalendarDialog(
     val datePickerDialog = DatePickerDialog(
         context, R.style.CalendarDialogTheme,
         { _, year, month, dayOfMonth ->
-            onDateChangeListener.invoke(LocalDate.of(year, month + 1, dayOfMonth))
-        }, todayDate.year, todayDate.monthValue, todayDate.dayOfMonth
+            onDateChangeListener.invoke(
+                LocalDate(year, month + 1, dayOfMonth)
+            )
+        }, todayDate.year, todayDate.monthNumber, todayDate.dayOfMonth
     )
     datePickerDialog.window?.setBackgroundDrawableResource(R.drawable.calendar_dialog_background)
     datePickerDialog.apply {
-        datePicker.minDate = minDate//Calendar.getInstance().apply { add(Calendar.YEAR, -1) }.time.time
-        datePicker.maxDate = maxDate//Calendar.getInstance().time.time
+        datePicker.minDate = minDate
+        datePicker.maxDate = maxDate
     }
     LaunchedEffect(datePickerDialog) {
         onControllerCreate.invoke(getCalendarDialogController(datePickerDialog))

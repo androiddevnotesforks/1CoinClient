@@ -22,7 +22,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 private val HorizontalPadding = 16.dp
 
 @Composable
-fun CoinWidget(
+internal fun CoinWidget(
     title: String,
     modifier: Modifier = Modifier,
     withBorder: Boolean = false,

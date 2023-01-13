@@ -28,7 +28,7 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 import kotlin.math.roundToInt
 
 @Composable
-fun CategorySelector(
+internal fun CategorySelector(
     categories: List<Category>,
     onCategorySelect: (category: Category) -> Unit,
     onCategoryAdd: () -> Unit,

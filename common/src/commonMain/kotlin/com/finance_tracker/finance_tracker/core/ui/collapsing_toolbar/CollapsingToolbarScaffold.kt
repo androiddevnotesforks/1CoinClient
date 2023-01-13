@@ -46,7 +46,7 @@ private class CollapsingToolbarScaffoldStateSaver: Saver<CollapsingToolbarScaffo
 }
 
 @Composable
-fun rememberCollapsingToolbarScaffoldState(
+internal fun rememberCollapsingToolbarScaffoldState(
 	toolbarState: CollapsingToolbarState = rememberCollapsingToolbarState()
 ): CollapsingToolbarScaffoldState {
 	return rememberSaveable(toolbarState, saver = CollapsingToolbarScaffoldStateSaver()) {
@@ -59,7 +59,7 @@ interface CollapsingToolbarScaffoldScope {
 }
 
 @Composable
-fun CollapsingToolbarScaffold(
+internal fun CollapsingToolbarScaffold(
 	modifier: Modifier = Modifier,
 	state: CollapsingToolbarScaffoldState,
 	scrollStrategy: ScrollStrategy,

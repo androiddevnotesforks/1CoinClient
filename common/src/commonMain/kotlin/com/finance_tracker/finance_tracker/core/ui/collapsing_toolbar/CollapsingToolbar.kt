@@ -148,7 +148,7 @@ class CollapsingToolbarState(
 }
 
 @Composable
-fun rememberCollapsingToolbarState(
+internal fun rememberCollapsingToolbarState(
 	initial: Int = Int.MAX_VALUE
 ): CollapsingToolbarState {
 	return remember {
@@ -159,7 +159,7 @@ fun rememberCollapsingToolbarState(
 }
 
 @Composable
-fun CollapsingToolbar(
+internal fun CollapsingToolbar(
 	modifier: Modifier = Modifier,
 	collapsingToolbarState: CollapsingToolbarState,
 	content: @Composable CollapsingToolbarScope.() -> Unit

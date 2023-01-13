@@ -47,7 +47,7 @@ private val MenuVerticalMargin = 48.dp
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun GridDropdownMenu(
+internal fun GridDropdownMenu(
     columnSize: Dp,
     expanded: Boolean,
     onDismissRequest: () -> Unit,

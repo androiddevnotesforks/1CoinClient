@@ -19,7 +19,7 @@ import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.domain.models.Account
 
 @Composable
-fun AccountCard(
+internal fun AccountCard(
     account: Account,
     modifier: Modifier = Modifier,
     maxLines: Int = 2,

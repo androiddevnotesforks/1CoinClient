@@ -19,7 +19,7 @@ import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.rememberCo
 
 @Composable
 @Suppress("MagicNumber")
-fun AccountNameText(
+internal fun AccountNameText(
     name: String,
     modifier: Modifier = Modifier,
     state: CollapsingToolbarScaffoldState = rememberCollapsingToolbarScaffoldState()

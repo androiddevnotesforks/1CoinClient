@@ -20,7 +20,7 @@ import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabR
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
-fun CategoriesAppBar(
+internal fun CategoriesAppBar(
     doneButtonEnabled: Boolean,
     modifier: Modifier = Modifier,
     selectedTransactionType: TransactionTypeTab = TransactionTypeTab.Expense,

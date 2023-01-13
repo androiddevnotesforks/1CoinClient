@@ -6,23 +6,23 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 
 @Composable
-fun Dp.toPx(): Float {
+internal fun Dp.toPx(): Float {
     return LocalDensity.current.run { this@toPx.toPx() }
 }
 
 @Composable
-fun Int.toDp(): Dp {
+internal fun Int.toDp(): Dp {
     return LocalDensity.current.run { this@toDp.toDp() }
 }
 
 @Composable
-fun dpToSp(dp: Dp) = with(LocalDensity.current) { dp.toSp() }
+internal fun dpToSp(dp: Dp) = with(LocalDensity.current) { dp.toSp() }
 
 @Composable
-fun Dp.asSp() = with(LocalDensity.current) { toSp() }
+internal fun Dp.asSp() = with(LocalDensity.current) { toSp() }
 
 @Composable
-fun spToDp(sp: TextUnit) = with(LocalDensity.current) { sp.toDp() }
+internal fun spToDp(sp: TextUnit) = with(LocalDensity.current) { sp.toDp() }
 
 @Composable
-fun TextUnit.asDp() = with(LocalDensity.current) { toDp() }
+internal fun TextUnit.asDp() = with(LocalDensity.current) { toDp() }

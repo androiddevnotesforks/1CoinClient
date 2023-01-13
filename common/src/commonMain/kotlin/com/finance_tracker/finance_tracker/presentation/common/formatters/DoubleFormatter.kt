@@ -1,13 +1,12 @@
 package com.finance_tracker.finance_tracker.presentation.common.formatters
 
-import com.finance_tracker.finance_tracker.core.common.NumberFormatters
-
-private val formatter = NumberFormatters.DoubleFormatter()
+import com.finance_tracker.finance_tracker.core.common.number_formatters.formatDouble
+import com.finance_tracker.finance_tracker.core.common.number_formatters.parseDouble
 
 fun Double.format(): String {
-    return formatter.format(this)
+    return formatDouble(this)
 }
 
 fun String.parse(): Double? {
-    return formatter.parse(this)
+    return parseDouble(this)
 }

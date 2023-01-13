@@ -25,7 +25,7 @@ import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 @Suppress("MagicNumber")
 @OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
-fun LoadingPieChart(
+internal fun LoadingPieChart(
     selectedYearMonth: YearMonth,
     modifier: Modifier = Modifier
 ) {

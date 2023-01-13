@@ -26,7 +26,7 @@ import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 @Suppress("MagicNumber")
 @OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
-fun MainTxsByCategoryChart(
+internal fun MainTxsByCategoryChart(
     monthTransactionsByCategory: TxsByCategoryChart,
     selectedYearMonth: YearMonth,
     modifier: Modifier = Modifier

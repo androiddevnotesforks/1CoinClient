@@ -2,14 +2,14 @@ package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 @Composable
 expect fun CalendarDialog(
     minDate: Long,
     maxDate: Long,
     modifier: Modifier = Modifier,
-    onControllerCreate: (CalendarDialogController) -> Unit = { StubCalendarDialogController },
+    onControllerCreate: (CalendarDialogController) -> Unit = {},
     onDateChangeListener: (LocalDate) -> Unit = {}
 )
 

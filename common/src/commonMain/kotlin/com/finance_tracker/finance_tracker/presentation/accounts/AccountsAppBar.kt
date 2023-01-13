@@ -18,7 +18,7 @@ import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
-fun AccountsAppBar(
+internal fun AccountsAppBar(
     onAddAccountClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {

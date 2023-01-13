@@ -1,7 +1,9 @@
 package com.finance_tracker.finance_tracker.presentation.analytics.delegates
 
 import androidx.compose.runtime.Composable
+import com.finance_tracker.finance_tracker.core.common.date.currentLocalDate
 import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.common.toDateTime
 import com.finance_tracker.finance_tracker.data.repositories.CurrenciesRepository
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
@@ -27,10 +29,11 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.stateIn
-import java.util.Calendar
-import java.util.Date
-import java.util.LinkedList
-import java.util.SortedMap
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.minus
+import kotlinx.datetime.plus
 import kotlin.coroutines.CoroutineContext
 
 class TrendsAnalyticsDelegate(
@@ -55,13 +58,8 @@ class TrendsAnalyticsDelegate(
         associateTransactionsByBars(
             transactions = transactions,
             barsRange = 1..DaysInWeek,
-            transformDateToBarOrder = { calendar ->
-                var dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
-                if (dayOfWeek == Calendar.SUNDAY) {
-                    dayOfWeek = 8
-                }
-                dayOfWeek -= 1
-                return@associateTransactionsByBars dayOfWeek
+            transformDateToBarOrder = { date ->
+                return@associateTransactionsByBars date.dayOfWeek.ordinal + 1
             },
             currencyRates = currencyRates,
             primaryCurrency = primaryCurrency
@@ -78,16 +76,15 @@ class TrendsAnalyticsDelegate(
     private val monthTrendTransform: (
         List<GetTransactionsForPeriod>, CurrencyRates, Currency
     ) -> List<TrendBarDetails> = { transactions, currencyRates, primaryCurrency ->
-        val startDayOfMonthEpochMillis = getStartOfMonthDate().time
-        val maxDayOfMonth = Calendar.getInstance().apply {
-            timeInMillis = startDayOfMonthEpochMillis
-            add(Calendar.DAY_OF_YEAR, -1)
-        }.get(Calendar.DAY_OF_MONTH)
+        val startOfMonthDate = getStartOfNextMonthDate()
+        val maxDayOfMonth = LocalDate.fromEpochDays(startOfMonthDate.toEpochDays())
+            .minus(DateTimeUnit.DAY)
+            .dayOfMonth
 
         associateTransactionsByBars(
             transactions = transactions,
             barsRange = 1..maxDayOfMonth,
-            transformDateToBarOrder = { calendar -> calendar.get(Calendar.DAY_OF_MONTH) },
+            transformDateToBarOrder = { date -> date.dayOfMonth },
             currencyRates = currencyRates,
             primaryCurrency = primaryCurrency
         )
@@ -96,7 +93,7 @@ class TrendsAnalyticsDelegate(
                     txsAmounts = txsAmounts,
                     primaryCurrency = primaryCurrency,
                     title = {
-                        "$dayOfMonth ${stringResource("month_${Calendar.getInstance().get(Calendar.MONTH) + 1}")}"
+                        "$dayOfMonth ${stringResource("month_${Clock.System.currentLocalDate().monthNumber}")}"
                     }
                 )
             }
@@ -108,7 +105,7 @@ class TrendsAnalyticsDelegate(
         associateTransactionsByBars(
             transactions = transactions,
             barsRange = 1..MonthsInYear,
-            transformDateToBarOrder = { calendar -> calendar.get(Calendar.MONTH) + 1 },
+            transformDateToBarOrder = { date -> date.monthNumber },
             currencyRates = currencyRates,
             primaryCurrency = primaryCurrency
         )
@@ -172,7 +169,7 @@ class TrendsAnalyticsDelegate(
             PeriodChip.Year -> expenseYearTrend
         }
     }
-        .flowOn(Dispatchers.IO)
+        .flowOn(Dispatchers.Default)
         .stateIn(this@TrendsAnalyticsDelegate, started = SharingStarted.Lazily, initialValue = listOf())
 
     private val incomeFlow = combine(
@@ -184,7 +181,7 @@ class TrendsAnalyticsDelegate(
             PeriodChip.Year -> incomeYearTrend
         }
     }
-        .flowOn(Dispatchers.IO)
+        .flowOn(Dispatchers.Default)
         .stateIn(this@TrendsAnalyticsDelegate, started = SharingStarted.Lazily, initialValue = listOf())
 
     val trendFlow = combine(selectedTransactionTypeFlow, expenseFlow, incomeFlow) {
@@ -195,7 +192,7 @@ class TrendsAnalyticsDelegate(
             TransactionType.Income -> income
         }
     }
-        .flowOn(Dispatchers.IO)
+        .flowOn(Dispatchers.Default)
         .stateIn(this@TrendsAnalyticsDelegate, started = SharingStarted.Lazily, initialValue = listOf())
 
     val totalFlow = combine(trendFlow, primaryCurrencyFlow) {
@@ -205,7 +202,7 @@ class TrendsAnalyticsDelegate(
             currency = primaryCurrency
         )
     }
-        .flowOn(Dispatchers.IO)
+        .flowOn(Dispatchers.Default)
         .stateIn(this@TrendsAnalyticsDelegate, started = SharingStarted.Lazily, initialValue = Amount.default)
 
     init {
@@ -221,17 +218,15 @@ class TrendsAnalyticsDelegate(
     private fun associateTransactionsByBars(
         transactions: List<GetTransactionsForPeriod>,
         barsRange: IntRange,
-        transformDateToBarOrder: (Calendar) -> Int,
+        transformDateToBarOrder: (LocalDate) -> Int,
         currencyRates: CurrencyRates,
         primaryCurrency: Currency
-    ): SortedMap<Int, LinkedList<Double>> {
-        val map = mutableMapOf<Int, LinkedList<Double>>()
-        barsRange.onEach { map[it] = LinkedList() }
+    ): List<Pair<Int, List<Double>>> {
+        val map = mutableMapOf<Int, MutableList<Double>>()
+        barsRange.onEach { map[it] = mutableListOf() }
 
         transactions.forEach { transaction ->
-            val calendar = Calendar.getInstance().apply {
-                timeInMillis = transaction.date.time
-            }
+            val date = transaction.date.date
 
             val amount = Amount(
                 currency = Currency.getByCode(transaction.amountCurrency),
@@ -241,11 +236,11 @@ class TrendsAnalyticsDelegate(
                 toCurrency = primaryCurrency
             )
 
-            val dayOfWeek = transformDateToBarOrder.invoke(calendar)
+            val dayOfWeek = transformDateToBarOrder.invoke(date)
             map[dayOfWeek]?.add(amount)
         }
 
-        return map.toSortedMap()
+        return map.toList().sortedBy { it.first }
     }
 
     private fun mapTxsAmountsToTrendBarDetails(
@@ -268,77 +263,66 @@ class TrendsAnalyticsDelegate(
 
     private fun subscribeTransactionsData(
         transactionType: TransactionType,
-        fromDate: Date,
-        toDate: Date,
+        fromDate: LocalDate,
+        toDate: LocalDate,
         transform: (List<GetTransactionsForPeriod>, CurrencyRates, Currency) -> List<TrendBarDetails>
     ): Flow<List<TrendBarDetails>> {
         return combine(transactionsEntityQueries.getTransactionsForPeriod(
             transactionType = transactionType,
-            fromDate = fromDate,
-            toDate = toDate
+            fromDate = fromDate.toDateTime(),
+            toDate = toDate.toDateTime()
         ).asFlow().mapToList(), databaseCurrencyRatesFlow, primaryCurrencyFlow, transform = transform)
-            .flowOn(Dispatchers.IO)
+            .flowOn(Dispatchers.Default)
             .stateIn(this@TrendsAnalyticsDelegate, started = SharingStarted.Lazily, initialValue = listOf())
     }
 
-    private fun getStartOfWeekDate(): Date {
-        return Calendar.getInstance().apply {
-            var dayOfWeek = get(Calendar.DAY_OF_WEEK)
-            if (dayOfWeek == Calendar.SUNDAY) {
-                dayOfWeek = Calendar.SATURDAY + 1
-            }
-            add(Calendar.DAY_OF_WEEK, -(dayOfWeek - 2))
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }.time
+    private fun getStartOfWeekDate(): LocalDate {
+        val nowDate = Clock.System.currentLocalDate()
+        return LocalDate(
+            year = nowDate.year,
+            monthNumber = nowDate.monthNumber,
+            dayOfMonth = nowDate.dayOfMonth
+        ).minus(nowDate.dayOfWeek.ordinal, DateTimeUnit.DAY)
     }
 
-    private fun getStartOfNextWeekDate(): Date {
-        return Calendar.getInstance().apply {
-            time = getStartOfWeekDate()
-            add(Calendar.DAY_OF_YEAR, DaysInWeek)
-        }.time
+    private fun getStartOfNextWeekDate(): LocalDate {
+        return getStartOfWeekDate().plus(DaysInWeek, DateTimeUnit.DAY)
     }
 
-    private fun getStartOfMonthDate(): Date {
-        return Calendar.getInstance().apply {
-            val year = get(Calendar.YEAR)
-            val month = get(Calendar.MONTH)
-            timeInMillis = 0L
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.YEAR, year)
-            set(Calendar.MONTH, month)
-        }.time
+    private fun getStartOfMonthDate(): LocalDate {
+        val nowDate = Clock.System.currentLocalDate()
+        return LocalDate(
+            year = nowDate.year,
+            monthNumber = nowDate.monthNumber,
+            dayOfMonth = 1
+        )
     }
 
-    private fun getStartOfNextMonthDate(): Date {
-        return Calendar.getInstance().apply {
-            time = getStartOfMonthDate()
-            add(Calendar.MONTH, 1)
-        }.time
+    private fun getStartOfNextMonthDate(): LocalDate {
+        val nowDate = Clock.System.currentLocalDate()
+        return LocalDate(
+            year = nowDate.year,
+            monthNumber = nowDate.monthNumber + 1,
+            dayOfMonth = 1
+        )
     }
 
-    private fun getStartOfYearDate(): Date {
-        return Calendar.getInstance().apply {
-            val year = get(Calendar.YEAR)
-            timeInMillis = 0L
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 0)
-            set(Calendar.SECOND, 0)
-            set(Calendar.YEAR, year)
-            set(Calendar.MONTH, Calendar.JANUARY)
-        }.time
+    private fun getStartOfYearDate(): LocalDate {
+        val nowDate = Clock.System.currentLocalDate()
+        return LocalDate(
+            year = nowDate.year,
+            monthNumber = 1,
+            dayOfMonth = 1
+        )
     }
 
-    private fun getStartOfNextYearDate(): Date {
-        return Calendar.getInstance().apply {
-            time = getStartOfYearDate()
-            add(Calendar.YEAR, 1)
-        }.time
+    private fun getStartOfNextYearDate(): LocalDate {
+        val nowDate = Clock.System.currentLocalDate()
+        return LocalDate(
+            year = nowDate.year + 1,
+            monthNumber = 1,
+            dayOfMonth = 1
+        )
     }
 
     fun setPeriodChip(periodChip: PeriodChip) {

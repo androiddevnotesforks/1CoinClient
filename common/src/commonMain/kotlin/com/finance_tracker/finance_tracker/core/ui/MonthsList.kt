@@ -25,7 +25,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import kotlinx.datetime.Clock
 
 @Composable
-fun MonthsList(
+internal fun MonthsList(
     modifier: Modifier = Modifier,
     selectedMonth: YearMonth = Clock.System.currentYearMonth(),
     lastMonth: YearMonth = Clock.System.currentYearMonth(),

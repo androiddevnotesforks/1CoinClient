@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -16,11 +17,10 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.toDp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinDropdownMenu
-import com.finance_tracker.finance_tracker.core.ui.DropdownMenuItem
 import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 
 @Composable
-fun AccountColorsDropdownMenu(
+internal fun AccountColorsDropdownMenu(
     items: List<AccountColorModel>,
     offsetXState: MutableState<Int>,
     expandedState: MutableState<Boolean>,
@@ -31,6 +31,7 @@ fun AccountColorsDropdownMenu(
         modifier = modifier,
         expanded = expandedState.value,
         xOffset = offsetXState.value.toDp(),
+        yOffset = 8.dp,
         onDismissRequest = { expandedState.value = false }
     ) {
         items.forEach { item ->

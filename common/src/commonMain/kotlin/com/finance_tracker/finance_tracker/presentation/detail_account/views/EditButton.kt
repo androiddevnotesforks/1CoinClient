@@ -28,7 +28,7 @@ import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.rememberCo
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
-fun EditButton(
+internal fun EditButton(
     modifier: Modifier = Modifier,
     state: CollapsingToolbarScaffoldState = rememberCollapsingToolbarScaffoldState(),
     tint: Color = CoinTheme.color.content,

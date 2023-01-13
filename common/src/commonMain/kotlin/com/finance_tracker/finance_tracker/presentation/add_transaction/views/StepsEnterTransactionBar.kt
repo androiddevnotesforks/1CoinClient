@@ -37,7 +37,7 @@ data class StepsEnterTransactionBarData(
 )
 
 @Composable
-fun StepsEnterTransactionBar(
+internal fun StepsEnterTransactionBar(
     data: StepsEnterTransactionBarData,
     modifier: Modifier = Modifier,
     onStepSelect: (EnterTransactionStep) -> Unit = {}
@@ -67,7 +67,7 @@ fun StepsEnterTransactionBar(
 }
 
 @Composable
-fun RowScope.AccountStage(
+internal fun RowScope.AccountStage(
     data: StepsEnterTransactionBarData,
     modifier: Modifier = Modifier,
     onStageSelect: (EnterTransactionStep) -> Unit = {}
@@ -89,7 +89,7 @@ fun RowScope.AccountStage(
 }
 
 @Composable
-fun RowScope.CategoryStage(
+internal fun RowScope.CategoryStage(
     data: StepsEnterTransactionBarData,
     modifier: Modifier = Modifier,
     onStageSelect: (EnterTransactionStep) -> Unit = {}
@@ -105,7 +105,7 @@ fun RowScope.CategoryStage(
 }
 
 @Composable
-fun CategoryRow(
+internal fun CategoryRow(
     category: Category,
     modifier: Modifier = Modifier
 ) {
@@ -130,7 +130,7 @@ fun CategoryRow(
 }
 
 @Composable
-fun NextIcon(
+internal fun NextIcon(
     modifier: Modifier = Modifier
 ) {
     Icon(

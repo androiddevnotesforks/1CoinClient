@@ -2,7 +2,7 @@ package com.finance_tracker.finance_tracker.domain.models
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import java.util.Date
+import kotlinx.datetime.LocalDateTime
 
 sealed interface TransactionListModel {
 
@@ -12,12 +12,12 @@ sealed interface TransactionListModel {
                 transaction.id ?: -1
             }
             is DateAndDayTotal -> {
-                date
+                dateTime.toString()
             }
         }
 
     data class DateAndDayTotal(
-        val date: Date
+        val dateTime: LocalDateTime
     ): TransactionListModel
 
     data class Data(
