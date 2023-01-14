@@ -1,6 +1,8 @@
 package com.finance_tracker.finance_tracker.presentation.settings_sheet
 
+import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.UriHandler
+import androidx.compose.ui.text.AnnotatedString
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
@@ -19,6 +21,7 @@ sealed interface SettingsSheetAction {
 fun handleAction(
     action: SettingsSheetAction,
     baseLocalsStorage: BaseLocalsStorage,
+    clipboardManager: ClipboardManager,
     uriHandler: UriHandler
 ) {
     val rootController = baseLocalsStorage.rootController
@@ -46,7 +49,7 @@ fun handleAction(
             }
         }
         is SettingsSheetAction.CopyUserId -> {
-            // TODO: CopyUserId
+            clipboardManager.setText(AnnotatedString(action.userId))
         }
     }
 }

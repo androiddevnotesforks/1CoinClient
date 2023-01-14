@@ -66,7 +66,9 @@ class SettingsSheetViewModel(
 
     fun onCopyUserId() {
         settingsSheetAnalytics.trackCopyUserIdClick()
-
+        viewAction = SettingsSheetAction.CopyUserId(
+            userId = userId.value
+        )
     }
 
     companion object {

@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
@@ -29,11 +30,13 @@ internal fun SettingsSheet(dialogKey: String) {
     StoredViewModel<SettingsSheetViewModel> { viewModel ->
 
         val uriHandler = LocalUriHandler.current
+        val clipboardManager = LocalClipboardManager.current
         viewModel.watchViewActions { action, baseLocalsStorage ->
             handleAction(
                 action = action,
                 baseLocalsStorage = baseLocalsStorage,
-                uriHandler = uriHandler
+                uriHandler = uriHandler,
+                clipboardManager = clipboardManager
             )
         }
 
