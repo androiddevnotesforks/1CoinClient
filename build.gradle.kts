@@ -1,3 +1,4 @@
+
 import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
@@ -11,6 +12,9 @@ tasks.register<Detekt>("detektAll") {
     exclude("**/resources/**", "**/build/**")
     config.setFrom(project.file("config/detekt/detekt.yml"))
 }
+
+val appVersion by extra("1.0.0")
+val appName by extra("1Coin")
 
 dependencies {
     detekt(libs.detekt.cli)

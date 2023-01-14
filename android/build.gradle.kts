@@ -39,8 +39,10 @@ android {
         minSdk = 26
         targetSdk = 33
         versionCode = 2
-        versionName = "1.0.0"
+        versionName = rootProject.extra["appVersion"] as String
         signingConfig = signingConfigs.getByName("debug")
+        val appName = rootProject.extra["appName"] as String
+        resValue("string", "app_name", appName)
     }
 
     buildTypes {

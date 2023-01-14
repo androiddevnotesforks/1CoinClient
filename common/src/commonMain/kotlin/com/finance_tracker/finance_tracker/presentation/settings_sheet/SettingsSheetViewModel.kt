@@ -5,9 +5,9 @@ import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteract
 import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.analytics.SettingsSheetAnalytics
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.fincance_tracker.fincance_tracker.BuildKonfig
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -22,18 +22,12 @@ class SettingsSheetViewModel(
     val isSendingUsageDataEnabled = userInteractor.isAnalyticsEnabledFlow()
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = false)
 
-    private val _userID = MutableStateFlow("")
-    val userID = _userID.asStateFlow()
+    val userId = flow { emit(userInteractor.getOrCreateUserId()) }
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = "")
+    val versionName = BuildKonfig.appVersion
 
     init {
         settingsSheetAnalytics.trackScreenOpen()
-        getOrCreateUserID()
-    }
-
-    private fun getOrCreateUserID(){
-        viewModelScope.launch {
-            _userID.value = userInteractor.getOrCreateUserId()
-        }
     }
 
     fun onCurrencySelect(currency: Currency) {
@@ -68,6 +62,13 @@ class SettingsSheetViewModel(
 
     fun onCurrencyClick(currency: Currency) {
         settingsSheetAnalytics.trackChooseCurrencyClick(currency)
+    }
+
+    fun onCopyUserId() {
+        settingsSheetAnalytics.trackCopyUserIdClick()
+        viewAction = SettingsSheetAction.CopyUserId(
+            userId = userId.value
+        )
     }
 
     companion object {

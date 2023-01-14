@@ -42,6 +42,10 @@ class SettingsSheetAnalytics: BaseAnalytics() {
         )
     }
 
+    fun trackCopyUserIdClick() {
+        trackClick(eventName = "CopyUserId")
+    }
+
     fun trackSendingUsageDataInfoClick() {
         trackClick(eventName = "SendingUsageDataInfo")
     }

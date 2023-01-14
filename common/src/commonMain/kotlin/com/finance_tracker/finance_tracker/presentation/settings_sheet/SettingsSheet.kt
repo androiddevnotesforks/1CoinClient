@@ -11,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
@@ -29,16 +30,15 @@ internal fun SettingsSheet(dialogKey: String) {
     StoredViewModel<SettingsSheetViewModel> { viewModel ->
 
         val uriHandler = LocalUriHandler.current
+        val clipboardManager = LocalClipboardManager.current
         viewModel.watchViewActions { action, baseLocalsStorage ->
             handleAction(
                 action = action,
                 baseLocalsStorage = baseLocalsStorage,
-                uriHandler = uriHandler
+                uriHandler = uriHandler,
+                clipboardManager = clipboardManager
             )
         }
-
-        val chosenCurrency by viewModel.chosenCurrency.collectAsState()
-        val userID by viewModel.userID.collectAsState()
 
         Column(
             modifier = Modifier
@@ -61,6 +61,8 @@ internal fun SettingsSheet(dialogKey: String) {
                     .fillMaxWidth()
                     .height(1.dp)
             )
+
+            val chosenCurrency by viewModel.chosenCurrency.collectAsState()
             SettingsSheetMainCurrencyItem(
                 selectedCurrency = chosenCurrency,
                 onCurrencySelect = viewModel::onCurrencySelect,
@@ -86,9 +88,12 @@ internal fun SettingsSheet(dialogKey: String) {
                     .fillMaxWidth()
                     .height(1.dp)
             )
+
+            val userId by viewModel.userId.collectAsState()
             SettingsSheetVersionAndUserIdInfo(
-                versionNumber = "1.0.0",
-                userId = userID
+                versionName = viewModel.versionName,
+                userId = userId,
+                onCopyUserId = viewModel::onCopyUserId
             )
         }
     }
