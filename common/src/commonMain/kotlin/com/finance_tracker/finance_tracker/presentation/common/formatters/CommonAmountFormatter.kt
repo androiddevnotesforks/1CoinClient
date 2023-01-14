@@ -2,7 +2,6 @@ package com.finance_tracker.finance_tracker.presentation.common.formatters
 
 import androidx.compose.runtime.Composable
 import com.finance_tracker.finance_tracker.core.common.math.negativeSignOrEmpty
-import com.finance_tracker.finance_tracker.core.common.number_formatters.formatAmount
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import kotlin.math.absoluteValue
 
@@ -29,3 +28,6 @@ internal fun Amount.format(
         }
     }
 }
+
+@Composable
+expect fun formatAmount(number: Double, currencyCode: String): String

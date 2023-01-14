@@ -22,12 +22,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.date.Format
+import com.finance_tracker.finance_tracker.core.common.date.format
 import com.finance_tracker.finance_tracker.core.common.date.isCurrentYear
 import com.finance_tracker.finance_tracker.core.common.date.isToday
 import com.finance_tracker.finance_tracker.core.common.date.isYesterday
-import com.finance_tracker.finance_tracker.core.common.date.models.minus
+import com.finance_tracker.finance_tracker.core.common.date.minus
 import com.finance_tracker.finance_tracker.core.common.stringResource
-import com.finance_tracker.finance_tracker.core.common.zeroPrefixed
+import com.finance_tracker.finance_tracker.core.common.toDateTime
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CalendarDialog
 import com.finance_tracker.finance_tracker.core.ui.CalendarDialogController
@@ -85,20 +87,22 @@ internal fun CalendarDayView(
                 )
 
                 val shortFormattedDate by remember(date) {
-                    derivedStateOf {
-                        // Format: "dd.MM"
-                        "${date.dayOfMonth.zeroPrefixed(2)}.${date.monthNumber.zeroPrefixed(2)}"
-                    }
+                    derivedStateOf { date.toDateTime().format(Format.ShortDate) }
                 }
                 Text(
                     modifier = Modifier.padding(start = 4.dp),
                     text = when {
-                        date.isToday() -> "${stringResource("add_transaction_today")}, $shortFormattedDate"
-                        date.isYesterday() -> "${stringResource("add_transaction_yesterday")}, $shortFormattedDate"
-                        date.isCurrentYear() -> shortFormattedDate
+                        date.isToday() -> {
+                            "${stringResource("add_transaction_today")}, $shortFormattedDate"
+                        }
+                        date.isYesterday() -> {
+                            "${stringResource("add_transaction_yesterday")}, $shortFormattedDate"
+                        }
+                        date.isCurrentYear() -> {
+                            shortFormattedDate
+                        }
                         else -> {
-                            // Format: "dd.MM.yyyy"
-                            "${date.dayOfMonth.zeroPrefixed(2)}.${date.monthNumber.zeroPrefixed(2)}.${date.year}"
+                            date.toDateTime().format(Format.FullDate)
                         }
                     },
                     style = CoinTheme.typography.subtitle1,

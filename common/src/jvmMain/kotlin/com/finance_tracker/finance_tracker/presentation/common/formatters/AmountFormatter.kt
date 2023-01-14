@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.core.common.number_formatters
+package com.finance_tracker.finance_tracker.presentation.common.formatters
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
