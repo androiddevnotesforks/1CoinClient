@@ -34,18 +34,21 @@ class AddTransactionViewModel(
     private val transactionsInteractor: TransactionsInteractor,
     private val accountsEntityQueries: AccountsEntityQueries,
     private val categoriesEntityQueries: CategoriesEntityQueries,
-    private val _transaction: Transaction,
+    params: AddTransactionScreenParams,
     private val addTransactionAnalytics: AddTransactionAnalytics
 ): BaseViewModel<AddTransactionAction>() {
 
-    private val transaction: Transaction? = _transaction.takeIf { _transaction != Transaction.EMPTY }
+    private val preselectedAccount: Account? = params.preselectedAccount
+    private val transaction: Transaction? = params.transaction
 
     val isEditMode = transaction != null
 
     private val _accounts: MutableStateFlow<List<Account>> = MutableStateFlow(emptyList())
     val accounts: StateFlow<List<Account>> = _accounts.asStateFlow()
 
-    private val _selectedAccount: MutableStateFlow<Account?> = MutableStateFlow(transaction?.account)
+    private val _selectedAccount: MutableStateFlow<Account?> = MutableStateFlow(
+        value = transaction?.account ?: params.preselectedAccount
+    )
     val selectedAccount: StateFlow<Account?> = _selectedAccount.asStateFlow()
 
     val transactionInsertionDate = transaction?.insertionDateTime
@@ -73,7 +76,17 @@ class AddTransactionViewModel(
     val incomeCategories: StateFlow<List<Category>> = _incomeCategories.asStateFlow()
 
     private val steps = EnterTransactionStep.values()
-    val firstStep = if (transaction == null) steps.first() else null
+    val firstStep = when {
+        preselectedAccount != null -> {
+            EnterTransactionStep.Category
+        }
+        transaction == null -> {
+            steps.first()
+        }
+        else -> {
+            null
+        }
+    }
 
     @Suppress("UnnecessaryParentheses")
     val isAddTransactionEnabled = combine(selectedAccount, selectedCategory, amountText) {

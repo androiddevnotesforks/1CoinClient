@@ -10,21 +10,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 @Composable
 internal fun AmountTextField(
     currency: String,
     amount: String,
     active: Boolean,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .background(CoinTheme.color.background)
             .padding(16.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .scaleClickAnimation()
+            .noRippleClickable { onClick.invoke() },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

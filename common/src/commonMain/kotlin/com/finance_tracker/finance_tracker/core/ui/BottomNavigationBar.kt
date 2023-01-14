@@ -11,13 +11,16 @@ import androidx.compose.material.BottomAppBar
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.theme.NoRippleTheme
 import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
 import ru.alexgladkov.odyssey.compose.controllers.TabNavigationModel
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -66,31 +69,33 @@ private fun RowScope.BottomNavigationItem(
     onClick: () -> Unit
 ) {
     val itemConfiguration = item.tabInfo.tabItem.configuration
-    BottomNavigationItem(
-        icon = {
-            NavBarIcon(
-                selected = selected,
-                selectedIcon = itemConfiguration.selectedIcon!!,
-                unselectedIcon = itemConfiguration.unselectedIcon!!,
-                contentDescription = itemConfiguration.title
-            )
-        },
-        label = {
-            Text(
-                text = itemConfiguration.title,
-                style = CoinTheme.typography.subtitle4,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        },
-        selectedContentColor = CoinTheme.color.primary,
-        unselectedContentColor = CoinTheme.color.secondary,
-        alwaysShowLabel = true,
-        selected = selected,
-        onClick = {
-            onClick.invoke()
-        }
-    )
+    CompositionLocalProvider(LocalRippleTheme provides NoRippleTheme) {
+        BottomNavigationItem(
+            icon = {
+                NavBarIcon(
+                    selected = selected,
+                    selectedIcon = itemConfiguration.selectedIcon!!,
+                    unselectedIcon = itemConfiguration.unselectedIcon!!,
+                    contentDescription = itemConfiguration.title
+                )
+            },
+            label = {
+                Text(
+                    text = itemConfiguration.title,
+                    style = CoinTheme.typography.subtitle4,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            },
+            selectedContentColor = CoinTheme.color.primary,
+            unselectedContentColor = CoinTheme.color.secondary,
+            alwaysShowLabel = true,
+            selected = selected,
+            onClick = {
+                onClick.invoke()
+            }
+        )
+    }
 }
 
 @Composable

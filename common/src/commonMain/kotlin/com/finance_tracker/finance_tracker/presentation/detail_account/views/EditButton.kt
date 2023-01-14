@@ -1,7 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.detail_account.views
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -17,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -26,6 +26,7 @@ import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.Collapsing
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.animate
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.rememberCollapsingToolbarScaffoldState
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 @Composable
 internal fun EditButton(
@@ -45,8 +46,9 @@ internal fun EditButton(
                 width = state.animate(84.dp, 50.dp),
                 height = state.animate(42.dp, 34.dp)
             )
+            .scaleClickAnimation()
             .clip(RoundedCornerShape(percent = 50))
-            .clickable { onClick.invoke() }
+            .noRippleClickable { onClick.invoke() }
             .road(Alignment.BottomEnd, Alignment.BottomEnd)
             .background(CoinTheme.color.background)
             .padding(vertical = state.animate(12.dp, 8.dp))

@@ -1,7 +1,6 @@
 package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,8 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 private val HorizontalPadding = 16.dp
 
@@ -30,16 +31,21 @@ internal fun CoinWidget(
     onClick: (() -> Unit)? = null,
     content: @Composable () -> Unit = {}
 ) {
+    val clickEnabled = onClick != null
     Column(
         modifier = modifier
-            .`if`(onClick != null) {
-                clickable { onClick?.invoke() }
-            }
-            .padding(vertical = 12.dp)
+            .padding(bottom = 12.dp)
     ) {
         Row(
             modifier = Modifier
-                .padding(horizontal = HorizontalPadding),
+                .scaleClickAnimation(enabled = clickEnabled)
+                .`if`(clickEnabled) {
+                    noRippleClickable { onClick?.invoke() }
+                }
+                .padding(
+                    vertical = 8.dp,
+                    horizontal = HorizontalPadding
+                ),
             horizontalArrangement = Arrangement.Start
         ) {
             Text(
@@ -65,7 +71,7 @@ internal fun CoinWidget(
                 .`if`(withHorizontalPadding) {
                     padding(horizontal = HorizontalPadding)
                 }
-                .padding(top = 12.dp)
+                .padding(top = 4.dp)
                 .`if`(withBorder) {
                     border(
                         width = 1.dp,

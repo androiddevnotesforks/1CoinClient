@@ -6,6 +6,7 @@ import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
+import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -14,10 +15,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Modifier
+import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.getKoin
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.theme.NoRippleTheme
 import com.finance_tracker.finance_tracker.core.ui.BottomNavigationBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.presentation.tabs_navigation.analytics.TabsNavigationAnalytics
@@ -49,18 +52,23 @@ internal fun TabsNavigationScreen() {
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                backgroundColor = CoinTheme.color.primary,
-                contentColor = CoinTheme.color.primaryVariant,
-                onClick = {
-                    analytics.trackAddTransactionClick()
-                    rootController.findRootController().push(MainNavigationTree.AddTransaction.name)
+            CompositionLocalProvider(LocalRippleTheme provides NoRippleTheme) {
+                FloatingActionButton(
+                    modifier = Modifier
+                        .scaleClickAnimation(),
+                    backgroundColor = CoinTheme.color.primary,
+                    contentColor = CoinTheme.color.primaryVariant,
+                    onClick = {
+                        analytics.trackAddTransactionClick()
+                        rootController.findRootController()
+                            .push(MainNavigationTree.AddTransaction.name)
+                    }
+                ) {
+                    Icon(
+                        painter = rememberVectorPainter("ic_plus"),
+                        contentDescription = null
+                    )
                 }
-            ) {
-                Icon(
-                    painter = rememberVectorPainter("ic_plus"),
-                    contentDescription = null
-                )
             }
         },
         isFloatingActionButtonDocked = true,

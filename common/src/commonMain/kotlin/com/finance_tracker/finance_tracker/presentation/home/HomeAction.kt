@@ -7,6 +7,7 @@ import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTr
 import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Transaction
+import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionScreenParams
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.SettingsSheet
 import kotlinx.coroutines.launch
 import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
@@ -60,7 +61,9 @@ fun handleAction(
             val navController = rootController.findRootController()
             navController.push(
                 screen = MainNavigationTree.AddTransaction.name,
-                params = action.transaction
+                params = AddTransactionScreenParams(
+                    transaction = action.transaction
+                )
             )
         }
         HomeAction.OpenTransactionsScreen -> {

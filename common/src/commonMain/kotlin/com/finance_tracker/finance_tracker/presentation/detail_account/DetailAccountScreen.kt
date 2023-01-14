@@ -110,6 +110,7 @@ internal fun DetailAccountScreen(
                 onClick = {
                     viewModel.onTransactionClick(transaction = it.transaction)
                 },
+                onAddTransactionClick = viewModel::onAddTransactionClick,
                 stubHeightAlignment = 0.6f,
             )
         }

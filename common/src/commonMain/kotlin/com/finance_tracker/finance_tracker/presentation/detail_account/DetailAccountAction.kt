@@ -4,6 +4,7 @@ import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsSto
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Transaction
+import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionScreenParams
 import ru.alexgladkov.odyssey.compose.extensions.push
 
 sealed interface DetailAccountAction {
@@ -13,6 +14,9 @@ sealed interface DetailAccountAction {
     ): DetailAccountAction
     data class OpenEditTransactionScreen(
         val transaction: Transaction
+    ): DetailAccountAction
+    data class OpenAddTransactionScreen(
+        val account: Account
     ): DetailAccountAction
 }
 
@@ -37,7 +41,18 @@ fun handleAction(
             val navController = rootController.findRootController()
             navController.push(
                 screen = MainNavigationTree.AddTransaction.name,
-                params = action.transaction
+                params = AddTransactionScreenParams(
+                    transaction = action.transaction
+                )
+            )
+        }
+        is DetailAccountAction.OpenAddTransactionScreen -> {
+            val navController = rootController.findRootController()
+            navController.push(
+                screen = MainNavigationTree.AddTransaction.name,
+                params = AddTransactionScreenParams(
+                    preselectedAccount = action.account
+                )
             )
         }
     }

@@ -1,6 +1,5 @@
 package com.finance_tracker.finance_tracker.presentation.add_transaction
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -24,6 +23,7 @@ import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActi
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
+import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.ActionButtonsSection
@@ -39,13 +39,18 @@ import ru.alexgladkov.odyssey.compose.controllers.ModalController
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
+data class AddTransactionScreenParams(
+    val transaction: Transaction? = null,
+    val preselectedAccount: Account? = null
+)
+
 @Composable
 @Suppress("CyclomaticComplexMethod", "LongMethod")
 internal fun AddTransactionScreen(
-    transaction: Transaction?
+    params: AddTransactionScreenParams
 ) {
     StoredViewModel<AddTransactionViewModel>(
-        parameters = { parametersOf(transaction ?: Transaction.EMPTY) }
+        parameters = { parametersOf(params) }
     ) { viewModel ->
         val navController = LocalRootController.current.findRootController()
         val modalNavController = navController.findModalController()
@@ -122,14 +127,14 @@ internal fun AddTransactionScreen(
 
             AmountTextField(
                 modifier = Modifier
-                    .weight(1f)
-                    .clickable {
-                        viewModel.onCurrentStepSelect(EnterTransactionStep.Amount)
-                        currentStep = EnterTransactionStep.Amount
-                    },
+                    .weight(1f),
                 currency = currency.symbol,
                 amount = amountText,
-                active = currentStep == EnterTransactionStep.Amount
+                active = currentStep == EnterTransactionStep.Amount,
+                onClick = {
+                    viewModel.onCurrentStepSelect(EnterTransactionStep.Amount)
+                    currentStep = EnterTransactionStep.Amount
+                }
             )
 
             CalendarDayView(
@@ -211,6 +216,7 @@ internal fun AddTransactionScreen(
                     )
 
                     ActionButtonsSection(
+                        hasActiveStep = currentStep != null,
                         enabled = isAddTransactionEnabled,
                         onAddClick = { onAddTransaction.invoke(true) },
                         onEditClick = { onEditTransaction.invoke(true) },
@@ -219,7 +225,7 @@ internal fun AddTransactionScreen(
                             modalNavController.present(DialogConfigurations.alert) { dialogKey ->
                                 DeleteTransactionDialog(
                                     key = dialogKey,
-                                    transaction = transaction,
+                                    transaction = params.transaction,
                                     modalNavController = modalNavController,
                                     onDeleteTransactionClick = { transaction ->
                                         viewModel.onDeleteTransactionClick(transaction, dialogKey)
@@ -228,7 +234,7 @@ internal fun AddTransactionScreen(
                             }
                         },
                         onDuplicateClick = {
-                            viewModel.onDuplicateTransactionClick(transaction)
+                            viewModel.onDuplicateTransactionClick(params.transaction)
                         }
                     )
                 }

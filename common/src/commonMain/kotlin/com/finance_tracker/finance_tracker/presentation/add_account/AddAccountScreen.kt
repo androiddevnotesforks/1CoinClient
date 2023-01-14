@@ -82,7 +82,7 @@ internal fun AddAccountScreen(
                             ),
                         text = stringResource("new_account_btn_add"),
                         onClick = viewModel::onAddAccountClick,
-                        enable = isAddButtonEnabled
+                        enabled = isAddButtonEnabled
                     )
                 } else {
                     EditAccountActions(
