@@ -21,7 +21,7 @@ import com.finance_tracker.finance_tracker.domain.models.Account
 import kotlin.math.roundToInt
 
 @Composable
-fun AccountSelector(
+internal fun AccountSelector(
     accounts: List<Account>,
     onAccountSelect: (Account) -> Unit,
     onAccountAdd: () -> Unit,

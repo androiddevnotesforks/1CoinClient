@@ -17,7 +17,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
-fun AddCell(
+internal fun AddCell(
     columnCount: Int,
     index: Int,
     dividerWidth: Dp,

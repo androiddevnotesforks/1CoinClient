@@ -15,7 +15,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
-fun NoTransactionsStub(
+internal fun NoTransactionsStub(
     modifier: Modifier = Modifier
 ) {
     Row(

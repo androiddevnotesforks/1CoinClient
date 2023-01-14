@@ -28,7 +28,7 @@ import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 private val CircleChartRange = 10f..90f
 
 @Composable
-fun CategoriesList(
+internal fun CategoriesList(
     pieces: List<TxsByCategoryChart.Piece>,
     totalAmount: Double,
     modifier: Modifier = Modifier
@@ -43,7 +43,7 @@ fun CategoriesList(
 }
 
 @Composable
-fun CategoryItem(
+internal fun CategoryItem(
     piece: TxsByCategoryChart.Piece,
     total: Double,
     modifier: Modifier = Modifier,

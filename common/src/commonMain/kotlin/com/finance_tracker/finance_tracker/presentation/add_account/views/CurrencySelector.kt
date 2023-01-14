@@ -24,7 +24,7 @@ import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AmountCurrenciesDropdownMenu
 
 @Composable
-fun CurrencySelector(
+internal fun CurrencySelector(
     items: List<Currency>,
     selectedCurrency: Currency,
     modifier: Modifier = Modifier,

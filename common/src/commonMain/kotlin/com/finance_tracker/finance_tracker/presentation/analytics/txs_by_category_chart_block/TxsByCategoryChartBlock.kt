@@ -36,7 +36,7 @@ private const val ExpandAnimationDuration = 500
 
 @Suppress("MagicNumber")
 @Composable
-fun TxsByCategoryChartBlock(
+internal fun TxsByCategoryChartBlock(
     isLoading: Boolean,
     monthTransactionsByCategory: TxsByCategoryChart?,
     selectedYearMonth: YearMonth,

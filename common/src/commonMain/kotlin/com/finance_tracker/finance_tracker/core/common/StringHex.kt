@@ -33,5 +33,5 @@ private fun String.hexStringToColor(): Color {
 
 @Suppress("MagicNumber")
 fun Color.toHexString(): String {
-    return "#${Integer.toHexString(toArgb()).takeLast(6)}"
+    return "#${toArgb().toUInt().toString(16).takeLast(6)}"
 }

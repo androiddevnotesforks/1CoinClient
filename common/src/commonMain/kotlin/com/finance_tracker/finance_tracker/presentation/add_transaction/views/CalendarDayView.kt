@@ -22,20 +22,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.asCalendar
+import com.finance_tracker.finance_tracker.core.common.date.isCurrentYear
+import com.finance_tracker.finance_tracker.core.common.date.isToday
+import com.finance_tracker.finance_tracker.core.common.date.isYesterday
+import com.finance_tracker.finance_tracker.core.common.date.models.minus
 import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.common.zeroPrefixed
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CalendarDialog
 import com.finance_tracker.finance_tracker.core.ui.CalendarDialogController
 import com.finance_tracker.finance_tracker.core.ui.StubCalendarDialogController
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.Calendar
-import java.util.Date
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.LocalDate
 
 @Composable
-fun CalendarDayView(
+internal fun CalendarDayView(
     date: LocalDate,
     modifier: Modifier = Modifier,
     onDateChange: (LocalDate) -> Unit = {},
@@ -48,11 +51,11 @@ fun CalendarDayView(
         var calendarDialogController: CalendarDialogController by remember {
             mutableStateOf(StubCalendarDialogController)
         }
-        val minDate = Calendar.getInstance().apply { add(Calendar.YEAR, -1) }.time
-        val maxDate = Date()
+        val minDate = Clock.System.now().minus(DateTimeUnit.YEAR)
+        val maxDate = Clock.System.now()
         CalendarDialog(
-            minDate = minDate.time,
-            maxDate = maxDate.time,
+            minDate = minDate.toEpochMilliseconds(),
+            maxDate = maxDate.toEpochMilliseconds(),
             onControllerCreate = {
                 calendarDialogController = it
             },
@@ -83,7 +86,8 @@ fun CalendarDayView(
 
                 val shortFormattedDate by remember(date) {
                     derivedStateOf {
-                        date.format(DateTimeFormatter.ofPattern("dd.MM"))
+                        // Format: "dd.MM"
+                        "${date.dayOfMonth.zeroPrefixed(2)}.${date.monthNumber.zeroPrefixed(2)}"
                     }
                 }
                 Text(
@@ -92,7 +96,10 @@ fun CalendarDayView(
                         date.isToday() -> "${stringResource("add_transaction_today")}, $shortFormattedDate"
                         date.isYesterday() -> "${stringResource("add_transaction_yesterday")}, $shortFormattedDate"
                         date.isCurrentYear() -> shortFormattedDate
-                        else -> date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+                        else -> {
+                            // Format: "dd.MM.yyyy"
+                            "${date.dayOfMonth.zeroPrefixed(2)}.${date.monthNumber.zeroPrefixed(2)}.${date.year}"
+                        }
                     },
                     style = CoinTheme.typography.subtitle1,
                     color = LocalContentColor.current
@@ -100,23 +107,4 @@ fun CalendarDayView(
             }
         }
     }
-}
-
-private fun LocalDate.isToday(): Boolean {
-    val todayDate = LocalDate.now()
-    return todayDate.dayOfYear == dayOfYear && todayDate.year == year
-}
-
-private fun LocalDate.isYesterday(): Boolean {
-    val currentCalendar = asCalendar()
-    val yesterdayCalendar = Calendar.getInstance().apply {
-        add(Calendar.DATE, -1)
-    }
-    return yesterdayCalendar.get(Calendar.YEAR) == currentCalendar.get(Calendar.YEAR) &&
-            yesterdayCalendar.get(Calendar.DAY_OF_YEAR) == currentCalendar.get(Calendar.DAY_OF_YEAR)
-}
-
-private fun LocalDate.isCurrentYear(): Boolean {
-    val todayDate = LocalDate.now()
-    return todayDate.year == year
 }

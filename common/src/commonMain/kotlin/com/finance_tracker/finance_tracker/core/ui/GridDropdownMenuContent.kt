@@ -27,7 +27,7 @@ private val DropdownMenuVerticalPadding = 8.dp
 private val DropdownMenuHorizontalPadding = 8.dp
 
 @Composable
-fun GridDropdownMenuContent(
+internal fun GridDropdownMenuContent(
     columnSize: Dp,
     expandedStates: MutableTransitionState<Boolean>,
     transformOriginState: MutableState<TransformOrigin>,

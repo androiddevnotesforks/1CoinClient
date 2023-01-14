@@ -19,7 +19,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Category
 
 @Composable
-fun CategoryCard(
+internal fun CategoryCard(
     data: Category,
     onClick: () -> Unit,
     onCrossDeleteClick: () -> Unit,

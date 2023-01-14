@@ -17,7 +17,7 @@ import kotlin.math.max
 import kotlin.math.min
 
 @Composable
-fun ItemWrapper(
+internal fun ItemWrapper(
     isFirstItem: Boolean,
     isLastItem: Boolean,
     modifier: Modifier = Modifier,

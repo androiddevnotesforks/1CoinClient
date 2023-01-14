@@ -37,7 +37,7 @@ private const val AccountNameCharsLimit = 40
 private const val AmountCharsLimit = 24
 
 @Composable
-fun AccountNameTextField(
+internal fun AccountNameTextField(
     viewModel: AddAccountViewModel,
     modifier: Modifier = Modifier
 ) {
@@ -69,7 +69,7 @@ fun AccountNameTextField(
 }
 
 @Composable
-fun AmountTextField(
+internal fun AmountTextField(
     viewModel: AddAccountViewModel,
     modifier: Modifier = Modifier
 ) {
@@ -80,7 +80,7 @@ fun AmountTextField(
         modifier = modifier
             .fillMaxWidth()
             .padding(top = 16.dp, start = 16.dp, end = 16.dp),
-        value = enteredBalance.format(),
+        value = enteredBalance,
         label = {
             Text(
                 text = stringResource("new_account_field_amount_label"),
@@ -114,7 +114,7 @@ fun AmountTextField(
 }
 
 @Composable
-fun RowScope.AccountTypeTextField(
+internal fun RowScope.AccountTypeTextField(
     viewModel: AddAccountViewModel,
     modifier: Modifier = Modifier
 ) {
@@ -165,7 +165,7 @@ fun RowScope.AccountTypeTextField(
 }
 
 @Composable
-fun RowScope.AccountColorTextField(
+internal fun RowScope.AccountColorTextField(
     viewModel: AddAccountViewModel,
     modifier: Modifier = Modifier
 ) {

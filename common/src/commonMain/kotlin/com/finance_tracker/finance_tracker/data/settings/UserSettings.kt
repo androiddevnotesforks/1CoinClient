@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 class UserSettings(factory: Settings.Factory) {
 
     private val settings: Settings = factory.create("user")
-    private val suspendSettings: SuspendSettings = settings.toSuspendSettings(Dispatchers.IO)
+    private val suspendSettings: SuspendSettings = settings.toSuspendSettings(Dispatchers.Default)
 
     suspend fun saveUserId(userId: String) {
         suspendSettings.putString(KEY_USER_ID, userId)

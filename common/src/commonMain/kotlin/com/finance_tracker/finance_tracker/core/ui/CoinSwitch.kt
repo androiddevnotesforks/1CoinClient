@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
-fun CoinSwitch(
+internal fun CoinSwitch(
     value: Boolean,
     modifier: Modifier = Modifier,
     scale: Float = 1f,

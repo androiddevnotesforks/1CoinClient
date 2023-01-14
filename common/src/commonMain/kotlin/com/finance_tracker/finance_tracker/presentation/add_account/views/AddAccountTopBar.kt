@@ -10,7 +10,7 @@ import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
-fun AddAccountTopBar(
+internal fun AddAccountTopBar(
     topBarTextId: String,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier

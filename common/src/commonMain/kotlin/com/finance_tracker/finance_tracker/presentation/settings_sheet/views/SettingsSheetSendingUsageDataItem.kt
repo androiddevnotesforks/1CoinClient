@@ -21,7 +21,7 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Suppress("UnusedPrivateMember")
 @Composable
-fun SettingsSheetSendingUsageDataItem(
+internal fun SettingsSheetSendingUsageDataItem(
     isEnabled: Boolean,
     modifier: Modifier = Modifier,
     onChange: (isEnabled: Boolean) -> Unit = {},

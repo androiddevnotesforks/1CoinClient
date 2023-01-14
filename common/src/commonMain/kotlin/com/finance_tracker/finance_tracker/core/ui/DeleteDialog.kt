@@ -21,7 +21,7 @@ import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
-fun DeleteDialog(
+internal fun DeleteDialog(
     titleEntity: String,
     onCancelClick: () -> Unit,
     onDeleteClick: () -> Unit

@@ -11,7 +11,7 @@ import io.github.koalaplot.core.pie.BezierLabelConnector
 import io.github.koalaplot.core.pie.LabelConnectorScope
 
 @Composable
-fun LabelConnectorScope.CoinBezierLabelConnector(
+internal fun LabelConnectorScope.CoinBezierLabelConnector(
     modifier: Modifier = Modifier,
     connectorColor: Color = CoinTheme.color.primary,
     connectorStroke: Stroke = Stroke(width = 1.dp.toPx())

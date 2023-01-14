@@ -21,7 +21,7 @@ import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.presentation.add_account.AddAccountViewModel
 
 @Composable
-fun EditAccountActions(
+internal fun EditAccountActions(
     viewModel: AddAccountViewModel,
     addEnable: Boolean,
     account: Account,

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun Modifier.`if`(
+internal fun Modifier.`if`(
     condition: Boolean,
     then: @Composable Modifier.() -> Modifier
 ): Modifier {

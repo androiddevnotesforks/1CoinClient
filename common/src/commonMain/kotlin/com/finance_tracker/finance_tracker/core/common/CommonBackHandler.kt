@@ -4,4 +4,10 @@ import androidx.compose.runtime.Composable
 
 @Composable
 @Suppress("ComposableParametersOrdering")
-expect fun BackHandler(enabled: Boolean = true, onBack: () -> Unit)
+expect fun BackHandler(enabled: Boolean, onBack: () -> Unit)
+
+@Composable
+@Suppress("ComposableParametersOrdering")
+fun BackHandler(onBack: () -> Unit) {
+    BackHandler(enabled = true, onBack = onBack)
+}

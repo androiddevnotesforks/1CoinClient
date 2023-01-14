@@ -18,7 +18,7 @@ import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.presentation.add_account.views.CurrencySelector
 
 @Composable
-fun SettingsSheetMainCurrencyItem(
+internal fun SettingsSheetMainCurrencyItem(
     selectedCurrency: Currency,
     modifier: Modifier = Modifier,
     onCurrencySelect: (Currency) -> Unit = {},

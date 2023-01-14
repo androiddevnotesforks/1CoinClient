@@ -34,7 +34,7 @@ fun TransactionType.toTransactionTypeTab(): TransactionTypeTab {
 }
 
 @Composable
-fun TransactionTypesTabRow(
+internal fun TransactionTypesTabRow(
     modifier: Modifier = Modifier,
     selectedType: TransactionTypeTab = TransactionTypeTab.Expense,
     hasBottomDivider: Boolean = true,

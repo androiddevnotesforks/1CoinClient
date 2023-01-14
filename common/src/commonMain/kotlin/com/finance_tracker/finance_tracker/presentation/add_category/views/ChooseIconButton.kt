@@ -24,7 +24,7 @@ import com.finance_tracker.finance_tracker.core.ui.CoinGridDropdownMenu
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
-fun ChooseIconButton(
+internal fun ChooseIconButton(
     chosenIcon: String,
     icons: List<String>,
     onIconChoose: (String) -> Unit,

@@ -32,7 +32,7 @@ private val commands = listOf(
 private const val KeyboardRowCount = 3
 
 @Composable
-fun AmountKeyboard(
+internal fun AmountKeyboard(
     modifier: Modifier = Modifier,
     onButtonClick: (KeyboardCommand) -> Unit = {}
 ) {

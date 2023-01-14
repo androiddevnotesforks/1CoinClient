@@ -23,7 +23,7 @@ import ru.alexgladkov.odyssey.compose.controllers.TabNavigationModel
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
-fun BottomNavigationBar(
+internal fun BottomNavigationBar(
     selectedTabItem: TabNavigationModel,
     onItemSelect: (tab: TabNavigationModel) -> Unit,
     modifier: Modifier = Modifier,

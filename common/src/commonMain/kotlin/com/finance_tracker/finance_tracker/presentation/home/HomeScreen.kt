@@ -24,7 +24,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
 
 @Composable
-fun HomeScreen() {
+internal fun HomeScreen() {
     StoredViewModel<HomeViewModel> { viewModel ->
         val accounts by viewModel.accounts.collectAsState()
 

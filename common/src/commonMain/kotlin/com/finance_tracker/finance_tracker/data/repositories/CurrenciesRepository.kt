@@ -27,11 +27,11 @@ class CurrenciesRepository(
                 .map { currencyRatesEntities ->
                     currencyRatesEntities.associateBy { it.currency }
                 }
-                .flowOn(Dispatchers.IO)
+                .flowOn(Dispatchers.Default)
     }
 
     suspend fun updateCurrencyRates() {
-        return withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.Default) {
             val currencyRates = currenciesNetworkDataSource.getCurrenciesRates()
                 .getOrNull() ?: return@withContext
             currencyRatesEntityQueries.transaction {

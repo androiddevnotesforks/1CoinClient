@@ -9,7 +9,7 @@ import com.finance_tracker.finance_tracker.core.ui.CoinTxTypeTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 
 @Composable
-fun AnalyticsScreenAppBar(
+internal fun AnalyticsScreenAppBar(
     selectedTransactionTypeTab: TransactionTypeTab,
     onTransactionTypeSelect: (TransactionTypeTab) -> Unit,
     modifier: Modifier = Modifier,

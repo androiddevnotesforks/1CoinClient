@@ -13,7 +13,7 @@ import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
-fun TransactionsAppBar(
+internal fun TransactionsAppBar(
     modifier: Modifier = Modifier,
     selectedItemsCount: Int = 0,
     onCloseClick: () -> Unit = {},

@@ -29,7 +29,7 @@ private const val AnimateScrollValue = 1.3f
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun <T : Any> LazyDragColumn(
+internal fun <T : Any> LazyDragColumn(
     items: List<T>,
     onSwap: (Int, Int) -> Unit,
     contentPaddingValues: PaddingValues,

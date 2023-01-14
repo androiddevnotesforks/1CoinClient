@@ -14,7 +14,7 @@ import com.finance_tracker.finance_tracker.core.ui.AccountCardHeight
 import com.finance_tracker.finance_tracker.domain.models.Account
 
 @Composable
-fun AccountsWidgetContent(
+internal fun AccountsWidgetContent(
     data: List<Account>,
     state: LazyListState,
     onAccountClick: (Account) -> Unit,

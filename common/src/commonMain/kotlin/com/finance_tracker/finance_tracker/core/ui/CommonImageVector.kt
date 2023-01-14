@@ -9,6 +9,6 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter as graphicsReme
 expect fun rememberImageVector(id: String): ImageVector
 
 @Composable
-fun rememberVectorPainter(id: String): Painter {
+internal fun rememberVectorPainter(id: String): Painter {
     return graphicsRememberVectorPainter(rememberImageVector(id))
 }

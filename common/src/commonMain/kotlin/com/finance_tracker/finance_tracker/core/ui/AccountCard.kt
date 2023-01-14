@@ -22,7 +22,7 @@ val AccountCardWidth = 160.dp
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun AccountCard(
+internal fun AccountCard(
     data: Account,
     onClick: () -> Unit,
     modifier: Modifier = Modifier

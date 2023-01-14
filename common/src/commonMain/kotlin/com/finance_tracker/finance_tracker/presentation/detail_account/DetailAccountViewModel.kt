@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.detail_account
 
-import androidx.paging.cachedIn
+import app.cash.paging.cachedIn
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor

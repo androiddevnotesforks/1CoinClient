@@ -23,7 +23,7 @@ import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
-fun ActionButtonsSection(
+internal fun ActionButtonsSection(
     modifier: Modifier = Modifier,
     isEditMode: Boolean = false,
     enabled: Boolean = true,

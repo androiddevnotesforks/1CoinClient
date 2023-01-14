@@ -36,7 +36,7 @@ import kotlinx.coroutines.isActive
 private const val BarShartShift = 0.5f
 
 @Composable
-fun CoinXYChart(
+internal fun CoinXYChart(
     barChartEntries: List<CoinBarChartEntry<Float, Float>>,
     modifier: Modifier = Modifier,
     onBarChartSelect: (CoinBarChartEntry<*, *>?) -> Unit = {}

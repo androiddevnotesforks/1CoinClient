@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.common.zeroPrefixed
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
@@ -30,7 +31,7 @@ import kotlinx.datetime.toLocalDateTime
 private val ChartHeight = 160.dp
 
 @Composable
-fun PeriodBarChart(
+internal fun PeriodBarChart(
     defaultTitle: String,
     defaultValue: String,
     barChartEntries: List<CoinBarChartEntry<Float, Float>>,
@@ -105,15 +106,15 @@ private fun getLabelsFor(periodChip: PeriodChip): List<String> {
     }
     val monthValueString by remember(now) {
         derivedStateOf {
-            String.format(format = "%02d", now.monthNumber)
+            now.monthNumber.zeroPrefixed(2)
         }
     }
     val lastDayOfMonth by remember(now) {
         derivedStateOf {
-            val currentMonth = LocalDate(year = now.year, month = now.month, dayOfMonth = 1)
-            val nextMonth = LocalDate(year = now.year, month = now.month + 1, dayOfMonth = 1)
+            val currentMonth = LocalDate(year = now.year, monthNumber = now.monthNumber, dayOfMonth = 1)
+            val nextMonth = LocalDate(year = now.year, monthNumber = now.monthNumber + 1, dayOfMonth = 1)
             val days = nextMonth.toEpochDays() - currentMonth.toEpochDays()
-            String.format(format = "%02d", days)
+            days.zeroPrefixed(2)
         }
     }
 

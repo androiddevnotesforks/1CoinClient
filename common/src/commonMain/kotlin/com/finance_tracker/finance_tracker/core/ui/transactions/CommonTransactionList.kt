@@ -12,23 +12,20 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.DateFormatType
+import com.finance_tracker.finance_tracker.core.common.date.isCurrentYear
+import com.finance_tracker.finance_tracker.core.common.date.isToday
+import com.finance_tracker.finance_tracker.core.common.date.isYesterday
 import com.finance_tracker.finance_tracker.core.common.pagination.LazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.pagination.items
 import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.common.zeroPrefixed
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.EmptyStub
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-
-private val ShortDateFormatter = SimpleDateFormat("dd.MM")
-private val FullDateFormatter = SimpleDateFormat("dd.MM.yyyy")
 
 @Composable
-fun CommonTransactionsList(
+internal fun CommonTransactionsList(
     transactions: LazyPagingItems<TransactionListModel>,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(),
@@ -99,17 +96,22 @@ private fun DayTotalHeader(
             .padding(top = 24.dp, bottom = 8.dp)
     ) {
         val formattedDate = when {
-            dayTotalModel.date.isToday() -> {
+            dayTotalModel.dateTime.date.isToday() -> {
                 stringResource("transactions_today")
             }
-            dayTotalModel.date.isYesterday() -> {
+            dayTotalModel.dateTime.date.isYesterday() -> {
                 stringResource("transactions_yesterday")
             }
-            dayTotalModel.date.isCurrentYear() -> {
-                ShortDateFormatter.format(dayTotalModel.date)
+            dayTotalModel.dateTime.date.isCurrentYear() -> {
+                // Format: "dd.MM"
+                "${dayTotalModel.dateTime.dayOfMonth.zeroPrefixed(2)}." +
+                        dayTotalModel.dateTime.monthNumber.zeroPrefixed(2)
             }
             else -> {
-                FullDateFormatter.format(dayTotalModel.date)
+                // Format: "dd.MM.yyyy"
+                "${dayTotalModel.dateTime.dayOfMonth.zeroPrefixed(2)}." +
+                        "${dayTotalModel.dateTime.monthNumber.zeroPrefixed(2)}." +
+                        "${dayTotalModel.dateTime.year}"
             }
         }
         Text(
@@ -124,30 +126,4 @@ private fun DayTotalHeader(
                 .defaultMinSize(minWidth = 16.dp)
         )
     }
-}
-
-private fun Date.isToday(): Boolean {
-    val nowDateString = DateFormatType.CommonDateFormat.format(Date())
-    val currentDateString = DateFormatType.CommonDateFormat.format(this)
-    return nowDateString == currentDateString
-}
-
-private fun Date.isYesterday(): Boolean {
-    val previousDate = Calendar.getInstance().apply {
-        time = Date()
-        add(Calendar.DAY_OF_YEAR, -1)
-    }.time
-    val currentDateString = DateFormatType.CommonDateFormat.format(this)
-    val previousDateString = DateFormatType.CommonDateFormat.format(previousDate)
-    return previousDateString == currentDateString
-}
-
-private fun Date.isCurrentYear(): Boolean {
-    val nowCalendar = Calendar.getInstance().apply { time = Date() }
-    val currentYear = nowCalendar.get(Calendar.YEAR)
-
-    val dateCalendar = Calendar.getInstance().apply { time = this@isCurrentYear }
-    val dateYear = dateCalendar.get(Calendar.YEAR)
-
-    return currentYear == dateYear
 }

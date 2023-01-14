@@ -27,7 +27,7 @@ private val MenuVerticalMargin = 48.dp
 
 @Suppress("ModifierParameter")
 @Composable
-fun GridDropdownMenu(
+internal fun GridDropdownMenu(
     columnSize: Dp,
     expanded: Boolean,
     onDismissRequest: () -> Unit,

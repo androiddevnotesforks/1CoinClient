@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 expect fun getLocalizedString(id: String, context: Context): String
 
 @Composable
-fun stringResource(id: String): String {
+internal fun stringResource(id: String): String {
     return getLocalizedString(
         id = id,
         context = LocalContext.current

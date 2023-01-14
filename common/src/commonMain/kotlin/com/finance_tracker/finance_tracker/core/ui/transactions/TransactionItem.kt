@@ -28,7 +28,7 @@ import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TransactionItem(
+internal fun TransactionItem(
     transactionData: TransactionListModel.Data,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},

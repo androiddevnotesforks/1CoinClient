@@ -18,7 +18,7 @@ import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 
 @OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
-fun EmptyPieChart(
+internal fun EmptyPieChart(
     selectedYearMonth: YearMonth,
     modifier: Modifier = Modifier
 ) {

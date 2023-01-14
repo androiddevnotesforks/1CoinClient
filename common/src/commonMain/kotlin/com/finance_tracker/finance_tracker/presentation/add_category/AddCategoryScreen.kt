@@ -31,7 +31,7 @@ data class AddCategoryScreenParams(
 )
 
 @Composable
-fun AddCategoryScreen(
+internal fun AddCategoryScreen(
     addCategoryScreenParams: AddCategoryScreenParams
 ) {
     StoredViewModel<AddCategoryViewModel>(

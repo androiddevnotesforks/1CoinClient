@@ -24,7 +24,7 @@ import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
-fun SendingUsageDataDialog(
+internal fun SendingUsageDataDialog(
     onOkClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {

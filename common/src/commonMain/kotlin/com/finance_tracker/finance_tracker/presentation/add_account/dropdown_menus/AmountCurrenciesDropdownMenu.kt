@@ -12,7 +12,7 @@ import com.finance_tracker.finance_tracker.core.ui.DropdownMenuItem
 import com.finance_tracker.finance_tracker.domain.models.Currency
 
 @Composable
-fun AmountCurrenciesDropdownMenu(
+internal fun AmountCurrenciesDropdownMenu(
     items: List<Currency>,
     expandedState: MutableState<Boolean>,
     modifier: Modifier = Modifier,
