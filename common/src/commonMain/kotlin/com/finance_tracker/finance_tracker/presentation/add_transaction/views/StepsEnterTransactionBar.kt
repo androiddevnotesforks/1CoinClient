@@ -2,7 +2,6 @@ package com.finance_tracker.finance_tracker.presentation.add_transaction.views
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -22,6 +21,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
+import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
@@ -29,6 +30,7 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.AccountCard
+import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 data class StepsEnterTransactionBarData(
     val currentStep: EnterTransactionStep? = EnterTransactionStep.Account,
@@ -153,7 +155,10 @@ private fun <T: Any> RowScope.StageText(
     val isActiveStage = currentStep == selectedStep
     Box(
         modifier = modifier
-            .clickable(enabled = !isActiveStage) { onStepSelect.invoke(currentStep) }
+            .scaleClickAnimation(enabled = !isActiveStage)
+            .`if`(!isActiveStage) {
+                noRippleClickable { onStepSelect.invoke(currentStep) }
+            }
             .weight(1f)
             .padding(vertical = 8.dp, horizontal = 8.dp)
             .border(

@@ -210,25 +210,18 @@ class TransactionsInteractor(
 
     fun getPaginatedTransactions(): Flow<PagingData<TransactionListModel>> {
         return transactionsRepository.getPaginatedTransactions()
-            .map {
-                it.map { TransactionListModel.Data(it) }
-            }
-            .map {
-                insertSeparators(it)
-            }
+            .map { it.map(TransactionListModel::Data) }
+            .map(::insertSeparators)
     }
 
     fun getPaginatedTransactionsByAccountId(id: Long): Flow<PagingData<TransactionListModel>> {
         return transactionsRepository.getPaginatedTransactionsByAccountId(id)
-            .map {
-                it.map { TransactionListModel.Data(it) }
-            }
-            .map {
-                insertSeparators(it)
-            }
+            .map { it.map(TransactionListModel::Data) }
+            .map(::insertSeparators)
             .flowOn(Dispatchers.Default)
     }
 
+    @Suppress("LABEL_NAME_CLASH")
     private fun insertSeparators(
         pagingData: PagingData<TransactionListModel.Data>
     ): PagingData<TransactionListModel> {
@@ -237,7 +230,7 @@ class TransactionsInteractor(
             val previousTransaction = data?.transaction
             val currentTransaction = data2?.transaction ?: return@insertSeparators null
             if (previousTransaction == null ||
-                previousTransaction.dateTime != currentTransaction.dateTime) {
+                previousTransaction.dateTime.date != currentTransaction.dateTime.date) {
                 TransactionListModel.DateAndDayTotal(
                     dateTime = currentTransaction.dateTime,
                 )

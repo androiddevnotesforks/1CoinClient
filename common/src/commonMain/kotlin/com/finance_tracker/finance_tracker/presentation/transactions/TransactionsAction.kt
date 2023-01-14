@@ -8,6 +8,7 @@ import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTr
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
+import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionScreenParams
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.extensions.push
 
@@ -37,7 +38,9 @@ fun handleAction(
         is TransactionsAction.OpenTransactionDetailScreen -> {
             navController.push(
                 screen = MainNavigationTree.AddTransaction.name,
-                params = action.transaction
+                params = AddTransactionScreenParams(
+                    transaction = action.transaction
+                )
             )
         }
         is TransactionsAction.CloseDeleteTransactionDialog -> {

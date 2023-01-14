@@ -41,4 +41,14 @@ class DetailAccountAnalytics: BaseAnalytics() {
             )
         )
     }
+
+    fun trackAddTransactionClick(account: Account) {
+        trackClick(
+            eventName = "AddTransaction",
+            properties = mapOf(
+                "name" to account.name,
+                "type" to account.type.analyticsName,
+            )
+        )
+    }
 }

@@ -64,17 +64,20 @@ val LocalCoinElevation = staticCompositionLocalOf {
 @Immutable
 private object CoinRippleTheme : RippleTheme {
     @Composable
-    override fun defaultColor() = RippleTheme.defaultRippleColor(LocalContentColor.current, lightTheme = true)
+    override fun defaultColor() = RippleTheme.defaultRippleColor(
+        contentColor = LocalContentColor.current,
+        lightTheme = true
+    )
 
     @Composable
     override fun rippleAlpha() = DefaultRippleAlpha
 }
 
 private val DefaultRippleAlpha = RippleAlpha(
-    pressedAlpha = 0.12f,
-    focusedAlpha = 0.12f,
-    draggedAlpha = 0.16f,
-    hoveredAlpha = 0.08f
+    pressedAlpha = 0.08f,
+    focusedAlpha = 0.08f,
+    draggedAlpha = 0.12f,
+    hoveredAlpha = 0.06f
 )
 
 private val DarkColorPalette = CoinColors(

@@ -9,7 +9,9 @@ import androidx.compose.material.Tab
 import androidx.compose.material.TabRowDefaults
 import androidx.compose.material.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material.Text
+import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -23,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.toDp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.theme.NoRippleTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import kotlinx.coroutines.delay
 
@@ -115,6 +118,7 @@ internal fun CoinTabRow(
     }
 }
 
+@Suppress("ReusedModifierInstance")
 @Composable
 private fun CoinTab(
     text: String,
@@ -122,20 +126,22 @@ private fun CoinTab(
     selected: Boolean = false,
     onClick: () -> Unit = {}
 ) {
-    Tab(
-        modifier = modifier,
-        selected = selected,
-        onClick = onClick,
-        text = {
-            Text(
-                text = text,
-                style = CoinTheme.typography.body1_medium.staticTextSize(),
-                color = if (selected) {
-                    CoinTheme.color.primary
-                } else {
-                    CoinTheme.color.secondary
-                }
-            )
-        }
-    )
+    CompositionLocalProvider(LocalRippleTheme provides NoRippleTheme) {
+        Tab(
+            modifier = modifier,
+            selected = selected,
+            onClick = onClick,
+            text = {
+                Text(
+                    text = text,
+                    style = CoinTheme.typography.body1_medium.staticTextSize(),
+                    color = if (selected) {
+                        CoinTheme.color.primary
+                    } else {
+                        CoinTheme.color.secondary
+                    }
+                )
+            }
+        )
+    }
 }

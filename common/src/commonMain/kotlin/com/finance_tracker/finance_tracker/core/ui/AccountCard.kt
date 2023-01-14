@@ -1,42 +1,44 @@
 package com.finance_tracker.finance_tracker.core.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.presentation.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
+import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 val AccountCardHeight = 128.dp
 val AccountCardWidth = 160.dp
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun AccountCard(
     data: Account,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(
+    Box(
         modifier = modifier
             .size(
                 width = AccountCardWidth,
                 height = AccountCardHeight
-            ),
-        backgroundColor = data.colorModel.color,
-        shape = RoundedCornerShape(12.dp),
-        onClick = onClick,
-        elevation = 0.dp
+            )
+            .scaleClickAnimation()
+            .clip(RoundedCornerShape(12.dp))
+            .background(data.colorModel.color)
+            .noRippleClickable(onClick),
     ) {
         Column {
             Icon(

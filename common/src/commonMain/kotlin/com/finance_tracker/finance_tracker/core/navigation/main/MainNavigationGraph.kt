@@ -3,11 +3,11 @@ package com.finance_tracker.finance_tracker.core.navigation.main
 import com.finance_tracker.finance_tracker.core.navigation.tabs.tabsNavigationGraph
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Account
-import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.presentation.add_account.AddAccountScreen
 import com.finance_tracker.finance_tracker.presentation.add_category.AddCategoryScreen
 import com.finance_tracker.finance_tracker.presentation.add_category.AddCategoryScreenParams
 import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionScreen
+import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionScreenParams
 import com.finance_tracker.finance_tracker.presentation.category_settings.CategorySettingsScreen
 import com.finance_tracker.finance_tracker.presentation.detail_account.DetailAccountScreen
 import ru.alexgladkov.odyssey.compose.extensions.screen
@@ -18,7 +18,7 @@ fun RootComposeBuilder.navigationGraph() {
     screen(MainNavigationTree.AddTransaction.name) {
         CoinTheme {
             AddTransactionScreen(
-                transaction = it as? Transaction
+                params = it as? AddTransactionScreenParams ?: AddTransactionScreenParams()
             )
         }
     }

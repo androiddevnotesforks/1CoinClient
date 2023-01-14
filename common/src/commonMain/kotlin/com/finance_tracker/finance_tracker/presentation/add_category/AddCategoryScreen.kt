@@ -111,7 +111,7 @@ internal fun AddCategoryScreen(
                 } else {
                     stringResource("new_account_btn_add")
                 },
-                enable = newCategoryName.length >= MinCategoryNameLength,
+                enabled = newCategoryName.length >= MinCategoryNameLength,
                 onClick = viewModel::addOrUpdateCategory
             )
         }

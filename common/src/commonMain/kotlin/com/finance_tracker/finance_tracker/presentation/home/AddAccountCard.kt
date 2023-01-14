@@ -2,7 +2,6 @@ package com.finance_tracker.finance_tracker.presentation.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -17,10 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AccountCardWidth
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 @Suppress("MagicNumber")
 @Composable
@@ -37,6 +38,7 @@ internal fun AddAccountCard(
             } else {
                 38.dp
             })
+            .scaleClickAnimation()
             .clip(RoundedCornerShape(12.dp))
             .border(
                 width = 1.dp,
@@ -44,7 +46,7 @@ internal fun AddAccountCard(
                 shape = RoundedCornerShape(12.dp)
             )
             .background(CoinTheme.color.background)
-            .clickable { onClick.invoke() },
+            .noRippleClickable { onClick.invoke() },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
