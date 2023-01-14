@@ -1,6 +1,5 @@
 package com.finance_tracker.finance_tracker.presentation.add_account.views
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -39,10 +38,6 @@ internal fun CurrencySelector(
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(8.dp))
-            .background(
-                color = CoinTheme.color.background,
-                shape = RoundedCornerShape(8.dp)
-            )
             .clickable {
                 focusManager.clearFocus()
                 currencyMenuExpanded.value = true
