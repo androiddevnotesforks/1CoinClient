@@ -106,6 +106,8 @@
     <string name="settings_sending_usage_data">Sending usage data</string>
     <string name="sending_usage_data_description_1">Help improve your experience by\u00A0automatically sending app usage data.</string>
     <string name="sending_usage_data_description_2">We don\'t collect Personally\u00A0Identifiable\u00A0Information or Information about\u00A0the\u00A0quantitative value of\u00A0cash spending.\n\nThe security of\u00A0your personal data is one of\u00A0our top priorities!</string>
+    <string name="version">Version:</string>
+    <string name="user_id">UserID:</string>
 
     <!-- Transactions -->
     <string name="transactions_today">Today</string>

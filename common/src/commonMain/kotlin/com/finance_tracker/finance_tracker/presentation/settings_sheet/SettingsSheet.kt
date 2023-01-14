@@ -22,6 +22,7 @@ import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.Set
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetCategorySettingsItem
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetMainCurrencyItem
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetSendingUsageDataItem
+import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetVersionAndUserIdInfo
 
 @Composable
 internal fun SettingsSheet(dialogKey: String) {
@@ -37,6 +38,8 @@ internal fun SettingsSheet(dialogKey: String) {
         }
 
         val chosenCurrency by viewModel.chosenCurrency.collectAsState()
+        val userID by viewModel.userID.collectAsState()
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -76,6 +79,16 @@ internal fun SettingsSheet(dialogKey: String) {
             )
             SettingSheetTelegramChatItem(
                 onClick = viewModel::onTelegramCommunityClick
+            )
+            Divider(
+                color = CoinTheme.color.dividers,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+            )
+            SettingsSheetVersionAndUserIdInfo(
+                versionNumber = "1.0.0",
+                userId = userID
             )
         }
     }
