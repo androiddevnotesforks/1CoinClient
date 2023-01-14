@@ -29,7 +29,7 @@ import kotlinx.coroutines.delay
 private const val TabIndicationAnimDuration = 250L
 
 @Composable
-fun CoinTabRow(
+internal fun CoinTabRow(
     selectedTabIndex: Int,
     data: List<String>,
     modifier: Modifier = Modifier,

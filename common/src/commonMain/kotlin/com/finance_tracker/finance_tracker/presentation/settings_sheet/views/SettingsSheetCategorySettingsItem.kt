@@ -16,7 +16,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
-fun SettingsSheetCategorySettingsItem(
+internal fun SettingsSheetCategorySettingsItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {

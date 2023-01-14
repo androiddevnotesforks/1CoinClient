@@ -12,8 +12,8 @@ import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.DropdownMenuItem as DesktopDropdownMenuItem
 
-@Composable
 @Suppress("ReusedModifierInstance", "MissingModifierDefaultValue")
+@Composable
 actual fun CoinDropdownMenu(
     expanded: Boolean,
     onDismissRequest: () -> Unit,

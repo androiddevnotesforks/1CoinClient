@@ -24,7 +24,7 @@ import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.Set
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetSendingUsageDataItem
 
 @Composable
-fun SettingsSheet(dialogKey: String) {
+internal fun SettingsSheet(dialogKey: String) {
     StoredViewModel<SettingsSheetViewModel> { viewModel ->
 
         val uriHandler = LocalUriHandler.current

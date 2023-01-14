@@ -18,7 +18,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinAlpha
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
-fun AppBarIcon(
+internal fun AppBarIcon(
     painter: Painter,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},

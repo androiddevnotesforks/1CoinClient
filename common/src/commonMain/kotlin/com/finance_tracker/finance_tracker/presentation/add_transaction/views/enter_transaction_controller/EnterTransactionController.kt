@@ -20,7 +20,7 @@ private const val ContentAnimationDuration = 200
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun EnterTransactionController(
+internal fun EnterTransactionController(
     accounts: List<Account>,
     categories: List<Category>,
     currentStep: EnterTransactionStep?,

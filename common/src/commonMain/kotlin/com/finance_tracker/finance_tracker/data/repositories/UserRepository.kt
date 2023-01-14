@@ -13,25 +13,25 @@ class UserRepository(
 ) {
 
     suspend fun saveUserId(userId: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             userSettings.saveUserId(userId)
         }
     }
 
     suspend fun getUserId(): String? {
-        return withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.Default) {
             userSettings.getUserId()
         }
     }
 
     suspend fun saveIsAnalyticsEnabled(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             analyticsSettings.saveIsAnalyticsEnabled(enabled)
         }
     }
 
     fun isAnalyticsEnabledFlow(): Flow<Boolean> {
         return analyticsSettings.isAnalyticsEnabledFlow()
-            .flowOn(Dispatchers.IO)
+            .flowOn(Dispatchers.Default)
     }
 }

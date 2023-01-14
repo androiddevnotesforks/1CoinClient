@@ -106,7 +106,7 @@ object CoinAlpha {
 }
 
 @Composable
-fun TextStyle.staticTextSize(isStaticContentSize: Boolean = true): TextStyle {
+internal fun TextStyle.staticTextSize(isStaticContentSize: Boolean = true): TextStyle {
     return if (isStaticContentSize) copy(fontSize = fontSize.value.dp.asSp()) else this
 }
 

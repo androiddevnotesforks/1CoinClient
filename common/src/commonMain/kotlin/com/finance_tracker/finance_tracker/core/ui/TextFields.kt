@@ -31,7 +31,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTextFieldDefaults
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
-fun CoinOutlinedTextField(
+internal fun CoinOutlinedTextField(
     modifier: Modifier = Modifier,
     value: String = "",
     onValueChange: (String) -> Unit = {},
@@ -67,7 +67,7 @@ fun CoinOutlinedTextField(
 }
 
 @Composable
-fun CoinOutlinedSelectTextField(
+internal fun CoinOutlinedSelectTextField(
     modifier: Modifier = Modifier,
     value: String = "",
     onValueChange: (String) -> Unit = {},

@@ -25,7 +25,7 @@ import com.finance_tracker.finance_tracker.presentation.common.formatters.Amount
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 
 @Composable
-fun DetailAccountExpandedAppBar(
+internal fun DetailAccountExpandedAppBar(
     color: Color,
     amount: Amount,
     iconId: String,

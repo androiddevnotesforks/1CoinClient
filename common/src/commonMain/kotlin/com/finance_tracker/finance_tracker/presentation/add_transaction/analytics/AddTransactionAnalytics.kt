@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.add_transaction.analytics
 
-import com.benasher44.uuid.Uuid
+import com.benasher44.uuid.uuid4
 import com.finance_tracker.finance_tracker.core.analytics.BaseAnalytics
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
@@ -8,7 +8,7 @@ import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import java.time.LocalDate
+import kotlinx.datetime.LocalDate
 
 class AddTransactionAnalytics: BaseAnalytics() {
 
@@ -18,7 +18,7 @@ class AddTransactionAnalytics: BaseAnalytics() {
     private var startOfAction: Instant? = null
 
     fun trackAddTransactionScreenOpen() {
-        actionId = Uuid.randomUUID().toString()
+        actionId = uuid4().toString()
         startOfAction = Clock.System.now()
         trackScreenOpen(mapOf(
             ActionIdKey to actionId
@@ -229,7 +229,7 @@ class AddTransactionAnalytics: BaseAnalytics() {
             "${keyPrefix}transaction_type" to type.analyticsName,
             "${keyPrefix}account_name" to account.name,
             "${keyPrefix}category_name" to category?.name,
-            "${keyPrefix}date" to date.toString(),
+            "${keyPrefix}date" to dateTime.toString(),
             "${keyPrefix}amount_value" to amount.amountValue,
             "${keyPrefix}amount_currency" to amount.currency.code
         )

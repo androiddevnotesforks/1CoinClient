@@ -10,7 +10,7 @@ import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 
 @Composable
-fun LastTransactionsWidgetContent(
+internal fun LastTransactionsWidgetContent(
     lastTransactions: List<TransactionListModel.Data>,
     onTransactionClick: (transaction: Transaction) -> Unit,
     modifier: Modifier = Modifier,

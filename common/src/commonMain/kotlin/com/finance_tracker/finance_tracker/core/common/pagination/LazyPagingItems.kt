@@ -24,14 +24,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.paging.CombinedLoadStates
-import androidx.paging.DifferCallback
-import androidx.paging.ItemSnapshotList
-import androidx.paging.LoadState
-import androidx.paging.LoadStates
-import androidx.paging.NullPaddedList
-import androidx.paging.PagingData
-import androidx.paging.PagingDataDiffer
+import app.cash.paging.CombinedLoadStates
+import app.cash.paging.DifferCallback
+import app.cash.paging.ItemSnapshotList
+import app.cash.paging.LoadState
+import app.cash.paging.LoadStateLoading
+import app.cash.paging.LoadStateNotLoading
+import app.cash.paging.LoadStates
+import app.cash.paging.NullPaddedList
+import app.cash.paging.PagingData
+import app.cash.paging.PagingDataDiffer
 import com.finance_tracker.finance_tracker.core.common.Parcelable
 import com.finance_tracker.finance_tracker.core.common.Parcelize
 import kotlinx.coroutines.Dispatchers
@@ -195,9 +197,9 @@ class LazyPagingItems<T : Any> internal constructor(
     }
 }
 
-private val IncompleteLoadState = LoadState.NotLoading(false)
+private val IncompleteLoadState = LoadStateNotLoading(false)
 private val InitialLoadStates = LoadStates(
-    LoadState.Loading,
+    LoadStateLoading,
     IncompleteLoadState,
     IncompleteLoadState
 )

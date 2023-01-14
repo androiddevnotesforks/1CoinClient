@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 
 @Composable
-fun DetailAccountAppBar(
+internal fun DetailAccountAppBar(
     color: Color,
     modifier: Modifier = Modifier
 ) {

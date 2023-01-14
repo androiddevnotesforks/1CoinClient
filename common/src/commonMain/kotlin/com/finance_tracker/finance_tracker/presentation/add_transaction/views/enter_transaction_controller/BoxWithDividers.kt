@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.Dp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
-fun BoxWithDividers(
+internal fun BoxWithDividers(
     columnCount: Int,
     index: Int,
     dividerWidth: Dp,

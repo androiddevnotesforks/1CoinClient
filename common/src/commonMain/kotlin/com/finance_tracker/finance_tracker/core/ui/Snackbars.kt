@@ -9,7 +9,7 @@ import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
-fun DefaultSnackbar(
+internal fun DefaultSnackbar(
     data: SnackbarData,
     modifier: Modifier = Modifier
 ) {

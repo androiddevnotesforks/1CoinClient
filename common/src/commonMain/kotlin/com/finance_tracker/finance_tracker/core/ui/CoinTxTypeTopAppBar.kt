@@ -9,7 +9,7 @@ import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabRow
 
 @Composable
-fun CoinTxTypeTopAppBar(
+internal fun CoinTxTypeTopAppBar(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     selectedTransactionTypeTab: TransactionTypeTab = TransactionTypeTab.Expense,

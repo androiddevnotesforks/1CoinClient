@@ -19,7 +19,7 @@ class CategoriesRepository(
         isExpense: Boolean,
         isIncome: Boolean,
     ) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             categoriesEntityQueries.insertCategory(
                 id = null,
                 name = categoryName,
@@ -32,27 +32,27 @@ class CategoriesRepository(
     }
 
     suspend fun deleteCategoryById(id: Long) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             categoriesEntityQueries.deleteCategoryById(id)
         }
     }
 
     suspend fun updateCategoryPosition(categoryFrom: Long, categoryTo: Long) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             categoriesEntityQueries.replaceCategory(categoryFrom, categoryTo)
             categoriesEntityQueries.replaceCategory(categoryTo, categoryFrom)
         }
     }
 
     suspend fun getAllExpenseCategories(): List<Category> {
-        return withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.Default) {
             categoriesEntityQueries.getAllExpenseCategories().executeAsList()
                 .map { it.categoryToDomainModel() }
         }
     }
 
     suspend fun getAllIncomeCategories(): List<Category> {
-        return withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.Default) {
             categoriesEntityQueries.getAllIncomeCategories().executeAsList()
                 .map { it.categoryToDomainModel() }
         }
@@ -61,12 +61,12 @@ class CategoriesRepository(
     fun getCategoriesCountFlow(): Flow<Int> {
         return categoriesEntityQueries.getCategoriesCount()
             .asFlow()
-            .mapToOneOrNull(Dispatchers.IO)
+            .mapToOneOrNull(Dispatchers.Default)
             .map { it?.toInt() ?: 0 }
     }
 
     suspend fun updateCategory(id: Long, name: String, iconId: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             categoriesEntityQueries.updateAccountById(name = name, icon = iconId, id = id)
         }
     }

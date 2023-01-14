@@ -23,7 +23,7 @@ class AccountsRepository(
         colorId: Int,
         currency: Currency
     ) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             accountsEntityQueries.insertAccount(
                 id = null,
                 type = type,
@@ -40,14 +40,14 @@ class AccountsRepository(
     }
 
     suspend fun getAllAccountsFromDatabase(): List<Account> {
-        return withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.Default) {
             accountsEntityQueries.getAllAccounts().executeAsList()
                 .map { it.accountToDomainModel() }
         }
     }
 
     suspend fun increaseAccountBalance(id: Long, value: Double) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             accountsEntityQueries.increaseBalanceByAccountId(value, id)
         }
     }
@@ -60,7 +60,7 @@ class AccountsRepository(
         currency: Currency,
         id: Long
     ) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             accountsEntityQueries.updateAccountById(
                 type = type,
                 name = name,
@@ -75,14 +75,14 @@ class AccountsRepository(
     fun getAccountByIdFlow(id: Long): Flow<Account> {
         return accountsEntityQueries.getAccountById(id)
             .asFlow()
-            .mapToOneOrNull(Dispatchers.IO)
+            .mapToOneOrNull(Dispatchers.Default)
             .map {
                 it?.accountToDomainModel() ?: Account.EMPTY
             }
     }
 
     suspend fun deleteAccountById(id: Long) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             accountsEntityQueries.deleteAccountById(id)
         }
     }
@@ -90,7 +90,7 @@ class AccountsRepository(
     fun getAccountsCountFlow(): Flow<Int> {
         return accountsEntityQueries.getAccountsCount()
             .asFlow()
-            .mapToOneOrNull(Dispatchers.IO)
+            .mapToOneOrNull(Dispatchers.Default)
             .map { it?.toInt() ?: 0 }
     }
 }

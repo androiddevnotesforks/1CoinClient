@@ -27,7 +27,7 @@ import com.finance_tracker.finance_tracker.presentation.add_account.views.EditAc
 import org.koin.core.parameter.parametersOf
 
 @Composable
-fun AddAccountScreen(
+internal fun AddAccountScreen(
     account: Account
 ) {
     StoredViewModel<AddAccountViewModel>(

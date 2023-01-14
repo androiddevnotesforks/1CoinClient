@@ -42,7 +42,7 @@ private fun List<TrendBarDetails>.mapToBarChartEntities(): List<CoinBarChartEntr
 }
 
 @Composable
-fun AnalyticsScreen() {
+internal fun AnalyticsScreen() {
     StoredViewModel<AnalyticsViewModel> { viewModel ->
 
         LaunchedEffect(Unit) {

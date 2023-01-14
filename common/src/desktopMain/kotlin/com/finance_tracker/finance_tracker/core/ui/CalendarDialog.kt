@@ -13,12 +13,14 @@ import androidx.compose.ui.unit.dp
 import com.github.lgooddatepicker.components.DatePicker
 import com.github.lgooddatepicker.components.DatePickerSettings
 import com.github.lgooddatepicker.optionalusertools.DateChangeListener
-import java.time.LocalDate
-import java.time.LocalDateTime
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.toKotlinLocalDate
 import java.util.*
+import kotlin.time.Duration.Companion.milliseconds
+import java.time.LocalDate as JavaLocalDate
 
-@Composable
 @Suppress("MissingModifierDefaultValue", "ModifierParameterPosition")
+@Composable
 actual fun CalendarDialog(
     minDate: Long,
     maxDate: Long,
@@ -49,7 +51,7 @@ actual fun CalendarDialog(
     }
     DisposableEffect(datePicker) {
         val dateChangeListener = DateChangeListener {
-            onDateChangeListener.invoke(it.newDate)
+            onDateChangeListener.invoke(it.newDate.toKotlinLocalDate())
         }
         datePicker.addDateChangeListener(dateChangeListener)
         onDispose {
@@ -75,7 +77,6 @@ private fun getCalendarDialogController(datePicker: DatePicker): CalendarDialogC
 }
 
 @Suppress("NewApi")
-private fun Long.toLocalDate(): LocalDate {
-    val calendar = Calendar.getInstance().apply { time = Date(this@toLocalDate) }
-    return LocalDateTime.ofInstant(calendar.toInstant(), calendar.timeZone.toZoneId()).toLocalDate()
+private fun Long.toLocalDate(): JavaLocalDate {
+    return JavaLocalDate.ofEpochDay(milliseconds.inWholeDays) // TODO: Check
 }

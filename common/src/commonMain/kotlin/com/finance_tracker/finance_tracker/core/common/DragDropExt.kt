@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.zIndex
 
 @Composable
-fun rememberDragDropState(
+internal fun rememberDragDropState(
     lazyListState: LazyListState,
     onSwap: (Int, Int) -> Unit
 ): DragDropState {
@@ -43,7 +43,7 @@ val LazyListItemInfo.offsetEnd: Int
 
 @ExperimentalFoundationApi
 @Composable
-fun LazyItemScope.DraggableItem(
+internal fun LazyItemScope.DraggableItem(
     dragDropState: DragDropState,
     index: Int,
     modifier: Modifier = Modifier,

@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.add_transaction
 
-import com.finance_tracker.finance_tracker.core.common.toLocalDate
+import com.finance_tracker.finance_tracker.core.common.date.currentLocalDate
+import com.finance_tracker.finance_tracker.core.common.date.currentLocalDateTime
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
@@ -26,8 +27,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.util.Date
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
 
 class AddTransactionViewModel(
     private val transactionsInteractor: TransactionsInteractor,
@@ -47,7 +48,7 @@ class AddTransactionViewModel(
     private val _selectedAccount: MutableStateFlow<Account?> = MutableStateFlow(transaction?.account)
     val selectedAccount: StateFlow<Account?> = _selectedAccount.asStateFlow()
 
-    val transactionInsertionDate = transaction?.insertionDate
+    val transactionInsertionDate = transaction?.insertionDateTime
     val currency = selectedAccount
         .map { it?.balance?.currency ?: Currency.default }
         .stateIn(viewModelScope, SharingStarted.Lazily, Currency.default)
@@ -55,7 +56,7 @@ class AddTransactionViewModel(
     private val _selectedCategory: MutableStateFlow<Category?> = MutableStateFlow(transaction?.category)
     val selectedCategory: StateFlow<Category?> = _selectedCategory.asStateFlow()
 
-    private val initialSelectedDate = transaction?.date?.toLocalDate() ?: LocalDate.now()
+    private val initialSelectedDate = transaction?.dateTime?.date ?: Clock.System.currentLocalDate()
     private val _selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(initialSelectedDate)
     val selectedDate: StateFlow<LocalDate> = _selectedDate.asStateFlow()
 
@@ -155,7 +156,7 @@ class AddTransactionViewModel(
         addTransactionAnalytics.trackDuplicateTransactionClick(transaction)
         viewModelScope.launch {
             transactionsInteractor.addTransaction(
-                transaction = transaction.copy(id = null, insertionDate = Date())
+                transaction = transaction.copy(id = null, insertionDateTime = Clock.System.currentLocalDateTime())
             )
             viewAction = AddTransactionAction.Close
         }

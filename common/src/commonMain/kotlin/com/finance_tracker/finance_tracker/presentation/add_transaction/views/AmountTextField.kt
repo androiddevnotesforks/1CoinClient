@@ -14,7 +14,7 @@ import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
-fun AmountTextField(
+internal fun AmountTextField(
     currency: String,
     amount: String,
     active: Boolean,

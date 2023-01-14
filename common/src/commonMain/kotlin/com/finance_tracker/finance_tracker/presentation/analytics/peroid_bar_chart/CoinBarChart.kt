@@ -17,7 +17,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.presentation.analytics.views.NoTransactionsStub
 
 @Composable
-fun CoinBarChart(
+internal fun CoinBarChart(
     barChartEntries: List<CoinBarChartEntry<Float, Float>>,
     labelsArrangement: LabelsArrangement,
     labels: List<String>,

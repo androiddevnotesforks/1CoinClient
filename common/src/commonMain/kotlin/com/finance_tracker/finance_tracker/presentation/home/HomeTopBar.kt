@@ -20,7 +20,7 @@ import com.finance_tracker.finance_tracker.presentation.common.formatters.Amount
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 
 @Composable
-fun HomeTopBar(
+internal fun HomeTopBar(
     totalBalance: Amount,
     onSettingsClick: () -> Unit,
     modifier: Modifier = Modifier

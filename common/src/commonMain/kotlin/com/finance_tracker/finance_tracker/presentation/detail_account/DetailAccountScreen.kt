@@ -34,7 +34,7 @@ import org.koin.core.parameter.parametersOf
 
 @Composable
 @Suppress("MagicNumber")
-fun DetailAccountScreen(
+internal fun DetailAccountScreen(
     account: Account
 ) {
     StoredViewModel<DetailAccountViewModel>(

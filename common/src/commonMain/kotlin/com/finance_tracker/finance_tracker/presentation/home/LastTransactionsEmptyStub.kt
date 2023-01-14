@@ -19,7 +19,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
-fun LastTransactionsEmptyStub(
+internal fun LastTransactionsEmptyStub(
     modifier: Modifier = Modifier,
 ) {
     Row(

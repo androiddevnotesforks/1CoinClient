@@ -41,7 +41,7 @@ sealed class HoleTotalLabelData {
 
 @Suppress("MagicNumber")
 @Composable
-fun HoleTotalLabel(
+internal fun HoleTotalLabel(
     data: HoleTotalLabelData,
     modifier: Modifier = Modifier
 ) {

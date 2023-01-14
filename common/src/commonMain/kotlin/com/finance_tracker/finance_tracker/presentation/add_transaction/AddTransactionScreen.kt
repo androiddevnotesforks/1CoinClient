@@ -19,7 +19,7 @@ import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.stringResource
-import com.finance_tracker.finance_tracker.core.common.toDate
+import com.finance_tracker.finance_tracker.core.common.toDateTime
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
@@ -41,7 +41,7 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 @Suppress("CyclomaticComplexMethod", "LongMethod")
-fun AddTransactionScreen(
+internal fun AddTransactionScreen(
     transaction: Transaction?
 ) {
     StoredViewModel<AddTransactionViewModel>(
@@ -79,8 +79,8 @@ fun AddTransactionScreen(
                                 currency = currency,
                                 amountValue = amountDouble
                             ),
-                            date = localDate.toDate(),
-                            insertionDate = transactionInsertionDate
+                            dateTime = localDate.toDateTime(),
+                            insertionDateTime = transactionInsertionDate
                         ),
                         isFromButtonClick = fromButtonClick
                     )
@@ -98,8 +98,8 @@ fun AddTransactionScreen(
                                 currency = currency,
                                 amountValue = amountDouble
                             ),
-                            date = localDate.toDate(),
-                            insertionDate = transactionInsertionDate
+                            dateTime = localDate.toDateTime(),
+                            insertionDateTime = transactionInsertionDate
                         ),
                         isFromButtonClick = fromButtonClick
                     )

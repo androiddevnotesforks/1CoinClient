@@ -11,7 +11,7 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 
 @Composable
-fun CategorySettingsAppBar(
+internal fun CategorySettingsAppBar(
     selectedTransactionTypeTab: TransactionTypeTab,
     onTransactionTypeSelect: (TransactionTypeTab) -> Unit,
     onAddCategoryClick: () -> Unit,

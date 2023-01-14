@@ -21,7 +21,7 @@ import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.presentation.transactions.views.TransactionsAppBar
 
 @Composable
-fun TransactionsScreen() {
+internal fun TransactionsScreen() {
     StoredViewModel<TransactionsViewModel> { viewModel ->
 
         val lazyTransactionList =

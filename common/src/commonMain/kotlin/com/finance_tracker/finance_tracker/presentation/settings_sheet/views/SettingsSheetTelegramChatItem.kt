@@ -16,7 +16,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 
 @Composable
-fun SettingSheetTelegramChatItem(
+internal fun SettingSheetTelegramChatItem(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {

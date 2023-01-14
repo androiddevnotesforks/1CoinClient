@@ -12,8 +12,8 @@ import com.financetracker.financetracker.data.SmsMessageEntityQueries
 import com.financetracker.financetracker.data.TransactionsEntityQueries
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.util.Date
 
+@Suppress("UnusedPrivateMember")
 class SmsBroadcastReceiver : BroadcastReceiver(), KoinComponent {
 
     private val transactionsEntityQueries: TransactionsEntityQueries by inject()
@@ -40,7 +40,7 @@ class SmsBroadcastReceiver : BroadcastReceiver(), KoinComponent {
     }
 
     private fun insertTransactionIntoDatabase(transaction: Transaction) {
-        transactionsEntityQueries.insertTransaction(
+        /*transactionsEntityQueries.insertTransaction(
             id = null,
             type = transaction.type,
             amount = transaction.amount.amountValue,
@@ -49,7 +49,7 @@ class SmsBroadcastReceiver : BroadcastReceiver(), KoinComponent {
             accountId = transaction.account.id,
             insertionDate = Date(),
             date = transaction.date
-        )
+        )*/
     }
 
     private fun insertSmsMessageIntoDatabase(smsMessage: SmsMessage, hasTransaction: Boolean) {
