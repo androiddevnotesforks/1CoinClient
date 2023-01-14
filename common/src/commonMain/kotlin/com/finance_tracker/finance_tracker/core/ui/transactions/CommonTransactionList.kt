@@ -12,13 +12,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.date.Format
+import com.finance_tracker.finance_tracker.core.common.date.format
 import com.finance_tracker.finance_tracker.core.common.date.isCurrentYear
 import com.finance_tracker.finance_tracker.core.common.date.isToday
 import com.finance_tracker.finance_tracker.core.common.date.isYesterday
 import com.finance_tracker.finance_tracker.core.common.pagination.LazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.pagination.items
 import com.finance_tracker.finance_tracker.core.common.stringResource
-import com.finance_tracker.finance_tracker.core.common.zeroPrefixed
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.EmptyStub
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
@@ -103,15 +104,10 @@ private fun DayTotalHeader(
                 stringResource("transactions_yesterday")
             }
             dayTotalModel.dateTime.date.isCurrentYear() -> {
-                // Format: "dd.MM"
-                "${dayTotalModel.dateTime.dayOfMonth.zeroPrefixed(2)}." +
-                        dayTotalModel.dateTime.monthNumber.zeroPrefixed(2)
+                dayTotalModel.dateTime.format(Format.ShortDate)
             }
             else -> {
-                // Format: "dd.MM.yyyy"
-                "${dayTotalModel.dateTime.dayOfMonth.zeroPrefixed(2)}." +
-                        "${dayTotalModel.dateTime.monthNumber.zeroPrefixed(2)}." +
-                        "${dayTotalModel.dateTime.year}"
+                dayTotalModel.dateTime.format(Format.FullDate)
             }
         }
         Text(

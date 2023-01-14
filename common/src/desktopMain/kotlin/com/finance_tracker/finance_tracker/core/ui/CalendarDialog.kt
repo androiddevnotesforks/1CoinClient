@@ -15,7 +15,6 @@ import com.github.lgooddatepicker.components.DatePickerSettings
 import com.github.lgooddatepicker.optionalusertools.DateChangeListener
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toKotlinLocalDate
-import java.util.*
 import kotlin.time.Duration.Companion.milliseconds
 import java.time.LocalDate as JavaLocalDate
 
@@ -76,7 +75,6 @@ private fun getCalendarDialogController(datePicker: DatePicker): CalendarDialogC
     }
 }
 
-@Suppress("NewApi")
 private fun Long.toLocalDate(): JavaLocalDate {
-    return JavaLocalDate.ofEpochDay(milliseconds.inWholeDays) // TODO: Check
+    return JavaLocalDate.ofEpochDay(milliseconds.inWholeDays)
 }

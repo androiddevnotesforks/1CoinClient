@@ -1,7 +1,8 @@
 package com.finance_tracker.finance_tracker.data.database.di
 
 import com.finance_tracker.finance_tracker.AppDatabase
-import com.finance_tracker.finance_tracker.core.common.zeroPrefixed
+import com.finance_tracker.finance_tracker.core.common.date.Format
+import com.finance_tracker.finance_tracker.core.common.date.format
 import com.finance_tracker.finance_tracker.data.database.DatabaseInitializer
 import com.finance_tracker.finance_tracker.data.database.DriverFactory
 import com.financetracker.financetracker.data.AccountsEntity
@@ -29,18 +30,12 @@ private fun provideAppDatabase(driverFactory: DriverFactory): AppDatabase {
 
     val dateAdapter = object : ColumnAdapter<LocalDateTime, String> {
 
-        // Format: "yyyy-MM-ddTHH:mm:ssZ"
-
         override fun decode(databaseValue: String): LocalDateTime {
             return Instant.parse(databaseValue).toLocalDateTime(TimeZone.currentSystemDefault())
         }
 
         override fun encode(value: LocalDateTime): String {
-            return "${value.year}-${value.monthNumber.zeroPrefixed(2)}-" +
-                    "${value.dayOfMonth.zeroPrefixed(2)}T" +
-                    "${value.hour.zeroPrefixed(2)}:" +
-                    "${value.minute.zeroPrefixed(2)}:" +
-                    "${value.second.zeroPrefixed(2)}Z"
+            return value.format(Format.Iso)
         }
     }
 

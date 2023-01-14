@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.core.common.date.models
+package com.finance_tracker.finance_tracker.core.common.date
 
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
