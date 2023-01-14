@@ -1,3 +1,6 @@
+
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+
 plugins {
     id("android-setup")
     id("multiplatform-compose-setup")
@@ -5,6 +8,7 @@ plugins {
     id("io.gitlab.arturbosch.detekt")
     id("com.google.firebase.crashlytics")
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("com.codingfeline.buildkonfig")
 }
 
 android {
@@ -69,5 +73,13 @@ sqldelight {
         packageName = "com.finance_tracker.finance_tracker"
         schemaOutputDirectory = file("src/commonMain/sqldelight/com/finance_tracker/finance_tracker/schemas")
         verifyMigrations = true
+    }
+}
+
+buildkonfig {
+    packageName = "com.fincance_tracker.fincance_tracker"
+
+    defaultConfigs {
+        buildConfigField(STRING, "appVersion", rootProject.extra["appVersion"] as String)
     }
 }

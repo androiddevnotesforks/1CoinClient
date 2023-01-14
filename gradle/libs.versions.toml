@@ -16,6 +16,7 @@ google_services = "4.3.14"
 firebase_crashlytics = "2.9.2"
 slf4j = "1.7.36"
 settings = "1.0.0-RC"
+buildkonfig = "0.13.3"
 
 [libraries]
 gradleplugins-android = { module = "com.android.tools.build:gradle", version.ref = "android_plugin" }
@@ -26,6 +27,7 @@ gradleplugins-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plu
 gradleplugins-google-services = { module = "com.google.gms:google-services", version.ref = "google_services" }
 gradleplugins-firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics-gradle", version.ref = "firebase_crashlytics" }
 gradleplugins-sqldelight = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "sqldelight" }
+gradleplugins-buildkonfig = { module = "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin", version.ref = "buildkonfig" }
 
 paging = "app.cash.paging:paging-common:3.1.1-0.1.1"
 

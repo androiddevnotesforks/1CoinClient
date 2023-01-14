@@ -37,9 +37,6 @@ internal fun SettingsSheet(dialogKey: String) {
             )
         }
 
-        val chosenCurrency by viewModel.chosenCurrency.collectAsState()
-        val userID by viewModel.userID.collectAsState()
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -61,6 +58,8 @@ internal fun SettingsSheet(dialogKey: String) {
                     .fillMaxWidth()
                     .height(1.dp)
             )
+
+            val chosenCurrency by viewModel.chosenCurrency.collectAsState()
             SettingsSheetMainCurrencyItem(
                 selectedCurrency = chosenCurrency,
                 onCurrencySelect = viewModel::onCurrencySelect,
@@ -86,9 +85,12 @@ internal fun SettingsSheet(dialogKey: String) {
                     .fillMaxWidth()
                     .height(1.dp)
             )
+
+            val userId by viewModel.userId.collectAsState()
             SettingsSheetVersionAndUserIdInfo(
-                versionNumber = "1.0.0",
-                userId = userID
+                versionName = viewModel.versionName,
+                userId = userId,
+                onCopyUserId = viewModel::onCopyUserId
             )
         }
     }

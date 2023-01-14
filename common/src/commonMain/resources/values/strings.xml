@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">1Coin</string>
-
     <!-- General -->
     <string name="okey">OK</string>
     <string name="general_no_transactions">No transactions yet</string>

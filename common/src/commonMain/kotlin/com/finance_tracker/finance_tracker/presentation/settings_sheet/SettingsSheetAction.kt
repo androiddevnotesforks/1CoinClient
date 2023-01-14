@@ -13,6 +13,7 @@ sealed interface SettingsSheetAction {
     object OpenCategorySettingsScreen: SettingsSheetAction
     data class DismissDialog(val dialogKey: String): SettingsSheetAction
     object ShowUsageDataInfoDialog: SettingsSheetAction
+    data class CopyUserId(val userId: String): SettingsSheetAction
 }
 
 fun handleAction(
@@ -43,6 +44,9 @@ fun handleAction(
                     }
                 )
             }
+        }
+        is SettingsSheetAction.CopyUserId -> {
+            // TODO: CopyUserId
         }
     }
 }

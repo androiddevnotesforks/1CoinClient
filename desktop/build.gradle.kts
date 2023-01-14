@@ -1,3 +1,4 @@
+
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
@@ -27,9 +28,9 @@ compose.desktop {
         nativeDistributions {
             modules("java.sql")
             targetFormats(TargetFormat.Dmg, TargetFormat.Exe, TargetFormat.Deb)
-            packageName = "1Coin"
-            packageVersion = "1.0.0"
-            copyright = "© 2021 1Coin. All rights reserved."
+            packageName = rootProject.extra["appName"] as String
+            packageVersion = rootProject.extra["appVersion"] as String
+            copyright = "© 2023 1Coin. All rights reserved."
             vendor = "FinanceTracker"
             licenseFile.set(rootProject.file("LICENSE"))
             macOS {

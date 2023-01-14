@@ -18,4 +18,5 @@ dependencies {
     implementation(libs.gradleplugins.google.services)
     implementation(libs.gradleplugins.firebase.crashlytics)
     implementation(libs.gradleplugins.sqldelight)
+    implementation(libs.gradleplugins.buildkonfig)
 }
