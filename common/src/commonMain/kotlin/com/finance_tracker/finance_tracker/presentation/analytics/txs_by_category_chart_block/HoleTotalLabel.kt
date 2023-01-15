@@ -22,6 +22,7 @@ import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.domain.models.Amount
+import com.finance_tracker.finance_tracker.presentation.common.formatters.ReductionMode
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
 import kotlinx.datetime.Clock
 
@@ -54,7 +55,9 @@ internal fun HoleTotalLabel(
     ) {
         if (data is HoleTotalLabelData.Content) {
             Text(
-                text = data.amount.format(),
+                text = data.amount.format(
+                    reductionMode = ReductionMode.Hard
+                ),
                 color = CoinTheme.color.content,
                 style = CoinTheme.typography.h2.staticTextSize()
             )

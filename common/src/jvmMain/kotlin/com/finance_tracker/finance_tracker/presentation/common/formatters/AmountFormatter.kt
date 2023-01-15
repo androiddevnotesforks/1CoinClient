@@ -8,15 +8,20 @@ import androidx.compose.ui.text.intl.Locale
 import com.finance_tracker.finance_tracker.core.common.locale.toJavaLocale
 import java.text.NumberFormat
 import java.util.Currency
+import kotlin.math.pow
 import java.util.Locale as JavaLocale
 
 @Composable
-actual fun formatAmount(number: Double, currencyCode: String): String {
+actual fun formatAmount(
+    number: Double,
+    currencyCode: String,
+    reductionMode: ReductionMode
+): String {
     val locale = Locale.current
     val amountFormatter by remember(locale) {
         derivedStateOf { AmountFormat(locale.toJavaLocale()) }
     }
-    return amountFormatter.format(number, currencyCode)
+    return amountFormatter.format(number, currencyCode, reductionMode)
 }
 
 class AmountFormat(locale: JavaLocale) {
@@ -26,12 +31,45 @@ class AmountFormat(locale: JavaLocale) {
         minimumFractionDigits = 0
     }
 
-    fun format(number: Double, currencyCode: String): String {
-        setCurrencyCode(currencyCode)
-        return formatter.format(number)
+    fun format(
+        number: Double,
+        currencyCode: String,
+        reductionMode: ReductionMode
+    ): String {
+
+        formatter.currency = Currency.getInstance(currencyCode)
+
+        var shortNumber = number
+        var suffix = ""
+
+        when {
+            number >= Billion -> {
+                while (shortNumber >= Billion) {
+                    shortNumber /= Billion
+                    suffix += "B"
+                }
+            }
+            number >= Million -> {
+                shortNumber = number / Million
+                suffix = "M"
+            }
+            reductionMode == ReductionMode.Hard && number >= Thousand -> {
+                shortNumber = number / Thousand
+                suffix = "k"
+            }
+        }
+
+        return formatter.format(shortNumber.round(formatter.maximumFractionDigits)) + suffix
     }
 
-    private fun setCurrencyCode(code: String) {
-        formatter.currency = Currency.getInstance(code)
+    private fun Double.round(decimals: Int): Double {
+        val multiplier = 10.0.pow(decimals)
+        return (this * multiplier).toInt() / multiplier
+    }
+
+    companion object {
+        private const val Billion = 1_000_000_000
+        private const val Million = 1_000_000
+        private const val Thousand = 1_000
     }
 }

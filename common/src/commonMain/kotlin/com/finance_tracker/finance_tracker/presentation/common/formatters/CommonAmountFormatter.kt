@@ -10,13 +10,20 @@ enum class AmountFormatMode {
     NoSigns
 }
 
+enum class ReductionMode {
+    Soft,
+    Hard
+}
+
 @Composable
 internal fun Amount.format(
-    mode: AmountFormatMode = AmountFormatMode.NoSigns
+    mode: AmountFormatMode = AmountFormatMode.NoSigns,
+    reductionMode: ReductionMode = ReductionMode.Soft
 ): String {
     val formattedCurrencyNumber = formatAmount(
         number = amountValue.absoluteValue,
-        currencyCode = currency.code
+        currencyCode = currency.code,
+        reductionMode = reductionMode
     ).replace(currency.code, currency.symbol)
 
     return when (mode) {
@@ -30,4 +37,8 @@ internal fun Amount.format(
 }
 
 @Composable
-expect fun formatAmount(number: Double, currencyCode: String): String
+expect fun formatAmount(
+    number: Double,
+    currencyCode: String,
+    reductionMode: ReductionMode
+): String
