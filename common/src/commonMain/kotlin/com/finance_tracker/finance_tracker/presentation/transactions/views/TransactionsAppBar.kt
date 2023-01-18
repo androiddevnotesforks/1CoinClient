@@ -6,11 +6,12 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun TransactionsAppBar(
@@ -27,9 +28,9 @@ internal fun TransactionsAppBar(
         title = {
             Text(
                 text = if (hasSelectedItems) {
-                    stringResource("transactions_title_selected") + " " + selectedItemsCount
+                    stringResource(MR.strings.transactions_title_selected) + " " + selectedItemsCount
                 } else {
-                    stringResource("transactions_title_normal")
+                    stringResource(MR.strings.transactions_title_normal)
                 },
                 style = CoinTheme.typography.h4
             )

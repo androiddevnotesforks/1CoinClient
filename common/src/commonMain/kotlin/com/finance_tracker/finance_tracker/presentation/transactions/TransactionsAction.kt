@@ -1,14 +1,15 @@
 package com.finance_tracker.finance_tracker.presentation.transactions
 
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.pagination.LazyPagingItems
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionScreenParams
+import dev.icerock.moko.resources.compose.stringResource
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.extensions.push
 
@@ -53,9 +54,9 @@ fun handleAction(
             modalController.present(DialogConfigurations.alert) { key ->
                 DeleteDialog(
                     titleEntity = if (action.selectedItemsCount > 1) {
-                        stringResource("transactions")
+                        stringResource(MR.strings.transactions)
                     } else {
-                        stringResource("transaction")
+                        stringResource(MR.strings.transaction)
                     },
                     onCancelClick = { onCancelClick.invoke(key) },
                     onDeleteClick = { onConfirmDeleteClick.invoke(key) }

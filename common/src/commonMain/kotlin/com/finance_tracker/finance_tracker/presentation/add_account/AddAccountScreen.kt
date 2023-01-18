@@ -13,8 +13,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -24,6 +24,7 @@ import com.finance_tracker.finance_tracker.presentation.add_account.views.Accoun
 import com.finance_tracker.finance_tracker.presentation.add_account.views.AddAccountTopBar
 import com.finance_tracker.finance_tracker.presentation.add_account.views.AmountTextField
 import com.finance_tracker.finance_tracker.presentation.add_account.views.EditAccountActions
+import dev.icerock.moko.resources.compose.stringResource
 import org.koin.core.parameter.parametersOf
 
 @Composable
@@ -51,9 +52,9 @@ internal fun AddAccountScreen(
             Column {
                 AddAccountTopBar(
                     topBarTextId = if (account == Account.EMPTY) {
-                        "new_account_title"
+                        MR.strings.new_account_title
                     } else {
-                        "accounts_screen_top_bar"
+                        MR.strings.accounts_screen_top_bar
                     },
                     onBackClick = viewModel::onBackClick
                 )
@@ -80,7 +81,7 @@ internal fun AddAccountScreen(
                                 start = 16.dp,
                                 end = 16.dp
                             ),
-                        text = stringResource("new_account_btn_add"),
+                        text = stringResource(MR.strings.new_account_btn_add),
                         onClick = viewModel::onAddAccountClick,
                         enabled = isAddButtonEnabled
                     )

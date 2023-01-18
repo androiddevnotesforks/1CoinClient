@@ -16,11 +16,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AccountCardWidth
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import dev.icerock.moko.resources.compose.stringResource
 import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 @Suppress("MagicNumber")
@@ -59,7 +60,7 @@ internal fun AddAccountCard(
         if (fullSize) {
             Text(
                 modifier = Modifier.padding(horizontal = 4.dp),
-                text = stringResource("home_add_account"),
+                text = stringResource(MR.strings.home_add_account),
                 color = CoinTheme.color.primary,
                 style = CoinTheme.typography.subtitle1
             )

@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.category_settings
 
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
@@ -10,6 +10,7 @@ import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.add_category.AddCategoryScreenParams
+import dev.icerock.moko.resources.compose.stringResource
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.extensions.push
 
@@ -52,7 +53,7 @@ fun handleAction(
             val modalNavController = rootController.findModalController()
             modalNavController.present(DialogConfigurations.alert) { key ->
                 DeleteDialog(
-                    titleEntity = stringResource("category"),
+                    titleEntity = stringResource(MR.strings.category),
                     onCancelClick = { onCancelClick.invoke(action.category, key) },
                     onDeleteClick = { onConfirmDeleteClick.invoke(action.category, key) }
                 )

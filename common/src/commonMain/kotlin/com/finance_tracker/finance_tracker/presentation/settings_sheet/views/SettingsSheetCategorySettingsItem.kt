@@ -11,9 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun SettingsSheetCategorySettingsItem(
@@ -39,7 +40,7 @@ internal fun SettingsSheetCategorySettingsItem(
             tint = CoinTheme.color.content.copy(alpha = 0.6f)
         )
         Text(
-            text = stringResource("settings_categories"),
+            text = stringResource(MR.strings.settings_categories),
             modifier = Modifier
                 .align(Alignment.CenterVertically),
             style = CoinTheme.typography.body1

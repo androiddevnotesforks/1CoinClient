@@ -20,8 +20,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun SendingUsageDataDialog(
@@ -40,10 +41,10 @@ internal fun SendingUsageDataDialog(
                 ),
             text = buildAnnotatedString {
                 withStyle(SpanStyle(fontWeight = FontWeight.Medium)) {
-                    append(stringResource("sending_usage_data_description_1"))
+                    append(stringResource(MR.strings.sending_usage_data_description_1))
                 }
                 append("\n\n")
-                append(stringResource("sending_usage_data_description_2"))
+                append(stringResource(MR.strings.sending_usage_data_description_2))
             },
             style = CoinTheme.typography.body1
         )
@@ -62,7 +63,7 @@ internal fun SendingUsageDataDialog(
             Spacer(modifier = Modifier.weight(1f))
 
             ActionButton(
-                text = stringResource("okey"),
+                text = stringResource(MR.strings.okey),
                 onClick = { onOkClick.invoke() }
             )
         }

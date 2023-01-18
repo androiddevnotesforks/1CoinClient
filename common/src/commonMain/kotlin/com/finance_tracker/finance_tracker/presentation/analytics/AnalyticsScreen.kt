@@ -12,9 +12,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
@@ -24,6 +24,7 @@ import com.finance_tracker.finance_tracker.presentation.analytics.peroid_bar_cha
 import com.finance_tracker.finance_tracker.presentation.analytics.txs_by_category_chart_block.TxsByCategoryChartBlock
 import com.finance_tracker.finance_tracker.presentation.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
+import dev.icerock.moko.resources.compose.stringResource
 
 val PieChartSize = 240.dp
 val PieChartLabelSize = 20.dp
@@ -73,7 +74,7 @@ internal fun AnalyticsScreen() {
             ) {
                 CoinWidget(
                     title = stringResource(selectedTransactionTypeTab.textId) + " " +
-                            stringResource("analytics_by_category"),
+                            stringResource(MR.strings.analytics_by_category),
                     withBorder = true
                 ) {
                     val isLoading by viewModel.monthTxsByCategoryDelegate
@@ -95,7 +96,7 @@ internal fun AnalyticsScreen() {
 
                 CoinWidget(
                     title = stringResource(selectedTransactionTypeTab.textId) + " " +
-                            stringResource("analytics_trend"),
+                            stringResource(MR.strings.analytics_trend),
                     withBorder = true
                 ) {
                     val selectedPeriodChip by viewModel.trendsAnalyticsDelegate.selectedPeriodChipFlow.collectAsState()
@@ -104,7 +105,7 @@ internal fun AnalyticsScreen() {
 
                     PeriodBarChart(
                         barChartEntries = trend.mapToBarChartEntities(),
-                        defaultTitle = stringResource("total") + " " +
+                        defaultTitle = stringResource(MR.strings.total) + " " +
                                 stringResource(selectedTransactionTypeTab.textId),
                         defaultValue = total.format(mode = AmountFormatMode.NoSigns),
                         selectedPeriodChip = selectedPeriodChip,

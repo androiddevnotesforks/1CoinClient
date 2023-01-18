@@ -23,7 +23,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedSelectTextField
@@ -32,6 +32,7 @@ import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.presentation.add_account.AddAccountViewModel
 import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AccountColorsDropdownMenu
 import com.finance_tracker.finance_tracker.presentation.add_account.dropdown_menus.AccountTypesDropdownMenu
+import dev.icerock.moko.resources.compose.stringResource
 
 private const val AccountNameCharsLimit = 40
 private const val AmountCharsLimit = 24
@@ -49,14 +50,14 @@ internal fun AccountNameTextField(
         value = titleAccount,
         label = {
             Text(
-                text = stringResource("new_account_field_name_label"),
+                text = stringResource(MR.strings.new_account_field_name_label),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
         },
         placeholder = {
             Text(
-                text = stringResource("new_account_field_name_placeholder"),
+                text = stringResource(MR.strings.new_account_field_name_placeholder),
                 style = CoinTheme.typography.body1.staticTextSize()
             )
         },
@@ -83,14 +84,14 @@ internal fun AmountTextField(
         value = enteredBalance,
         label = {
             Text(
-                text = stringResource("new_account_field_amount_label"),
+                text = stringResource(MR.strings.new_account_field_amount_label),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
         },
         placeholder = {
             Text(
-                text = stringResource("new_account_field_amount_placeholder"),
+                text = stringResource(MR.strings.new_account_field_amount_placeholder),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style = CoinTheme.typography.body1.staticTextSize()
@@ -140,14 +141,14 @@ internal fun RowScope.AccountTypeTextField(
             },
         label = {
             Text(
-                text = stringResource("new_account_field_type_label"),
+                text = stringResource(MR.strings.new_account_field_type_label),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
         },
         placeholder = {
             Text(
-                text = stringResource("new_account_field_type_placeholder"),
+                text = stringResource(MR.strings.new_account_field_type_placeholder),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style = CoinTheme.typography.body1.staticTextSize()
@@ -190,7 +191,7 @@ internal fun RowScope.AccountColorTextField(
             },
         label = {
             Text(
-                text = stringResource("new_account_field_color_label"),
+                text = stringResource(MR.strings.new_account_field_color_label),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -202,7 +203,7 @@ internal fun RowScope.AccountColorTextField(
         },
         placeholder = {
             Text(
-                text = stringResource("new_account_field_color_placeholder"),
+                text = stringResource(MR.strings.new_account_field_color_placeholder),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 style = CoinTheme.typography.body1.staticTextSize()

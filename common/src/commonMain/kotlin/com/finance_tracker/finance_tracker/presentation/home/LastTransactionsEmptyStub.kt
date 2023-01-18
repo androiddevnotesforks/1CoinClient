@@ -14,9 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun LastTransactionsEmptyStub(
@@ -48,7 +49,7 @@ internal fun LastTransactionsEmptyStub(
         Text(
             modifier = Modifier
                 .padding(start = 8.dp),
-            text = stringResource("general_no_transactions"),
+            text = stringResource(MR.strings.general_no_transactions),
             textAlign = TextAlign.Center,
             style = CoinTheme.typography.subtitle2,
             color = CoinTheme.color.content.copy(alpha = 0.5f)

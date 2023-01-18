@@ -10,9 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.stringResource
 import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 @Composable
@@ -44,7 +45,7 @@ internal fun AmountTextField(
         )
         Text(
             modifier = Modifier.padding(top = 8.dp),
-            text = stringResource("add_transaction_amount"),
+            text = stringResource(MR.strings.add_transaction_amount),
             color = CoinTheme.color.secondary,
             style = CoinTheme.typography.subtitle2
         )

@@ -20,9 +20,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.zeroPrefixed
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.StringResource
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
@@ -121,13 +123,13 @@ private fun getLabelsFor(periodChip: PeriodChip): List<String> {
     return when (periodChip) {
         PeriodChip.Week -> {
             listOf(
-                stringResource("day_of_week_mon"),
-                stringResource("day_of_week_tue"),
-                stringResource("day_of_week_wed"),
-                stringResource("day_of_week_thu"),
-                stringResource("day_of_week_fri"),
-                stringResource("day_of_week_sat"),
-                stringResource("day_of_week_sun"),
+                stringResource(MR.strings.day_of_week_mon),
+                stringResource(MR.strings.day_of_week_tue),
+                stringResource(MR.strings.day_of_week_wed),
+                stringResource(MR.strings.day_of_week_thu),
+                stringResource(MR.strings.day_of_week_fri),
+                stringResource(MR.strings.day_of_week_sat),
+                stringResource(MR.strings.day_of_week_sun),
             )
         }
         PeriodChip.Month -> {
@@ -140,17 +142,17 @@ private fun getLabelsFor(periodChip: PeriodChip): List<String> {
         }
         PeriodChip.Year -> {
             listOf(
-                stringResource("month_jan"),
+                stringResource(MR.strings.month_jan),
                 "",
-                stringResource("month_mar"),
+                stringResource(MR.strings.month_mar),
                 "",
-                stringResource("month_may"),
+                stringResource(MR.strings.month_may),
                 "",
-                stringResource("month_jul"),
+                stringResource(MR.strings.month_jul),
                 "",
-                stringResource("month_sep"),
+                stringResource(MR.strings.month_sep),
                 "",
-                stringResource("month_nov"),
+                stringResource(MR.strings.month_nov),
                 ""
             )
         }
@@ -158,19 +160,19 @@ private fun getLabelsFor(periodChip: PeriodChip): List<String> {
 }
 
 enum class PeriodChip(
-    val textId: String,
+    val textId: StringResource,
     val analyticsName: String
 ) {
     Week(
-        textId = "week",
+        textId = MR.strings.week,
         analyticsName = "Week"
     ),
     Month(
-        textId = "month",
+        textId = MR.strings.month,
         analyticsName = "Month"
     ),
     Year(
-        textId = "year",
+        textId = MR.strings.year,
         analyticsName = "Year"
     )
 }

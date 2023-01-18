@@ -13,11 +13,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.BackHandler
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.`if`
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.toDateTime
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
@@ -34,6 +34,7 @@ import com.finance_tracker.finance_tracker.presentation.add_transaction.views.En
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBar
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBarData
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.EnterTransactionController
+import dev.icerock.moko.resources.compose.stringResource
 import org.koin.core.parameter.parametersOf
 import ru.alexgladkov.odyssey.compose.controllers.ModalController
 import ru.alexgladkov.odyssey.compose.extensions.present
@@ -251,7 +252,7 @@ private fun DeleteTransactionDialog(
     onDeleteTransactionClick: (Transaction) -> Unit
 ) {
     DeleteDialog(
-        titleEntity = stringResource("transaction"),
+        titleEntity = stringResource(MR.strings.transaction),
         onCancelClick = {
             modalNavController.popBackStack(key, animate = false)
         },

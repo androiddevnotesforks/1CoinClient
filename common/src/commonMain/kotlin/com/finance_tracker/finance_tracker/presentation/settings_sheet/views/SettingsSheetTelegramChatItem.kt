@@ -11,9 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun SettingSheetTelegramChatItem(
@@ -38,7 +39,7 @@ internal fun SettingSheetTelegramChatItem(
                 .align(Alignment.CenterVertically),
         )
         Text(
-            text = stringResource("settings_telegram_community"),
+            text = stringResource(MR.strings.settings_telegram_community),
             modifier = Modifier
                 .padding(end = 8.dp)
                 .align(Alignment.CenterVertically),

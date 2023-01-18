@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.date.Format
 import com.finance_tracker.finance_tracker.core.common.date.format
 import com.finance_tracker.finance_tracker.core.common.date.isCurrentYear
@@ -19,11 +20,11 @@ import com.finance_tracker.finance_tracker.core.common.date.isToday
 import com.finance_tracker.finance_tracker.core.common.date.isYesterday
 import com.finance_tracker.finance_tracker.core.common.pagination.LazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.pagination.items
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.EmptyStub
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun CommonTransactionsList(
@@ -39,7 +40,7 @@ internal fun CommonTransactionsList(
         EmptyStub(
             modifier = modifier,
             image = rememberVectorPainter("transactions_empty"),
-            text = stringResource("add_transaction"),
+            text = stringResource(MR.strings.add_transaction),
             onClick = { onAddTransactionClick.invoke() },
             stubHeightAlignment = stubHeightAlignment,
         )
@@ -98,10 +99,10 @@ private fun DayTotalHeader(
     ) {
         val formattedDate = when {
             dayTotalModel.dateTime.date.isToday() -> {
-                stringResource("transactions_today")
+                stringResource(MR.strings.transactions_today)
             }
             dayTotalModel.dateTime.date.isYesterday() -> {
-                stringResource("transactions_yesterday")
+                stringResource(MR.strings.transactions_yesterday)
             }
             dayTotalModel.dateTime.date.isCurrentYear() -> {
                 dayTotalModel.dateTime.format(Format.ShortDate)

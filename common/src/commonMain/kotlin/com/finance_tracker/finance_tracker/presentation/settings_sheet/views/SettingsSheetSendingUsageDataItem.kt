@@ -14,10 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinSwitch
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import dev.icerock.moko.resources.compose.stringResource
 
 @Suppress("UnusedPrivateMember")
 @Composable
@@ -45,7 +46,7 @@ internal fun SettingsSheetSendingUsageDataItem(
             tint = CoinTheme.color.content
         )
         Text(
-            text = stringResource("settings_sending_usage_data"),
+            text = stringResource(MR.strings.settings_sending_usage_data),
             modifier = Modifier
                 .align(Alignment.CenterVertically),
             style = CoinTheme.typography.body1

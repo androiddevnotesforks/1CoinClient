@@ -18,9 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import dev.icerock.moko.resources.compose.stringResource
 
 private const val MaxUserIdCharCount = 10
 
@@ -42,7 +43,7 @@ internal fun SettingsSheetVersionAndUserIdInfo(
     ) {
         Text(
             modifier = Modifier.padding(vertical = 8.dp),
-            text = "${stringResource("version")} $versionName",
+            text = "${stringResource(MR.strings.version)} $versionName",
             style = CoinTheme.typography.subtitle4,
             color = CoinTheme.color.secondary
         )
@@ -62,7 +63,7 @@ internal fun SettingsSheetVersionAndUserIdInfo(
                 modifier = Modifier
                     .padding(end = 4.dp)
                     .weight(1f),
-                text = "${stringResource("user_id")} ${userId.take(MaxUserIdCharCount)}...",
+                text = "${stringResource(MR.strings.user_id)} ${userId.take(MaxUserIdCharCount)}...",
                 style = CoinTheme.typography.subtitle4,
                 color = CoinTheme.color.secondary,
                 maxLines = 1,

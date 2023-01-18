@@ -9,6 +9,7 @@ plugins {
     id("com.google.firebase.crashlytics")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.codingfeline.buildkonfig")
+    id("dev.icerock.mobile.multiplatform-resources")
 }
 
 android {
@@ -41,6 +42,7 @@ kotlin {
                 implementation(libs.uuid)
                 implementation(libs.datetime)
                 implementation(libs.paging)
+                implementation(libs.bundles.mokoResources)
             }
         }
         named("desktopMain") {
@@ -82,4 +84,9 @@ buildkonfig {
     defaultConfigs {
         buildConfigField(STRING, "appVersion", rootProject.extra["appVersion"] as String)
     }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.finance_tracker.finance_tracker"
+    multiplatformResourcesClassName = "MR"
 }

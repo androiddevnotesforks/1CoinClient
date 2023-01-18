@@ -1,12 +1,13 @@
 package com.finance_tracker.finance_tracker.presentation.add_account
 
 import androidx.compose.material.ScaffoldState
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.getLocalizedString
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.domain.models.Account
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.launch
 import ru.alexgladkov.odyssey.compose.extensions.present
 
@@ -44,7 +45,7 @@ fun handleAction(
             val modalNavController = rootController.findModalController()
             modalNavController.present(DialogConfigurations.alert) { key ->
                 DeleteDialog(
-                    titleEntity = stringResource("account"),
+                    titleEntity = stringResource(MR.strings.account),
                     onCancelClick = { onCancelDeletingClick.invoke(action.account, key) },
                     onDeleteClick = { onConfirmDeletingClick.invoke(action.account, key) }
                 )

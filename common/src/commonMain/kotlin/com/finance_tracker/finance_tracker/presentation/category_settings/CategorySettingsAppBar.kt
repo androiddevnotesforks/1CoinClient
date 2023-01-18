@@ -3,12 +3,13 @@ package com.finance_tracker.finance_tracker.presentation.category_settings
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTxTypeTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun CategorySettingsAppBar(
@@ -28,7 +29,7 @@ internal fun CategorySettingsAppBar(
         },
         title = {
             Text(
-                text = stringResource("category_settings"),
+                text = stringResource(MR.strings.category_settings),
                 style = CoinTheme.typography.h4
             )
         },
