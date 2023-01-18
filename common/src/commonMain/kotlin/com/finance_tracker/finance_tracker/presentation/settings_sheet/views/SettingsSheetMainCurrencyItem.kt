@@ -11,11 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.presentation.add_account.views.CurrencySelector
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun SettingsSheetMainCurrencyItem(
@@ -44,7 +45,7 @@ internal fun SettingsSheetMainCurrencyItem(
             tint = CoinTheme.color.content.copy(alpha = 0.6f)
         )
         Text(
-            text = stringResource("settings_main_currency"),
+            text = stringResource(MR.strings.settings_main_currency),
             modifier = Modifier
                 .padding(end = 8.dp)
                 .align(Alignment.CenterVertically),

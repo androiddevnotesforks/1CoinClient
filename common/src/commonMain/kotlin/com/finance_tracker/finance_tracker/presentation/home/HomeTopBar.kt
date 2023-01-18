@@ -11,13 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.presentation.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun HomeTopBar(
@@ -35,7 +36,7 @@ internal fun HomeTopBar(
                     style = CoinTheme.typography.h4
                 )
                 Text(
-                    text = stringResource("home_topbar_text"),
+                    text = stringResource(MR.strings.home_topbar_text),
                     style = CoinTheme.typography.subtitle2,
                     color = CoinTheme.color.secondary
                 )

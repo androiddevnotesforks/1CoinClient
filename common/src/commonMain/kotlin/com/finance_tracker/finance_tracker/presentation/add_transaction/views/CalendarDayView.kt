@@ -22,19 +22,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.date.Format
 import com.finance_tracker.finance_tracker.core.common.date.format
 import com.finance_tracker.finance_tracker.core.common.date.isCurrentYear
 import com.finance_tracker.finance_tracker.core.common.date.isToday
 import com.finance_tracker.finance_tracker.core.common.date.isYesterday
 import com.finance_tracker.finance_tracker.core.common.date.minus
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.toDateTime
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CalendarDialog
 import com.finance_tracker.finance_tracker.core.ui.CalendarDialogController
 import com.finance_tracker.finance_tracker.core.ui.StubCalendarDialogController
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
@@ -93,10 +94,10 @@ internal fun CalendarDayView(
                     modifier = Modifier.padding(start = 4.dp),
                     text = when {
                         date.isToday() -> {
-                            "${stringResource("add_transaction_today")}, $shortFormattedDate"
+                            "${stringResource(MR.strings.add_transaction_today)}, $shortFormattedDate"
                         }
                         date.isYesterday() -> {
-                            "${stringResource("add_transaction_yesterday")}, $shortFormattedDate"
+                            "${stringResource(MR.strings.add_transaction_yesterday)}, $shortFormattedDate"
                         }
                         date.isCurrentYear() -> {
                             shortFormattedDate

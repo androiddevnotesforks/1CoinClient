@@ -17,8 +17,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun DeleteDialog(
@@ -33,14 +34,14 @@ internal fun DeleteDialog(
             modifier = Modifier
                 .padding(start = 16.dp)
                 .padding(top = 16.dp),
-            text = "${stringResource("dialog_title_delete")} $titleEntity",
+            text = "${stringResource(MR.strings.dialog_title_delete)} $titleEntity",
             style = CoinTheme.typography.h4
         )
         Text(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .padding(top = 8.dp),
-            text = stringResource("dialog_body_delete"),
+            text = stringResource(MR.strings.dialog_body_delete),
             style = CoinTheme.typography.body1
         )
         Row(
@@ -54,14 +55,14 @@ internal fun DeleteDialog(
             horizontalArrangement = Arrangement.End
         ) {
             ActionButton(
-                text = stringResource("btn_cancel"),
+                text = stringResource(MR.strings.btn_cancel),
                 onClick = { onCancelClick.invoke() }
             )
 
             Spacer(modifier = Modifier.width(24.dp))
 
             ActionButton(
-                text = stringResource("btn_delete"),
+                text = stringResource(MR.strings.btn_delete),
                 textColor = CoinTheme.color.accentRed,
                 onClick = { onDeleteClick.invoke() }
             )

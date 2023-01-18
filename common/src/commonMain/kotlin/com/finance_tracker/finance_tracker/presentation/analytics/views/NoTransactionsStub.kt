@@ -10,9 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun NoTransactionsStub(
@@ -34,7 +35,7 @@ internal fun NoTransactionsStub(
         Text(
             modifier = Modifier
                 .padding(start = 8.dp),
-            text = stringResource("analytics_make_first_transactions"),
+            text = stringResource(MR.strings.analytics_make_first_transactions),
             style = CoinTheme.typography.subtitle2,
             color = CoinTheme.color.secondary
         )

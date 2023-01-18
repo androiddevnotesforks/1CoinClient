@@ -2,19 +2,21 @@ package com.finance_tracker.finance_tracker.core.ui.tab_rows
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
+import dev.icerock.moko.resources.StringResource
+import dev.icerock.moko.resources.compose.stringResource
 
 enum class TransactionTypeTab(
-    val textId: String,
+    val textId: StringResource,
     val analyticsName: String
 ) {
     Expense(
-        textId = "tab_expense",
+        textId = MR.strings.tab_expense,
         analyticsName = "Expense"
     ),
     Income(
-        textId = "tab_income",
+        textId = MR.strings.tab_income,
         analyticsName = "Income"
     ),
 }

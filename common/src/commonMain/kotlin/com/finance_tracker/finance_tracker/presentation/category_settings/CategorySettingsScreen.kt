@@ -10,10 +10,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LazyDragColumn
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.EmptyStub
@@ -21,6 +21,7 @@ import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.domain.models.Category
+import dev.icerock.moko.resources.compose.stringResource
 
 private val CategoriesListContentPadding = 16.dp
 
@@ -59,7 +60,7 @@ internal fun CategorySettingsScreen() {
                     if (expenseCategories.isEmpty()) {
                         EmptyStub(
                             image = rememberVectorPainter("categories_empty"),
-                            text = stringResource("add_category"),
+                            text = stringResource(MR.strings.add_category),
                             onClick = viewModel::onAddCategoryClick
                         )
                     } else {
@@ -75,7 +76,7 @@ internal fun CategorySettingsScreen() {
                     if (incomeCategories.isEmpty()) {
                         EmptyStub(
                             image = rememberVectorPainter("categories_empty"),
-                            text = stringResource("add_category"),
+                            text = stringResource(MR.strings.add_category),
                             onClick = viewModel::onAddCategoryClick
                         )
                     } else {

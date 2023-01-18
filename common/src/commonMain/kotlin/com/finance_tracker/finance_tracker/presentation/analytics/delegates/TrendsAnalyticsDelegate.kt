@@ -2,7 +2,8 @@ package com.finance_tracker.finance_tracker.presentation.analytics.delegates
 
 import androidx.compose.runtime.Composable
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDate
-import com.finance_tracker.finance_tracker.core.common.stringResource
+import com.finance_tracker.finance_tracker.core.common.strings.getMonthNameStringResBy
+import com.finance_tracker.finance_tracker.core.common.strings.getWeekDayStringRes
 import com.finance_tracker.finance_tracker.core.common.toDateTime
 import com.finance_tracker.finance_tracker.data.repositories.CurrenciesRepository
 import com.finance_tracker.finance_tracker.domain.models.Amount
@@ -18,6 +19,7 @@ import com.financetracker.financetracker.data.GetTransactionsForPeriod
 import com.financetracker.financetracker.data.TransactionsEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -68,7 +70,7 @@ class TrendsAnalyticsDelegate(
                 mapTxsAmountsToTrendBarDetails(
                     txsAmounts = txsAmounts,
                     primaryCurrency = primaryCurrency,
-                    title = { stringResource("week_day_$dayOfWeek") }
+                    title = { stringResource(getWeekDayStringRes(dayOfWeek)) }
                 )
             }
     }
@@ -93,7 +95,8 @@ class TrendsAnalyticsDelegate(
                     txsAmounts = txsAmounts,
                     primaryCurrency = primaryCurrency,
                     title = {
-                        "$dayOfMonth ${stringResource("month_${Clock.System.currentLocalDate().monthNumber}")}"
+                        "$dayOfMonth " +
+                                stringResource(getMonthNameStringResBy(Clock.System.currentLocalDate().monthNumber))
                     }
                 )
             }
@@ -113,7 +116,7 @@ class TrendsAnalyticsDelegate(
                 mapTxsAmountsToTrendBarDetails(
                     txsAmounts = txsAmounts,
                     primaryCurrency = primaryCurrency,
-                    title = { stringResource("month_$monthNumberOfYear") }
+                    title = { stringResource(getMonthNameStringResBy(monthNumberOfYear)) }
                 )
             }
     }

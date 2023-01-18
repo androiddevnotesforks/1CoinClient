@@ -12,8 +12,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
@@ -21,6 +21,7 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.add_category.views.AddCategoryAppBar
 import com.finance_tracker.finance_tracker.presentation.add_category.views.ChooseIconButton
+import dev.icerock.moko.resources.compose.stringResource
 import org.koin.core.parameter.parametersOf
 
 private const val MinCategoryNameLength = 2
@@ -50,15 +51,15 @@ internal fun AddCategoryScreen(
                 onBackClick = viewModel::onBackClick,
                 textValue = if (viewModel.isEditMode) {
                     if (addCategoryScreenParams.transactionType == TransactionType.Expense) {
-                        "expense_category"
+                        MR.strings.expense_category
                     } else {
-                        "income_category"
+                        MR.strings.income_category
                     }
                 } else {
                     if (addCategoryScreenParams.transactionType == TransactionType.Expense) {
-                        "new_expense_category"
+                        MR.strings.new_expense_category
                     } else {
-                        "new_income_category"
+                        MR.strings.new_income_category
                     }
                 }
             )
@@ -107,9 +108,9 @@ internal fun AddCategoryScreen(
                         end = 16.dp,
                     ),
                 text = if (viewModel.isEditMode) {
-                    stringResource("edit_account_btn_save")
+                    stringResource(MR.strings.edit_account_btn_save)
                 } else {
-                    stringResource("new_account_btn_add")
+                    stringResource(MR.strings.new_account_btn_add)
                 },
                 enabled = newCategoryName.length >= MinCategoryNameLength,
                 onClick = viewModel::addOrUpdateCategory

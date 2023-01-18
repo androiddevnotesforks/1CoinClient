@@ -15,13 +15,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun HomeScreen() {
@@ -55,7 +56,7 @@ internal fun HomeScreen() {
                     .padding(top = 12.dp)
             ) {
                 CoinWidget(
-                    title = stringResource("home_my_accounts"),
+                    title = stringResource(MR.strings.home_my_accounts),
                     withHorizontalPadding = false,
                     onClick = viewModel::onMyAccountsClick
                 ) {
@@ -68,7 +69,7 @@ internal fun HomeScreen() {
                 }
 
                 CoinWidget(
-                    title = stringResource("home_last_transactions"),
+                    title = stringResource(MR.strings.home_last_transactions),
                     withBorder = true,
                     onClick = viewModel::onLastTransactionsClick
                 ) {

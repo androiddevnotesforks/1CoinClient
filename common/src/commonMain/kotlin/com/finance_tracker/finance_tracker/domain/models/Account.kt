@@ -1,5 +1,8 @@
 package com.finance_tracker.finance_tracker.domain.models
 
+import com.finance_tracker.finance_tracker.MR
+import dev.icerock.moko.resources.StringResource
+
 data class Account(
     val id: Long,
     val type: Type,
@@ -8,27 +11,27 @@ data class Account(
     val colorModel: AccountColorModel
 ) {
     enum class Type(
-        val textId: String,
+        val textId: StringResource,
         val analyticsName: String
     ) {
         Cash(
-            textId = "account_type_cash",
+            textId = MR.strings.account_type_cash,
             analyticsName = "Cash"
         ),
         Card(
-            textId = "account_type_card",
+            textId = MR.strings.account_type_card,
             analyticsName = "Card"
         ),
         BankAccount(
-            textId = "account_type_bank_account",
+            textId = MR.strings.account_type_bank_account,
             analyticsName = "BankAccount"
         ),
         Credit(
-            textId = "account_type_credit",
+            textId = MR.strings.account_type_credit,
             analyticsName = "Credit"
         ),
         Deposit(
-            textId = "account_type_deposit",
+            textId = MR.strings.account_type_deposit,
             analyticsName = "Deposit"
         )
     }

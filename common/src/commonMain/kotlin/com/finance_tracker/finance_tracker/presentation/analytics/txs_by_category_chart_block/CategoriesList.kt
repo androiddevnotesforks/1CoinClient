@@ -16,11 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.`if`
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
+import dev.icerock.moko.resources.compose.stringResource
 import io.github.koalaplot.core.pie.DefaultSlice
 import io.github.koalaplot.core.pie.PieChart
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
@@ -69,7 +70,7 @@ internal fun CategoryItem(
                 style = CoinTheme.typography.body1
             )
             Text(
-                text = piece.transactionsCount.toString() + " " + stringResource("analytics_transactions"),
+                text = piece.transactionsCount.toString() + " " + stringResource(MR.strings.analytics_transactions),
                 style = CoinTheme.typography.subtitle2,
                 color = CoinTheme.color.secondary
             )

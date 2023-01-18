@@ -9,12 +9,13 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.IconActionButton
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun ActionButtonsSection(
@@ -56,9 +57,9 @@ internal fun ActionButtonsSection(
             PrimaryButton(
                 modifier = Modifier.weight(1f),
                 text = if (isEditMode) {
-                    stringResource("add_transaction_btn_edit")
+                    stringResource(MR.strings.add_transaction_btn_edit)
                 } else {
-                    stringResource("add_transaction_btn_add")
+                    stringResource(MR.strings.add_transaction_btn_add)
                 },
                 onClick = {
                     if (isEditMode) {

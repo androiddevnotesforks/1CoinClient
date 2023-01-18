@@ -16,9 +16,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.CollapsingToolbarScaffoldState
@@ -26,6 +26,7 @@ import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.Collapsing
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.animate
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.rememberCollapsingToolbarScaffoldState
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import dev.icerock.moko.resources.compose.stringResource
 import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 @Composable
@@ -68,7 +69,7 @@ internal fun EditButton(
                     alpha = state.toolbarState.progress
                 }
                 .padding(start = 4.dp),
-            text = stringResource("detail_account_btn_edit"),
+            text = stringResource(MR.strings.detail_account_btn_edit),
             color = tint,
             style = CoinTheme.typography.body1_medium.staticTextSize(),
             maxLines = 1,

@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
-import com.finance_tracker.finance_tracker.core.common.stringResource
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingSheetTelegramChatItem
@@ -24,6 +24,7 @@ import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.Set
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetMainCurrencyItem
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetSendingUsageDataItem
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SettingsSheetVersionAndUserIdInfo
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun SettingsSheet(dialogKey: String) {
@@ -52,7 +53,7 @@ internal fun SettingsSheet(dialogKey: String) {
                         horizontal = 12.dp
                     )
                     .align(Alignment.CenterHorizontally),
-                text = stringResource("settings_top_text"),
+                text = stringResource(MR.strings.settings_top_text),
                 style = CoinTheme.typography.h5
             )
             Divider(
