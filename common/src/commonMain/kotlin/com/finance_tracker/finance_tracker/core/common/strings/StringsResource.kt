@@ -29,9 +29,9 @@ private val weeks = arrayOf(
 )
 
 fun getMonthNameStringResBy(monthNumber: Int): StringResource {
-    return months[monthNumber + 1]
+    return months[monthNumber - 1]
 }
 
 fun getWeekDayStringRes(dayOfWeek: Int): StringResource {
-    return weeks[dayOfWeek + 1]
+    return weeks[dayOfWeek - 1]
 }

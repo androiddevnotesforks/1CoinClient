@@ -42,3 +42,6 @@ expect fun formatAmount(
     currencyCode: String,
     reductionMode: ReductionMode
 ): String
+
+@Composable
+expect fun isCurrencyPositionAtStart(): Boolean

@@ -69,13 +69,14 @@ internal fun AddTransactionScreen(
             val accountData by viewModel.selectedAccount.collectAsState()
             val categoryData by viewModel.selectedCategory.collectAsState()
             val localDate by viewModel.selectedDate.collectAsState()
-            val currency by viewModel.currency.collectAsState()
+            val currencyData by viewModel.currency.collectAsState()
             val amountDouble = amountText.toDoubleOrNull() ?: 0.0
             val isAddTransactionEnabled by viewModel.isAddTransactionEnabled.collectAsState()
             val transactionInsertionDate = viewModel.transactionInsertionDate
             val onAddTransaction = { fromButtonClick: Boolean ->
                 val account = accountData
-                if (account != null) {
+                val currency = currencyData
+                if (account != null && currency != null) {
                     viewModel.onAddTransactionClick(
                         transaction = Transaction(
                             type = selectedTransactionType.toTransactionType(),
@@ -94,7 +95,8 @@ internal fun AddTransactionScreen(
             }
             val onEditTransaction = { fromButtonClick: Boolean ->
                 val account = accountData
-                if (account != null) {
+                val currency = currencyData
+                if (account != null && currency != null) {
                     viewModel.onEditTransactionClick(
                         transaction = Transaction(
                             type = selectedTransactionType.toTransactionType(),
@@ -129,7 +131,7 @@ internal fun AddTransactionScreen(
             AmountTextField(
                 modifier = Modifier
                     .weight(1f),
-                currency = currency.symbol,
+                currency = currencyData,
                 amount = amountText,
                 active = currentStep == EnterTransactionStep.Amount,
                 onClick = {

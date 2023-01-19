@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.intl.Locale
 import com.finance_tracker.finance_tracker.core.common.locale.toJavaLocale
+import com.finance_tracker.finance_tracker.domain.models.Amount
 import java.text.NumberFormat
 import java.util.Currency
 import kotlin.math.pow
@@ -59,7 +60,20 @@ class AmountFormat(locale: JavaLocale) {
             }
         }
 
-        return formatter.format(shortNumber.round(formatter.maximumFractionDigits)) + suffix
+        val formattedNumber = formatter.format(shortNumber.round(formatter.maximumFractionDigits))
+        val formattedNumberWithoutSigns = formattedNumber
+            .replace("-", "")
+            .replace("+", "")
+            .replace(" ", "")
+
+        return if (formattedNumberWithoutSigns.last().isDigit()) {
+            formattedNumber + suffix
+        } else {
+            val lastDigitIndex = formattedNumber.indexOfLast { it.isDigit() }
+            val numberString = formattedNumber.substring(0, lastDigitIndex + 1)
+            val currencyString = formattedNumber.substring(lastDigitIndex + 1)
+            numberString + suffix + currencyString
+        }
     }
 
     private fun Double.round(decimals: Int): Double {
@@ -72,4 +86,11 @@ class AmountFormat(locale: JavaLocale) {
         private const val Million = 1_000_000
         private const val Thousand = 1_000
     }
+}
+
+@Composable
+actual fun isCurrencyPositionAtStart(): Boolean {
+    val amount = Amount.default
+    val currencySymbol = amount.currency.symbol
+    return amount.format().startsWith(currencySymbol)
 }
