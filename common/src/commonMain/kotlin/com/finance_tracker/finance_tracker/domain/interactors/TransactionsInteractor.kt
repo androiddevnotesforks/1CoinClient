@@ -117,7 +117,7 @@ class TransactionsInteractor(
                 .groupBy { it.category }
                 .map { (category, transactions) ->
                     TxsByCategoryChart.Piece(
-                        category = category ?: Category.EMPTY,
+                        category = category,
                         amount = Amount(
                             currency = primaryCurrency,
                             amountValue = transactions.sumOf {

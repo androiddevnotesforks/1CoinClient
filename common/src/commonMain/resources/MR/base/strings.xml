@@ -39,6 +39,36 @@
     <string name="month_nov">Nov</string>
     <string name="month_dec">Dec</string>
 
+    <!-- Categories -->
+    <string name="category_restoraunt">Restoraunt</string>
+    <string name="category_health">Health</string>
+    <string name="category_child">Child</string>
+    <string name="category_car">Car</string>
+    <string name="category_education">Education</string>
+    <string name="category_entertainment">Entertainment</string>
+    <string name="category_sport">Sport</string>
+    <string name="category_public_transport">Public Transport</string>
+    <string name="category_shop">Shop</string>
+    <string name="category_utilities">Utilities</string>
+    <string name="category_clothes">Clothes</string>
+    <string name="category_electronics">Electronics</string>
+    <string name="category_correct">Correct</string>
+    <string name="category_salary">Salary</string>
+    <string name="category_allowance">Allowance</string>
+    <string name="category_gift">Gift</string>
+
+    <!-- Colors -->
+    <string name="color_purple">Purple</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_yellow">Yellow</string>
+    <string name="color_brown">Brown</string>
+    <string name="color_lavender">Lavender</string>
+    <string name="color_pink">Pink</string>
+    <string name="color_green">Green</string>
+    <string name="color_orange">Orange</string>
+    <string name="color_seaweed">Seaweed</string>
+    <string name="color_grey">Grey</string>
+
     <!-- Week days -->
     <string name="week_day_1">Monday</string>
     <string name="week_day_2">Tuesday</string>
@@ -47,6 +77,20 @@
     <string name="week_day_5">Friday</string>
     <string name="week_day_6">Saturday</string>
     <string name="week_day_7">Sunday</string>
+
+    <!-- Months with number -->
+    <string name="date_month_1">%d January</string>
+    <string name="date_month_2">%d February</string>
+    <string name="date_month_3">%d March</string>
+    <string name="date_month_4">%d April</string>
+    <string name="date_month_5">%d May</string>
+    <string name="date_month_6">%d June</string>
+    <string name="date_month_7">%d July</string>
+    <string name="date_month_8">%d August</string>
+    <string name="date_month_9">%d September</string>
+    <string name="date_month_10">%d October</string>
+    <string name="date_month_11">%d November</string>
+    <string name="date_month_12">%d December</string>
 
     <!-- Months -->
     <string name="month_1">January</string>
@@ -98,7 +142,7 @@
 
     <!-- Settings -->
     <string name="settings_top_text">Settings</string>
-    <string name="settings_main_currency">Main Currency</string>
+    <string name="settings_main_currency">Main currency</string>
     <string name="settings_categories">Category Settings</string>
     <string name="settings_telegram_community">Telegram Community</string>
     <string name="settings_sending_usage_data">Sending usage data</string>
@@ -140,10 +184,11 @@
     <string name="edit_account_btn_save">Save</string>
 
     <!-- Analytics -->
-    <string name="analytics_trend">Trend</string>
-    <string name="analytics_by_category">by Category</string>
+    <string name="expense_analytics_trend">Expense trend</string>
+    <string name="income_analytics_trend">Income trend</string>
+    <string name="analytics_by_category">%s by category</string>
     <string name="analytics_transactions">transactions</string>
-    <string name="analytics_make_first_transactions">No transactions for this period</string>
+    <string name="analytics_make_first_transactions">No transactions for\u00A0this period</string>
 
     <!-- Detail account -->
     <string name="detail_account_btn_edit">Edit</string>

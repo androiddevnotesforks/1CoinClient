@@ -1,10 +1,15 @@
 package com.finance_tracker.finance_tracker.core.common
 
 import android.annotation.SuppressLint
+import android.os.LocaleList
+import dev.icerock.moko.resources.StringResource
+import dev.icerock.moko.resources.desc.desc
 
 @SuppressLint("DiscouragedApi")
-actual fun getLocalizedString(id: String, context: Context): String {
-    return with(context) {
-        resources.getString(resources.getIdentifier(id, "string", packageName))
-    }
+actual fun StringResource.localizedString(context: Context): String {
+    return desc().toString(context)
+}
+
+actual fun getLocale(): String {
+    return LocaleList.getDefault()[0].language
 }

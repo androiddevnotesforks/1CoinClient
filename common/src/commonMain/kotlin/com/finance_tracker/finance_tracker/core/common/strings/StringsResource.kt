@@ -18,6 +18,21 @@ private val months = arrayOf(
     MR.strings.month_12,
 )
 
+private val dateMonths = arrayOf(
+    MR.strings.date_month_1,
+    MR.strings.date_month_2,
+    MR.strings.date_month_3,
+    MR.strings.date_month_4,
+    MR.strings.date_month_5,
+    MR.strings.date_month_6,
+    MR.strings.date_month_7,
+    MR.strings.date_month_8,
+    MR.strings.date_month_9,
+    MR.strings.date_month_10,
+    MR.strings.date_month_11,
+    MR.strings.date_month_12,
+)
+
 private val weeks = arrayOf(
     MR.strings.week_day_1,
     MR.strings.week_day_2,
@@ -29,9 +44,13 @@ private val weeks = arrayOf(
 )
 
 fun getMonthNameStringResBy(monthNumber: Int): StringResource {
-    return months[monthNumber + 1]
+    return months[monthNumber - 1]
+}
+
+fun getDateMonthNameStringResBy(monthNumber: Int): StringResource {
+    return dateMonths[monthNumber - 1]
 }
 
 fun getWeekDayStringRes(dayOfWeek: Int): StringResource {
-    return weeks[dayOfWeek + 1]
+    return weeks[dayOfWeek - 1]
 }

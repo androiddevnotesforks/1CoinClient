@@ -9,7 +9,7 @@ data class TxsByCategoryChart(
     val total: Amount
 ) {
     data class Piece(
-        val category: Category,
+        val category: Category?,
         val amount: Amount,
         val percentValue: Float,
         val transactionsCount: Int,

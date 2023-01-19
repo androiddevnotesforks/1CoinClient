@@ -11,9 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
 import com.finance_tracker.finance_tracker.presentation.analytics.PieChartLabelSize
 import com.finance_tracker.finance_tracker.presentation.analytics.PieChartSize
@@ -33,6 +35,7 @@ internal fun MainTxsByCategoryChart(
 ) {
     val totalAmount = monthTransactionsByCategory.total
     val txsByCategoryChartPieces = monthTransactionsByCategory.mainPieces
+    val context = LocalContext.current
 
     ChartLayout(
         modifier = modifier
@@ -56,15 +59,14 @@ internal fun MainTxsByCategoryChart(
             },
             label = { index ->
                 val chartPiece = txsByCategoryChartPieces[index]
+                val category = chartPiece.category ?: Category.empty(context)
                 Icon(
                     modifier = Modifier
                         .size(PieChartLabelSize)
                         .clip(CircleShape)
                         .background(chartPiece.color)
                         .padding(3.dp),
-                    painter = rememberVectorPainter(
-                        chartPiece.category.iconId
-                    ),
+                    painter = rememberVectorPainter(category.iconId),
                     contentDescription = null,
                     tint = CoinTheme.color.primaryVariant
                 )
