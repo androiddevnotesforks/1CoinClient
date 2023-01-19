@@ -4,7 +4,7 @@
     <string name="general_no_transactions">No transactions yet</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_delete">Delete</string>
-    <string name="dialog_body_delete">Are you sure you want to delete?</string>
+    <string name="dialog_body_delete">Are you sure you want to\u00A0delete?</string>
     <string name="dialog_title_delete">Deleting</string>
     <string name="transaction">Transaction</string>
     <string name="category">Category</string>
@@ -129,7 +129,7 @@
     <string name="add_transaction_btn_edit">Edit</string>
 
     <!-- Home -->
-    <string name="home_topbar_text">Total Balance</string>
+    <string name="home_topbar_text">Total balance</string>
     <string name="home_my_accounts">My Accounts</string>
     <string name="home_last_transactions">Last Transactions</string>
     <string name="home_add_account">Add Account</string>
@@ -143,8 +143,8 @@
     <!-- Settings -->
     <string name="settings_top_text">Settings</string>
     <string name="settings_main_currency">Main currency</string>
-    <string name="settings_categories">Category Settings</string>
-    <string name="settings_telegram_community">Telegram Community</string>
+    <string name="settings_categories">Category settings</string>
+    <string name="settings_telegram_community">Telegram community</string>
     <string name="settings_sending_usage_data">Sending usage data</string>
     <string name="sending_usage_data_description_1">Help improve your experience by\u00A0automatically sending app usage data.</string>
     <string name="sending_usage_data_description_2">We don\'t collect Personally\u00A0Identifiable\u00A0Information or Information about\u00A0the\u00A0quantitative value of\u00A0cash spending.\n\nThe security of\u00A0your personal data is one of\u00A0our top priorities!</string>
@@ -186,8 +186,7 @@
     <!-- Analytics -->
     <string name="expense_analytics_trend">Expense trend</string>
     <string name="income_analytics_trend">Income trend</string>
-    <string name="analytics_by_category">%s by category</string>
-    <string name="analytics_transactions">transactions</string>
+    <string name="analytics_by_category">%s by\u00A0category</string>
     <string name="analytics_make_first_transactions">No transactions for\u00A0this period</string>
 
     <!-- Detail account -->

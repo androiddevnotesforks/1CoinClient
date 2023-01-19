@@ -73,8 +73,9 @@ internal fun CategoryItem(
                 text = category.name,
                 style = CoinTheme.typography.body1
             )
+            val transactionsCount = piece.transactionsCount
             Text(
-                text = piece.transactionsCount.toString() + " " + stringResource(MR.strings.analytics_transactions),
+                text = stringResource(MR.plurals.analytics_transactions, transactionsCount, transactionsCount),
                 style = CoinTheme.typography.subtitle2,
                 color = CoinTheme.color.secondary
             )

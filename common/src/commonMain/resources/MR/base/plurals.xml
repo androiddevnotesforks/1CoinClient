@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+
+    <!-- Analytics -->
+    <plural name="analytics_transactions">
+        <item quantity="zero">%d transactions</item>
+        <item quantity="one">%d transaction</item>
+        <item quantity="two">%d transactions</item>
+        <item quantity="few">%d transactions</item>
+        <item quantity="many">%d transactions</item>
+        <item quantity="other">%d transactions</item>
+    </plural>
+
+</resources>
