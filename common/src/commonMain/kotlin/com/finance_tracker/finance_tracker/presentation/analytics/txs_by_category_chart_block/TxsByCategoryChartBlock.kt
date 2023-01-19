@@ -29,6 +29,7 @@ import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.MonthsList
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
 import com.finance_tracker.finance_tracker.presentation.analytics.views.NoTransactionsStub
 
@@ -37,6 +38,7 @@ private const val ExpandAnimationDuration = 500
 @Suppress("MagicNumber")
 @Composable
 internal fun TxsByCategoryChartBlock(
+    primaryCurrency: Currency,
     isLoading: Boolean,
     monthTransactionsByCategory: TxsByCategoryChart?,
     selectedYearMonth: YearMonth,
@@ -74,6 +76,7 @@ internal fun TxsByCategoryChartBlock(
             }
             else -> {
                 EmptyPieChartLayout(
+                    primaryCurrency = primaryCurrency,
                     selectedYearMonth = selectedYearMonth
                 )
             }
@@ -141,6 +144,7 @@ private fun ContentPieChartLayout(
 
 @Composable
 private fun EmptyPieChartLayout(
+    primaryCurrency: Currency,
     selectedYearMonth: YearMonth,
     modifier: Modifier = Modifier
 ) {
@@ -149,6 +153,7 @@ private fun EmptyPieChartLayout(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         EmptyPieChart(
+            primaryCurrency = primaryCurrency,
             selectedYearMonth = selectedYearMonth
         )
 

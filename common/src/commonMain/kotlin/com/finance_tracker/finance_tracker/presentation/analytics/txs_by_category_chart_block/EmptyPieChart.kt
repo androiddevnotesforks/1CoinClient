@@ -19,6 +19,7 @@ import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 @OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
 internal fun EmptyPieChart(
+    primaryCurrency: Currency,
     selectedYearMonth: YearMonth,
     modifier: Modifier = Modifier
 ) {
@@ -46,7 +47,7 @@ internal fun EmptyPieChart(
                     data = HoleTotalLabelData.Content(
                         yearMonth = selectedYearMonth,
                         amount = Amount(
-                            currency = Currency.default,
+                            currency = primaryCurrency,
                             amountValue = 0.0
                         )
                     )

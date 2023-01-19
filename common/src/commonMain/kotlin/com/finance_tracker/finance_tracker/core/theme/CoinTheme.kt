@@ -4,6 +4,7 @@ import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme
@@ -127,18 +128,25 @@ fun CoinTheme(
     val context = getContext()
     context.updateSystemBarsConfig(LocalSystemBarsConfig.current)
 
-    CompositionLocalProvider(
-        LocalContext provides context,
-        LocalCoinColors provides coinColors,
-        LocalCoinTypography provides CoinTheme.typography,
-        LocalCoinElevation provides CoinTheme.elevation,
-        LocalContentColor provides CoinTheme.color.content,
-        LocalIndication provides rememberRipple(),
-        LocalRippleTheme provides CoinRippleTheme,
-        LocalTextStyle provides CoinTheme.typography.body1,
-        LocalFixedInsets provides getFixedInsets(),
-        content = content
-    )
+    MaterialTheme(
+        typography = MaterialTheme.typography.copy(
+            subtitle1 = CoinTheme.typography.body1,
+            caption = CoinTheme.typography.subtitle2,
+        )
+    ) {
+        CompositionLocalProvider(
+            LocalContext provides context,
+            LocalCoinColors provides coinColors,
+            LocalCoinTypography provides CoinTheme.typography,
+            LocalCoinElevation provides CoinTheme.elevation,
+            LocalContentColor provides CoinTheme.color.content,
+            LocalIndication provides rememberRipple(),
+            LocalRippleTheme provides CoinRippleTheme,
+            LocalTextStyle provides CoinTheme.typography.body1,
+            LocalFixedInsets provides getFixedInsets(),
+            content = content
+        )
+    }
 }
 
 object CoinPaddings {

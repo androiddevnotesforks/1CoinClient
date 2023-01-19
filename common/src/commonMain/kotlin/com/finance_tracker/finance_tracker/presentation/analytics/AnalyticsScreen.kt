@@ -89,7 +89,10 @@ internal fun AnalyticsScreen() {
                     val monthTransactionsByCategory by viewModel.monthTxsByCategoryDelegate
                         .monthTransactionsByCategory.collectAsState()
 
+                    val primaryCurrency by viewModel.primaryCurrency.collectAsState()
+
                     TxsByCategoryChartBlock(
+                        primaryCurrency = primaryCurrency,
                         isLoading = isLoading,
                         selectedYearMonth = selectedMonth,
                         monthTransactionsByCategory = monthTransactionsByCategory,

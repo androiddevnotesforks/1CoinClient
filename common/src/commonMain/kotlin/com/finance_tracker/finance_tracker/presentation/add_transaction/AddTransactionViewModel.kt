@@ -11,7 +11,6 @@ import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomai
 import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
-import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.presentation.add_transaction.analytics.AddTransactionAnalytics
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.EnterTransactionStep
@@ -53,8 +52,8 @@ class AddTransactionViewModel(
 
     val transactionInsertionDate = transaction?.insertionDateTime
     val currency = selectedAccount
-        .map { it?.balance?.currency ?: Currency.default }
-        .stateIn(viewModelScope, SharingStarted.Lazily, Currency.default)
+        .map { it?.balance?.currency }
+        .stateIn(viewModelScope, SharingStarted.Lazily, null)
 
     private val _selectedCategory: MutableStateFlow<Category?> = MutableStateFlow(transaction?.category)
     val selectedCategory: StateFlow<Category?> = _selectedCategory.asStateFlow()
