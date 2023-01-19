@@ -3,10 +3,11 @@ package com.finance_tracker.finance_tracker.presentation.add_account
 import androidx.compose.material.ScaffoldState
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
-import com.finance_tracker.finance_tracker.core.common.getLocalizedString
+import com.finance_tracker.finance_tracker.core.common.localizedString
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
 import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
 import com.finance_tracker.finance_tracker.domain.models.Account
+import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.launch
 import ru.alexgladkov.odyssey.compose.extensions.present
@@ -14,7 +15,7 @@ import ru.alexgladkov.odyssey.compose.extensions.present
 sealed interface AddAccountAction {
     object Close: AddAccountAction
     data class ShowToast(
-        val textId: String
+        val textId: StringResource
     ): AddAccountAction
     data class ShowDeleteDialog(val account: Account): AddAccountAction
     data class DismissDeleteDialog(val dialogKey: String): AddAccountAction
@@ -36,8 +37,8 @@ fun handleAction(
         is AddAccountAction.ShowToast -> {
             baseLocalsStorage.coroutineScope.launch {
                 scaffoldState.snackbarHostState.showSnackbar(
-                    message = getLocalizedString(action.textId, baseLocalsStorage.context),
-                    actionLabel = getLocalizedString("got_it", baseLocalsStorage.context)
+                    message = action.textId.localizedString(baseLocalsStorage.context),
+                    actionLabel = MR.strings.got_it.localizedString(baseLocalsStorage.context)
                 )
             }
         }

@@ -9,6 +9,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -18,6 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
+import com.finance_tracker.finance_tracker.core.common.getLocale
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
@@ -36,6 +40,16 @@ internal fun EditButton(
     tint: Color = CoinTheme.color.content,
     onClick: () -> Unit = {}
 ) {
+    val locale = getLocale()
+    val width by remember(locale) {
+        derivedStateOf {
+            if (locale == "ru") {
+                160.dp
+            } else {
+                84.dp
+            }
+        }
+    }
     Row(
         modifier = modifier
             .statusBarsPadding()
@@ -44,7 +58,7 @@ internal fun EditButton(
                 horizontal = 16.dp
             )
             .size(
-                width = state.animate(84.dp, 50.dp),
+                width = state.animate(width, 50.dp),
                 height = state.animate(42.dp, 34.dp)
             )
             .scaleClickAnimation()

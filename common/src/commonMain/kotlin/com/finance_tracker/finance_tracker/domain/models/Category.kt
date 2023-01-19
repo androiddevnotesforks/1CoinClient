@@ -1,15 +1,22 @@
 package com.finance_tracker.finance_tracker.domain.models
 
+import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.Context
+import com.finance_tracker.finance_tracker.core.common.localizedString
+
 data class Category(
     val id: Long,
     val name: String,
     val iconId: String
 ) {
     companion object {
-        val EMPTY = Category(
-            id = -1,
-            name = "Correct",
-            iconId = "ic_category_13"
-        )
+
+        fun empty(context: Context): Category {
+            return Category(
+                id = -1,
+                name = MR.strings.category_correct.localizedString(context),
+                iconId = "ic_category_13"
+            )
+        }
     }
 }

@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Category
@@ -34,8 +35,9 @@ internal fun TransactionItem(
     onClick: () -> Unit = {},
     onLongClick: () -> Unit = {}
 ) {
+    val context = LocalContext.current
     val transaction = transactionData.transaction
-    val category = transaction.category ?: Category.EMPTY
+    val category = transaction.category ?: Category.empty(context)
     val isSelected by transactionData.isSelected
     Row(
         modifier = modifier

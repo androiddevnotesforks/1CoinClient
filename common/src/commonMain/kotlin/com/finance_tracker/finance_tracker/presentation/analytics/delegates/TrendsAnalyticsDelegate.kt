@@ -2,6 +2,7 @@ package com.finance_tracker.finance_tracker.presentation.analytics.delegates
 
 import androidx.compose.runtime.Composable
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDate
+import com.finance_tracker.finance_tracker.core.common.strings.getDateMonthNameStringResBy
 import com.finance_tracker.finance_tracker.core.common.strings.getMonthNameStringResBy
 import com.finance_tracker.finance_tracker.core.common.strings.getWeekDayStringRes
 import com.finance_tracker.finance_tracker.core.common.toDateTime
@@ -95,8 +96,8 @@ class TrendsAnalyticsDelegate(
                     txsAmounts = txsAmounts,
                     primaryCurrency = primaryCurrency,
                     title = {
-                        "$dayOfMonth " +
-                                stringResource(getMonthNameStringResBy(Clock.System.currentLocalDate().monthNumber))
+                        val monthNumber = Clock.System.currentLocalDate().monthNumber
+                        stringResource(getDateMonthNameStringResBy(monthNumber), dayOfMonth)
                     }
                 )
             }

@@ -1,156 +1,200 @@
 <resources>
     <!-- General -->
     <string name="okey">OK</string>
-    <string name="general_no_transactions">No transactions yet</string>
-    <string name="btn_cancel">Cancel</string>
-    <string name="btn_delete">Delete</string>
-    <string name="dialog_body_delete">Are you sure you want to delete?</string>
-    <string name="dialog_title_delete">Deleting</string>
-    <string name="transaction">Transaction</string>
-    <string name="category">Category</string>
-    <string name="transactions">Transactions</string>
-    <string name="account">Account</string>
-    <string name="tab_income">Income</string>
-    <string name="tab_expense">Expense</string>
-    <string name="total">Total</string>
+    <string name="general_no_transactions">Еще нет транзакций</string>
+    <string name="btn_cancel">Отмена</string>
+    <string name="btn_delete">Удалить</string>
+    <string name="dialog_body_delete">Вы уверены, что хотите удалить?</string>
+    <string name="dialog_title_delete">Удаление</string>
+    <string name="transaction">Транзакция</string>
+    <string name="category">Категория</string>
+    <string name="transactions">Транзакции</string>
+    <string name="account">Счет</string>
+    <string name="tab_income">Доход</string>
+    <string name="tab_expense">Расход</string>
+    <string name="total">Всего</string>
 
-    <string name="week">Week</string>
-    <string name="month">Month</string>
-    <string name="year">Year</string>
+    <string name="week">Неделя</string>
+    <string name="month">Месяц</string>
+    <string name="year">Год</string>
 
-    <string name="day_of_week_mon">Mon</string>
-    <string name="day_of_week_tue">Tue</string>
-    <string name="day_of_week_wed">Wed</string>
-    <string name="day_of_week_thu">Thu</string>
-    <string name="day_of_week_fri">Fri</string>
-    <string name="day_of_week_sat">Sat</string>
-    <string name="day_of_week_sun">Sun</string>
+    <string name="day_of_week_mon">Пн</string>
+    <string name="day_of_week_tue">Вт</string>
+    <string name="day_of_week_wed">Ср</string>
+    <string name="day_of_week_thu">Чт</string>
+    <string name="day_of_week_fri">Пт</string>
+    <string name="day_of_week_sat">Сб</string>
+    <string name="day_of_week_sun">Вс</string>
 
-    <string name="month_jan">Jan</string>
-    <string name="month_feb">Feb</string>
-    <string name="month_mar">Mar</string>
-    <string name="month_apr">Apr</string>
-    <string name="month_may">May</string>
-    <string name="month_jun">Jun</string>
-    <string name="month_jul">Jul</string>
-    <string name="month_aug">Aug</string>
-    <string name="month_sep">Sep</string>
-    <string name="month_oct">Oct</string>
-    <string name="month_nov">Nov</string>
-    <string name="month_dec">Dec</string>
-
-    <!-- Week days -->
-    <string name="week_day_1">Monday</string>
-    <string name="week_day_2">Tuesday</string>
-    <string name="week_day_3">Wednesday</string>
-    <string name="week_day_4">Thursday</string>
-    <string name="week_day_5">Friday</string>
-    <string name="week_day_6">Saturday</string>
-    <string name="week_day_7">Sunday</string>
-
-    <!-- Months -->
-    <string name="month_1">January</string>
-    <string name="month_2">February</string>
-    <string name="month_3">March</string>
-    <string name="month_4">April</string>
-    <string name="month_5">May</string>
-    <string name="month_6">June</string>
-    <string name="month_7">July</string>
-    <string name="month_8">August</string>
-    <string name="month_9">September</string>
-    <string name="month_10">October</string>
-    <string name="month_11">November</string>
-    <string name="month_12">December</string>
-
-    <!-- Account -->
-    <string name="account_type_cash">Cash</string>
-    <string name="account_type_card">Card</string>
-    <string name="account_type_bank_account">Bank account</string>
-    <string name="account_type_credit">Credit</string>
-    <string name="account_type_deposit">Deposit</string>
-
-    <!-- Tabs -->
-    <string name="tab_home">Home</string>
-    <string name="tab_transactions">Transactions</string>
-    <string name="tab_accounts">Accounts</string>
-    <string name="tab_analytics">Analytics</string>
-
-    <!-- Add transaction -->
-    <string name="add_transaction_amount">Amount</string>
-    <string name="add_transaction_stage_account">Account</string>
-    <string name="add_transaction_stage_category">Category</string>
-    <string name="add_transaction_today">Today</string>
-    <string name="add_transaction_yesterday">Yesterday</string>
-    <string name="add_transaction_btn_add">Add</string>
-    <string name="add_transaction_btn_edit">Edit</string>
-
-    <!-- Home -->
-    <string name="home_topbar_text">Total Balance</string>
-    <string name="home_my_accounts">My Accounts</string>
-    <string name="home_last_transactions">Last Transactions</string>
-    <string name="home_add_account">Add Account</string>
-
-    <!--Accounts -->
-    <string name="accounts_screen_header">Accounts</string>
-    <string name="accounts_screen_top_bar">Account Settings</string>
-    <string name="accounts_screen_add_account">Add Account</string>
-    <string name="accounts_screen_empty">No accounts</string>
-
-    <!-- Settings -->
-    <string name="settings_top_text">Settings</string>
-    <string name="settings_main_currency">Main Currency</string>
-    <string name="settings_categories">Category Settings</string>
-    <string name="settings_telegram_community">Telegram Community</string>
-    <string name="settings_sending_usage_data">Sending usage data</string>
-    <string name="sending_usage_data_description_1">Help improve your experience by\u00A0automatically sending app usage data.</string>
-    <string name="sending_usage_data_description_2">We don\'t collect Personally\u00A0Identifiable\u00A0Information or Information about\u00A0the\u00A0quantitative value of\u00A0cash spending.\n\nThe security of\u00A0your personal data is one of\u00A0our top priorities!</string>
-    <string name="version">Version:</string>
-    <string name="user_id">UserID:</string>
-
-    <!-- Transactions -->
-    <string name="transactions_today">Today</string>
-    <string name="transactions_yesterday">Yesterday</string>
-    <string name="transactions_title_normal">Transactions</string>
-    <string name="transactions_title_selected">Selected:</string>
-    <string name="got_it">Got it</string>
+    <string name="month_jan">Янв</string>
+    <string name="month_feb">Фев</string>
+    <string name="month_mar">Мар</string>
+    <string name="month_apr">Апр</string>
+    <string name="month_may">Май</string>
+    <string name="month_jun">Июн</string>
+    <string name="month_jul">Июл</string>
+    <string name="month_aug">Авг</string>
+    <string name="month_sep">Сен</string>
+    <string name="month_oct">Окт</string>
+    <string name="month_nov">Ноя</string>
+    <string name="month_dec">Дек</string>
 
     <!-- Categories -->
-    <string name="category_settings">Category Settings</string>
-    <string name="new_expense_category">New Expense Category</string>
-    <string name="new_income_category">New Income Category</string>
-    <string name="expense_category">Expense Category</string>
-    <string name="income_category">Income Category</string>
-    <string name="categories_empty">No categories</string>
+    <string name="category_restoraunt">Рестораны</string>
+    <string name="category_health">Здоровье</string>
+    <string name="category_child">Дети</string>
+    <string name="category_car">Машина</string>
+    <string name="category_education">Образование</string>
+    <string name="category_entertainment">Развлечения</string>
+    <string name="category_sport">Спорт</string>
+    <string name="category_public_transport">Транспорт</string>
+    <string name="category_shop">Магазины</string>
+    <string name="category_utilities">Другое</string>
+    <string name="category_clothes">Одежда</string>
+    <string name="category_electronics">Электроника</string>
+    <string name="category_correct">Корректировка</string>
+    <string name="category_salary">Зарплата</string>
+    <string name="category_allowance">Бонусы</string>
+    <string name="category_gift">Подарок</string>
+
+    <!-- Colors -->
+    <string name="color_purple">Фиолетовый</string>
+    <string name="color_blue">Синий</string>
+    <string name="color_yellow">Желтый</string>
+    <string name="color_brown">Коричневый</string>
+    <string name="color_lavender">Лаванда</string>
+    <string name="color_pink">Розовый</string>
+    <string name="color_green">Зеленый</string>
+    <string name="color_orange">Оранжевый</string>
+    <string name="color_seaweed">Морские водоросли</string>
+    <string name="color_grey">Серый</string>
+
+    <!-- Week days -->
+    <string name="week_day_1">Понедельник</string>
+    <string name="week_day_2">Вторник</string>
+    <string name="week_day_3">Среда</string>
+    <string name="week_day_4">Четверг</string>
+    <string name="week_day_5">Пятница</string>
+    <string name="week_day_6">Суббота</string>
+    <string name="week_day_7">Воскресенье</string>
+
+    <!-- Months with number -->
+    <string name="date_month_1">%d января</string>
+    <string name="date_month_2">%d февраля</string>
+    <string name="date_month_3">%d марта</string>
+    <string name="date_month_4">%d апреля</string>
+    <string name="date_month_5">%d мая</string>
+    <string name="date_month_6">%d июня</string>
+    <string name="date_month_7">%d июля</string>
+    <string name="date_month_8">%d августа</string>
+    <string name="date_month_9">%d сентября</string>
+    <string name="date_month_10">%d октября</string>
+    <string name="date_month_11">%d ноября</string>
+    <string name="date_month_12">%d декабря</string>
+
+    <!-- Months -->
+    <string name="month_1">Январь</string>
+    <string name="month_2">Февраль</string>
+    <string name="month_3">Март</string>
+    <string name="month_4">Апрель</string>
+    <string name="month_5">Май</string>
+    <string name="month_6">Июнь</string>
+    <string name="month_7">Июль</string>
+    <string name="month_8">Август</string>
+    <string name="month_9">Сентябрь</string>
+    <string name="month_10">Октябрь</string>
+    <string name="month_11">Ноябрь</string>
+    <string name="month_12">Декабрь</string>
+
+    <!-- Account -->
+    <string name="account_type_cash">Наличные</string>
+    <string name="account_type_card">Карта</string>
+    <string name="account_type_bank_account">Банковский счет</string>
+    <string name="account_type_credit">Кредит</string>
+    <string name="account_type_deposit">Депозит</string>
+
+    <!-- Tabs -->
+    <string name="tab_home">Главная</string>
+    <string name="tab_transactions">Операции</string>
+    <string name="tab_accounts">Счета</string>
+    <string name="tab_analytics">Аналитика</string>
+
+    <!-- Add transaction -->
+    <string name="add_transaction_amount">Сумма</string>
+    <string name="add_transaction_stage_account">Счет</string>
+    <string name="add_transaction_stage_category">Категория</string>
+    <string name="add_transaction_today">Сегодня</string>
+    <string name="add_transaction_yesterday">Вчера</string>
+    <string name="add_transaction_btn_add">Добавить</string>
+    <string name="add_transaction_btn_edit">Редактировать</string>
+
+    <!-- Home -->
+    <string name="home_topbar_text">Общий баланс</string>
+    <string name="home_my_accounts">Мои Счета</string>
+    <string name="home_last_transactions">Последние Транзакции</string>
+    <string name="home_add_account">Добавить Счет</string>
+
+    <!--Accounts -->
+    <string name="accounts_screen_header">Счета</string>
+    <string name="accounts_screen_top_bar">Настройки Счета</string>
+    <string name="accounts_screen_add_account">Добавить Счет</string>
+    <string name="accounts_screen_empty">Нет счетов</string>
+
+    <!-- Settings -->
+    <string name="settings_top_text">Настройки</string>
+    <string name="settings_main_currency">Основная валюта</string>
+    <string name="settings_categories">Настройка категорий</string>
+    <string name="settings_telegram_community">Telegram сообщество</string>
+    <string name="settings_sending_usage_data">Отправка аналитики</string>
+    <string name="sending_usage_data_description_1">Помогите улучшить пользовательский опыт с\u00A0помощью автоматической отправки данных использования приложения.</string>
+    <string name="sending_usage_data_description_2">Мы не\u00A0собираем Личную\u00A0информацию или\u00A0информацию о\u00A0количественном значении денежных расходов.\n\nБезопасность ваших личных данных — один из\u00A0наших главных приоритетов!</string>
+    <string name="version">Версия:</string>
+    <string name="user_id">ID пользователя:</string>
+
+    <!-- Transactions -->
+    <string name="transactions_today">Сегодня</string>
+    <string name="transactions_yesterday">Вчера</string>
+    <string name="transactions_title_normal">Транзакции</string>
+    <string name="transactions_title_selected">Выбрано:</string>
+    <string name="got_it">Понятно</string>
+
+    <!-- Categories -->
+    <string name="category_settings">Настройки Категорий</string>
+    <string name="new_expense_category">Новая Категория Расходов</string>
+    <string name="new_income_category">Новая Категория Доходов</string>
+    <string name="expense_category">Категория Расходов</string>
+    <string name="income_category">Категория Доходов</string>
+    <string name="categories_empty">Нет категорий</string>
 
     <!-- New account -->
-    <string name="new_account_title">New Account</string>
-    <string name="new_account_btn_add">Add</string>
-    <string name="new_account_field_name_label">Title</string>
-    <string name="new_account_field_name_placeholder">Enter Name</string>
-    <string name="new_account_field_type_label">Type</string>
-    <string name="new_account_field_type_placeholder">Select Type</string>
-    <string name="new_account_field_color_label">Color</string>
-    <string name="new_account_field_color_placeholder">Select Color</string>
-    <string name="new_account_field_amount_label">Amount</string>
+    <string name="new_account_title">Новый Счет</string>
+    <string name="new_account_btn_add">Добавить</string>
+    <string name="new_account_field_name_label">Название</string>
+    <string name="new_account_field_name_placeholder">Введите Название</string>
+    <string name="new_account_field_type_label">Тип</string>
+    <string name="new_account_field_type_placeholder">Выберите Тип</string>
+    <string name="new_account_field_color_label">Цвет</string>
+    <string name="new_account_field_color_placeholder">Выберите Цвет</string>
+    <string name="new_account_field_amount_label">Баланс</string>
     <string name="new_account_field_amount_placeholder">0</string>
-    <string name="new_account_error_enter_account_name">Enter account name</string>
-    <string name="new_account_error_select_account_type">Select type</string>
-    <string name="new_account_error_select_account_color">Select color</string>
-    <string name="new_account_error_enter_account_balance">Enter amount</string>
-    <string name="edit_account_btn_save">Save</string>
+    <string name="new_account_error_enter_account_name">Введите название счета</string>
+    <string name="new_account_error_select_account_type">Выберите тип</string>
+    <string name="new_account_error_select_account_color">Выберите цвет</string>
+    <string name="new_account_error_enter_account_balance">Введите баланс</string>
+    <string name="edit_account_btn_save">Сохранить</string>
 
     <!-- Analytics -->
-    <string name="analytics_trend">Trend</string>
-    <string name="analytics_by_category">by Category</string>
-    <string name="analytics_transactions">transactions</string>
-    <string name="analytics_make_first_transactions">No transactions for this period</string>
+    <string name="expense_analytics_trend">Тренд расходов</string>
+    <string name="income_analytics_trend">Тренд доходов</string>
+    <string name="analytics_by_category">%s по категории</string>
+    <string name="analytics_make_first_transactions">Нет транзакций за\u00A0выбранный период</string>
 
     <!-- Detail account -->
-    <string name="detail_account_btn_edit">Edit</string>
+    <string name="detail_account_btn_edit">Редактировать</string>
 
     <!-- Empty stubs -->
-    <string name="add_transaction">Add Transaction</string>
-    <string name="add_account">Add Account</string>
-    <string name="add_category">Add Category</string>
+    <string name="add_transaction">Добавить Транзакцию</string>
+    <string name="add_account">Добавить Счет</string>
+    <string name="add_category">Добавить Категорию</string>
 
 </resources>

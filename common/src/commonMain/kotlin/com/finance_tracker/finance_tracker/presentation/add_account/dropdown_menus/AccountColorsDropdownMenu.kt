@@ -18,6 +18,7 @@ import com.finance_tracker.finance_tracker.core.common.toDp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinDropdownMenu
 import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun AccountColorsDropdownMenu(
@@ -68,7 +69,7 @@ private fun AccountColorItem(
             Text(
                 modifier = Modifier
                     .padding(start = 16.dp),
-                text = data.colorName,
+                text = stringResource(data.colorName),
                 style = CoinTheme.typography.body1
             )
         }

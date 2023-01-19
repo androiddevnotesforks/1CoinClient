@@ -1,5 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.add_account
 
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.isFloatNumber
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
@@ -118,20 +119,20 @@ class AddAccountViewModel(
         viewModelScope.launch {
             val accountName = enteredAccountName.value.takeIf { it.isNotBlank() } ?: run {
                 viewAction = AddAccountAction.ShowToast(
-                    textId = "new_account_error_enter_account_name"
+                    textId = MR.strings.new_account_error_enter_account_name
                 )
                 return@launch
             }
             val selectedColorId = selectedColor.value?.id ?: run {
                 viewAction = AddAccountAction.ShowToast(
-                    textId = "new_account_error_select_account_color"
+                    textId = MR.strings.new_account_error_select_account_color
                 )
                 return@launch
             }
             val balance = enteredBalance.value.parse() ?: 0.0
             val type = selectedType.value ?: run {
                 viewAction = AddAccountAction.ShowToast(
-                    textId = "new_account_error_select_account_type"
+                    textId = MR.strings.new_account_error_select_account_type
                 )
                 return@launch
             }
