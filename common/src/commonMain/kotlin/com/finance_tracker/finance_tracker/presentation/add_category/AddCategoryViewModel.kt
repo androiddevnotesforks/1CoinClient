@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.presentation.add_category
 
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
-import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepository
+import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.add_category.analytics.AddCategoryAnalytics
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 private const val MaxCategoryLength = 28
 
 class AddCategoryViewModel(
-    private val repository: CategoriesRepository,
+    private val categoriesInteractor: CategoriesInteractor,
     private val addCategoryAnalytics: AddCategoryAnalytics,
     private val screenParams: AddCategoryScreenParams
 ): BaseViewModel<AddCategoryAction>() {
@@ -43,7 +43,7 @@ class AddCategoryViewModel(
         categoryIcon: String,
         transactionType: TransactionType
     ) {
-        repository.insertCategory(
+        categoriesInteractor.insertCategory(
             categoryName = categoryName,
             categoryIcon = categoryIcon,
             isExpense = transactionType == TransactionType.Expense,
@@ -76,7 +76,7 @@ class AddCategoryViewModel(
         viewModelScope.launch {
             if (isEditMode) {
                 val categoryId = screenParams.category?.id ?: return@launch
-                repository.updateCategory(
+                categoriesInteractor.updateCategory(
                     id = categoryId,
                     name = newCategoryName,
                     iconId = chosenIcon.value

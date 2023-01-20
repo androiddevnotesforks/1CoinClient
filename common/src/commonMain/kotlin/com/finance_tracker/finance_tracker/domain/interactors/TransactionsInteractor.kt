@@ -3,7 +3,9 @@ package com.finance_tracker.finance_tracker.domain.interactors
 import app.cash.paging.PagingData
 import app.cash.paging.insertSeparators
 import app.cash.paging.map
+import com.finance_tracker.finance_tracker.AppDatabase
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
+import com.finance_tracker.finance_tracker.core.common.suspendTransaction
 import com.finance_tracker.finance_tracker.core.theme.ChartConfig
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
@@ -27,6 +29,7 @@ private const val LastTransactionsLimit = 3L
 class TransactionsInteractor(
     private val transactionsRepository: TransactionsRepository,
     private val accountsRepository: AccountsRepository,
+    private val appDatabase: AppDatabase
 ) {
 
     fun getLastTransactions(): Flow<List<TransactionListModel.Data>> {
@@ -65,12 +68,26 @@ class TransactionsInteractor(
     }
 
     suspend fun deleteTransactions(transactions: List<Transaction>) {
-        transactions.forEach {
-            deleteTransaction(it)
+        appDatabase.suspendTransaction {
+            deleteTransactionsInternal(transactions)
         }
     }
 
-    suspend fun deleteTransaction(transaction: Transaction) {
+    private suspend fun deleteTransactionsInternal(transactions: List<Transaction>) {
+        transactions.forEach {
+            deleteTransactionInternal(it)
+        }
+    }
+
+    suspend fun deleteTransaction(
+        transaction: Transaction
+    ) {
+        appDatabase.suspendTransaction {
+            deleteTransactionInternal(transaction)
+        }
+    }
+
+    private suspend fun deleteTransactionInternal(transaction: Transaction) {
         transactionsRepository.deleteTransaction(transaction)
         updateAccountBalanceForTransaction(
             oldTransaction = transaction,
@@ -79,22 +96,26 @@ class TransactionsInteractor(
     }
 
     suspend fun addTransaction(transaction: Transaction) {
-        transactionsRepository.addOrUpdateTransaction(transaction)
-        updateAccountBalanceForTransaction(
-            oldTransaction = null,
-            newTransaction = transaction
-        )
+        appDatabase.suspendTransaction {
+            transactionsRepository.addOrUpdateTransaction(transaction)
+            updateAccountBalanceForTransaction(
+                oldTransaction = null,
+                newTransaction = transaction
+            )
+        }
     }
 
     suspend fun updateTransaction(
         oldTransaction: Transaction,
         newTransaction: Transaction
     ) {
-        transactionsRepository.addOrUpdateTransaction(newTransaction)
-        updateAccountBalanceForTransaction(
-            oldTransaction = oldTransaction,
-            newTransaction = newTransaction
-        )
+        appDatabase.suspendTransaction {
+            transactionsRepository.addOrUpdateTransaction(newTransaction)
+            updateAccountBalanceForTransaction(
+                oldTransaction = oldTransaction,
+                newTransaction = newTransaction
+            )
+        }
     }
 
     @Suppress("MagicNumber")
@@ -114,7 +135,7 @@ class TransactionsInteractor(
                 it.amount.convertToCurrency(currencyRates, primaryCurrency)
             }
             val rawCategoryPieces = transactions
-                .groupBy { it.category }
+                .groupBy { it._category }
                 .map { (category, transactions) ->
                     TxsByCategoryChart.Piece(
                         category = category,

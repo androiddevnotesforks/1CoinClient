@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
-import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.presentation.common.formatters.format
@@ -37,7 +36,7 @@ internal fun TransactionItem(
 ) {
     val context = LocalContext.current
     val transaction = transactionData.transaction
-    val category = transaction.category ?: Category.empty(context)
+    val category = transaction.getCategoryOrUncategorized(context)
     val isSelected by transactionData.isSelected
     Row(
         modifier = modifier

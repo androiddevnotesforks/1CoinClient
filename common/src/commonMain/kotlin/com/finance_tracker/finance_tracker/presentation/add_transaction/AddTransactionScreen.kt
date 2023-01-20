@@ -81,7 +81,7 @@ internal fun AddTransactionScreen(
                         transaction = Transaction(
                             type = selectedTransactionType.toTransactionType(),
                             account = account,
-                            category = categoryData,
+                            _category = categoryData,
                             amount = Amount(
                                 currency = currency,
                                 amountValue = amountDouble
@@ -101,7 +101,7 @@ internal fun AddTransactionScreen(
                         transaction = Transaction(
                             type = selectedTransactionType.toTransactionType(),
                             account = account,
-                            category = categoryData,
+                            _category = categoryData,
                             amount = Amount(
                                 currency = currency,
                                 amountValue = amountDouble

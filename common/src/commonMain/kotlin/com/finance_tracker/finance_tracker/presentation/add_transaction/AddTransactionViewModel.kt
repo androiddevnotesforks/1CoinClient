@@ -55,7 +55,7 @@ class AddTransactionViewModel(
         .map { it?.balance?.currency }
         .stateIn(viewModelScope, SharingStarted.Lazily, null)
 
-    private val _selectedCategory: MutableStateFlow<Category?> = MutableStateFlow(transaction?.category)
+    private val _selectedCategory: MutableStateFlow<Category?> = MutableStateFlow(transaction?._category)
     val selectedCategory: StateFlow<Category?> = _selectedCategory.asStateFlow()
 
     private val initialSelectedDate = transaction?.dateTime?.date ?: Clock.System.currentLocalDate()

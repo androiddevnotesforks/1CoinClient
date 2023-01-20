@@ -24,12 +24,12 @@ val fullTransactionMapper: (
     balance: Double,
     colorId: Int,
     currency: String,
-    id__: Long,
-    name_: String,
-    icon: String,
+    id__: Long?,
+    name_: String?,
+    icon: String?,
     position: Long?,
-    isExpense: Boolean,
-    isIncome: Boolean
+    isExpense: Boolean?,
+    isIncome: Boolean?
 ) -> Transaction = { id, type, amount, amountCurrency, categoryId,
                      accountId, insertionDate, date, _, accountType, accountName, balance,
                      accountColorId, _, _, categoryName, categoryIcon, _, _, _ ->
@@ -47,12 +47,14 @@ val fullTransactionMapper: (
                 currency = currency
             )
         ),
-        category = categoryId?.let {
+        _category = if (categoryId != null && categoryIcon != null) {
             Category(
                 id = categoryId,
-                name = categoryName,
+                name = categoryName.orEmpty(),
                 iconId = categoryIcon
             )
+        } else {
+               null
         },
         amount = Amount(
             currency = currency,
