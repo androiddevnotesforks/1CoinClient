@@ -31,7 +31,7 @@ private fun provideAppDatabase(driverFactory: DriverFactory): AppDatabase {
     val dateAdapter = object : ColumnAdapter<LocalDateTime, String> {
 
         override fun decode(databaseValue: String): LocalDateTime {
-            return Instant.parse(databaseValue).toLocalDateTime(TimeZone.currentSystemDefault())
+            return Instant.parse(databaseValue).toLocalDateTime(TimeZone.UTC)
         }
 
         override fun encode(value: LocalDateTime): String {

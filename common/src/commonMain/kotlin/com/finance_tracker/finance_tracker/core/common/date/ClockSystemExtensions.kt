@@ -8,7 +8,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 fun Clock.System.currentYearMonth(): YearMonth {
-    val instant = now().toLocalDateTime(TimeZone.UTC)
+    val instant = now().toLocalDateTime(TimeZone.currentSystemDefault())
     return YearMonth(
         year = instant.year,
         month = instant.month
