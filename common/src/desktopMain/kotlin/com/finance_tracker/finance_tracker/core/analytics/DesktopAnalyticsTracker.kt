@@ -11,9 +11,8 @@ import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.json.JSONObject
 import kotlin.coroutines.CoroutineContext
 
@@ -25,15 +24,17 @@ class DesktopAnalyticsTracker(
     private var userId = AnalyticsTracker.ANONYM_USER_ID
 
     override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
-    private val isAnalyticsEnabledFlow: StateFlow<Boolean> = analyticsSettings.isAnalyticsEnabledFlow()
-        .stateIn(this, SharingStarted.Lazily, initialValue = false)
+    private val isAnalyticsEnabledFlow = analyticsSettings.isAnalyticsEnabledFlow()
 
-    private val isAnalyticsDisabled: Boolean
-        get() = !isAnalyticsEnabledFlow.value
+    private var isAnalyticsDisabled = false
 
     override fun init(context: DesktopContext) {
         amplitude.init(AppBuildConfig.AMPLITUDE_API_KEY)
         amplitude.setLogMode(AmplitudeLog.LogMode.DEBUG)
+
+        isAnalyticsEnabledFlow
+            .onEach { isEnabled -> isAnalyticsDisabled = !isEnabled }
+            .launchIn(this)
     }
 
     override fun setUserProperty(property: String, value: Any) {
