@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.core.analytics
 import com.amplitude.Amplitude
 import com.amplitude.AmplitudeLog
 import com.amplitude.Event
+import com.finance_tracker.finance_tracker.core.common.AppBuildConfig
 import com.finance_tracker.finance_tracker.core.common.DesktopContext
 import com.finance_tracker.finance_tracker.core.common.runSafeCatching
 import com.finance_tracker.finance_tracker.data.settings.AnalyticsSettings
@@ -31,7 +32,7 @@ class DesktopAnalyticsTracker(
         get() = !isAnalyticsEnabledFlow.value
 
     override fun init(context: DesktopContext) {
-        amplitude.init(AnalyticsTracker.AMPLITUDE_API_KEY)
+        amplitude.init(AppBuildConfig.AMPLITUDE_API_KEY)
         amplitude.setLogMode(AmplitudeLog.LogMode.DEBUG)
     }
 

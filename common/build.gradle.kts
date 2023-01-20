@@ -1,4 +1,5 @@
 
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.BOOLEAN
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
@@ -79,10 +80,22 @@ sqldelight {
 }
 
 buildkonfig {
-    packageName = "com.fincance_tracker.fincance_tracker"
+    packageName = "com.finance_tracker.finance_tracker"
 
     defaultConfigs {
         buildConfigField(STRING, "appVersion", rootProject.extra["appVersion"] as String)
+    }
+
+    targetConfigs {
+        create("desktop") {
+            buildConfigField(BOOLEAN, "isDebug", "false")
+        }
+    }
+
+    targetConfigs("debug") {
+        create("desktop") {
+            buildConfigField(BOOLEAN, "isDebug", "true")
+        }
     }
 }
 
