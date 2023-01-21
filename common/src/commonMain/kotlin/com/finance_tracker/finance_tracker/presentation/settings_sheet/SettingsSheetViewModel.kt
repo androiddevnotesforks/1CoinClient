@@ -1,11 +1,11 @@
 package com.finance_tracker.finance_tracker.presentation.settings_sheet
 
+import com.finance_tracker.finance_tracker.BuildKonfig
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.presentation.settings_sheet.analytics.SettingsSheetAnalytics
-import com.fincance_tracker.fincance_tracker.BuildKonfig
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn

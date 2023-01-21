@@ -4,7 +4,7 @@ import com.amplitude.android.Amplitude
 import com.amplitude.android.Configuration
 import com.amplitude.common.Logger
 import com.amplitude.core.events.Identify
-import com.finance_tracker.finance_tracker.common.BuildConfig
+import com.finance_tracker.finance_tracker.core.common.AppBuildConfig
 import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.data.settings.AnalyticsSettings
 import kotlinx.coroutines.CoroutineScope
@@ -29,12 +29,12 @@ class AndroidAnalyticsTracker(
     override fun init(context: Context) {
         amplitude = Amplitude(
             Configuration(
-                apiKey = AnalyticsTracker.AMPLITUDE_API_KEY,
+                apiKey = AppBuildConfig.AMPLITUDE_API_KEY,
                 context = context
             )
         ).apply {
             setUserId(AnalyticsTracker.ANONYM_USER_ID)
-            logger.logMode = if (BuildConfig.DEBUG) {
+            logger.logMode = if (AppBuildConfig.DEBUG) {
                 Logger.LogMode.DEBUG
             } else {
                 Logger.LogMode.OFF

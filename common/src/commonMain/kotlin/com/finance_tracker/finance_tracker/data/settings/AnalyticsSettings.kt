@@ -1,5 +1,6 @@
 package com.finance_tracker.finance_tracker.data.settings
 
+import com.finance_tracker.finance_tracker.core.common.AppBuildConfig
 import com.russhwolf.settings.ExperimentalSettingsApi
 import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.Settings
@@ -20,7 +21,7 @@ class AnalyticsSettings(factory: Settings.Factory) {
     }
 
     fun isAnalyticsEnabledFlow(): Flow<Boolean> {
-        return flowSettings.getBooleanFlow(KEY_IS_ANALYTICS_ENABLED, true)
+        return flowSettings.getBooleanFlow(KEY_IS_ANALYTICS_ENABLED, !AppBuildConfig.DEBUG)
     }
 
     companion object {

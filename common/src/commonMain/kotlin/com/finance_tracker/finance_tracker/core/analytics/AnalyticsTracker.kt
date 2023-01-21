@@ -13,7 +13,6 @@ interface AnalyticsTracker {
     fun setUserProperty(property: String, value: Any)
 
     companion object {
-        const val AMPLITUDE_API_KEY = "53a89fb85c5895ac9fb42631eacd28c2"
         const val ANONYM_USER_ID = "anonym"
     }
 }

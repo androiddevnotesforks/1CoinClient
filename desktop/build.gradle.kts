@@ -1,24 +1,14 @@
-
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    kotlin("multiplatform")
+    kotlin("jvm")
     id("org.jetbrains.compose")
     id("io.gitlab.arturbosch.detekt")
 }
 
-kotlin {
-    jvm {
-        withJava()
-    }
-    sourceSets {
-        named("jvmMain") {
-            dependencies {
-                implementation(compose.desktop.currentOs)
-                implementation(projects.common)
-            }
-        }
-    }
+dependencies {
+    implementation(compose.desktop.currentOs)
+    implementation(projects.common)
 }
 
 compose.desktop {
@@ -34,19 +24,23 @@ compose.desktop {
             vendor = "FinanceTracker"
             licenseFile.set(rootProject.file("LICENSE"))
             macOS {
-                iconFile.set(project.file("src/jvmMain/resources/icons/app_icon.icns"))
+                iconFile.set(project.file("src/main/resources/icons/app_icon.icns"))
             }
             windows {
-                iconFile.set(project.file("src/jvmMain/resources/icons/app_icon.ico"))
+                iconFile.set(project.file("src/main/resources/icons/app_icon.ico"))
             }
             linux {
-                iconFile.set(project.file("src/jvmMain/resources/icons/app_icon.png"))
+                iconFile.set(project.file("src/main/resources/icons/app_icon.png"))
             }
 
             windows {
                 menuGroup = "Desktop"
                 upgradeUuid = "7abd45e8-22c0-11ec-9621-0242ac270000"
             }
+        }
+
+        buildTypes.release.proguard {
+            configurationFiles.from("proguard-rules.pro")
         }
     }
 }
