@@ -68,7 +68,10 @@ class CategorySettingsViewModel(
         )
 
         _expenseCategories.value = newList
-        saveListState(fromItem.id, toItem.id)
+        saveCategoriesOrder(
+            categoryId1 = fromItem.id, newPosition1 = to,
+            categoryId2 = toItem.id, newPosition2 = from
+        )
     }
 
     fun swapIncomeCategories(from: Int, to: Int) {
@@ -85,12 +88,21 @@ class CategorySettingsViewModel(
         )
 
         _incomeCategories.value = newList
-        saveListState(fromItem.id, toItem.id)
+        saveCategoriesOrder(
+            categoryId1 = fromItem.id, newPosition1 = to,
+            categoryId2 = toItem.id, newPosition2 = from
+        )
     }
 
-    private fun saveListState(categoryFromId: Long, categoryToId: Long) {
+    private fun saveCategoriesOrder(
+        categoryId1: Long, newPosition1: Int,
+        categoryId2: Long, newPosition2: Int
+    ) {
         viewModelScope.launch {
-            categoriesInteractor.updateCategoryPosition(categoryFromId, categoryToId)
+            categoriesInteractor.updateCategoryPosition(
+                categoryId1, newPosition1,
+                categoryId2, newPosition2
+            )
         }
     }
 

@@ -37,10 +37,18 @@ class CategoriesRepository(
         }
     }
 
-    suspend fun updateCategoryPosition(categoryFrom: Long, categoryTo: Long) {
+    suspend fun updateCategoryPosition(categoryId1: Long, newPosition1: Int, categoryId2: Long, newPosition2: Int) {
         withContext(Dispatchers.Default) {
-            categoriesEntityQueries.replaceCategory(categoryFrom, categoryTo)
-            categoriesEntityQueries.replaceCategory(categoryTo, categoryFrom)
+            categoriesEntityQueries.transaction {
+                categoriesEntityQueries.replaceCategory(
+                    position = newPosition1.toLong(),
+                    id = categoryId1
+                )
+                categoriesEntityQueries.replaceCategory(
+                    position = newPosition2.toLong(),
+                    id = categoryId2
+                )
+            }
         }
     }
 
