@@ -52,6 +52,12 @@ class TransactionsRepository(
         }
     }
 
+    suspend fun deleteCategoryForTransactionsByCategoryId(categoryId: Long) {
+        withContext(Dispatchers.Default) {
+            transactionsEntityQueries.deleteCategoryForTransactionsByCategoryId(categoryId)
+        }
+    }
+
     suspend fun addOrUpdateTransaction(transaction: Transaction) {
         withContext(Dispatchers.Default) {
             transactionsEntityQueries.insertTransaction(
@@ -59,7 +65,7 @@ class TransactionsRepository(
                 type = transaction.type,
                 amount = transaction.amount.amountValue,
                 amountCurrency = transaction.amount.currency.code,
-                categoryId = transaction.category?.id,
+                categoryId = transaction._category?.id,
                 accountId = transaction.account.id,
                 insertionDate = transaction.insertionDateTime ?: Clock.System.currentLocalDateTime(),
                 date = transaction.dateTime,

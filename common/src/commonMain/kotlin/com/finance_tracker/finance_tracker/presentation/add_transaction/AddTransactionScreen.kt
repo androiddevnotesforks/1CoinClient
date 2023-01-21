@@ -17,6 +17,7 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.BackHandler
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
+import com.finance_tracker.finance_tracker.core.common.date.currentLocalDateTime
 import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.toDateTime
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
@@ -35,6 +36,7 @@ import com.finance_tracker.finance_tracker.presentation.add_transaction.views.St
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.StepsEnterTransactionBarData
 import com.finance_tracker.finance_tracker.presentation.add_transaction.views.enter_transaction_controller.EnterTransactionController
 import dev.icerock.moko.resources.compose.stringResource
+import kotlinx.datetime.Clock
 import org.koin.core.parameter.parametersOf
 import ru.alexgladkov.odyssey.compose.controllers.ModalController
 import ru.alexgladkov.odyssey.compose.extensions.present
@@ -81,13 +83,13 @@ internal fun AddTransactionScreen(
                         transaction = Transaction(
                             type = selectedTransactionType.toTransactionType(),
                             account = account,
-                            category = categoryData,
+                            _category = categoryData,
                             amount = Amount(
                                 currency = currency,
                                 amountValue = amountDouble
                             ),
                             dateTime = localDate.toDateTime(),
-                            insertionDateTime = transactionInsertionDate
+                            insertionDateTime = Clock.System.currentLocalDateTime()
                         ),
                         isFromButtonClick = fromButtonClick
                     )
@@ -101,7 +103,7 @@ internal fun AddTransactionScreen(
                         transaction = Transaction(
                             type = selectedTransactionType.toTransactionType(),
                             account = account,
-                            category = categoryData,
+                            _category = categoryData,
                             amount = Amount(
                                 currency = currency,
                                 amountValue = amountDouble

@@ -228,7 +228,7 @@ class AddTransactionAnalytics: BaseAnalytics() {
         return mapOf(
             "${keyPrefix}transaction_type" to type.analyticsName,
             "${keyPrefix}account_name" to account.name,
-            "${keyPrefix}category_name" to category?.name,
+            "${keyPrefix}category_name" to _category?.name,
             "${keyPrefix}date" to dateTime.toString(),
             "${keyPrefix}amount_value" to amount.amountValue,
             "${keyPrefix}amount_currency" to amount.currency.code

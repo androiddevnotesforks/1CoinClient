@@ -53,6 +53,7 @@
     <string name="category_clothes">Clothes</string>
     <string name="category_electronics">Electronics</string>
     <string name="category_correct">Correct</string>
+    <string name="category_empty">Uncategorized</string>
     <string name="category_salary">Salary</string>
     <string name="category_allowance">Allowance</string>
     <string name="category_gift">Gift</string>

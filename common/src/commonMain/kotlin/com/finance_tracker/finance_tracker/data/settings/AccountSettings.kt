@@ -5,6 +5,7 @@ import com.russhwolf.settings.ObservableSettings
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.coroutines.FlowSettings
 import com.russhwolf.settings.coroutines.toFlowSettings
+import com.russhwolf.settings.set
 import kotlinx.coroutines.flow.Flow
 
 @Suppress("RedundantSuspendModifier")
@@ -26,7 +27,16 @@ class AccountSettings(factory: Settings.Factory) {
         return flowSettings.getStringOrNull(KEY_PRIMARY_CURRENCY)
     }
 
+    suspend fun isInitDefaultData(): Boolean {
+        return flowSettings.getBoolean(IS_INIT_DEFAULT_DATA, false)
+    }
+
+    suspend fun setIsInitDefaultData(value: Boolean) {
+        return settings.set(IS_INIT_DEFAULT_DATA, value)
+    }
+
     companion object {
         private const val KEY_PRIMARY_CURRENCY = "primary_currency"
+        private const val IS_INIT_DEFAULT_DATA = "is_init_default_data"
     }
 }

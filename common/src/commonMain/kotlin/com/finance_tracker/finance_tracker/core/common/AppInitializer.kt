@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.core.common
 import com.finance_tracker.finance_tracker.core.analytics.AnalyticsTracker
 import com.finance_tracker.finance_tracker.core.common.logger.LoggerInitializer
 import com.finance_tracker.finance_tracker.data.database.DatabaseInitializer
+import com.finance_tracker.finance_tracker.data.settings.AccountSettings
 import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
@@ -20,6 +21,7 @@ class AppInitializer(
     private val userInteractor: UserInteractor,
     private val categoriesInteractor: CategoriesInteractor,
     private val accountsInteractor: AccountsInteractor,
+    private val accountSettings: AccountSettings,
     private val analyticsTracker: AnalyticsTracker,
     private val databaseInitializer: DatabaseInitializer,
     private val loggerInitializer: LoggerInitializer,
@@ -60,7 +62,12 @@ class AppInitializer(
     }
 
     private fun initDatabase() {
-        databaseInitializer.init(context)
+        launch {
+            if (!accountSettings.isInitDefaultData()) {
+                databaseInitializer.init(context)
+                accountSettings.setIsInitDefaultData(true)
+            }
+        }
     }
 
     companion object {

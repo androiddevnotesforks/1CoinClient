@@ -3,7 +3,7 @@ package com.finance_tracker.finance_tracker.presentation.category_settings
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
-import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepository
+import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.presentation.category_settings.analytcis.CategorySettingsAnalytics
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CategorySettingsViewModel(
-    private val repository: CategoriesRepository,
+    private val categoriesInteractor: CategoriesInteractor,
     private val categorySettingsAnalytics: CategorySettingsAnalytics
 ): BaseViewModel<CategorySettingsAction>() {
 
@@ -44,13 +44,13 @@ class CategorySettingsViewModel(
 
     private fun loadAllExpenseCategories() {
         viewModelScope.launch {
-            _expenseCategories.value = repository.getAllExpenseCategories()
+            _expenseCategories.value = categoriesInteractor.getAllExpenseCategories()
         }
     }
 
     private fun loadAllIncomeCategories() {
         viewModelScope.launch {
-            _incomeCategories.value = repository.getAllIncomeCategories()
+            _incomeCategories.value = categoriesInteractor.getAllIncomeCategories()
         }
     }
 
@@ -90,14 +90,14 @@ class CategorySettingsViewModel(
 
     private fun saveListState(categoryFromId: Long, categoryToId: Long) {
         viewModelScope.launch {
-            repository.updateCategoryPosition(categoryFromId, categoryToId)
+            categoriesInteractor.updateCategoryPosition(categoryFromId, categoryToId)
         }
     }
 
     fun onConfirmDeleteCategory(category: Category, dialogKey: String) {
         categorySettingsAnalytics.trackConfirmDeleteCategoryClick(category)
         viewModelScope.launch {
-            repository.deleteCategoryById(category.id)
+            categoriesInteractor.deleteCategoryById(category.id)
 
             if (_selectedTransactionType.value == TransactionTypeTab.Expense) {
                 loadAllExpenseCategories()
