@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="desktop:createDistributable" />
+          <option value="desktop:createReleaseDistributable" />
         </list>
       </option>
       <option name="vmOptions" />

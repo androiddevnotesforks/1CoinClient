@@ -30,6 +30,7 @@ actual class DriverFactory {
   actual fun createDriver(): SqlDriver {
     File(appDataPath).createIfNotExists()
     val filePath = "$appDataPath${separator}AppDatabase.db"
+    Class.forName("org.sqlite.JDBC")
     return JdbcSqliteDriver("jdbc:sqlite:$filePath").also {
       if (!File(filePath).exists()) {
         AppDatabase.Schema.create(it)
