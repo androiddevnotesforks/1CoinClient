@@ -6,7 +6,6 @@ plugins {
     id("android-setup")
     id("multiplatform-compose-setup")
     id("com.squareup.sqldelight")
-    id("io.gitlab.arturbosch.detekt")
     id("com.google.firebase.crashlytics")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.codingfeline.buildkonfig")

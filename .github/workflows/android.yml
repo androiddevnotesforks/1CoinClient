@@ -24,11 +24,8 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew assembleDebug
 
-    - name: Add variable for building desktop
-      run: export DISPLAY=unix:0.0
-
     - name: Build desktop version
-      run: ./gradlew :desktop:run
+      run: ./gradlew :desktop:assemble
 
     - name: Run verifyDatabaseMigration
       run: ./gradlew :common:verifyCommonMainAppDatabaseMigration
