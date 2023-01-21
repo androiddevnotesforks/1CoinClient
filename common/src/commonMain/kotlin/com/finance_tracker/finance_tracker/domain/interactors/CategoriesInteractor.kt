@@ -41,8 +41,14 @@ class CategoriesInteractor(
         return categoriesRepository.getAllExpenseCategories()
     }
 
-    suspend fun updateCategoryPosition(categoryFrom: Long, categoryTo: Long) {
-        return categoriesRepository.updateCategoryPosition(categoryFrom, categoryTo)
+    suspend fun updateCategoryPosition(
+        categoryId1: Long, newPosition1: Int,
+        categoryId2: Long, newPosition2: Int
+    ) {
+        return categoriesRepository.updateCategoryPosition(
+            categoryId1, newPosition1,
+            categoryId2, newPosition2
+        )
     }
 
 
