@@ -9,9 +9,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
@@ -34,6 +38,14 @@ internal fun AddAccountScreen(
     StoredViewModel<AddAccountViewModel>(
         parameters = { parametersOf(account) }
     ) { viewModel ->
+
+        val focusRequester = remember { FocusRequester() }
+
+        LaunchedEffect(Unit) {
+            if (account == Account.EMPTY) {
+                focusRequester.requestFocus()
+            }
+        }
 
         val scaffoldState = rememberScaffoldState()
         viewModel.watchViewActions { action, baseLocalsStorage ->
@@ -59,7 +71,10 @@ internal fun AddAccountScreen(
                     onBackClick = viewModel::onBackClick
                 )
 
-                AccountNameTextField(viewModel = viewModel)
+                AccountNameTextField(
+                    modifier = Modifier.focusRequester(focusRequester),
+                    viewModel = viewModel,
+                )
 
                 Row(
                     modifier = Modifier.padding(top = 16.dp, start = 16.dp, end = 16.dp)
