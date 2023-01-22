@@ -46,7 +46,7 @@ internal fun AddCategoryScreen(
         val focusRequester = remember { FocusRequester() }
 
         LaunchedEffect(Unit) {
-            if(addCategoryScreenParams.category == null) {
+            if (addCategoryScreenParams.category == null) {
                 focusRequester.requestFocus()
             }
         }
