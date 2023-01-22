@@ -7,9 +7,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
@@ -38,6 +42,14 @@ internal fun AddCategoryScreen(
     StoredViewModel<AddCategoryViewModel>(
         parameters = { parametersOf(addCategoryScreenParams) }
     ) { viewModel ->
+
+        val focusRequester = remember { FocusRequester() }
+
+        LaunchedEffect(Unit) {
+            if (addCategoryScreenParams.category == null) {
+                focusRequester.requestFocus()
+            }
+        }
 
         viewModel.watchViewActions { action, baseLocalsStorage ->
             handleAction(
@@ -92,7 +104,8 @@ internal fun AddCategoryScreen(
                         .padding(
                             start = 16.dp,
                             end = 16.dp
-                        ),
+                        )
+                        .focusRequester(focusRequester),
                     onValueChange = {
                         viewModel.setCategoryName(it)
                     },
