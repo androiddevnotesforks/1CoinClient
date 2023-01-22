@@ -51,19 +51,14 @@
 - [Builds](#builds)
 
 ## Features
-- __Transactions__
-    - Add
-    - Edit
-    - Delete
-- __Accounts__
-    - Add
-    - Edit
-    - Delete
-- __Categories__
-    - Add
-    - Edit
-    - Delete
-- __Quick info viewing at home tab__
+
+| **Manage accounts** | **Manage categories** |
+|---------------------|-----------------------|
+| [<img src="images/demo/manage_accounts.gif" width="200" height = "431" />](images/demo/manage_accounts.gif) | [<img src="images/demo/manage_categories.gif" width="200" height = "431" />](images/demo/manage_categories.gif) |
+
+| **Manage transactions** | **View analytics** |
+|-------------------------|--------------------|
+| [<img src="images/demo/manage_transactions.gif" width="200" height = "431" />](images/demo/manage_transactions.gif) | [<img src="images/demo/analytics.gif" width="200" height = "431" />](images/demo/analytics.gif) |
 
 ## Tech stack
 - UI
