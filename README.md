@@ -1,6 +1,6 @@
 <h1 align="center">1Coin</h1>
 
-![Preview](https://github.com/1Coin-FinanceTracker/1CoinClient/blob/develop/images/preview.png)
+![Preview](https://github.com/1Coin-FinanceTracker/1CoinClient/blob/develop/documentation/images/preview.png)
 
 <div align="center">
   <strong>Simple money manager</strong>
@@ -54,11 +54,11 @@
 
 | **Manage accounts** | **Manage categories** |
 |---------------------|-----------------------|
-| [<img src="images/demo/manage_accounts.gif" width="200" height = "431" />](images/demo/manage_accounts.gif) | [<img src="images/demo/manage_categories.gif" width="200" height = "431" />](images/demo/manage_categories.gif) |
+| [<img src="documentation/images/demo/manage_accounts.gif" width="200" height = "431" />](documentation/images/demo/manage_accounts.gif) | [<img src="documentation/images/demo/manage_categories.gif" width="200" height = "431" />](documentation/images/demo/manage_categories.gif) |
 
 | **Manage transactions** | **View analytics** |
 |-------------------------|--------------------|
-| [<img src="images/demo/manage_transactions.gif" width="200" height = "431" />](images/demo/manage_transactions.gif) | [<img src="images/demo/analytics.gif" width="200" height = "431" />](images/demo/analytics.gif) |
+| [<img src="documentation/images/demo/manage_transactions.gif" width="200" height = "431" />](documentation/images/demo/manage_transactions.gif) | [<img src="documentation/images/demo/analytics.gif" width="200" height = "431" />](documentation/images/demo/analytics.gif) |
 
 ## Tech stack
 - UI
