@@ -48,7 +48,7 @@
 - [Features](#features)
 - [Tech stack](#tech-stack)
 - [How to build](#how-to-build)
-- [Builds](#builds)
+- [Download](#download)
 
 ## Features
 
@@ -98,9 +98,9 @@
     - Sync gradle
     - Launch <i>'main()'</i> function in <i>'desktop/src/jvmMain/kotlin/com/finance_tracker/finance_tracker/main.kt'</i>
 
-## Builds
+## Download
 - Windows: -
-- MacOS: -
+- MacOS: [1Coin (1.0.0-beta)](https://drive.google.com/file/d/1A52bzmn-jPlkAdQf3QyiFXo6HJ-OCpOk/view?usp=share_link)
 - Linux: -
-- Android: -
+- Android: [1Coin (PlayMarket)](https://play.google.com/store/apps/details?id=com.finance_tracker.finance_tracker)
 - iOS: <i>In developing</i>
