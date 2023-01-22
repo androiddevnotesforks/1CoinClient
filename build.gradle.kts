@@ -13,7 +13,7 @@ tasks.register<Detekt>("detektAll") {
     config.setFrom(project.file("config/detekt/detekt.yml"))
 }
 
-val appVersion by extra("1.0.0")
+val appVersion by extra("1.0.1")
 val appName by extra("1Coin")
 
 dependencies {
