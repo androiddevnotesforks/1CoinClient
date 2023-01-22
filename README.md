@@ -1,6 +1,6 @@
 <h1 align="center">1Coin</h1>
 
-![Preview](https://github.com/VitalyPeryatin/1Coin/blob/develop/images/preview.png)
+![Preview](https://github.com/1Coin-FinanceTracker/1CoinClient/blob/develop/images/preview.png)
 
 <div align="center">
   <strong>Simple money manager</strong>
@@ -13,10 +13,10 @@
 
 <div align="center">
   <!-- Contributors -->
-  <a href="https://github.com/VitalyPeryatin/FinanceTracker/graphs/contributors" alt="Contributors">
+  <a href="https://github.com/1Coin-FinanceTracker/1CoinClient/graphs/contributors" alt="Contributors">
         <img src="https://img.shields.io/github/contributors/VitalyPeryatin/FinanceTracker" /></a>
   <!-- Build status -->
-  <a href="https://github.com/VitalyPeryatin/FinanceTracker/actions/workflows/android.yml" alt="Build status">
+  <a href="https://github.com/1Coin-FinanceTracker/1CoinClient/actions/workflows/android.yml" alt="Build status">
         <img src="https://img.shields.io/github/actions/workflow/status/VitalyPeryatin/FinanceTracker/android.yml" /></a>
   <!-- Telegram chat -->
   <a href="https://t.me/+FFK1aCS6uJs1NTBi">
@@ -26,7 +26,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://github.com/VitalyPeryatin/1Coin/blob/develop/CONTRIBUTING.md">
+    <a href="https://github.com/1Coin-FinanceTracker/1CoinClient/blob/develop/CONTRIBUTING.md">
       Contributing
     </a>
     <span> | </span>
@@ -38,7 +38,7 @@
 
 <div align="center">
   <sub>Built with ❤︎ by
-    <a href="https://github.com/VitalyPeryatin/FinanceTracker/graphs/contributors">
+    <a href="https://github.com/1Coin-FinanceTracker/1CoinClient/graphs/contributors">
       contributors
     </a>
   </sub>
