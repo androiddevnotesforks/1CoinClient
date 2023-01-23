@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS SmsMessageEntity (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sender TEXT NOT NULL,
+    message TEXT NOT NULL,
+    date INTEGER NOT NULL,
+    isRecognized INTEGER AS Boolean DEFAULT 0 NOT NULL
+);
+
+insertSmsMessage:
+INSERT OR REPLACE
+INTO SmsMessageEntity
+VALUES (?,?,?,?,?);

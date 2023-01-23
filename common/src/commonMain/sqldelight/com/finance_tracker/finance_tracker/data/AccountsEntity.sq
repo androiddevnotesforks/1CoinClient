@@ -1,0 +1,47 @@
+import com.finance_tracker.finance_tracker.domain.models.Account;
+
+CREATE TABLE IF NOT EXISTS AccountsEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    type TEXT AS Account.Type NOT NULL,
+    name TEXT NOT NULL,
+    balance REAL NOT NULL,
+    colorId INTEGER AS Int NOT NULL,
+    currency TEXT NOT NULL
+);
+
+getAccountById:
+SELECT *
+FROM AccountsEntity
+WHERE id = :id;
+
+getAllAccounts:
+SELECT *
+FROM AccountsEntity;
+
+getAccountsCount:
+SELECT COUNT(*)
+FROM AccountsEntity;
+
+insertAccount:
+INSERT OR REPLACE
+INTO AccountsEntity
+VALUES (?,?,?,?,?,?);
+
+deleteAccountById:
+DELETE FROM AccountsEntity
+WHERE id = :id;
+
+increaseBalanceByAccountId:
+UPDATE AccountsEntity
+SET balance = balance + :balance
+WHERE id = :id;
+
+reduceBalanceByAccountId:
+UPDATE AccountsEntity
+SET balance = balance - :balance
+WHERE id = :id;
+
+updateAccountById:
+UPDATE AccountsEntity
+SET type = :type, name = :name, balance = :balance, colorId = :colorId, currency = :currency
+WHERE id = :id;

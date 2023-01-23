@@ -84,6 +84,8 @@ captures/
 .idea/uiDesigner.xml
 
 # Keystore files
+1coin.keystore
+keystore.properties
 
 # OS-specific files
 .DS_Store
@@ -107,3 +109,5 @@ fabric.properties
 
 # End of https://www.gitignore.io/api/android,androidstudio
 /app/release/output.json
+
+/*.db

@@ -1,0 +1,52 @@
+CREATE TABLE IF NOT EXISTS CategoriesEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    icon TEXT NOT NULL,
+    position INTEGER,
+    isExpense INTEGER AS Boolean DEFAULT 0 NOT NULL,
+    isIncome INTEGER AS Boolean DEFAULT 0 NOT NULL
+);
+
+getAllCategoriesWithoutPosition:
+SELECT *
+FROM CategoriesEntity;
+
+getAllCategories:
+SELECT *
+FROM CategoriesEntity
+ORDER BY position;
+
+getCategoriesCount:
+SELECT COUNT(*)
+FROM CategoriesEntity;
+
+getAllExpenseCategories:
+SELECT *
+FROM CategoriesEntity
+WHERE isExpense = 1
+ORDER BY position;
+
+getAllIncomeCategories:
+SELECT *
+FROM CategoriesEntity
+WHERE isIncome = 1
+ORDER BY position;
+
+insertCategory:
+INSERT OR REPLACE
+INTO CategoriesEntity
+VALUES (?,?,?,?,?,?);
+
+deleteCategoryById:
+DELETE
+FROM CategoriesEntity
+WHERE id = :id;
+
+replaceCategory:
+UPDATE CategoriesEntity SET position = :position
+WHERE id = :id;
+
+updateAccountById:
+UPDATE CategoriesEntity
+SET name = :name, icon = :icon
+WHERE id = :id;

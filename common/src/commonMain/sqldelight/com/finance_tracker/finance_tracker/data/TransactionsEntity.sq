@@ -1,0 +1,113 @@
+import com.finance_tracker.finance_tracker.domain.models.TransactionType;
+import kotlinx.datetime.LocalDateTime;
+
+CREATE TABLE IF NOT EXISTS TransactionsEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    type TEXT AS TransactionType NOT NULL,
+    amount REAL NOT NULL,
+    amountCurrency TEXT NOT NULL,
+    categoryId INTEGER,
+    accountId INTEGER,
+    insertionDate TEXT AS LocalDateTime NOT NULL,
+    date TEXT AS LocalDateTime NOT NULL
+);
+
+getAllFullTransactions:
+SELECT *
+FROM TransactionsEntity
+INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
+LEFT JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
+WHERE accounts.id IS NOT NULL
+ORDER BY
+    date DESC,
+    insertionDate DESC;
+
+getFullTransactionsByAccountId:
+SELECT *
+FROM TransactionsEntity
+INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
+LEFT JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
+WHERE accounts.id = :accountId
+ORDER BY
+    date DESC,
+    insertionDate DESC;
+
+getFullTransactions:
+SELECT *
+FROM TransactionsEntity
+INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
+LEFT JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
+WHERE
+    TransactionsEntity.type = :transactionType AND
+    strftime('%m', TransactionsEntity.date) = :monthNumber AND
+    strftime('%Y', TransactionsEntity.date) = :year
+ORDER BY
+    date DESC,
+    insertionDate DESC;
+
+getTotalTransactionAmountByDateAndType:
+SELECT *
+FROM TransactionsEntity
+INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
+LEFT JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
+WHERE DATE(date) = :date AND TransactionsEntity.type = :type AND accounts.id IS NOT NULL;
+
+insertTransaction:
+INSERT OR REPLACE
+INTO TransactionsEntity
+VALUES (?,?,?,?,?,?,?,?);
+
+getAllFullTransactionsPaginated:
+SELECT *
+FROM TransactionsEntity
+INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
+LEFT JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
+WHERE accounts.id IS NOT NULL
+ORDER BY
+    date DESC,
+    insertionDate DESC
+LIMIT :limit OFFSET :offset;
+
+getFullTransactionsByAccountIdPaginated:
+SELECT *
+FROM TransactionsEntity
+INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
+LEFT JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
+WHERE accounts.id = :accountId
+ORDER BY
+    date DESC,
+    insertionDate DESC
+LIMIT :limit OFFSET :offset;
+
+deleteTransactionsById:
+DELETE FROM TransactionsEntity
+WHERE id IN :ids;
+
+deleteTransactionById:
+DELETE FROM TransactionsEntity
+WHERE id = :id;
+
+deleteCategoryForTransactionsByCategoryId:
+UPDATE TransactionsEntity
+SET categoryId = NULL
+WHERE categoryId = :categoryId;
+
+getTransactionsForPeriod:
+SELECT *
+FROM TransactionsEntity
+INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
+LEFT JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
+WHERE TransactionsEntity.type = :transactionType AND date >= :fromDate AND date < :toDate
+ORDER BY
+    date DESC,
+    insertionDate DESC;
+
+getLastTransactions:
+SELECT *
+FROM TransactionsEntity
+INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
+LEFT JOIN CategoriesEntity AS categories ON TransactionsEntity.categoryId = categories.id
+ORDER BY
+    date DESC,
+    insertionDate DESC
+LIMIT :limit;
