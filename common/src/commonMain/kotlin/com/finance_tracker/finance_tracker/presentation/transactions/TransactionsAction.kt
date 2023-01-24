@@ -54,9 +54,9 @@ fun handleAction(
             modalController.present(DialogConfigurations.alert) { key ->
                 DeleteDialog(
                     titleEntity = if (action.selectedItemsCount > 1) {
-                        stringResource(MR.strings.transactions)
+                        stringResource(MR.strings.deleting_transactions)
                     } else {
-                        stringResource(MR.strings.transaction)
+                        stringResource(MR.strings.deleting_transaction)
                     },
                     onCancelClick = { onCancelClick.invoke(key) },
                     onDeleteClick = { onConfirmDeleteClick.invoke(key) }

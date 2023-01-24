@@ -46,7 +46,7 @@ fun handleAction(
             val modalNavController = rootController.findModalController()
             modalNavController.present(DialogConfigurations.alert) { key ->
                 DeleteDialog(
-                    titleEntity = stringResource(MR.strings.account),
+                    titleEntity = stringResource(MR.strings.deleting_account),
                     onCancelClick = { onCancelDeletingClick.invoke(action.account, key) },
                     onDeleteClick = { onConfirmDeletingClick.invoke(action.account, key) }
                 )

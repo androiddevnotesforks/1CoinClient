@@ -34,7 +34,7 @@ internal fun DeleteDialog(
             modifier = Modifier
                 .padding(start = 16.dp)
                 .padding(top = 16.dp),
-            text = "${stringResource(MR.strings.dialog_title_delete)} $titleEntity",
+            text = titleEntity,
             style = CoinTheme.typography.h4
         )
         Text(
