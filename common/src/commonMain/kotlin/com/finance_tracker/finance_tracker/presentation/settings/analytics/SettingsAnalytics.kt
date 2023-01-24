@@ -53,4 +53,8 @@ class SettingsAnalytics: BaseAnalytics() {
     fun trackSendingUsageDataInfoClick() {
         trackClick(eventName = "SendingUsageDataInfo")
     }
+
+    fun trackDashboardSettingsClick() {
+        trackClick(eventName = "DashboardSettings")
+    }
 }

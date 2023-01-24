@@ -19,9 +19,10 @@ import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.presentation.settings.views.MyProfileItem
 import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsCategoriesItem
+import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsDashboardItem
 import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsMainCurrencyItem
+import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsMyProfileItem
 import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsPrivacyItem
 import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsScreenTopBar
 import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsSendingUsageDataItem
@@ -59,10 +60,21 @@ fun SettingsScreen() {
 
             val userEmail = viewModel.userEmail
 
-            MyProfileItem(
+            Text(
                 modifier = Modifier
                     .padding(
-                        top = 32.dp,
+                        start = 16.dp,
+                        top = 32.dp
+                    ),
+                text = stringResource(MR.strings.settings_my_profile),
+                style = CoinTheme.typography.subtitle2_medium,
+                color = CoinTheme.color.content.copy(TextColorFloat)
+            )
+
+            SettingsMyProfileItem(
+                modifier = Modifier
+                    .padding(
+                        top = 28.dp,
                         start = 16.dp,
                         end = 16.dp
                     ),
@@ -101,6 +113,10 @@ fun SettingsScreen() {
 
             SettingsCategoriesItem(
                 onClick = viewModel::onCategorySettingsClick
+            )
+
+            SettingsDashboardItem(
+                onClick = viewModel::onDashboardSettingsClick
             )
 
             Divider(

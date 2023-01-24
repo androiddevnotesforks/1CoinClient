@@ -1,5 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.settings.views
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,20 +17,22 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-internal fun SettingsPrivacyItem(modifier: Modifier = Modifier) {
+internal fun SettingsDashboardItem(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Row(
         modifier = modifier
-            .padding(
-                vertical = 12.dp,
-                horizontal = 16.dp
-            )
             .fillMaxWidth()
+            .clickable { onClick.invoke() }
+            .padding(vertical = 12.dp),
     ) {
         Icon(
-            painter = rememberVectorPainter(id = "ic_privacy"),
+            painter = rememberVectorPainter(id = "ic_dashboard"),
             contentDescription = null,
             modifier = Modifier
                 .padding(
+                    start = 16.dp,
                     end = 8.dp
                 )
                 .size(24.dp)
@@ -37,8 +40,9 @@ internal fun SettingsPrivacyItem(modifier: Modifier = Modifier) {
             tint = CoinTheme.color.content
         )
         Text(
-            text = stringResource(MR.strings.settings_privacy),
-            modifier = Modifier.align(Alignment.CenterVertically),
+            text = stringResource(MR.strings.settings_dashboard),
+            modifier = Modifier
+                .align(Alignment.CenterVertically),
             style = CoinTheme.typography.body1_medium
         )
     }

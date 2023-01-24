@@ -14,6 +14,7 @@ sealed interface SettingsScreenAction {
     object Close: SettingsScreenAction
     object OpenCategorySettingsScreen: SettingsScreenAction
     object ShowUsageDataInfoDialog: SettingsScreenAction
+    object OpenDashboardSettingsScreen: SettingsScreenAction
     data class OpenUri(val uri: String): SettingsScreenAction
     data class CopyUserId(val userId: String): SettingsScreenAction
 }
@@ -54,6 +55,9 @@ fun handleAction(
             clipboardManager.setText(AnnotatedString(action.userId))
         }
 
+        SettingsScreenAction.OpenDashboardSettingsScreen -> {
+            rootController.findRootController().push(MainNavigationTree.DashboardSettings.name)
+        }
     }
 
 }

@@ -19,10 +19,9 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import dev.icerock.moko.resources.compose.stringResource
 
-private const val TextColorFloat = 0.3f
 
 @Composable
-fun MyProfileItem(
+internal fun SettingsMyProfileItem(
     userEmail: String,
     modifier: Modifier = Modifier,
 ) {
@@ -33,17 +32,7 @@ fun MyProfileItem(
         modifier = modifier
             .fillMaxWidth(),
     ) {
-        Text(
-            text = stringResource(MR.strings.settings_my_profile),
-            style = CoinTheme.typography.subtitle2_medium,
-            color = CoinTheme.color.content.copy(TextColorFloat)
-        )
-
-        Row(
-            modifier = Modifier
-                .padding(top = 24.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 modifier = Modifier
                     .padding(end = 12.dp),

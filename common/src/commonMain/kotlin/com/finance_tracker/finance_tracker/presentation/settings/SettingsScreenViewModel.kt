@@ -78,6 +78,11 @@ class SettingsScreenViewModel(
         )
     }
 
+    fun onDashboardSettingsClick() {
+        settingsAnalytics.trackDashboardSettingsClick()
+        viewAction = SettingsScreenAction.OpenDashboardSettingsScreen
+    }
+
     companion object {
         private const val telegramUri = "https://t.me/+FFK1aCS6uJs1NTBi"
     }
