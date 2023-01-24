@@ -18,7 +18,7 @@ import com.finance_tracker.finance_tracker.presentation.analytics.di.analyticsMo
 import com.finance_tracker.finance_tracker.presentation.category_settings.di.categorySettingsModule
 import com.finance_tracker.finance_tracker.presentation.detail_account.di.detailAccountModule
 import com.finance_tracker.finance_tracker.presentation.home.di.homeModule
-import com.finance_tracker.finance_tracker.presentation.settings_sheet.di.settingsSheetModule
+import com.finance_tracker.finance_tracker.presentation.settings.di.settingsScreenModule
 import com.finance_tracker.finance_tracker.presentation.tabs_navigation.di.tabsNavigationModule
 import com.finance_tracker.finance_tracker.presentation.transactions.di.transactionsModule
 
@@ -44,7 +44,7 @@ fun featureModules() = listOf(
     categorySettingsModule,
     detailAccountModule,
     homeModule,
-    settingsSheetModule,
     tabsNavigationModule,
-    transactionsModule
+    transactionsModule,
+    settingsScreenModule,
 )

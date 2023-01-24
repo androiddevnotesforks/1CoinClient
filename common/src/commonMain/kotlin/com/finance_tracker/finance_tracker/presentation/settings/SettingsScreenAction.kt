@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.settings_sheet
+package com.finance_tracker.finance_tracker.presentation.settings
 
 import androidx.compose.ui.platform.ClipboardManager
 import androidx.compose.ui.platform.UriHandler
@@ -6,39 +6,36 @@ import androidx.compose.ui.text.AnnotatedString
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
-import com.finance_tracker.finance_tracker.presentation.settings_sheet.views.SendingUsageDataDialog
+import com.finance_tracker.finance_tracker.presentation.settings.views.SendingUsageDataDialog
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.extensions.push
 
-sealed interface SettingsSheetAction {
-    data class OpenUri(val uri: String): SettingsSheetAction
-    object OpenCategorySettingsScreen: SettingsSheetAction
-    data class DismissDialog(val dialogKey: String): SettingsSheetAction
-    object ShowUsageDataInfoDialog: SettingsSheetAction
-    data class CopyUserId(val userId: String): SettingsSheetAction
+sealed interface SettingsScreenAction {
+    object Close: SettingsScreenAction
+    object OpenCategorySettingsScreen: SettingsScreenAction
+    object ShowUsageDataInfoDialog: SettingsScreenAction
+    data class OpenUri(val uri: String): SettingsScreenAction
+    data class CopyUserId(val userId: String): SettingsScreenAction
 }
 
 fun handleAction(
-    action: SettingsSheetAction,
+    action: SettingsScreenAction,
     baseLocalsStorage: BaseLocalsStorage,
-    clipboardManager: ClipboardManager,
-    uriHandler: UriHandler
+    uriHandler: UriHandler,
+    clipboardManager: ClipboardManager
 ) {
     val rootController = baseLocalsStorage.rootController
+
     when (action) {
-        is SettingsSheetAction.OpenUri -> {
-            uriHandler.openUri(action.uri)
+        SettingsScreenAction.Close -> {
+            rootController.popBackStack()
         }
-        is SettingsSheetAction.DismissDialog -> {
-            rootController.findModalController().popBackStack(
-                key = action.dialogKey,
-                animate = true
-            )
-        }
-        SettingsSheetAction.OpenCategorySettingsScreen -> {
+
+        SettingsScreenAction.OpenCategorySettingsScreen -> {
             rootController.findRootController().push(MainNavigationTree.CategorySettings.name)
         }
-        SettingsSheetAction.ShowUsageDataInfoDialog -> {
+
+        SettingsScreenAction.ShowUsageDataInfoDialog -> {
             val modalNavController = rootController.findModalController()
             modalNavController.present(DialogConfigurations.alert) { key ->
                 SendingUsageDataDialog(
@@ -48,8 +45,15 @@ fun handleAction(
                 )
             }
         }
-        is SettingsSheetAction.CopyUserId -> {
+
+        is SettingsScreenAction.OpenUri -> {
+            uriHandler.openUri(action.uri)
+        }
+
+        is SettingsScreenAction.CopyUserId -> {
             clipboardManager.setText(AnnotatedString(action.userId))
         }
+
     }
+
 }

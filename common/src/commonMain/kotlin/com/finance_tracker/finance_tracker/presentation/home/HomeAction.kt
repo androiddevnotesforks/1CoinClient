@@ -1,17 +1,14 @@
 package com.finance_tracker.finance_tracker.presentation.home
 
 import androidx.compose.foundation.lazy.LazyListState
-import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionScreenParams
-import com.finance_tracker.finance_tracker.presentation.settings_sheet.SettingsSheet
 import kotlinx.coroutines.launch
 import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
-import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.extensions.push
 
 sealed interface HomeAction {
@@ -71,10 +68,12 @@ fun handleAction(
             navController.switchTab(TabsNavigationTree.Transactions.ordinal)
         }
         HomeAction.ShowSettingsDialog -> {
-            val modalController = rootController.findModalController()
+            /*val modalController = rootController.findModalController()
             modalController.present(DialogConfigurations.bottomSheet) { dialogKey ->
                 SettingsSheet(dialogKey = dialogKey)
-            }
+            }*/
+            val navController = rootController.findRootController()
+            navController.push(MainNavigationTree.Settings.name)
         }
     }
 }

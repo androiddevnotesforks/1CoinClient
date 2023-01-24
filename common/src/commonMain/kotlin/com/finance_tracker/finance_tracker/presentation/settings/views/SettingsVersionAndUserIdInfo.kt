@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.settings_sheet.views
+package com.finance_tracker.finance_tracker.presentation.settings.views
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -26,7 +26,7 @@ import dev.icerock.moko.resources.compose.stringResource
 private const val MaxUserIdCharCount = 10
 
 @Composable
-internal fun SettingsSheetVersionAndUserIdInfo(
+internal fun SettingsVersionAndUserIdInfo(
     versionName: String,
     userId: String,
     onCopyUserId: () -> Unit,

@@ -197,4 +197,13 @@
     <string name="add_account">Добавить Счет</string>
     <string name="add_category">Добавить Категорию</string>
 
+    <!-- Settings -->
+    <string name="settings_topbar_text">Настройки</string>
+    <string name="settings_my_profile">Мой профиль</string>
+    <string name="settings_authorization">Авторизация</string>
+    <string name="settings_configuration">Конфигурация</string>
+    <string name="settings_other">Прочее</string>
+    <string name="settings_privacy">Конфиденциальность</string>
+
+
 </resources>

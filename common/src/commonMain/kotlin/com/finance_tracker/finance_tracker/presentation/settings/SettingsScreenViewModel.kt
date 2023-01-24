@@ -1,72 +1,79 @@
-package com.finance_tracker.finance_tracker.presentation.settings_sheet
+package com.finance_tracker.finance_tracker.presentation.settings
 
 import com.finance_tracker.finance_tracker.BuildKonfig
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
 import com.finance_tracker.finance_tracker.domain.models.Currency
-import com.finance_tracker.finance_tracker.presentation.settings_sheet.analytics.SettingsSheetAnalytics
+import com.finance_tracker.finance_tracker.presentation.settings.analytics.SettingsAnalytics
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class SettingsSheetViewModel(
+class SettingsScreenViewModel(
     private val currenciesInteractor: CurrenciesInteractor,
     private val userInteractor: UserInteractor,
-    private val settingsSheetAnalytics: SettingsSheetAnalytics,
-): BaseViewModel<SettingsSheetAction>() {
+    private val settingsAnalytics: SettingsAnalytics,
+): BaseViewModel<SettingsScreenAction>() {
+
+    private val _userEmail = MutableStateFlow("")
+    val userEmail = _userEmail.asStateFlow()
 
     val chosenCurrency = currenciesInteractor.getPrimaryCurrencyFlow()
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = Currency.default)
+
     val isSendingUsageDataEnabled = userInteractor.isAnalyticsEnabledFlow()
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = false)
 
     val userId = flow { emit(userInteractor.getOrCreateUserId()) }
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = "")
+
     val versionName = BuildKonfig.appVersion
 
-    init {
-        settingsSheetAnalytics.trackScreenOpen()
+    fun onBackClick() {
+        settingsAnalytics.trackBackClick()
+        viewAction = SettingsScreenAction.Close
     }
 
     fun onCurrencySelect(currency: Currency) {
         viewModelScope.launch {
-            settingsSheetAnalytics.trackMainCurrencySelect(currency)
+            settingsAnalytics.trackMainCurrencySelect(currency)
             currenciesInteractor.savePrimaryCurrency(currency)
         }
     }
 
+    fun onCurrencyClick(currency: Currency) {
+        settingsAnalytics.trackChooseCurrencyClick(currency)
+    }
+
+    fun onCategorySettingsClick() {
+        settingsAnalytics.trackCategorySettingsClick()
+        viewAction = SettingsScreenAction.OpenCategorySettingsScreen
+    }
+
     fun onSendingUsageDataClick(isEnabled: Boolean) {
-        settingsSheetAnalytics.trackSendingUsageDataSwitchClick(isEnabled)
+        settingsAnalytics.trackSendingUsageDataSwitchClick(isEnabled)
         viewModelScope.launch {
             userInteractor.saveIsAnalyticsEnabled(isEnabled)
         }
     }
 
     fun onSendingUsageDataInfoClick() {
-        settingsSheetAnalytics.trackSendingUsageDataInfoClick()
-        viewAction = SettingsSheetAction.ShowUsageDataInfoDialog
-    }
-
-    fun onCategorySettingsClick(dialogKey: String) {
-        settingsSheetAnalytics.trackCategorySettingsClick()
-        viewAction = SettingsSheetAction.DismissDialog(dialogKey)
-        viewAction = SettingsSheetAction.OpenCategorySettingsScreen
+        settingsAnalytics.trackSendingUsageDataInfoClick()
+        viewAction = SettingsScreenAction.ShowUsageDataInfoDialog
     }
 
     fun onTelegramCommunityClick() {
-        settingsSheetAnalytics.trackTelegramCommunityClick()
-        viewAction = SettingsSheetAction.OpenUri(telegramUri)
-    }
-
-    fun onCurrencyClick(currency: Currency) {
-        settingsSheetAnalytics.trackChooseCurrencyClick(currency)
+        settingsAnalytics.trackTelegramCommunityClick()
+        viewAction = SettingsScreenAction.OpenUri(telegramUri)
     }
 
     fun onCopyUserId() {
-        settingsSheetAnalytics.trackCopyUserIdClick()
-        viewAction = SettingsSheetAction.CopyUserId(
+        settingsAnalytics.trackCopyUserIdClick()
+        viewAction = SettingsScreenAction.CopyUserId(
             userId = userId.value
         )
     }
@@ -74,4 +81,5 @@ class SettingsSheetViewModel(
     companion object {
         private const val telegramUri = "https://t.me/+FFK1aCS6uJs1NTBi"
     }
+
 }
