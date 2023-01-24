@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.presentation.settings_sheet
 
-import com.finance_tracker.finance_tracker.BuildKonfig
+import com.finance_tracker.finance_tracker.core.common.AppBuildConfig
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
@@ -24,7 +24,7 @@ class SettingsSheetViewModel(
 
     val userId = flow { emit(userInteractor.getOrCreateUserId()) }
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = "")
-    val versionName = BuildKonfig.appVersion
+    val versionName = AppBuildConfig.APP_VERSION
 
     init {
         settingsSheetAnalytics.trackScreenOpen()
