@@ -9,6 +9,7 @@ import com.finance_tracker.finance_tracker.presentation.add_category.AddCategory
 import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionScreen
 import com.finance_tracker.finance_tracker.presentation.add_transaction.AddTransactionScreenParams
 import com.finance_tracker.finance_tracker.presentation.category_settings.CategorySettingsScreen
+import com.finance_tracker.finance_tracker.presentation.dashboard_settings.DashboardSettingsScreen
 import com.finance_tracker.finance_tracker.presentation.detail_account.DetailAccountScreen
 import com.finance_tracker.finance_tracker.presentation.settings.SettingsScreen
 import ru.alexgladkov.odyssey.compose.extensions.screen
@@ -49,6 +50,12 @@ fun RootComposeBuilder.navigationGraph() {
     screen(MainNavigationTree.DetailAccount.name) { params ->
         CoinTheme {
             DetailAccountScreen(account = params as Account)
+        }
+    }
+
+    screen(MainNavigationTree.DashboardSettings.name) {
+        CoinTheme {
+            DashboardSettingsScreen()
         }
     }
 
