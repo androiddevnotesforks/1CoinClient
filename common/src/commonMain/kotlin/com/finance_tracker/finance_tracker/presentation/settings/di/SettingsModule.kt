@@ -5,7 +5,7 @@ import com.finance_tracker.finance_tracker.presentation.settings.analytics.Setti
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
-internal val settingsScreenModule = module {
+internal val settingsModule = module {
     factoryOf(::SettingsScreenViewModel)
     factoryOf(::SettingsAnalytics)
 }

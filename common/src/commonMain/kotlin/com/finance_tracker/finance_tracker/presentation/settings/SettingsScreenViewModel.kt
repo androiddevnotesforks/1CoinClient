@@ -22,6 +22,9 @@ class SettingsScreenViewModel(
     private val _userEmail = MutableStateFlow("")
     val userEmail = _userEmail.asStateFlow()
 
+    private val _isUserAuthorized = MutableStateFlow(false)
+    val isUserAuthorized = _isUserAuthorized.asStateFlow()
+
     val chosenCurrency = currenciesInteractor.getPrimaryCurrencyFlow()
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = Currency.default)
 

@@ -2,9 +2,10 @@ package com.finance_tracker.finance_tracker.presentation.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -50,6 +51,7 @@ fun SettingsScreen() {
 
         Column(
             modifier = Modifier
+                .verticalScroll(rememberScrollState())
                 .fillMaxWidth()
                 .navigationBarsPadding(),
         ) {
@@ -57,8 +59,6 @@ fun SettingsScreen() {
             SettingsScreenTopBar(
                 onBackClick = viewModel::onBackClick
             )
-
-            val userEmail = viewModel.userEmail
 
             Text(
                 modifier = Modifier
@@ -68,23 +68,20 @@ fun SettingsScreen() {
                     ),
                 text = stringResource(MR.strings.settings_my_profile),
                 style = CoinTheme.typography.subtitle2_medium,
-                color = CoinTheme.color.content.copy(TextColorFloat)
+                color = CoinTheme.color.content.copy(alpha = TextColorFloat)
             )
 
+            val userEmail by viewModel.userEmail.collectAsState()
+            val isUserAuthorized by viewModel.isUserAuthorized.collectAsState()
+
             SettingsMyProfileItem(
-                modifier = Modifier
-                    .padding(
-                        top = 28.dp,
-                        start = 16.dp,
-                        end = 16.dp
-                    ),
-                userEmail = userEmail.value
+                userEmail = userEmail,
+                isUserAuthorized = isUserAuthorized,
             )
 
             Divider(
                 modifier = Modifier
                     .padding(
-                        top = 24.dp,
                         start = 16.dp,
                         end = 16.dp
                     )
@@ -100,7 +97,7 @@ fun SettingsScreen() {
                     ),
                 text = stringResource(MR.strings.settings_configuration),
                 style = CoinTheme.typography.subtitle2_medium,
-                color = CoinTheme.color.content.copy(TextColorFloat)
+                color = CoinTheme.color.content.copy(alpha = TextColorFloat)
             )
 
             val chosenCurrency by viewModel.chosenCurrency.collectAsState()
@@ -138,7 +135,7 @@ fun SettingsScreen() {
                     ),
                 text = stringResource(MR.strings.settings_other),
                 style = CoinTheme.typography.subtitle2_medium,
-                color = CoinTheme.color.content.copy(TextColorFloat)
+                color = CoinTheme.color.content.copy(alpha = TextColorFloat)
             )
 
             val isSendingUsageDataEnabled by viewModel.isSendingUsageDataEnabled.collectAsState()
@@ -155,9 +152,8 @@ fun SettingsScreen() {
                 onClick = viewModel::onTelegramCommunityClick
             )
 
-            Spacer(modifier = Modifier.weight(1f))
-
             val userId by viewModel.userId.collectAsState()
+
             SettingsVersionAndUserIdInfo(
                 versionName = viewModel.versionName,
                 userId = userId,

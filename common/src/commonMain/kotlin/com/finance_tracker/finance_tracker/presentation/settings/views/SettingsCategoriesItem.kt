@@ -25,7 +25,7 @@ internal fun SettingsCategoriesItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick.invoke() }
-            .padding(vertical = 12.dp),
+            .padding(vertical = 12.dp)
     ) {
         Icon(
             painter = rememberVectorPainter(id = "ic_categories"),

@@ -68,10 +68,6 @@ fun handleAction(
             navController.switchTab(TabsNavigationTree.Transactions.ordinal)
         }
         HomeAction.ShowSettingsDialog -> {
-            /*val modalController = rootController.findModalController()
-            modalController.present(DialogConfigurations.bottomSheet) { dialogKey ->
-                SettingsSheet(dialogKey = dialogKey)
-            }*/
             val navController = rootController.findRootController()
             navController.push(MainNavigationTree.Settings.name)
         }
