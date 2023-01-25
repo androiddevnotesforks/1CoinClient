@@ -256,7 +256,7 @@ private fun DeleteTransactionDialog(
     onDeleteTransactionClick: (Transaction) -> Unit
 ) {
     DeleteDialog(
-        titleEntity = stringResource(MR.strings.transaction),
+        titleEntity = stringResource(MR.strings.deleting_transaction),
         onCancelClick = {
             modalNavController.popBackStack(key, animate = false)
         },

@@ -130,7 +130,7 @@
     <string name="add_transaction_btn_edit">Edit</string>
 
     <!-- Home -->
-    <string name="home_topbar_text">Total balance</string>
+    <string name="home_topbar_text">Total Balance</string>
     <string name="home_my_accounts">My Accounts</string>
     <string name="home_last_transactions">Last Transactions</string>
     <string name="home_add_account">Add Account</string>
@@ -197,6 +197,15 @@
     <string name="add_transaction">Add Transaction</string>
     <string name="add_account">Add Account</string>
     <string name="add_category">Add Category</string>
+
+    <!-- Widget settings -->
+    <string name="widget_settings_title">Widgets Settings</string>
+    <string name="widget_settings_item_my_accounts">My Accounts</string>
+    <string name="widget_settings_item_expense_trend">Expense Trend</string>
+    <string name="widget_settings_item_income_trend">Income Trend</string>
+    <string name="widget_settings_item_expense_by_category">Expense by Category</string>
+    <string name="widget_settings_item_income_by_category">Income by Category</string>
+    <string name="widget_settings_item_last_transactions">Last Transactions</string>
 
     <!-- Settings -->
     <string name="settings_topbar_text">Settings</string>

@@ -6,6 +6,7 @@ import com.finance_tracker.finance_tracker.data.database.DatabaseInitializer
 import com.finance_tracker.finance_tracker.data.settings.AccountSettings
 import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.DashboardSettingsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -20,6 +21,7 @@ import kotlin.coroutines.CoroutineContext
 class AppInitializer(
     private val userInteractor: UserInteractor,
     private val categoriesInteractor: CategoriesInteractor,
+    private val dashboardSettingsInteractor: DashboardSettingsInteractor,
     private val accountsInteractor: AccountsInteractor,
     private val accountSettings: AccountSettings,
     private val analyticsTracker: AnalyticsTracker,
@@ -37,6 +39,7 @@ class AppInitializer(
         initLogger()
         initDatabase()
         initAnalytics()
+        updateDashboardItems()
     }
 
     private fun initLogger() {
@@ -58,6 +61,12 @@ class AppInitializer(
                 .distinctUntilChanged()
                 .onEach { analyticsTracker.setUserProperty(UserPropAccountsCount, it) }
                 .launchIn(this)
+        }
+    }
+
+    private fun updateDashboardItems() {
+        launch {
+            dashboardSettingsInteractor.updateDashboardItems()
         }
     }
 

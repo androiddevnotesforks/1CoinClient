@@ -13,13 +13,9 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        getByName("debug") {
-            storeFile =
-                file("/Users/vitalyperyatin/AndroidStudioProjects/FinanceTracker/1coin-debug.keystore")
-            storePassword = "00000000"
-            keyAlias = "1coin"
-            keyPassword = "00000000"
+    buildTypes {
+        create("staging") {
+            initWith(getByName("release"))
         }
     }
     namespace = "com.finance_tracker.finance_tracker.common"
