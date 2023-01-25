@@ -185,7 +185,7 @@
     <!-- Analytics -->
     <string name="expense_analytics_trend">Тренд расходов</string>
     <string name="income_analytics_trend">Тренд доходов</string>
-    <string name="analytics_by_category">%s по категории</string>
+    <string name="analytics_by_category">%s по\u00A0категориям</string>
     <string name="analytics_make_first_transactions">Нет операций за\u00A0выбранный период</string>
 
     <!-- Detail account -->
@@ -195,5 +195,14 @@
     <string name="add_transaction">Добавить операцию</string>
     <string name="add_account">Добавить счет</string>
     <string name="add_category">Добавить категорию</string>
+
+    <!-- Widget settings -->
+    <string name="widget_settings_title">Настройка виджетов</string>
+    <string name="widget_settings_item_my_accounts">Мои счета</string>
+    <string name="widget_settings_item_expense_trend">Тренд расходов</string>
+    <string name="widget_settings_item_income_trend">Тренд доходов</string>
+    <string name="widget_settings_item_expense_by_category">Расходы по\u00A0категориям</string>
+    <string name="widget_settings_item_income_by_category">Доходы по\u00A0категориям</string>
+    <string name="widget_settings_item_last_transactions">Последние операции</string>
 
 </resources>

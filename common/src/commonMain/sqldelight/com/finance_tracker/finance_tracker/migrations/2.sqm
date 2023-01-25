@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS DashboardItemsEntity (
+CREATE TABLE IF NOT EXISTS DashboardWidgetEntity (
     id INTEGER NOT NULL PRIMARY KEY,
-    isEnabled INTEGER AS Boolean DEFAULT 0 NOT NULL
+    isEnabled INTEGER AS Boolean DEFAULT 0 NOT NULL,
+    position INTEGER AS Int NOT NULL
 );
