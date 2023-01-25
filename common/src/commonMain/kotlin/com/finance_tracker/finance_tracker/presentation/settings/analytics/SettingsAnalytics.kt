@@ -1,11 +1,15 @@
-package com.finance_tracker.finance_tracker.presentation.settings_sheet.analytics
+package com.finance_tracker.finance_tracker.presentation.settings.analytics
 
 import com.finance_tracker.finance_tracker.core.analytics.BaseAnalytics
 import com.finance_tracker.finance_tracker.domain.models.Currency
 
-class SettingsSheetAnalytics: BaseAnalytics() {
+class SettingsAnalytics: BaseAnalytics() {
 
-    override val screenName = "SettingsSheet"
+    override val screenName = "SettingsScreen"
+
+    fun trackBackClick() {
+        trackClick(eventName = "Back")
+    }
 
     fun trackMainCurrencySelect(currency: Currency) {
         trackSelect(
@@ -48,5 +52,9 @@ class SettingsSheetAnalytics: BaseAnalytics() {
 
     fun trackSendingUsageDataInfoClick() {
         trackClick(eventName = "SendingUsageDataInfo")
+    }
+
+    fun trackDashboardSettingsClick() {
+        trackClick(eventName = "DashboardSettings")
     }
 }

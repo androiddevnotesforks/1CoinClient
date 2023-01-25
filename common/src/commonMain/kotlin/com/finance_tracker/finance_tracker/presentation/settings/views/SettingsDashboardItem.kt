@@ -1,11 +1,11 @@
-package com.finance_tracker.finance_tracker.presentation.settings_sheet.views
+package com.finance_tracker.finance_tracker.presentation.settings.views
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,9 +17,9 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-internal fun SettingSheetTelegramChatItem(
+internal fun SettingsDashboardItem(
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
@@ -27,8 +27,8 @@ internal fun SettingSheetTelegramChatItem(
             .clickable { onClick.invoke() }
             .padding(vertical = 12.dp),
     ) {
-        Image(
-            painter = rememberVectorPainter("telegram"),
+        Icon(
+            painter = rememberVectorPainter(id = "ic_dashboard"),
             contentDescription = null,
             modifier = Modifier
                 .padding(
@@ -37,13 +37,13 @@ internal fun SettingSheetTelegramChatItem(
                 )
                 .size(24.dp)
                 .align(Alignment.CenterVertically),
+            tint = CoinTheme.color.content
         )
         Text(
-            text = stringResource(MR.strings.settings_telegram_community),
+            text = stringResource(MR.strings.settings_dashboard),
             modifier = Modifier
-                .padding(end = 8.dp)
                 .align(Alignment.CenterVertically),
-            style = CoinTheme.typography.body1
+            style = CoinTheme.typography.body1_medium
         )
     }
 }

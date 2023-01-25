@@ -1,6 +1,5 @@
-package com.finance_tracker.finance_tracker.presentation.settings_sheet.views
+package com.finance_tracker.finance_tracker.presentation.settings.views
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,33 +16,30 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-internal fun SettingsSheetCategorySettingsItem(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
+internal fun SettingsPrivacyItem(modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
+            .padding(
+                vertical = 12.dp,
+                horizontal = 16.dp
+            )
             .fillMaxWidth()
-            .clickable { onClick.invoke() }
-            .padding(vertical = 12.dp),
     ) {
         Icon(
-            painter = rememberVectorPainter(id = "ic_categories_settings"),
+            painter = rememberVectorPainter(id = "ic_privacy"),
             contentDescription = null,
             modifier = Modifier
                 .padding(
-                    start = 16.dp,
                     end = 8.dp
                 )
                 .size(24.dp)
                 .align(Alignment.CenterVertically),
-            tint = CoinTheme.color.content.copy(alpha = 0.6f)
+            tint = CoinTheme.color.content
         )
         Text(
-            text = stringResource(MR.strings.settings_categories),
-            modifier = Modifier
-                .align(Alignment.CenterVertically),
-            style = CoinTheme.typography.body1
+            text = stringResource(MR.strings.settings_privacy),
+            modifier = Modifier.align(Alignment.CenterVertically),
+            style = CoinTheme.typography.body1_medium
         )
     }
 }

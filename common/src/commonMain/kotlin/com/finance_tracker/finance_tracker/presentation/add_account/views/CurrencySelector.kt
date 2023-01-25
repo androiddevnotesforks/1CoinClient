@@ -54,15 +54,15 @@ internal fun CurrencySelector(
     ) {
         Text(
             text = "${selectedCurrency.code}(${selectedCurrency.symbol})",
-            color = CoinTheme.color.content,
-            style = CoinTheme.typography.body1
+            color = CoinTheme.color.primary,
+            style = CoinTheme.typography.body1_medium
         )
         Icon(
             modifier = Modifier
                 .size(24.dp),
             painter = rememberVectorPainter("ic_expand_more_small"),
             contentDescription = null,
-            tint = CoinTheme.color.content
+            tint = CoinTheme.color.primary
         )
     }
 

@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.settings_sheet.views
+package com.finance_tracker.finance_tracker.presentation.settings.views
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -22,7 +22,7 @@ import dev.icerock.moko.resources.compose.stringResource
 
 @Suppress("UnusedPrivateMember")
 @Composable
-internal fun SettingsSheetSendingUsageDataItem(
+internal fun SettingsSendingUsageDataItem(
     isEnabled: Boolean,
     modifier: Modifier = Modifier,
     onChange: (isEnabled: Boolean) -> Unit = {},
@@ -34,7 +34,7 @@ internal fun SettingsSheetSendingUsageDataItem(
             .padding(vertical = 12.dp),
     ) {
         Icon(
-            painter = rememberVectorPainter(id = "ic_usage_sending"),
+            painter = rememberVectorPainter(id = "ic_data_sending"),
             contentDescription = null,
             modifier = Modifier
                 .padding(
@@ -49,7 +49,7 @@ internal fun SettingsSheetSendingUsageDataItem(
             text = stringResource(MR.strings.settings_sending_usage_data),
             modifier = Modifier
                 .align(Alignment.CenterVertically),
-            style = CoinTheme.typography.body1
+            style = CoinTheme.typography.body1_medium
         )
         Icon(
             painter = rememberVectorPainter(id = "ic_more_info"),

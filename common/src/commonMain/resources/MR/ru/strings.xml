@@ -139,17 +139,6 @@
     <string name="accounts_screen_add_account">Добавить счет</string>
     <string name="accounts_screen_empty">Нет счетов</string>
 
-    <!-- Settings -->
-    <string name="settings_top_text">Настройки</string>
-    <string name="settings_main_currency">Основная валюта</string>
-    <string name="settings_categories">Настройка категорий</string>
-    <string name="settings_telegram_community">Telegram сообщество</string>
-    <string name="settings_sending_usage_data">Отправка аналитики</string>
-    <string name="sending_usage_data_description_1">Помогите улучшить пользовательский опыт с\u00A0помощью автоматической отправки данных использования приложения.</string>
-    <string name="sending_usage_data_description_2">Мы не\u00A0собираем Личную\u00A0информацию или\u00A0информацию о\u00A0количественном значении денежных расходов.\n\nБезопасность ваших личных данных — один из\u00A0наших главных приоритетов!</string>
-    <string name="version">Версия:</string>
-    <string name="user_id">ID пользователя:</string>
-
     <!-- Transactions -->
     <string name="transactions_today">Сегодня</string>
     <string name="transactions_yesterday">Вчера</string>
@@ -204,5 +193,22 @@
     <string name="widget_settings_item_expense_by_category">Расходы по\u00A0категориям</string>
     <string name="widget_settings_item_income_by_category">Доходы по\u00A0категориям</string>
     <string name="widget_settings_item_last_transactions">Последние операции</string>
+
+    <!-- Settings -->
+    <string name="settings_topbar_text">Настройки</string>
+    <string name="settings_my_profile">Мой профиль</string>
+    <string name="settings_authorization">Авторизация</string>
+    <string name="settings_configuration">Конфигурация</string>
+    <string name="settings_other">Прочее</string>
+    <string name="settings_privacy">Конфиденциальность</string>
+    <string name="settings_dashboard">Настройки панели</string>
+    <string name="settings_main_currency">Основная валюта</string>
+    <string name="settings_categories">Настройка категорий</string>
+    <string name="settings_telegram_community">Telegram сообщество</string>
+    <string name="settings_sending_usage_data">Отправка аналитики</string>
+    <string name="sending_usage_data_description_1">Помогите улучшить пользовательский опыт с\u00A0помощью автоматической отправки данных использования приложения.</string>
+    <string name="sending_usage_data_description_2">Мы не\u00A0собираем Личную\u00A0информацию или\u00A0информацию о\u00A0количественном значении денежных расходов.\n\nБезопасность ваших личных данных — один из\u00A0наших главных приоритетов!</string>
+    <string name="version">Версия:</string>
+    <string name="user_id">ID пользователя:</string>
 
 </resources>

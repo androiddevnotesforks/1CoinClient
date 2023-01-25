@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.presentation.settings_sheet.views
+package com.finance_tracker.finance_tracker.presentation.settings.views
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
