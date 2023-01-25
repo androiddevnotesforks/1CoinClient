@@ -6,6 +6,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.animateScrollBy
 import androidx.compose.foundation.gestures.detectDragGesturesAfterLongPress
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
@@ -20,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.Job
@@ -32,8 +34,12 @@ private const val AnimateScrollValue = 1.3f
 internal fun <T : Any> LazyDragColumn(
     items: List<T>,
     onSwap: (Int, Int) -> Unit,
-    contentPaddingValues: PaddingValues,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(0.dp),
+    reverseLayout: Boolean = false,
+    verticalArrangement: Arrangement.Vertical =
+        if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
+    itemShape: (index: Int) -> Shape = { RoundedCornerShape(0.dp) },
     dragItemContent: @Composable (LazyItemScope.(index : Int, item: T) -> Unit) = { _, _ -> },
 ) {
     var overscrollJob by remember { mutableStateOf<Job?>(null) }
@@ -79,7 +85,8 @@ internal fun <T : Any> LazyDragColumn(
                 )
             },
         state = listState,
-        contentPadding = contentPaddingValues
+        contentPadding = contentPadding,
+        verticalArrangement = verticalArrangement
     ) {
         itemsIndexed(items = items) { index, item ->
             DraggableItem(
@@ -89,25 +96,7 @@ internal fun <T : Any> LazyDragColumn(
                 val elevation by animateDpAsState(if (isDragging) 4.dp else 0.dp)
                 Card(
                     elevation = elevation,
-                    shape = when (index) {
-                        0 -> {
-                            RoundedCornerShape(
-                                topStart = 12.dp,
-                                topEnd = 12.dp,
-                            )
-                        }
-
-                        items.lastIndex -> {
-                            RoundedCornerShape(
-                                bottomStart = 12.dp,
-                                bottomEnd = 12.dp
-                            )
-                        }
-
-                        else -> {
-                            RoundedCornerShape(0.dp)
-                        }
-                    },
+                    shape = itemShape.invoke(index),
                 ) {
                     dragItemContent(index, item)
                 }

@@ -1,6 +1,5 @@
 package com.finance_tracker.finance_tracker.presentation.analytics
 
-import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
@@ -34,10 +33,6 @@ class AnalyticsViewModel(
 
     fun onScreenComposed() {
         monthTxsByCategoryDelegate.updateMonthTxsByCategory()
-    }
-
-    fun onYearMonthSelect(yearMonth: YearMonth) {
-        monthTxsByCategoryDelegate.onMonthSelect(yearMonth)
     }
 
     fun onTransactionTypeSelect(transactionTypeTab: TransactionTypeTab) {
