@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS DashboardWidgetEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    isEnabled INTEGER AS Boolean DEFAULT 0 NOT NULL,
+    position INTEGER AS Int NOT NULL
+);
+
+getDashboardWidgets:
+SELECT * FROM DashboardWidgetEntity;
+
+insertNewDashboardWidget:
+INSERT OR IGNORE
+INTO DashboardWidgetEntity
+VALUES (?, ?, ?);
+
+deleteDashboardWidgetById:
+DELETE FROM DashboardWidgetEntity
+WHERE id = :id;
+
+updateDashboardWidgetEnabled:
+UPDATE DashboardWidgetEntity SET isEnabled = :isEnabled
+WHERE id = :id;
+
+updateDashboardWidgetPosition:
+UPDATE DashboardWidgetEntity SET position = :position
+WHERE id = :id;

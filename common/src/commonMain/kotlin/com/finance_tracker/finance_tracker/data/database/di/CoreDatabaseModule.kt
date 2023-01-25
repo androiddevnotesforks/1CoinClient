@@ -24,7 +24,7 @@ internal val coreDatabaseModule = module {
     factory { get<AppDatabase>().accountsEntityQueries }
     factory { get<AppDatabase>().categoriesEntityQueries }
     factory { get<AppDatabase>().currencyRatesEntityQueries }
-    factory { get<AppDatabase>().dashboardItemsEntityQueries }
+    factory { get<AppDatabase>().dashboardWidgetEntityQueries }
 }
 
 private fun provideAppDatabase(driverFactory: DriverFactory): AppDatabase {
