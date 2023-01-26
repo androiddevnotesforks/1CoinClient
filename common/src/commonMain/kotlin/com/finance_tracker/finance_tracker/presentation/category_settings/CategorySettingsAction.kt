@@ -53,7 +53,7 @@ fun handleAction(
             val modalNavController = rootController.findModalController()
             modalNavController.present(DialogConfigurations.alert) { key ->
                 DeleteDialog(
-                    titleEntity = stringResource(MR.strings.category),
+                    titleEntity = stringResource(MR.strings.deleting_category),
                     onCancelClick = { onCancelClick.invoke(action.category, key) },
                     onDeleteClick = { onConfirmDeleteClick.invoke(action.category, key) }
                 )

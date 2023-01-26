@@ -5,11 +5,10 @@
     <string name="btn_cancel">Cancel</string>
     <string name="btn_delete">Delete</string>
     <string name="dialog_body_delete">Are you sure you want to\u00A0delete?</string>
-    <string name="dialog_title_delete">Deleting</string>
-    <string name="transaction">Transaction</string>
-    <string name="category">Category</string>
-    <string name="transactions">Transactions</string>
-    <string name="account">Account</string>
+    <string name="deleting_transaction">Deleting transaction</string>
+    <string name="deleting_category">Deleting category</string>
+    <string name="deleting_transactions">Deleting transactions</string>
+    <string name="deleting_account">Deleting account</string>
     <string name="tab_income">Income</string>
     <string name="tab_expense">Expense</string>
     <string name="total">Total</string>
@@ -130,7 +129,7 @@
     <string name="add_transaction_btn_edit">Edit</string>
 
     <!-- Home -->
-    <string name="home_topbar_text">Total balance</string>
+    <string name="home_topbar_text">Total Balance</string>
     <string name="home_my_accounts">My Accounts</string>
     <string name="home_last_transactions">Last Transactions</string>
     <string name="home_add_account">Add Account</string>

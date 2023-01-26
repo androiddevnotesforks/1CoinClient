@@ -38,7 +38,7 @@ android {
         applicationId = "com.finance_tracker.finance_tracker"
         minSdk = 26
         targetSdk = 33
-        versionCode = 5
+        versionCode = 6
         versionName = rootProject.extra["appVersion"] as String
         signingConfig = signingConfigs.getByName("debug")
         val appName = rootProject.extra["appName"] as String
@@ -48,6 +48,8 @@ android {
     buildTypes {
         debug {
             isDebuggable = true
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
         }
         release {
             isMinifyEnabled = true
@@ -56,6 +58,11 @@ android {
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs.getByName("release")
+        }
+        create("staging") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".staging"
+            versionNameSuffix = "-staging"
         }
     }
     java {

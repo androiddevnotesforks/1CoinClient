@@ -1,0 +1,3 @@
+package com.finance_tracker.finance_tracker.presentation.dashboard_settings
+
+sealed interface DashboardSettingsAction
