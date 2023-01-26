@@ -100,7 +100,10 @@
 
 ## Download
 - Windows: -
-- MacOS: [1Coin (1.0.2-beta)](https://drive.google.com/file/d/1_vID3aDrI8W_NvvN5zoRhqesrhvmsWi5/view?usp=sharing)
+- MacOS: 
+  - [1Coin.app.zip (Binary)](https://github.com/1Coin-FinanceTracker/1CoinClient/releases)
 - Linux: -
-- Android: [1Coin (PlayMarket)](https://play.google.com/store/apps/details?id=com.finance_tracker.finance_tracker)
-- iOS: <i>In developing</i>
+- Android:
+  - [1Coin (PlayMarket)](https://play.google.com/store/apps/details?id=com.finance_tracker.finance_tracker)
+  - [1Coin.apk (Binary)](https://github.com/1Coin-FinanceTracker/1CoinClient/releases)
+- iOS: _In developing_
