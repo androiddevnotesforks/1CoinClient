@@ -17,7 +17,7 @@ object AppBuildConfig {
 
     val appVersion: String
         get() {
-            val suffix = if (BuildInfo.buildType == BuildType.Release) {
+            val suffix = if (isReleaseBuild) {
                 ""
             } else {
                 "-${BuildInfo.buildType.buildTypeName}"
