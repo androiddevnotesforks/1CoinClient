@@ -406,9 +406,10 @@
     <string name="version">Version:</string>
     <string name="user_id">UserID:</string>
 
-
-
-
-
-
+    <!-- Welcome -->
+    <string name="welcome_header">Simple. Fast. Secure.</string>
+    <string name="welcome_subheader">Take control of\u00A0your finances</string>
+    <string name="welcome_continue_google">Continue with\u00A0Google</string>
+    <string name="welcome_continue_email">Continue with\u00A0E-mail</string>
+    <string name="welcome_skip">Skip</string>
 </resources>
