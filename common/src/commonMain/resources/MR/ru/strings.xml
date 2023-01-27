@@ -211,4 +211,11 @@
     <string name="version">Версия:</string>
     <string name="user_id">ID пользователя:</string>
 
+    <!-- Welcome -->
+    <string name="welcome_header">Простой. Быстрый. Безопасный.</string>
+    <string name="welcome_subheader">Возьми под\u00A0контроль свои финансы</string>
+    <string name="welcome_continue_google">Продолжить с\u00A0помощью Google</string>
+    <string name="welcome_continue_email">Продолжить с\u00A0помощью почты</string>
+    <string name="welcome_skip">Пропустить</string>
+
 </resources>

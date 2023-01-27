@@ -22,6 +22,7 @@ import com.finance_tracker.finance_tracker.presentation.home.di.homeModule
 import com.finance_tracker.finance_tracker.presentation.settings.di.settingsModule
 import com.finance_tracker.finance_tracker.presentation.tabs_navigation.di.tabsNavigationModule
 import com.finance_tracker.finance_tracker.presentation.transactions.di.transactionsModule
+import com.finance_tracker.finance_tracker.presentation.welcome.di.welcomeModule
 
 fun commonModules() = listOf(
     coreModule,
@@ -49,4 +50,5 @@ fun featureModules() = listOf(
     tabsNavigationModule,
     transactionsModule,
     settingsModule,
+    welcomeModule
 )
