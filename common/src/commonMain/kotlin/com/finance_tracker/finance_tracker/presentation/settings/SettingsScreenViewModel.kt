@@ -1,7 +1,8 @@
 package com.finance_tracker.finance_tracker.presentation.settings
 
-import com.finance_tracker.finance_tracker.BuildKonfig
+import com.finance_tracker.finance_tracker.core.common.AppBuildConfig
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
 import com.finance_tracker.finance_tracker.domain.models.Currency
@@ -17,6 +18,7 @@ class SettingsScreenViewModel(
     private val currenciesInteractor: CurrenciesInteractor,
     private val userInteractor: UserInteractor,
     private val settingsAnalytics: SettingsAnalytics,
+    val featuresManager: FeaturesManager
 ): BaseViewModel<SettingsScreenAction>() {
 
     private val _userEmail = MutableStateFlow("")
@@ -34,7 +36,7 @@ class SettingsScreenViewModel(
     val userId = flow { emit(userInteractor.getOrCreateUserId()) }
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = "")
 
-    val versionName = BuildKonfig.appVersion
+    val versionName = AppBuildConfig.appVersion
 
     fun onBackClick() {
         settingsAnalytics.trackBackClick()
