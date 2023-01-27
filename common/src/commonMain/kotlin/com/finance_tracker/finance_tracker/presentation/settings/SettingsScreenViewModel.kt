@@ -74,6 +74,11 @@ class SettingsScreenViewModel(
         viewAction = SettingsScreenAction.OpenUri(telegramUri)
     }
 
+    fun onPrivacyClick() {
+        settingsAnalytics.trackPrivacyClick()
+        viewAction = SettingsScreenAction.OpenPrivacyScreen
+    }
+
     fun onCopyUserId() {
         settingsAnalytics.trackCopyUserIdClick()
         viewAction = SettingsScreenAction.CopyUserId(

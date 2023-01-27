@@ -1,13 +1,11 @@
 package com.finance_tracker.finance_tracker.presentation.settings
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Divider
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,22 +17,21 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
-import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsCategoriesItem
-import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsDashboardItem
-import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsMainCurrencyItem
-import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsMyProfileItem
-import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsPrivacyItem
+import com.finance_tracker.finance_tracker.presentation.settings.views.ListGroupHeader
+import com.finance_tracker.finance_tracker.presentation.settings.views.ListItemDivider
 import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsScreenTopBar
-import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsSendingUsageDataItem
-import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsTelegramChatItem
 import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsVersionAndUserIdInfo
+import com.finance_tracker.finance_tracker.presentation.settings.views.items.SettingsCategoriesItem
+import com.finance_tracker.finance_tracker.presentation.settings.views.items.SettingsDashboardItem
+import com.finance_tracker.finance_tracker.presentation.settings.views.items.SettingsMainCurrencyItem
+import com.finance_tracker.finance_tracker.presentation.settings.views.items.SettingsMyProfileItem
+import com.finance_tracker.finance_tracker.presentation.settings.views.items.SettingsPrivacyItem
+import com.finance_tracker.finance_tracker.presentation.settings.views.items.SettingsSendingUsageDataItem
+import com.finance_tracker.finance_tracker.presentation.settings.views.items.SettingsTelegramChatItem
 import dev.icerock.moko.resources.compose.stringResource
 
-private const val TextColorFloat = 0.3f
-
 @Composable
-fun SettingsScreen() {
+internal fun SettingsScreen() {
     StoredViewModel<SettingsScreenViewModel> { viewModel ->
 
         val uriHandler = LocalUriHandler.current
@@ -49,117 +46,78 @@ fun SettingsScreen() {
             )
         }
 
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .fillMaxWidth()
-                .navigationBarsPadding(),
-        ) {
-
+        Column {
             SettingsScreenTopBar(
                 onBackClick = viewModel::onBackClick
             )
-
-            Text(
+            Column(
                 modifier = Modifier
-                    .padding(
-                        start = 16.dp,
-                        top = 32.dp
-                    ),
-                text = stringResource(MR.strings.settings_my_profile),
-                style = CoinTheme.typography.subtitle2_medium,
-                color = CoinTheme.color.content.copy(alpha = TextColorFloat)
-            )
-
-            val userEmail by viewModel.userEmail.collectAsState()
-            val isUserAuthorized by viewModel.isUserAuthorized.collectAsState()
-
-            SettingsMyProfileItem(
-                userEmail = userEmail,
-                isUserAuthorized = isUserAuthorized,
-            )
-
-            Divider(
-                modifier = Modifier
-                    .padding(
-                        start = 16.dp,
-                        end = 16.dp
-                    )
+                    .verticalScroll(rememberScrollState())
                     .fillMaxWidth()
-                    .background(CoinTheme.color.dividers),
-            )
+                    .navigationBarsPadding(),
+            ) {
+                Spacer(modifier = Modifier.height(12.dp))
 
-            Text(
-                modifier = Modifier
-                    .padding(
-                        top = 24.dp,
-                        start = 16.dp
-                    ),
-                text = stringResource(MR.strings.settings_configuration),
-                style = CoinTheme.typography.subtitle2_medium,
-                color = CoinTheme.color.content.copy(alpha = TextColorFloat)
-            )
+                ListGroupHeader(
+                    text = stringResource(MR.strings.settings_my_profile)
+                )
 
-            val chosenCurrency by viewModel.chosenCurrency.collectAsState()
+                val userEmail by viewModel.userEmail.collectAsState()
+                val isUserAuthorized by viewModel.isUserAuthorized.collectAsState()
+                SettingsMyProfileItem(
+                    userEmail = userEmail,
+                    isUserAuthorized = isUserAuthorized,
+                )
 
-            SettingsMainCurrencyItem(
-                selectedCurrency = chosenCurrency,
-                onCurrencySelect = viewModel::onCurrencySelect,
-                onCurrencyClick = viewModel::onCurrencyClick
-            )
+                ListItemDivider()
 
-            SettingsCategoriesItem(
-                onClick = viewModel::onCategorySettingsClick
-            )
+                ListGroupHeader(
+                    text = stringResource(MR.strings.settings_configuration)
+                )
 
-            SettingsDashboardItem(
-                onClick = viewModel::onDashboardSettingsClick
-            )
+                val chosenCurrency by viewModel.chosenCurrency.collectAsState()
+                SettingsMainCurrencyItem(
+                    selectedCurrency = chosenCurrency,
+                    onCurrencySelect = viewModel::onCurrencySelect,
+                    onCurrencyClick = viewModel::onCurrencyClick
+                )
 
-            Divider(
-                modifier = Modifier
-                    .padding(
-                        top = 16.dp,
-                        start = 16.dp,
-                        end = 16.dp
-                    )
-                    .fillMaxWidth()
-                    .background(CoinTheme.color.dividers),
-            )
+                SettingsCategoriesItem(
+                    onClick = viewModel::onCategorySettingsClick
+                )
 
-            Text(
-                modifier = Modifier
-                    .padding(
-                        top = 24.dp,
-                        start = 16.dp
-                    ),
-                text = stringResource(MR.strings.settings_other),
-                style = CoinTheme.typography.subtitle2_medium,
-                color = CoinTheme.color.content.copy(alpha = TextColorFloat)
-            )
+                SettingsDashboardItem(
+                    onClick = viewModel::onDashboardSettingsClick
+                )
 
-            val isSendingUsageDataEnabled by viewModel.isSendingUsageDataEnabled.collectAsState()
+                ListItemDivider()
 
-            SettingsSendingUsageDataItem(
-                isEnabled = isSendingUsageDataEnabled,
-                onChange = viewModel::onSendingUsageDataClick,
-                onInfoClick = viewModel::onSendingUsageDataInfoClick
-            )
+                ListGroupHeader(
+                    text = stringResource(MR.strings.settings_other)
+                )
 
-            SettingsPrivacyItem()
+                val isSendingUsageDataEnabled by viewModel.isSendingUsageDataEnabled.collectAsState()
+                SettingsSendingUsageDataItem(
+                    isEnabled = isSendingUsageDataEnabled,
+                    onChange = viewModel::onSendingUsageDataClick,
+                    onInfoClick = viewModel::onSendingUsageDataInfoClick
+                )
 
-            SettingsTelegramChatItem(
-                onClick = viewModel::onTelegramCommunityClick
-            )
+                SettingsPrivacyItem(
+                    onClick = viewModel::onPrivacyClick
+                )
 
-            val userId by viewModel.userId.collectAsState()
+                SettingsTelegramChatItem(
+                    onClick = viewModel::onTelegramCommunityClick
+                )
 
-            SettingsVersionAndUserIdInfo(
-                versionName = viewModel.versionName,
-                userId = userId,
-                onCopyUserId = viewModel::onCopyUserId
-            )
+                val userId by viewModel.userId.collectAsState()
+                SettingsVersionAndUserIdInfo(
+                    versionName = viewModel.versionName,
+                    userId = userId,
+                    onCopyUserId = viewModel::onCopyUserId
+                )
+            }
         }
     }
-
 }

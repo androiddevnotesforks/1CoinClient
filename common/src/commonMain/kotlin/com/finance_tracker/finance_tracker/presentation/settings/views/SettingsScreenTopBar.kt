@@ -12,7 +12,7 @@ import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-fun SettingsScreenTopBar(
+internal fun SettingsScreenTopBar(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit = {},
 ) {
