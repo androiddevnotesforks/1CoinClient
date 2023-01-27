@@ -15,6 +15,7 @@ sealed interface SettingsScreenAction {
     object OpenCategorySettingsScreen: SettingsScreenAction
     object ShowUsageDataInfoDialog: SettingsScreenAction
     object OpenDashboardSettingsScreen: SettingsScreenAction
+    object OpenPrivacyScreen: SettingsScreenAction
     data class OpenUri(val uri: String): SettingsScreenAction
     data class CopyUserId(val userId: String): SettingsScreenAction
 }
@@ -45,6 +46,10 @@ fun handleAction(
                     }
                 )
             }
+        }
+
+        SettingsScreenAction.OpenPrivacyScreen -> {
+            // TODO
         }
 
         is SettingsScreenAction.OpenUri -> {
