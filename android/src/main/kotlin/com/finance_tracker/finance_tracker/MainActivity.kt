@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                 setNavigationContent(
                     configuration = OdysseyConfiguration(
                         canvas = this,
-                        startScreen = StartScreen.Custom(MainNavigationTree.Welcome.name),
+                        startScreen = StartScreen.Custom(MainNavigationTree.Main.name),
                         backgroundColor = CoinTheme.color.background,
                         displayType = DisplayType.EdgeToEdge
                     ),
