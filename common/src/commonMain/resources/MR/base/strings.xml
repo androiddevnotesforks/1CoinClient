@@ -396,7 +396,7 @@
     <string name="settings_configuration">Configuration</string>
     <string name="settings_other">Other</string>
     <string name="settings_privacy">Privacy</string>
-    <string name="settings_dashboard">Dashboard Settings</string>
+    <string name="settings_dashboard">Widgets settings</string>
     <string name="settings_main_currency">Main currency</string>
     <string name="settings_telegram_community">Telegram community</string>
     <string name="settings_categories">Category settings</string>

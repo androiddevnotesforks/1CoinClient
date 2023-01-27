@@ -37,6 +37,10 @@ class SettingsAnalytics: BaseAnalytics() {
         trackClick(eventName = "TelegramCommunity")
     }
 
+    fun trackPrivacyClick() {
+        trackClick(eventName = "Privacy")
+    }
+
     fun trackSendingUsageDataSwitchClick(isEnabled: Boolean) {
         trackSelect(
             eventName = "SendingUsageData",

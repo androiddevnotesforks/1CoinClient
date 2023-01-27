@@ -201,7 +201,7 @@
     <string name="settings_configuration">Конфигурация</string>
     <string name="settings_other">Прочее</string>
     <string name="settings_privacy">Конфиденциальность</string>
-    <string name="settings_dashboard">Настройки панели</string>
+    <string name="settings_dashboard">Настройка виджетов</string>
     <string name="settings_main_currency">Основная валюта</string>
     <string name="settings_categories">Настройка категорий</string>
     <string name="settings_telegram_community">Telegram сообщество</string>
