@@ -412,4 +412,18 @@
     <string name="welcome_continue_google">Continue with\u00A0Google</string>
     <string name="welcome_continue_email">Continue with\u00A0E-mail</string>
     <string name="welcome_skip">Skip</string>
+
+    <!-- Enter email -->
+    <string name="enter_email_title">What\'s you email address?</string>
+    <string name="enter_email_field_email_label">E-mail</string>
+    <string name="enter_email_btn_continue">Continue</string>
+
+    <!-- Enter OTP -->
+    <string name="enter_otp_title">Verify E-mail</string>
+    <string name="enter_otp_subtitle">Enter the\u00A0code sent to\u00A0</string>
+    <string name="enter_otp_btn_create_account">Create account</string>
+    <string name="enter_otp_request_again">Request again</string>
+    <string name="enter_otp_request_again_time">Request again (%ds)</string>
+    <string name="enter_otp_wrong_code">Wrong code</string>
+
 </resources>

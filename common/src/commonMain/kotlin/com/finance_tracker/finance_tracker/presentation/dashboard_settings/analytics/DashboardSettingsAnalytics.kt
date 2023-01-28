@@ -8,10 +8,6 @@ class DashboardSettingsAnalytics: BaseAnalytics() {
 
     override val screenName = "DashboardSettingsScreen"
 
-    fun trackBackClick() {
-        trackClick(eventName = "Back")
-    }
-
     fun trackDashboardItemClick(dashboardWidgetData: DashboardWidgetData) {
         trackClick(
             eventName = "DashboardItem",

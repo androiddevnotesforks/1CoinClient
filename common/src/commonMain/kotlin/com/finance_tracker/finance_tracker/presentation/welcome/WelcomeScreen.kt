@@ -15,6 +15,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
@@ -74,7 +75,8 @@ internal fun WelcomeScreen() {
             Text(
                 text = stringResource(MR.strings.welcome_header),
                 style = CoinTheme.typography.h2,
-                color = CoinTheme.color.primaryVariant
+                color = CoinTheme.color.primaryVariant,
+                textAlign = TextAlign.Center
             )
             Text(
                 modifier = Modifier.padding(top = 8.dp),
@@ -82,7 +84,8 @@ internal fun WelcomeScreen() {
                 style = CoinTheme.typography.body1_medium,
                 color = CoinTheme.color.primaryVariant.copy(
                     alpha = 0.5f
-                )
+                ),
+                textAlign = TextAlign.Center
             )
 
             Spacer(modifier = Modifier.height(54.dp))

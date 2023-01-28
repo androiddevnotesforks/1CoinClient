@@ -214,8 +214,21 @@
     <!-- Welcome -->
     <string name="welcome_header">Простой. Быстрый. Безопасный.</string>
     <string name="welcome_subheader">Возьми под\u00A0контроль свои финансы</string>
-    <string name="welcome_continue_google">Продолжить с\u00A0помощью Google</string>
-    <string name="welcome_continue_email">Продолжить с\u00A0помощью почты</string>
+    <string name="welcome_continue_google">Продолжить с\u00A0 Google</string>
+    <string name="welcome_continue_email">Продолжить с\u00A0 E-mail</string>
     <string name="welcome_skip">Пропустить</string>
+
+    <!-- Enter email -->
+    <string name="enter_email_title">Какой у\u00A0вас E-mail адрес?</string>
+    <string name="enter_email_field_email_label">E-mail</string>
+    <string name="enter_email_btn_continue">Продолжить</string>
+
+    <!-- Enter OTP -->
+    <string name="enter_otp_title">Подтвердите E-mail</string>
+    <string name="enter_otp_subtitle">Введите код, отправленный на\u00A0</string>
+    <string name="enter_otp_btn_create_account">Создать аккаунт</string>
+    <string name="enter_otp_request_again">Отправить код повторно</string>
+    <string name="enter_otp_request_again_time">Отправить код повторно (%dс)</string>
+    <string name="enter_otp_wrong_code">Неверный код</string>
 
 </resources>

@@ -7,10 +7,6 @@ class SettingsAnalytics: BaseAnalytics() {
 
     override val screenName = "SettingsScreen"
 
-    fun trackBackClick() {
-        trackClick(eventName = "Back")
-    }
-
     fun trackMainCurrencySelect(currency: Currency) {
         trackSelect(
             eventName = "MainCurrency",

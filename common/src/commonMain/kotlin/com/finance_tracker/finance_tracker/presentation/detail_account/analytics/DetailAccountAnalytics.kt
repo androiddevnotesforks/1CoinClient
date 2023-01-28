@@ -8,10 +8,6 @@ class DetailAccountAnalytics: BaseAnalytics() {
 
     override val screenName = "DetailAccountScreen"
 
-    fun trackBackClick() {
-        trackClick(eventName = "Back")
-    }
-
     fun trackEditAccountClick(account: Account) {
         trackClick(
             eventName = "EditAccount",
