@@ -205,7 +205,7 @@ private fun ClickableOutlinedTextField(
 }
 
 @Composable
-fun ConfirmationCodeTextField(
+fun CoinConfirmationCodeTextField(
     otpText: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
