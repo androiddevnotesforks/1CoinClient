@@ -17,10 +17,6 @@ class CategorySettingsAnalytics: BaseAnalytics() {
         )
     }
 
-    fun trackBackClick() {
-        trackClick(eventName = "Back")
-    }
-
     fun trackAddCategoryClick() {
         trackClick(eventName = "AddCategory")
     }
