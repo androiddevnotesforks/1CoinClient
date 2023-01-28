@@ -56,4 +56,8 @@ abstract class BaseAnalytics {
             )
         )
     }
+
+    fun trackBackClick() {
+        trackClick(eventName = "Back")
+    }
 }

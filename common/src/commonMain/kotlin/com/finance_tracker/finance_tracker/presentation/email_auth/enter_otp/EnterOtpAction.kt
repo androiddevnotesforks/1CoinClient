@@ -1,31 +1,26 @@
-package com.finance_tracker.finance_tracker.presentation.welcome
+package com.finance_tracker.finance_tracker.presentation.email_auth.enter_otp
 
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
 import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.core.LaunchFlag
 
-sealed interface WelcomeAction {
+sealed interface EnterOtpAction {
 
-    object OpenGoogleAuthScreen: WelcomeAction
-    object OpenEmailAuthScreen: WelcomeAction
-    object OpenMainScreen: WelcomeAction
+    object Close: EnterOtpAction
+
+    object OpenMainScreen: EnterOtpAction
 }
 
 fun handleAction(
-    action: WelcomeAction,
+    action: EnterOtpAction,
     baseLocalsStorage: BaseLocalsStorage
 ) {
     when (action) {
-        WelcomeAction.OpenEmailAuthScreen -> {
-            baseLocalsStorage.rootController.push(
-                screen = MainNavigationTree.EnterEmail.name
-            )
+        EnterOtpAction.Close -> {
+            baseLocalsStorage.rootController.popBackStack()
         }
-        WelcomeAction.OpenGoogleAuthScreen -> {
-            // TODO
-        }
-        WelcomeAction.OpenMainScreen -> {
+        EnterOtpAction.OpenMainScreen -> {
             baseLocalsStorage.rootController.push(
                 screen = MainNavigationTree.Main.name,
                 launchFlag = LaunchFlag.SingleNewTask

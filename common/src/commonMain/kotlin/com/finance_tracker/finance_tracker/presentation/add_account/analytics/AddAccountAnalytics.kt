@@ -17,10 +17,6 @@ class AddAccountAnalytics: BaseAnalytics() {
         trackScreenOpen(properties = properties)
     }
 
-    fun trackBackClick() {
-        trackClick(eventName = "Back")
-    }
-
     fun trackDeleteClick(account: Account) {
         trackClick(
             eventName = "DeleteAccount",

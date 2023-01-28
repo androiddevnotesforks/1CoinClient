@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.domain.di
 
 import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.AuthInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.DashboardSettingsInteractor
@@ -16,4 +17,5 @@ internal val domainModule = module {
     factoryOf(::CategoriesInteractor)
     factoryOf(::AccountsInteractor)
     factoryOf(::DashboardSettingsInteractor)
+    factoryOf(::AuthInteractor)
 }
