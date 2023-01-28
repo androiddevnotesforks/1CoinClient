@@ -17,6 +17,7 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
+import com.finance_tracker.finance_tracker.core.feature_flags.FeatureFlag
 import com.finance_tracker.finance_tracker.presentation.settings.views.ListGroupHeader
 import com.finance_tracker.finance_tracker.presentation.settings.views.ListItemDivider
 import com.finance_tracker.finance_tracker.presentation.settings.views.SettingsScreenTopBar
@@ -86,9 +87,12 @@ internal fun SettingsScreen() {
                     onClick = viewModel::onCategorySettingsClick
                 )
 
-                SettingsDashboardItem(
-                    onClick = viewModel::onDashboardSettingsClick
-                )
+                val featuresManager = viewModel.featuresManager
+                if (featuresManager.isEnabled(FeatureFlag.WidgetsSettings)) {
+                    SettingsDashboardItem(
+                        onClick = viewModel::onDashboardSettingsClick
+                    )
+                }
 
                 ListItemDivider()
 
