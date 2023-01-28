@@ -2,6 +2,9 @@ package com.finance_tracker.finance_tracker.core.common
 
 import com.finance_tracker.finance_tracker.core.analytics.AnalyticsTracker
 import com.finance_tracker.finance_tracker.core.common.logger.LoggerInitializer
+import com.finance_tracker.finance_tracker.core.feature_flags.FeatureFlag
+import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
+import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.data.database.DatabaseInitializer
 import com.finance_tracker.finance_tracker.data.settings.AccountSettings
 import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
@@ -27,8 +30,15 @@ class AppInitializer(
     private val analyticsTracker: AnalyticsTracker,
     private val databaseInitializer: DatabaseInitializer,
     private val loggerInitializer: LoggerInitializer,
-    private val context: Context
+    private val context: Context,
+    featuresManager: FeaturesManager
 ): CoroutineScope {
+
+    val startScreen = if (featuresManager.isEnabled(FeatureFlag.Authorization)) {
+        MainNavigationTree.Welcome.name
+    } else {
+        MainNavigationTree.Main.name
+    }
 
     override val coroutineContext: CoroutineContext = SupervisorJob() +
             CoroutineExceptionHandler { _, throwable ->

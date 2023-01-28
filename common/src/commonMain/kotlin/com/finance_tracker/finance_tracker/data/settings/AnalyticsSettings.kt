@@ -21,7 +21,7 @@ class AnalyticsSettings(factory: Settings.Factory) {
     }
 
     fun isAnalyticsEnabledFlow(): Flow<Boolean> {
-        return flowSettings.getBooleanFlow(KEY_IS_ANALYTICS_ENABLED, !AppBuildConfig.DEBUG)
+        return flowSettings.getBooleanFlow(KEY_IS_ANALYTICS_ENABLED, AppBuildConfig.isReleaseBuild)
     }
 
     companion object {

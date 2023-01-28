@@ -10,7 +10,6 @@ import com.finance_tracker.finance_tracker.core.common.AppInitializer
 import com.finance_tracker.finance_tracker.core.common.EmptyContext
 import com.finance_tracker.finance_tracker.core.common.MessageKeyQueue
 import com.finance_tracker.finance_tracker.core.common.di.Di
-import com.finance_tracker.finance_tracker.core.navigation.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.navigation.main.navigationGraph
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import org.koin.java.KoinJavaComponent.inject
@@ -40,7 +39,7 @@ fun main() = singleWindowApplication(
     CoinTheme {
         setNavigationContent(
             configuration = OdysseyConfiguration(
-                startScreen = StartScreen.Custom(MainNavigationTree.Main.name),
+                startScreen = StartScreen.Custom(appInitializer.startScreen),
                 backgroundColor = CoinTheme.color.background
             )
         ) {
