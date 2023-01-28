@@ -2,9 +2,13 @@ package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -24,6 +28,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.takeOrElse
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -43,7 +48,8 @@ internal fun CoinOutlinedTextField(
     maxLines: Int = Int.MAX_VALUE,
     charsLimit: Int = Int.MAX_VALUE,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions.Default
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
     OutlinedTextField(
         modifier = modifier,
@@ -62,7 +68,8 @@ internal fun CoinOutlinedTextField(
         maxLines = maxLines,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
-        singleLine = singleLine
+        singleLine = singleLine,
+        visualTransformation = visualTransformation
     )
 }
 
@@ -193,6 +200,36 @@ private fun ClickableOutlinedTextField(
                     )
                 }
             )
+        }
+    )
+}
+
+@Composable
+fun ConfirmationCodeTextField(
+    otpText: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    length: Int = 4,
+) {
+    BasicTextField(
+        modifier = modifier,
+        value = otpText,
+        onValueChange = {
+            if (it.length <= length && it.all { char -> char.isDigit() } ) {
+                onValueChange(it)
+            }
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+        decorationBox = {
+            Row(horizontalArrangement = Arrangement.Center) {
+                repeat(length) { index ->
+                    ConfirmationTextBox(
+                        index = index,
+                        text = otpText
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
+            }
         }
     )
 }
