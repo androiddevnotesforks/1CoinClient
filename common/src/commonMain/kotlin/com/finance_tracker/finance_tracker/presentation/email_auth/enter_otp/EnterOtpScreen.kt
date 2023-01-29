@@ -36,7 +36,7 @@ import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
-import com.finance_tracker.finance_tracker.core.ui.CoinConfirmationCodeTextField
+import com.finance_tracker.finance_tracker.core.ui.CoinCodeTextField
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
 import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import dev.icerock.moko.resources.compose.stringResource
@@ -97,12 +97,12 @@ internal fun EnterOtpScreen(email: String) {
 
             val otp by viewModel.otp.collectAsState()
 
-            CoinConfirmationCodeTextField(
+            CoinCodeTextField(
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
+                    .padding(horizontal = 16.dp)
                     .focusRequester(focusRequester),
-                otpText = otp,
-                onValueChange = viewModel::onOtpChange
+                code = otp,
+                onCodeChange = viewModel::onOtpChange
             )
 
             Spacer(modifier = Modifier.height(24.dp))

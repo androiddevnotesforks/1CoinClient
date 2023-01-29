@@ -1,14 +1,14 @@
 package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -18,10 +18,14 @@ import androidx.compose.material.Icon
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
 import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
@@ -40,16 +44,15 @@ internal fun CoinOutlinedTextField(
     modifier: Modifier = Modifier,
     value: String = "",
     onValueChange: (String) -> Unit = {},
-    label: @Composable (() -> Unit)? = null,
-    placeholder: @Composable (() -> Unit)? = null,
-    leadingIcon: @Composable (() -> Unit)? = null,
-    trailingIcon: @Composable (() -> Unit)? = null,
+    label: @Composable() (() -> Unit)? = null,
+    placeholder: @Composable() (() -> Unit)? = null,
+    leadingIcon: @Composable() (() -> Unit)? = null,
+    trailingIcon: @Composable() (() -> Unit)? = null,
     singleLine: Boolean = false,
     maxLines: Int = Int.MAX_VALUE,
     charsLimit: Int = Int.MAX_VALUE,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
-    visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
     OutlinedTextField(
         modifier = modifier,
@@ -69,7 +72,6 @@ internal fun CoinOutlinedTextField(
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         singleLine = singleLine,
-        visualTransformation = visualTransformation
     )
 }
 
@@ -205,33 +207,67 @@ private fun ClickableOutlinedTextField(
 }
 
 @Composable
-fun CoinConfirmationCodeTextField(
-    otpText: String,
-    onValueChange: (String) -> Unit,
+internal fun CoinCodeTextField(
+    code: String,
+    onCodeChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     length: Int = 4,
 ) {
     BasicTextField(
         modifier = modifier,
-        value = otpText,
+        value = code,
         onValueChange = {
-            if (it.length <= length && it.all { char -> char.isDigit() } ) {
-                onValueChange(it)
+            if (it.take(length).all { char -> char.isDigit() } ) {
+                onCodeChange(it.take(length))
             }
         },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
         decorationBox = {
-            Row(horizontalArrangement = Arrangement.Center) {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 repeat(length) { index ->
                     ConfirmationTextBox(
                         index = index,
-                        text = otpText
+                        text = code
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
                 }
             }
         }
     )
+}
+
+@Composable
+private fun ConfirmationTextBox(
+    index: Int,
+    text: String,
+    modifier: Modifier = Modifier,
+) {
+    val isFocused by remember (text.length, index) {
+        derivedStateOf { text.length == index }
+    }
+    val char = text.getOrNull(index)?.toString().orEmpty()
+    Box(
+        modifier = modifier
+            .size(
+                width = 56.dp,
+                height = 70.dp
+            )
+            .border(
+                width = 1.dp,
+                color = if (isFocused) {
+                    CoinTheme.color.primary
+                } else {
+                    CoinTheme.color.dividers
+                },
+                shape = RoundedCornerShape(12.dp)
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = char,
+            style = CoinTheme.typography.h2,
+            color = CoinTheme.color.content,
+        )
+    }
 }
 
 internal val OutlinedTextFieldTopPadding = 8.dp
