@@ -217,7 +217,7 @@ internal fun CoinCodeTextField(
         modifier = modifier,
         value = code,
         onValueChange = {
-            if (it.take(length).all { char -> char.isDigit() } ) {
+            if (it.take(length).all { char -> char.isDigit() }) {
                 onCodeChange(it.take(length))
             }
         },
