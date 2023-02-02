@@ -80,7 +80,7 @@ internal fun MainTxsByCategoryChart(
                             .padding(3.dp),
                         painter = rememberVectorPainter(category.iconId),
                         contentDescription = null,
-                        tint = CoinTheme.color.primaryVariant
+                        tint = CoinTheme.color.white
                     )
                 }
             },
