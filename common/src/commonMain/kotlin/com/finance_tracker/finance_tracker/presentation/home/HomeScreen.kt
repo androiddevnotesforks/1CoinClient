@@ -1,6 +1,5 @@
 package com.finance_tracker.finance_tracker.presentation.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,14 +14,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.StoredViewModel
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
-import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.core.ui.CoinWidget
-import dev.icerock.moko.resources.compose.stringResource
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import com.finance_tracker.finance_tracker.domain.models.DashboardWidgetData
+import com.finance_tracker.finance_tracker.presentation.widgets.AnalyticsByCategoryWidget
+import com.finance_tracker.finance_tracker.presentation.widgets.AnalyticsTrendWidget
+import com.finance_tracker.finance_tracker.presentation.widgets.LastTransactionsWidget
+import com.finance_tracker.finance_tracker.presentation.widgets.MyAccountsWidget
 
 @Composable
 internal fun HomeScreen() {
@@ -41,7 +42,6 @@ internal fun HomeScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(CoinTheme.color.background)
         ) {
             val totalBalance by viewModel.totalBalance.collectAsState()
             HomeTopBar(
@@ -55,29 +55,54 @@ internal fun HomeScreen() {
                     .verticalScroll(rememberScrollState())
                     .padding(top = 12.dp)
             ) {
-                CoinWidget(
-                    title = stringResource(MR.strings.home_my_accounts),
-                    withHorizontalPadding = false,
-                    onClick = viewModel::onMyAccountsClick
-                ) {
-                    AccountsWidgetContent(
-                        data = accounts,
-                        state = accountsLazyListState,
-                        onAccountClick = viewModel::onAccountClick,
-                        onAddAccountClick = viewModel::onAddAccountClick
-                    )
-                }
 
-                CoinWidget(
-                    title = stringResource(MR.strings.home_last_transactions),
-                    withBorder = true,
-                    onClick = viewModel::onLastTransactionsClick
-                ) {
-                    val lastTransactions by viewModel.lastTransactions.collectAsState()
-                    LastTransactionsWidgetContent(
-                        lastTransactions = lastTransactions,
-                        onTransactionClick = viewModel::onTransactionClick,
-                    )
+                val widgets by viewModel.widgets.collectAsState()
+                widgets.forEach { widgetItem ->
+                    when (widgetItem.type) {
+                        DashboardWidgetData.DashboardWidgetType.MyAccounts -> {
+                            MyAccountsWidget(
+                                accounts = accounts,
+                                accountsLazyListState = accountsLazyListState,
+                                onAccountClick = viewModel::onAccountClick,
+                                onAddAccountClick = viewModel::onAddAccountClick,
+                                onClick = viewModel::onMyAccountsClick
+                            )
+                        }
+                        DashboardWidgetData.DashboardWidgetType.ExpenseTrend -> {
+                            AnalyticsTrendWidget(
+                                trendsAnalyticsDelegate = viewModel.trendsAnalyticsDelegate,
+                                transactionTypeTab = TransactionTypeTab.Expense
+                            )
+                        }
+                        DashboardWidgetData.DashboardWidgetType.IncomeTrend -> {
+                            AnalyticsTrendWidget(
+                                trendsAnalyticsDelegate = viewModel.trendsAnalyticsDelegate,
+                                transactionTypeTab = TransactionTypeTab.Income
+                            )
+                        }
+                        DashboardWidgetData.DashboardWidgetType.ExpenseByCategory -> {
+                            AnalyticsByCategoryWidget(
+                                primaryCurrency = totalBalance.currency,
+                                monthTxsByCategoryDelegate = viewModel.monthTxsByCategoryDelegate,
+                                selectedTransactionTypeTab = TransactionTypeTab.Expense
+                            )
+                        }
+                        DashboardWidgetData.DashboardWidgetType.IncomeByCategory -> {
+                            AnalyticsByCategoryWidget(
+                                primaryCurrency = totalBalance.currency,
+                                monthTxsByCategoryDelegate = viewModel.monthTxsByCategoryDelegate,
+                                selectedTransactionTypeTab = TransactionTypeTab.Income
+                            )
+                        }
+                        DashboardWidgetData.DashboardWidgetType.LastTransactions -> {
+                            val lastTransactions by viewModel.lastTransactions.collectAsState()
+                            LastTransactionsWidget(
+                                lastTransactions = lastTransactions,
+                                onClick = viewModel::onLastTransactionsClick,
+                                onTransactionClick = viewModel::onTransactionClick
+                            )
+                        }
+                    }
                 }
 
                 Spacer(

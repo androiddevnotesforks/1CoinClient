@@ -1,8 +1,10 @@
 package com.finance_tracker.finance_tracker.domain.di
 
 import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.AuthInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.DashboardSettingsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
 import org.koin.core.module.dsl.factoryOf
@@ -14,4 +16,6 @@ internal val domainModule = module {
     factoryOf(::CurrenciesInteractor)
     factoryOf(::CategoriesInteractor)
     factoryOf(::AccountsInteractor)
+    factoryOf(::DashboardSettingsInteractor)
+    factoryOf(::AuthInteractor)
 }

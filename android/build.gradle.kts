@@ -38,7 +38,7 @@ android {
         applicationId = "com.finance_tracker.finance_tracker"
         minSdk = 26
         targetSdk = 33
-        versionCode = 6
+        versionCode = 7
         versionName = rootProject.extra["appVersion"] as String
         signingConfig = signingConfigs.getByName("debug")
         val appName = rootProject.extra["appName"] as String
@@ -80,7 +80,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.2"
+        kotlinCompilerExtensionVersion = "1.4.0"
     }
 }
 

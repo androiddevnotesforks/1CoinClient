@@ -59,7 +59,7 @@
     <!-- Colors -->
     <string name="color_purple">Фиолетовый</string>
     <string name="color_blue">Синий</string>
-    <string name="color_yellow">Желтый</string>
+    <string name="color_red">Красный</string>
     <string name="color_brown">Коричневый</string>
     <string name="color_lavender">Лаванда</string>
     <string name="color_pink">Розовый</string>
@@ -139,17 +139,6 @@
     <string name="accounts_screen_add_account">Добавить счет</string>
     <string name="accounts_screen_empty">Нет счетов</string>
 
-    <!-- Settings -->
-    <string name="settings_top_text">Настройки</string>
-    <string name="settings_main_currency">Основная валюта</string>
-    <string name="settings_categories">Настройка категорий</string>
-    <string name="settings_telegram_community">Telegram сообщество</string>
-    <string name="settings_sending_usage_data">Отправка аналитики</string>
-    <string name="sending_usage_data_description_1">Помогите улучшить пользовательский опыт с\u00A0помощью автоматической отправки данных использования приложения.</string>
-    <string name="sending_usage_data_description_2">Мы не\u00A0собираем Личную\u00A0информацию или\u00A0информацию о\u00A0количественном значении денежных расходов.\n\nБезопасность ваших личных данных — один из\u00A0наших главных приоритетов!</string>
-    <string name="version">Версия:</string>
-    <string name="user_id">ID пользователя:</string>
-
     <!-- Transactions -->
     <string name="transactions_today">Сегодня</string>
     <string name="transactions_yesterday">Вчера</string>
@@ -185,7 +174,7 @@
     <!-- Analytics -->
     <string name="expense_analytics_trend">Тренд расходов</string>
     <string name="income_analytics_trend">Тренд доходов</string>
-    <string name="analytics_by_category">%s по категории</string>
+    <string name="analytics_by_category">%s по\u00A0категориям</string>
     <string name="analytics_make_first_transactions">Нет операций за\u00A0выбранный период</string>
 
     <!-- Detail account -->
@@ -195,5 +184,51 @@
     <string name="add_transaction">Добавить операцию</string>
     <string name="add_account">Добавить счет</string>
     <string name="add_category">Добавить категорию</string>
+
+    <!-- Widget settings -->
+    <string name="widget_settings_title">Настройка виджетов</string>
+    <string name="widget_settings_item_my_accounts">Мои счета</string>
+    <string name="widget_settings_item_expense_trend">Тренд расходов</string>
+    <string name="widget_settings_item_income_trend">Тренд доходов</string>
+    <string name="widget_settings_item_expense_by_category">Расходы по\u00A0категориям</string>
+    <string name="widget_settings_item_income_by_category">Доходы по\u00A0категориям</string>
+    <string name="widget_settings_item_last_transactions">Последние операции</string>
+
+    <!-- Settings -->
+    <string name="settings_topbar_text">Настройки</string>
+    <string name="settings_my_profile">Мой профиль</string>
+    <string name="settings_authorization">Авторизация</string>
+    <string name="settings_configuration">Конфигурация</string>
+    <string name="settings_other">Прочее</string>
+    <string name="settings_privacy">Конфиденциальность</string>
+    <string name="settings_dashboard">Настройка виджетов</string>
+    <string name="settings_main_currency">Основная валюта</string>
+    <string name="settings_categories">Настройка категорий</string>
+    <string name="settings_telegram_community">Telegram сообщество</string>
+    <string name="settings_sending_usage_data">Отправка аналитики</string>
+    <string name="sending_usage_data_description_1">Помогите улучшить пользовательский опыт с\u00A0помощью автоматической отправки данных использования приложения.</string>
+    <string name="sending_usage_data_description_2">Мы не\u00A0собираем Личную\u00A0информацию или\u00A0информацию о\u00A0количественном значении денежных расходов.\n\nБезопасность ваших личных данных — один из\u00A0наших главных приоритетов!</string>
+    <string name="version">Версия:</string>
+    <string name="user_id">ID пользователя:</string>
+
+    <!-- Welcome -->
+    <string name="welcome_header">Простой. Быстрый. Безопасный.</string>
+    <string name="welcome_subheader">Возьми под\u00A0контроль свои финансы</string>
+    <string name="welcome_continue_google">Продолжить с\u00A0 Google</string>
+    <string name="welcome_continue_email">Продолжить с\u00A0 E-mail</string>
+    <string name="welcome_skip">Пропустить</string>
+
+    <!-- Enter email -->
+    <string name="enter_email_title">Какой у\u00A0вас E-mail адрес?</string>
+    <string name="enter_email_field_email_label">E-mail</string>
+    <string name="enter_email_btn_continue">Продолжить</string>
+
+    <!-- Enter OTP -->
+    <string name="enter_otp_title">Подтвердите E-mail</string>
+    <string name="enter_otp_subtitle">Введите код, отправленный на\u00A0</string>
+    <string name="enter_otp_btn_create_account">Создать аккаунт</string>
+    <string name="enter_otp_request_again">Отправить код повторно</string>
+    <string name="enter_otp_request_again_time">Отправить код повторно (%dс)</string>
+    <string name="enter_otp_wrong_code">Неверный код</string>
 
 </resources>

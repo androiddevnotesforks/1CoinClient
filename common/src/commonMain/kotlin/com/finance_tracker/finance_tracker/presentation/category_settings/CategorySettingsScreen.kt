@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -59,7 +60,7 @@ internal fun CategorySettingsScreen() {
                 TransactionTypeTab.Expense -> {
                     if (expenseCategories.isEmpty()) {
                         EmptyStub(
-                            image = rememberVectorPainter("categories_empty"),
+                            image = rememberVectorPainter("categories_empty", isSupportDarkMode = true),
                             text = stringResource(MR.strings.add_category),
                             onClick = viewModel::onAddCategoryClick
                         )
@@ -75,7 +76,7 @@ internal fun CategorySettingsScreen() {
                 TransactionTypeTab.Income -> {
                     if (incomeCategories.isEmpty()) {
                         EmptyStub(
-                            image = rememberVectorPainter("categories_empty"),
+                            image = rememberVectorPainter("categories_empty", isSupportDarkMode = true),
                             text = stringResource(MR.strings.add_category),
                             onClick = viewModel::onAddCategoryClick
                         )
@@ -106,12 +107,33 @@ private fun CategoriesLazyColumn(
         modifier = modifier,
         items = categories,
         onSwap = onSwap,
-        contentPaddingValues = PaddingValues(
+        contentPadding = PaddingValues(
             top = CategoriesListContentPadding,
             start = CategoriesListContentPadding,
             end = CategoriesListContentPadding,
             bottom = CategoriesListContentPadding + navigationBarsHeight
-        )
+        ),
+        itemShape = { index ->
+            when (index) {
+                0 -> {
+                    RoundedCornerShape(
+                        topStart = 12.dp,
+                        topEnd = 12.dp,
+                    )
+                }
+
+                categories.lastIndex -> {
+                    RoundedCornerShape(
+                        bottomStart = 12.dp,
+                        bottomEnd = 12.dp
+                    )
+                }
+
+                else -> {
+                    RoundedCornerShape(0.dp)
+                }
+            }
+        }
     ) { index, category ->
         ItemWrapper(
             isFirstItem = index == 0,
