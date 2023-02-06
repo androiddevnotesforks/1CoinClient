@@ -15,9 +15,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class SettingsScreenViewModel(
-    private val currenciesInteractor: CurrenciesInteractor,
     private val userInteractor: UserInteractor,
     private val settingsAnalytics: SettingsAnalytics,
+    currenciesInteractor: CurrenciesInteractor,
     val featuresManager: FeaturesManager
 ): BaseViewModel<SettingsScreenAction>() {
 
@@ -27,14 +27,14 @@ class SettingsScreenViewModel(
     private val _isUserAuthorized = MutableStateFlow(false)
     val isUserAuthorized = _isUserAuthorized.asStateFlow()
 
-    val chosenCurrency = currenciesInteractor.getPrimaryCurrencyFlow()
-        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = Currency.default)
-
     val isSendingUsageDataEnabled = userInteractor.isAnalyticsEnabledFlow()
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = false)
 
     val userId = flow { emit(userInteractor.getOrCreateUserId()) }
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = "")
+
+    val primaryCurrency = currenciesInteractor.getPrimaryCurrencyFlow()
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = Currency.default)
 
     val versionName = AppBuildConfig.appVersion
 
@@ -43,15 +43,9 @@ class SettingsScreenViewModel(
         viewAction = SettingsScreenAction.Close
     }
 
-    fun onCurrencySelect(currency: Currency) {
-        viewModelScope.launch {
-            settingsAnalytics.trackMainCurrencySelect(currency)
-            currenciesInteractor.savePrimaryCurrency(currency)
-        }
-    }
-
-    fun onCurrencyClick(currency: Currency) {
-        settingsAnalytics.trackChooseCurrencyClick(currency)
+    fun onSelectCurrencyClick() {
+        settingsAnalytics.trackSelectCurrencyClick()
+        viewAction = SettingsScreenAction.OpenSelectCurrencyScreen
     }
 
     fun onCategorySettingsClick() {
