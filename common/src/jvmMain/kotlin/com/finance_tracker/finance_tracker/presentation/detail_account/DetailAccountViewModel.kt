@@ -10,18 +10,19 @@ import com.finance_tracker.finance_tracker.presentation.detail_account.analytics
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 
+@Suppress("ConstructorParameterNaming")
 class DetailAccountViewModel(
-    private val account: Account,
+    _account: Account,
     transactionsInteractor: TransactionsInteractor,
     accountsRepository: AccountsRepository,
     private val detailAccountAnalytics: DetailAccountAnalytics
 ): BaseViewModel<DetailAccountAction>() {
 
-    val paginatedTransactions = transactionsInteractor.getPaginatedTransactionsByAccountId(account.id)
+    val paginatedTransactions = transactionsInteractor.getPaginatedTransactionsByAccountId(_account.id)
         .cachedIn(viewModelScope)
 
-    val accountData = accountsRepository.getAccountByIdFlow(account.id)
-        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = account)
+    val accountData = accountsRepository.getAccountByIdFlow(_account.id)
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = _account)
 
     init {
         detailAccountAnalytics.trackScreenOpen()
@@ -33,8 +34,8 @@ class DetailAccountViewModel(
     }
 
     fun onEditClick() {
-        detailAccountAnalytics.trackEditAccountClick(account)
-        viewAction = DetailAccountAction.OpenEditAccountScreen(account)
+        detailAccountAnalytics.trackEditAccountClick(accountData.value)
+        viewAction = DetailAccountAction.OpenEditAccountScreen(accountData.value)
     }
 
     fun onTransactionClick(transaction: Transaction) {
@@ -43,12 +44,12 @@ class DetailAccountViewModel(
     }
 
     fun onIconClick() {
-        detailAccountAnalytics.trackIconClick(account)
-        viewAction = DetailAccountAction.OpenEditAccountScreen(account)
+        detailAccountAnalytics.trackIconClick(accountData.value)
+        viewAction = DetailAccountAction.OpenEditAccountScreen(accountData.value)
     }
 
     fun onAddTransactionClick() {
-        detailAccountAnalytics.trackAddTransactionClick(account)
-        viewAction = DetailAccountAction.OpenAddTransactionScreen(account)
+        detailAccountAnalytics.trackAddTransactionClick(accountData.value)
+        viewAction = DetailAccountAction.OpenAddTransactionScreen(accountData.value)
     }
 }
