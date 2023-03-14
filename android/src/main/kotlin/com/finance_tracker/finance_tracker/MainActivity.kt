@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity(), KoinComponent {
         window.navigationBarColor = Color.Transparent.toArgb()
 
         setContent {
-
             CoinTheme {
                 setNavigationContent(
                     configuration = OdysseyConfiguration(
