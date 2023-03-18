@@ -1,19 +1,25 @@
 package com.finance_tracker.finance_tracker.features.settings.views.items
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.toDp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.ThemeMode
 import com.finance_tracker.finance_tracker.features.settings.views.ListItem
 import com.finance_tracker.finance_tracker.features.settings.views.dropdown_menus.ThemesDropdownMenu
@@ -29,6 +35,7 @@ internal fun SettingsThemeItem(
     val currencyMenuExpanded = remember { mutableStateOf(false) }
     val menuOffsetX = remember { mutableStateOf(0) }
     val menuOffsetY = remember { mutableStateOf(0) }
+    val onChooseThemeClick = remember { { currencyMenuExpanded.value = true } }
 
     Box(
         modifier = modifier
@@ -39,17 +46,28 @@ internal fun SettingsThemeItem(
                     menuOffsetX.value = it.positionInParent().x.toInt() + it.size.width
                     menuOffsetY.value = it.positionInParent().y.toInt() - it.size.height
                 },
-            iconLeftPainter = rememberVectorPainter("ic_privacy"),
+            iconLeftPainter = rememberAsyncImagePainter(MR.files.ic_theme),
             text = stringResource(MR.strings.settings_theme),
-            onClick = remember { { currencyMenuExpanded.value = true } },
             iconRight = {
-                Text(
+                Row(
                     modifier = Modifier
-                        .padding(end = 16.dp),
-                    text = stringResource(themeMode.text),
-                    color = CoinTheme.color.primary,
-                    style = CoinTheme.typography.body1_medium
-                )
+                        .padding(end = 8.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .clickable { onChooseThemeClick.invoke() },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        modifier = Modifier.padding(start = 8.dp),
+                        text = stringResource(themeMode.text),
+                        color = CoinTheme.color.primary,
+                        style = CoinTheme.typography.body1_medium
+                    )
+                    Icon(
+                        painter = rememberAsyncImagePainter(MR.files.ic_arrow_down),
+                        contentDescription = null,
+                        tint = CoinTheme.color.primary
+                    )
+                }
             }
         )
 
