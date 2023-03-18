@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Receiving current commit msg as first argument of script
+COMMIT_MSG_FILE=$1
+
+# Get current branch name from git repo
+branchName=$(git rev-parse --abbrev-ref HEAD)
+
+# Parse current branch name and try to extract ticket name in a pattern such as "ABC-123-description"
+jiraId=$(echo "$branchName" | sed -nr 's,(feature|bugfix|release|hotfix)?/?([A-Z]+-[0-9]+)_.+,\2,p')
+
+# Parse currently executing git commit command. If operation is "amend", leaves the script
+IS_AMEND=$(pgrep -ocommand= -p $PPID | grep -e '--amend')
+
+if [ -n "$IS_AMEND" ]; then
+  exit 0
+fi
+
+# Used only for verifying is current commit message already has ticket name in it
+ISSUE_KEY_PATTERN="[A-Z]+-[0-9]+"
+
+# only prepare commit message if pattern matched and jiraId was found
+# Verify if branch name has ticket name in it
+if [[ ! -z $jiraId ]]; then
+
+  # Get first line of commit message
+  line=$(head -n 1 "$COMMIT_MSG_FILE")
+
+  # If commit message already has ticket name, leave the script
+  if [[ ! $line =~ $ISSUE_KEY_PATTERN ]]; then
+
+    # Prepending ticket name to current commit message
+    sed -i.bak -e "1s/^/\n\n[$jiraId]\n/" "$1"
+  fi
+fi

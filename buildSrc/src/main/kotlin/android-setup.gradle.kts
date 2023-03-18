@@ -14,6 +14,12 @@ android {
         targetSdk = 33
     }
 
+    buildTypes {
+        create("staging") {
+            initWith(getByName("release"))
+        }
+    }
+
     sourceSets {
         named("main") {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
