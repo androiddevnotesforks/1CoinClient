@@ -18,27 +18,20 @@ struct HomeScreen: View {
             )
             ScrollView(.vertical, showsIndicators: false) {
                 VStack {
-                    ForEach(0..<10) {
-                                Text("Item \($0)")
-                                    .foregroundColor(.white)
-                                    .font(.largeTitle)
-                                    .frame(width: 200, height: 200)
-                                    .background(.red)
-                            }
+                    CoinWidget(
+                        title: "My Accounts",
+                        withBorder: false
+                    ) {
+                        Text("Accounts' list")
+                    }
+                    CoinWidget(
+                        title: "Last Transactions",
+                        withBorder: true
+                    ) {
+                        Text("Transactions' list")
+                    }
                 }
             }
-            Spacer()
-//            CoinTopAppBar(
-//                title: {
-//                    Text("HomeScreen")
-//                },
-//                actions: {
-//                    Image(systemName: "globe")
-//                        .imageScale(.large)
-//                        .foregroundColor(.accentColor)
-//                },
-//                appBarHeight: 56
-//            )
         }
     }
 }
@@ -46,5 +39,6 @@ struct HomeScreen: View {
 struct HomeScreen_Previews: PreviewProvider {
     static var previews: some View {
         HomeScreen()
+            .environmentObject(CoinTheme.light)
     }
 }

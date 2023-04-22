@@ -4,7 +4,11 @@ import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDateTime
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
+import kotlin.experimental.ExperimentalObjCName
+import kotlin.native.ObjCName
 
+@OptIn(ExperimentalObjCName::class)
+@ObjCName(swiftName = "TransactionModel")
 data class Transaction(
     val id: Long? = null,
     val type: TransactionType,
