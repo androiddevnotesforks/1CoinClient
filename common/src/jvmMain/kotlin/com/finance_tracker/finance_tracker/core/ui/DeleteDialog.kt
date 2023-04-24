@@ -39,14 +39,16 @@ internal fun DeleteDialog(
                     .padding(start = 16.dp)
                     .padding(top = 16.dp),
                 text = titleEntity,
-                style = CoinTheme.typography.h4
+                style = CoinTheme.typography.h4,
+                color = CoinTheme.color.content
             )
             Text(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(top = 8.dp),
                 text = stringResource(MR.strings.dialog_body_delete),
-                style = CoinTheme.typography.body1
+                style = CoinTheme.typography.body1,
+                color = CoinTheme.color.content
             )
             Row(
                 modifier = Modifier
