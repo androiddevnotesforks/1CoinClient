@@ -5,10 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -21,7 +21,7 @@ internal fun SettingsScreenTopBar(
         appBarHeight = 56.dp,
         navigationIcon = {
             AppBarIcon(
-                painter = rememberVectorPainter("ic_arrow_back"),
+                painter = rememberAsyncImagePainter(MR.files.ic_arrow_back),
                 onClick = onBackClick,
             )
         },

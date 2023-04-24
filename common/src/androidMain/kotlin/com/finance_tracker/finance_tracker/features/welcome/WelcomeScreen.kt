@@ -21,11 +21,11 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.UpdateSystemBarsConfigEffect
 import com.finance_tracker.finance_tracker.core.common.VectorAnimation
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.core.ui.welcome.EmailSignInButton
 import com.finance_tracker.finance_tracker.core.ui.welcome.SkipButton
 import com.finance_tracker.finance_tracker.features.welcome.views.GoogleSignInButton
@@ -62,7 +62,7 @@ internal fun WelcomeScreen() {
                         width = 92.1.dp,
                         height = 22.3.dp
                     ),
-                painter = rememberVectorPainter("ic_logo_1coin"),
+                painter = rememberAsyncImagePainter(MR.files.ic_logo_1coin),
                 contentDescription = null,
                 tint = CoinTheme.color.primaryVariant
             )

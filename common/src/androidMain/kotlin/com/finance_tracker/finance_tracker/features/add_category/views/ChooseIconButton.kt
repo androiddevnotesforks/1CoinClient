@@ -19,15 +19,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinGridDropdownMenu
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
+import dev.icerock.moko.resources.FileResource
 
 @Composable
 internal fun ChooseIconButton(
-    chosenIcon: String,
-    icons: List<String>,
-    onIconChoose: (String) -> Unit,
+    chosenIcon: FileResource,
+    icons: List<FileResource>,
+    onIconChoose: (FileResource) -> Unit,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
@@ -36,7 +37,7 @@ internal fun ChooseIconButton(
         modifier = modifier
     ) {
         Icon(
-            painter = rememberVectorPainter(chosenIcon),
+            painter = rememberAsyncImagePainter(chosenIcon),
             contentDescription = null,
             modifier = Modifier
                 .size(48.dp)
@@ -74,7 +75,7 @@ internal fun ChooseIconButton(
                                 onIconChoose.invoke(iconId)
                             }
                             .padding(7.5.dp),
-                        painter = rememberVectorPainter(iconId),
+                        painter = rememberAsyncImagePainter(iconId),
                         contentDescription = null,
                         tint = CoinTheme.color.content
                     )

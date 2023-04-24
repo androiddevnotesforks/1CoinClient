@@ -1,0 +1,6 @@
+<svg id="Dashboard" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path id="Контур_1149" data-name="Контур 1149" d="M0,0H24V24H0Z" fill="none"/>
+  <path id="Контур_1150" data-name="Контур 1150" d="M6.5,11.5A4.5,4.5,0,1,1,11,7,4.5,4.5,0,0,1,6.5,11.5Zm.5,10A4.5,4.5,0,1,1,11.5,17,4.5,4.5,0,0,1,7,21.5Zm10-10A4.5,4.5,0,1,1,21.5,7,4.5,4.5,0,0,1,17,11.5ZM6.5,9.5A2.5,2.5,0,1,0,4,7,2.5,2.5,0,0,0,6.5,9.5Zm.5,10A2.5,2.5,0,1,0,4.5,17,2.5,2.5,0,0,0,7,19.5Zm10-10A2.5,2.5,0,1,0,14.5,7,2.5,2.5,0,0,0,17,9.5Z"/>
+  <line id="Линия_215" data-name="Линия 215" y2="8" transform="translate(17 13)" fill="none" stroke="#000" stroke-width="1.5"/>
+  <line id="Линия_216" data-name="Линия 216" y2="8" transform="translate(21 17) rotate(90)" fill="none" stroke="#000" stroke-width="1.5"/>
+</svg>

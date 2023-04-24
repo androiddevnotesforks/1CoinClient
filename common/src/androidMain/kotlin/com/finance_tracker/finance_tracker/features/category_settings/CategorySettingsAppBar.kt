@@ -8,7 +8,6 @@ import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTxTypeTopAppBar
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import dev.icerock.moko.resources.compose.stringResource
 
@@ -24,7 +23,7 @@ internal fun CategorySettingsAppBar(
         modifier = modifier,
         navigationIcon = {
             AppBarIcon(
-                painter = rememberVectorPainter("ic_arrow_back"),
+                painter = rememberAsyncImagePainter(MR.files.ic_arrow_back),
                 onClick = onBackClick,
             )
         },

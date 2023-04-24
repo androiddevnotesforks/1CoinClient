@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import com.finance_tracker.finance_tracker.MR
 
 private const val LastTransactionsLimit = 3L
 
@@ -264,7 +265,7 @@ class TransactionsInteractor(
                     category = Category(
                         id = -2,
                         name = "Other",
-                        iconId = "ic_more_horiz"
+                        icon = MR.files.ic_more_horiz
                     ),
                     amount = Amount(
                         currency = primaryCurrency,

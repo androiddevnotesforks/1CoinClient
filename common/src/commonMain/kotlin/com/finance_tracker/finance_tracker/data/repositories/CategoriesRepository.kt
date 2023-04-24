@@ -1,21 +1,27 @@
 package com.finance_tracker.finance_tracker.data.repositories
 
+import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.Context
+import com.finance_tracker.finance_tracker.core.common.getCategoryIconFile
+import com.finance_tracker.finance_tracker.core.common.toCategoryString
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.financetracker.financetracker.data.CategoriesEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
+import dev.icerock.moko.resources.FileResource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 class CategoriesRepository(
-    private val categoriesEntityQueries: CategoriesEntityQueries
+    private val categoriesEntityQueries: CategoriesEntityQueries,
+    val context: Context,
 ) {
     suspend fun insertCategory(
         categoryName: String,
-        categoryIcon: String,
+        categoryIcon: FileResource,
         isExpense: Boolean,
         isIncome: Boolean,
     ) {
@@ -23,7 +29,7 @@ class CategoriesRepository(
             categoriesEntityQueries.insertCategory(
                 id = null,
                 name = categoryName,
-                icon = categoryIcon,
+                icon = categoryIcon.toCategoryString(),
                 position = null,
                 isExpense = isExpense,
                 isIncome = isIncome,
@@ -73,9 +79,15 @@ class CategoriesRepository(
             .map { it?.toInt() ?: 0 }
     }
 
-    suspend fun updateCategory(id: Long, name: String, iconId: String) {
+    suspend fun updateCategory(id: Long, name: String, iconId: FileResource) {
         withContext(Dispatchers.Default) {
-            categoriesEntityQueries.updateAccountById(name = name, icon = iconId, id = id)
+            categoriesEntityQueries.updateAccountById(name = name, icon = iconId.toCategoryString(), id = id)
+        }
+    }
+
+    suspend fun getCategoryIcon(iconName: String): FileResource? {
+        return withContext(Dispatchers.Default) {
+            MR.files.getCategoryIconFile(context = context, iconName)
         }
     }
 }

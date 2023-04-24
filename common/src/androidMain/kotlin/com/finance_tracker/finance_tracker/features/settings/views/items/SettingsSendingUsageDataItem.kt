@@ -5,8 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.ui.CoinSwitch
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.features.settings.views.ListItem
 import dev.icerock.moko.resources.compose.stringResource
 
@@ -20,7 +20,7 @@ internal fun SettingsSendingUsageDataItem(
 ) {
     ListItem(
         modifier = modifier,
-        iconLeftPainter = rememberVectorPainter("ic_data_sending"),
+        iconLeftPainter = rememberAsyncImagePainter(MR.files.ic_data_sending),
         text = stringResource(MR.strings.settings_sending_usage_data),
         onInfoClick = onInfoClick,
         iconRight = {

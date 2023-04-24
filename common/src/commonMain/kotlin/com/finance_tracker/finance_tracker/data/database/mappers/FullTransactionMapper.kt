@@ -1,5 +1,6 @@
 package com.finance_tracker.finance_tracker.data.database.mappers
 
+import com.finance_tracker.finance_tracker.core.common.toCategoryFileResource
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Amount
@@ -92,7 +93,7 @@ val fullTransactionMapper: (
             Category(
                 id = categoryId,
                 name = categoryName.orEmpty(),
-                iconId = categoryIcon
+                icon = categoryIcon.toCategoryFileResource()
             )
         } else {
             null

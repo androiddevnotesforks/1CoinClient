@@ -13,12 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.feature_flags.FeatureFlag
 import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesMode
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabRow
@@ -47,7 +48,7 @@ internal fun CategoriesAppBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             AppBarIcon(
-                painter = rememberVectorPainter("ic_arrow_back"),
+                painter = rememberAsyncImagePainter(MR.files.ic_arrow_back),
                 onClick = { rootController.popBackStack() }
             )
 
@@ -74,7 +75,7 @@ internal fun CategoriesAppBar(
             }
 
             AppBarIcon(
-                painter = rememberVectorPainter("ic_done"),
+                painter = rememberAsyncImagePainter(MR.files.ic_done),
                 onClick = onDoneClick,
                 enabled = doneButtonEnabled
             )

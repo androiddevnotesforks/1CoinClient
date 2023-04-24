@@ -24,11 +24,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.`if`
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.features.add_transaction.AddTransactionFlow
@@ -152,7 +153,7 @@ internal fun CategoryRow(
     ) {
         Icon(
             modifier = Modifier.size(20.dp),
-            painter = rememberVectorPainter(category.iconId),
+            painter = rememberAsyncImagePainter(category.icon),
             contentDescription = null
         )
         Text(
@@ -172,7 +173,7 @@ internal fun NextIcon(
     Icon(
         modifier = modifier
             .padding(horizontal = 2.dp),
-        painter = rememberVectorPainter("ic_arrow_next_small"),
+        painter = rememberAsyncImagePainter(MR.files.ic_arrow_next_small),
         contentDescription = null,
         tint = CoinTheme.color.content
     )

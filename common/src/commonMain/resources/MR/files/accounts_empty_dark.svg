@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="221.337" height="166.36" viewBox="0 0 221.337 166.36">
+  <g id="Cards_Empty_" data-name="Cards (Empty)" transform="translate(-69.332 -296.679)">
+    <g id="Account" transform="matrix(0.978, -0.208, 0.208, 0.978, 69.332, 329.945)">
+      <g id="Background">
+        <g id="Background-2" data-name="Background">
+          <rect id="Background-3" data-name="Background" width="160" height="128" rx="12" fill="#4f4a5e"/>
+        </g>
+      </g>
+      <g id="Info" transform="translate(16 73)">
+        <text id="_35_000" data-name="$35 000" transform="translate(0 18)" fill="#fff" font-size="18" font-family="Rubik-Medium, Rubik" font-weight="500"><tspan x="0" y="0">$35 000</tspan></text>
+        <text id="Debit_card_5841_" data-name="Debit card (*5841)" transform="translate(0 36)" fill="#fff" font-size="12" font-family="Rubik-Regular, Rubik" opacity="0.5"><tspan x="0" y="0">Debit card (*5841)</tspan></text>
+      </g>
+      <g id="Accounts" transform="translate(16 16)" opacity="0.5">
+        <path id="Контур_736" data-name="Контур 736" d="M0,0H28V28H0Z" fill="none"/>
+        <path id="Контур_740" data-name="Контур 740" d="M25.81,6.667H17.476A7.24,7.24,0,0,0,10.333,14a7.24,7.24,0,0,0,7.143,7.333H25.81v2.444A1.207,1.207,0,0,1,24.619,25H3.19A1.207,1.207,0,0,1,2,23.778V4.222A1.207,1.207,0,0,1,3.19,3H24.619a1.207,1.207,0,0,1,1.19,1.222ZM17.476,9.111H27v9.778H17.476a4.891,4.891,0,0,1,0-9.778Zm0,3.667v2.444h3.571V12.778Z" fill="#fff"/>
+      </g>
+    </g>
+    <g id="Account-2" data-name="Account" transform="translate(99.332 314.745) rotate(-2)">
+      <g id="Background-4" data-name="Background">
+        <g id="Background-5" data-name="Background">
+          <rect id="Background-6" data-name="Background" width="160" height="128" rx="12" fill="#3b6b69"/>
+        </g>
+      </g>
+      <g id="Info-2" data-name="Info" transform="translate(16 73)">
+        <text id="_35_000-2" data-name="$35 000" transform="translate(0 18)" fill="#fff" font-size="18" font-family="Rubik-Medium, Rubik" font-weight="500"><tspan x="0" y="0">$35 000</tspan></text>
+        <text id="Debit_card_5841_2" data-name="Debit card (*5841)" transform="translate(0 36)" fill="#fff" font-size="12" font-family="Rubik-Regular, Rubik" opacity="0.5"><tspan x="0" y="0">Debit card (*5841)</tspan></text>
+      </g>
+      <g id="Accounts-2" data-name="Accounts" transform="translate(16 16)" opacity="0.5">
+        <path id="Контур_736-2" data-name="Контур 736" d="M0,0H28V28H0Z" fill="none"/>
+        <path id="Контур_737" data-name="Контур 737" d="M26,11.556V23.778A1.211,1.211,0,0,1,24.8,25H3.2A1.211,1.211,0,0,1,2,23.778V11.556Zm0-2.444H2V4.222A1.211,1.211,0,0,1,3.2,3H24.8A1.211,1.211,0,0,1,26,4.222Zm-8.4,9.778v2.444h4.8V18.889Z" fill="#fff"/>
+      </g>
+    </g>
+    <g id="Account-3" data-name="Account" transform="translate(132.657 309.122) rotate(10)">
+      <g id="Background-7" data-name="Background">
+        <g id="Background-8" data-name="Background">
+          <rect id="Background-9" data-name="Background" width="160.449" height="128" rx="12" fill="#7d4a45"/>
+        </g>
+      </g>
+      <g id="Info-3" data-name="Info" transform="translate(16 73)">
+        <rect id="Прямоугольник_1394" data-name="Прямоугольник 1394" width="64" height="23" rx="11.5" transform="translate(0.449 -1.081)" fill="#fff" opacity="0.5"/>
+        <rect id="Прямоугольник_1395" data-name="Прямоугольник 1395" width="101" height="13" rx="6.5" transform="translate(0.449 25.919)" fill="#fff" opacity="0.5"/>
+      </g>
+      <g id="Accounts-3" data-name="Accounts" transform="translate(16 16)" opacity="0.5">
+        <path id="Контур_736-3" data-name="Контур 736" d="M0,0H28V28H0Z" fill="none"/>
+        <path id="Контур_740-2" data-name="Контур 740" d="M25.81,6.667H17.476A7.24,7.24,0,0,0,10.333,14a7.24,7.24,0,0,0,7.143,7.333H25.81v2.444A1.207,1.207,0,0,1,24.619,25H3.19A1.207,1.207,0,0,1,2,23.778V4.222A1.207,1.207,0,0,1,3.19,3H24.619a1.207,1.207,0,0,1,1.19,1.222ZM17.476,9.111H27v9.778H17.476a4.891,4.891,0,0,1,0-9.778Zm0,3.667v2.444h3.571V12.778Z" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

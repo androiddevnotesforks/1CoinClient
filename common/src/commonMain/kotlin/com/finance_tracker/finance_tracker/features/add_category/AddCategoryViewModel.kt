@@ -4,11 +4,13 @@ import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.features.add_category.analytics.AddCategoryAnalytics
+import dev.icerock.moko.resources.FileResource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import com.finance_tracker.finance_tracker.MR
 
-private const val MaxCategoryLength = 28
+private const val MaxCategoryNameLength = 28
 
 class AddCategoryViewModel(
     private val categoriesInteractor: CategoriesInteractor,
@@ -16,11 +18,13 @@ class AddCategoryViewModel(
     private val screenParams: AddCategoryScreenParams
 ): BaseViewModel<AddCategoryAction>() {
 
-    private val _icons = MutableStateFlow(List(63) { "ic_category_${it + 1}" })
+    private val categoriesNamesList = List(63) { "ic_category_${it + 1}" }
+
+    private val _icons = MutableStateFlow<List<FileResource>>(emptyList())
     val icons = _icons.asStateFlow()
 
     private val _chosenIcon = MutableStateFlow(
-        screenParams.category?.iconId ?: icons.value.first()
+        screenParams.category?.icon ?: MR.files.ic_category_1
     )
     val chosenIcon = _chosenIcon.asStateFlow()
 
@@ -32,15 +36,28 @@ class AddCategoryViewModel(
 
     init {
         addCategoryAnalytics.trackScreenOpen()
+        initCategories(categoriesNamesList)
     }
 
-    fun onIconChoose(icon: String) {
+    private fun initCategories(iconsNames: List<String>) {
+        viewModelScope.launch {
+            iconsNames.forEach {
+                val categoryIcon = categoriesInteractor.getCategoryIcon(it)
+
+                if (categoryIcon != null) {
+                    _icons.value = _icons.value + categoryIcon
+                }
+            }
+        }
+    }
+
+    fun onIconChoose(icon: FileResource) {
         _chosenIcon.value = icon
     }
 
     private suspend fun addCategory(
         categoryName: String,
-        categoryIcon: String,
+        categoryIcon: FileResource,
         transactionType: TransactionType
     ) {
         categoriesInteractor.insertCategory(
@@ -52,7 +69,7 @@ class AddCategoryViewModel(
     }
 
     fun setCategoryName(name: String) {
-        if (name.length <= MaxCategoryLength) {
+        if (name.length <= MaxCategoryNameLength) {
             _categoryName.value = name
         }
     }

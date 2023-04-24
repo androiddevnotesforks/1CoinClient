@@ -7,10 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.IconActionButton
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.features.add_account.AddAccountViewModel
 import dev.icerock.moko.resources.compose.stringResource
@@ -32,7 +32,7 @@ internal fun EditAccountActions(
                     start = 16.dp,
                     end = 8.dp
                 ),
-            painter = rememberVectorPainter("ic_recycle_bin"),
+            painter = rememberAsyncImagePainter(MR.files.ic_recycle_bin),
             tint = CoinTheme.color.accentRed,
             onClick = { viewModel.onDeleteClick(account) }
         )
