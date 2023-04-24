@@ -9,3 +9,8 @@ actual fun Double.format(): String {
 actual fun String.parse(): Double? {
     TODO()
 }
+
+@Suppress("NotImplementedDeclaration")
+actual fun getNumberSeparatorSymbol(): String {
+    TODO()
+}

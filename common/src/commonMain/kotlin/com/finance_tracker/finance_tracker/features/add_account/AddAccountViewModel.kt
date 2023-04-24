@@ -1,9 +1,12 @@
 package com.finance_tracker.finance_tracker.features.add_account
 
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.TextFieldValue
+import com.finance_tracker.finance_tracker.core.common.TextRange
+import com.finance_tracker.finance_tracker.core.common.formatters.evaluateDoubleWithReplace
 import com.finance_tracker.finance_tracker.core.common.formatters.format
 import com.finance_tracker.finance_tracker.core.common.formatters.parse
-import com.finance_tracker.finance_tracker.core.common.isFloatNumber
+import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
@@ -12,10 +15,13 @@ import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.features.add_account.analytics.AddAccountAnalytics
+import com.finance_tracker.finance_tracker.features.add_account.models.BalanceCalculationState
+import com.github.murzagalin.evaluator.Evaluator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -23,8 +29,9 @@ class AddAccountViewModel(
     private val accountsRepository: AccountsRepository,
     private val currenciesInteractor: CurrenciesInteractor,
     private val _account: Account,
-    private val addAccountAnalytics: AddAccountAnalytics
-): BaseViewModel<AddAccountAction>() {
+    private val addAccountAnalytics: AddAccountAnalytics,
+    private val evaluator: Evaluator
+) : BaseViewModel<AddAccountAction>() {
 
     private val account: Account? = _account.takeIf { _account != Account.EMPTY }
 
@@ -50,8 +57,28 @@ class AddAccountViewModel(
     private val _enteredAccountName = MutableStateFlow(account?.name.orEmpty())
     val enteredAccountName = _enteredAccountName.asStateFlow()
 
-    private val _enteredBalance = MutableStateFlow(account?.balance?.amountValue?.format().orEmpty())
+    private val _enteredBalance = MutableStateFlow(
+        TextFieldValue(
+            text = account?.balance?.amountValue?.format().orEmpty(),
+            selection = TextRange.Zero,
+        )
+    )
     val enteredBalance = _enteredBalance.asStateFlow()
+
+    @Suppress("SwallowedException")
+    val balanceCalculationResult = enteredBalance
+        .map {
+            val (calculation, isError) = try {
+                evaluator.evaluateDoubleWithReplace(it.text).format() to false
+            } catch (exception: IllegalArgumentException) {
+                "0" to enteredBalance.value.text.isNotEmpty()
+            }
+
+            BalanceCalculationState(
+                calculationResult = calculation,
+                isError = isError
+            )
+        }.stateIn(viewModelScope, initialValue = BalanceCalculationState("0", false))
 
     val isAddButtonEnabled = combine(
         enteredAccountName,
@@ -98,10 +125,12 @@ class AddAccountViewModel(
         _selectedColor.value = accountColor
     }
 
-    fun onAmountChange(amount: String) {
-        if (amount.isFloatNumber(withComma = true) || amount.isEmpty()) {
-            _enteredBalance.value = amount
-        }
+    fun onAmountChange(amount: TextFieldValue) {
+        _enteredBalance.value = amount
+    }
+
+    fun onKeyboardButtonClick(keyboardAction: KeyboardAction) {
+        _enteredBalance.applyKeyboardAction(keyboardAction)
     }
 
     fun onConfirmDeletingClick(account: Account, dialogKey: String) {
@@ -129,29 +158,38 @@ class AddAccountViewModel(
                 )
                 return@launch
             }
-            val balance = enteredBalance.value.parse() ?: 0.0
             val type = selectedType.value ?: run {
                 viewAction = AddAccountAction.ShowToast(
                     textId = MR.strings.new_account_error_select_account_type
                 )
                 return@launch
             }
+            val balance = balanceCalculationResult
+                .value
+                .takeIf { !it.isError }
+                ?.calculationResult
+                ?.parse() ?: run {
+                viewAction = AddAccountAction.ShowToast(
+                    textId = MR.strings.new_account_error_enter_account_balance
+                )
+                return@launch
+            }
             if (account == null) {
                 accountsRepository.insertAccount(
                     accountName = accountName,
-                    balance = balance,
-                    colorId = selectedColorId,
                     type = type,
-                    currency = selectedCurrency.value
+                    colorId = selectedColorId,
+                    currency = selectedCurrency.value,
+                    balance = balance
                 )
             } else {
                 accountsRepository.updateAccount(
-                    type = type,
+                    id = account.id,
                     name = accountName,
-                    balance = balance,
+                    type = type,
                     colorId = selectedColorId,
                     currency = selectedCurrency.value,
-                    id = account.id,
+                    balance = balance,
                 )
             }
             viewAction = AddAccountAction.Close
@@ -179,9 +217,11 @@ class AddAccountViewModel(
         viewAction = AddAccountAction.Close
     }
 
-    fun onDeleteClick(account: Account) {
-        addAccountAnalytics.trackDeleteClick(account)
-        viewAction = AddAccountAction.ShowDeleteDialog(account)
+    fun onDeleteClick() {
+        account?.let {
+            addAccountAnalytics.trackDeleteClick(account)
+            viewAction = AddAccountAction.ShowDeleteDialog(account)
+        }
     }
 
     fun onCancelDeletingClick(account: Account, dialogKey: String) {

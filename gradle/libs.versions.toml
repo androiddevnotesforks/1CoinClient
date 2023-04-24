@@ -35,7 +35,8 @@ lottie = "5.2.0"
 googleServicesAuth = "20.4.1"
 immutableCollections = "0.3.5"
 coil = "2.2.2"
-imageloader = "1.4.0"
+imageloader = "1.2.10"
+arithmetic-evaluator = "0.15.0"
 
 [libraries]
 gradleplugins-android = { module = "com.android.tools.build:gradle", version.ref = "android_plugin" }
@@ -124,6 +125,8 @@ googleServicesAuth = { module = "com.google.android.gms:play-services-auth", ver
 immutableCollections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "immutableCollections" }
 
 imageloader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "imageloader" }
+
+arithmetic-evaluator = { module = "io.github.murzagalin:multiplatform-expressions-evaluator", version.ref = "arithmetic-evaluator" }
 
 [bundles]
 odyssey = ["odyssey-core", "odyssey-compose"]

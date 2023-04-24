@@ -171,7 +171,7 @@
     <string name="new_account_error_enter_account_name">Введите название счета</string>
     <string name="new_account_error_select_account_type">Выберите тип</string>
     <string name="new_account_error_select_account_color">Выберите цвет</string>
-    <string name="new_account_error_enter_account_balance">Введите баланс</string>
+    <string name="new_account_error_enter_account_balance">Введите корректный баланс</string>
     <string name="edit_account_btn_save">Сохранить</string>
 
     <!-- Analytics -->
