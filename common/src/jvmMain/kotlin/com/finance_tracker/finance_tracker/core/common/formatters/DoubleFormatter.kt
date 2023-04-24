@@ -1,10 +1,10 @@
 package com.finance_tracker.finance_tracker.core.common.formatters
 
 import com.finance_tracker.finance_tracker.core.common.runSafeCatching
+import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 
-class DoubleFormatter {
-
+internal class DoubleFormatter {
     private val formatter = NumberFormat.getNumberInstance().apply {
         maximumFractionDigits = 2
         minimumFractionDigits = 0
@@ -18,9 +18,8 @@ class DoubleFormatter {
     fun parse(text: String): Double? {
         if (text.isBlank()) return null
 
-        val formattedText = text.replace(",", ".")
         return runSafeCatching {
-            formatter.parse(formattedText).toDouble()
+            formatter.parse(text).toDouble()
         }.getOrNull()
     }
 }
@@ -31,4 +30,8 @@ actual fun Double.format(): String {
 
 actual fun String.parse(): Double? {
     return DoubleFormatter().parse(this)
+}
+
+actual fun getNumberSeparatorSymbol(): String {
+    return DecimalFormatSymbols.getInstance().decimalSeparator.toString()
 }

@@ -157,7 +157,6 @@ internal fun AddTransactionScreen(
                 }
             }
 
-
             CategoriesAppBar(
                 doneButtonEnabled = isAddTransactionEnabled,
                 selectedTransactionType = selectedTransactionType,

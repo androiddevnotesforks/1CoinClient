@@ -43,7 +43,7 @@ fun handleAction(
         }
         is AddAccountAction.DismissDeleteDialog -> {
             val modalNavController = rootController.findModalController()
-            modalNavController.popBackStack(action.dialogKey, animate = false)
+            modalNavController.popBackStack(action.dialogKey, animate = true)
         }
         is AddAccountAction.BackToScreen -> {
             val navController = rootController.findRootController()

@@ -5,44 +5,53 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.IconActionButton
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
-import com.finance_tracker.finance_tracker.domain.models.Account
-import com.finance_tracker.finance_tracker.features.add_account.AddAccountViewModel
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun EditAccountActions(
-    viewModel: AddAccountViewModel,
-    addEnable: Boolean,
-    account: Account,
+    deleteEnabled: Boolean,
+    addEnabled: Boolean,
+    onDeleteClick: () -> Unit,
+    onAddAccountClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val focusManager = LocalFocusManager.current
+
     Row(
-        modifier = modifier
-            .padding(top = 24.dp)
+        modifier = modifier.padding(top = 24.dp)
     ) {
-        IconActionButton(
-            modifier = Modifier
-                .padding(
-                    start = 16.dp,
-                    end = 8.dp
-                ),
-            painter = rememberAsyncImagePainter(MR.files.ic_recycle_bin),
-            tint = CoinTheme.color.accentRed,
-            onClick = { viewModel.onDeleteClick(account) }
-        )
+        if (deleteEnabled) {
+            IconActionButton(
+                modifier = Modifier
+                    .padding(
+                        start = 16.dp,
+                        end = 8.dp
+                    ),
+                painter = rememberAsyncImagePainter(MR.files.ic_recycle_bin),
+                tint = CoinTheme.color.accentRed,
+                onClick = onDeleteClick
+            )
+        }
+
         PrimaryButton(
             modifier = Modifier
                 .fillMaxWidth()
+                .`if`(!deleteEnabled) { padding(start = 16.dp) }
                 .padding(end = 16.dp),
             text = stringResource(MR.strings.edit_account_btn_save),
-            onClick = viewModel::onAddAccountClick,
-            enabled = addEnable
+            onClick = {
+                focusManager.clearFocus()
+                onAddAccountClick()
+            },
+            enabled = addEnabled
         )
     }
 }
