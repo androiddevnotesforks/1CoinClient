@@ -5,6 +5,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Shapes
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.material.ripple.RippleAlpha
 import androidx.compose.material.ripple.RippleTheme
@@ -46,6 +47,9 @@ val LocalCoinElevation = staticCompositionLocalOf {
         default = 4.dp,
         pressed = 8.dp
     )
+}
+val LocalCoinShapes = staticCompositionLocalOf {
+    CoinShapes()
 }
 
 // Ripple
@@ -129,12 +133,16 @@ fun CoinTheme(
             surface = CoinTheme.color.backgroundSurface,
             primary = coinColors.primary,
             primaryVariant = coinColors.primaryVariant
+        ),
+        shapes = Shapes(
+            medium = CoinTheme.shapes.medium
         )
     ) {
         CompositionLocalProvider(
             LocalContext provides context,
             LocalCoinColors provides coinColors,
             LocalCoinTypography provides CoinTheme.typography,
+            LocalCoinShapes provides CoinTheme.shapes,
             LocalCoinElevation provides CoinTheme.elevation,
             LocalDarkTheme provides isDarkTheme,
             LocalContentColor provides CoinTheme.color.content,
@@ -161,4 +169,7 @@ object CoinTheme {
     val elevation: CoinElevation
         @Composable
         get() = LocalCoinElevation.current
+    val shapes: CoinShapes
+        @Composable
+        get() = LocalCoinShapes.current
 }
