@@ -1,13 +1,11 @@
 package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.foundation.lazy.grid.LazyGridScope
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
-import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 
 @Composable
 @Suppress("MissingModifierDefaultValue", "ModifierParameterPosition", "ReusedModifierInstance")
@@ -20,7 +18,7 @@ actual fun CoinGridDropdownMenu(
     yOffset: Dp,
     content: LazyGridScope.() -> Unit
 ) {
-    MaterialTheme(shapes = MaterialTheme.shapes.copy(medium = RoundedCornerShape(12.dp))) {
+    CoinTheme {
         GridDropdownMenu(
             columnSize = columnSize,
             modifier = modifier,

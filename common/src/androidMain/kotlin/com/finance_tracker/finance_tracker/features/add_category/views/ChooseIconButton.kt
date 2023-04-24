@@ -58,7 +58,7 @@ internal fun ChooseIconButton(
         Box {
             CoinGridDropdownMenu(
                 modifier = Modifier
-                    .requiredSizeIn(maxHeight = 360.dp, maxWidth = 300.dp),
+                    .requiredSizeIn(maxWidth = 300.dp),
                 expanded = expanded,
                 onDismissRequest = { expanded = false },
                 columnSize = 40.dp,

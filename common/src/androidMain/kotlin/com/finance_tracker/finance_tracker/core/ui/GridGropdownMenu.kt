@@ -155,6 +155,7 @@ private data class DropdownMenuPositionProvider(
             anchorBounds,
             IntRect(x, y, x + popupContentSize.width, y + popupContentSize.height)
         )
+
         return IntOffset(x, y)
     }
 }
