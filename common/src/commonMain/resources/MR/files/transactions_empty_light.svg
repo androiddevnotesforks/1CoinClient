@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="274.953" height="155.487" viewBox="0 0 274.953 155.487">
+  <g id="Transactions_Empty_" data-name="Transactions (Empty)" transform="translate(-59.039 -331.049)">
+    <g id="Сгруппировать_3247" data-name="Сгруппировать 3247" transform="matrix(0.998, 0.07, -0.07, 0.998, 63.449, 331.042)">
+      <g id="Background" transform="translate(0.051 0.004)" fill="#fff" stroke="#e6e6e6" stroke-width="1">
+        <rect width="271.142" height="63.954" rx="12" stroke="none"/>
+        <rect x="0.5" y="0.5" width="270.142" height="62.954" rx="11.5" fill="none"/>
+      </g>
+      <g id="Transaction" transform="translate(13.73 13.71)">
+        <g id="Icon">
+          <ellipse id="Bakcground" cx="18.273" cy="18.273" rx="18.273" ry="18.273" fill="#e6e6e6"/>
+        </g>
+        <rect id="Прямоугольник_1396" data-name="Прямоугольник 1396" width="62.814" height="13.705" rx="6.852" transform="translate(46.825 4.568)" fill="#e6e6e6"/>
+        <rect id="Прямоугольник_1397" data-name="Прямоугольник 1397" width="86.797" height="12.563" rx="6.281" transform="translate(46.825 20.557)" fill="#e6e6e6"/>
+        <rect id="Прямоугольник_1398" data-name="Прямоугольник 1398" width="37.688" height="20.557" rx="10.279" transform="translate(207.856 7.994)" fill="#e6e6e6"/>
+      </g>
+    </g>
+    <g id="Сгруппировать_3248" data-name="Сгруппировать 3248" transform="matrix(0.998, -0.07, 0.07, 0.998, 59.003, 386.39)">
+      <g id="Background-2" data-name="Background" transform="translate(0.051 0.004)" fill="#fff" stroke="#e6e6e6" stroke-width="1">
+        <rect width="271.022" height="63.859" rx="12" stroke="none"/>
+        <rect x="0.5" y="0.5" width="270.022" height="62.859" rx="11.5" fill="none"/>
+      </g>
+      <g id="Transaction-2" data-name="Transaction" transform="translate(13.726 13.706)">
+        <g id="Icon-2" data-name="Icon">
+          <ellipse id="Bakcground-2" data-name="Bakcground" cx="18.273" cy="18.247" rx="18.273" ry="18.247" fill="#e6e6e6"/>
+        </g>
+        <rect id="Прямоугольник_1396-2" data-name="Прямоугольник 1396" width="62.814" height="13.705" rx="6.852" transform="translate(46.825 4.568)" fill="#e6e6e6"/>
+        <rect id="Прямоугольник_1397-2" data-name="Прямоугольник 1397" width="86.797" height="12.563" rx="6.281" transform="translate(46.825 20.557)" fill="#e6e6e6"/>
+        <rect id="Прямоугольник_1398-2" data-name="Прямоугольник 1398" width="37.688" height="20.557" rx="10.279" transform="translate(207.856 7.994)" fill="#e6e6e6"/>
+      </g>
+    </g>
+    <g id="Сгруппировать_3249" data-name="Сгруппировать 3249" transform="matrix(0.998, 0.07, -0.07, 0.998, 63.449, 403.817)">
+      <g id="Background-3" data-name="Background" transform="translate(0.051 0.004)" fill="#fff" stroke="#e6e6e6" stroke-width="1">
+        <rect width="271.152" height="63.953" rx="12" stroke="none"/>
+        <rect x="0.5" y="0.5" width="270.152" height="62.953" rx="11.5" fill="none"/>
+      </g>
+      <g id="Transaction-3" data-name="Transaction" transform="translate(13.73 13.71)">
+        <g id="Icon-3" data-name="Icon">
+          <ellipse id="Bakcground-3" data-name="Bakcground" cx="18.273" cy="18.273" rx="18.273" ry="18.273" fill="#e6e6e6"/>
+        </g>
+        <rect id="Прямоугольник_1396-3" data-name="Прямоугольник 1396" width="62.814" height="13.705" rx="6.852" transform="translate(46.825 4.568)" fill="#e6e6e6"/>
+        <rect id="Прямоугольник_1397-3" data-name="Прямоугольник 1397" width="86.797" height="12.563" rx="6.281" transform="translate(46.825 20.557)" fill="#e6e6e6"/>
+        <rect id="Прямоугольник_1398-3" data-name="Прямоугольник 1398" width="37.688" height="20.557" rx="10.279" transform="translate(207.856 7.994)" fill="#e6e6e6"/>
+      </g>
+    </g>
+  </g>
+</svg>

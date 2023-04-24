@@ -29,12 +29,12 @@ import com.finance_tracker.finance_tracker.core.common.date.isCurrentYear
 import com.finance_tracker.finance_tracker.core.common.date.isToday
 import com.finance_tracker.finance_tracker.core.common.date.isYesterday
 import com.finance_tracker.finance_tracker.core.common.date.minus
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.toDateTime
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CalendarDialog
 import com.finance_tracker.finance_tracker.core.ui.CalendarDialogController
 import com.finance_tracker.finance_tracker.core.ui.StubCalendarDialogController
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
@@ -82,7 +82,7 @@ internal fun CalendarDayView(
                 LocalContentColor provides CoinTheme.color.secondary
             ) {
                 Icon(
-                    painter = rememberVectorPainter("ic_calendar"),
+                    painter = rememberAsyncImagePainter(MR.files.ic_calendar),
                     contentDescription = null,
                     tint = LocalContentColor.current
                 )

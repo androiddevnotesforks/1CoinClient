@@ -5,6 +5,7 @@ import com.finance_tracker.finance_tracker.core.common.suspendTransaction
 import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepository
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
 import com.finance_tracker.finance_tracker.domain.models.Category
+import dev.icerock.moko.resources.FileResource
 import kotlinx.coroutines.flow.Flow
 
 class CategoriesInteractor(
@@ -15,7 +16,7 @@ class CategoriesInteractor(
 
     suspend fun insertCategory(
         categoryName: String,
-        categoryIcon: String,
+        categoryIcon: FileResource,
         isExpense: Boolean,
         isIncome: Boolean,
     ) {
@@ -24,6 +25,10 @@ class CategoriesInteractor(
 
     fun getCategoriesCountFlow(): Flow<Int> {
         return categoriesRepository.getCategoriesCountFlow()
+    }
+
+    suspend fun getCategoryIcon(iconName: String): FileResource? {
+        return categoriesRepository.getCategoryIcon(iconName)
     }
 
     suspend fun deleteCategoryById(id: Long) {
@@ -52,7 +57,7 @@ class CategoriesInteractor(
     }
 
 
-    suspend fun updateCategory(id: Long, name: String, iconId: String) {
+    suspend fun updateCategory(id: Long, name: String, iconId: FileResource) {
         categoriesRepository.updateCategory(id, name, iconId)
     }
 }

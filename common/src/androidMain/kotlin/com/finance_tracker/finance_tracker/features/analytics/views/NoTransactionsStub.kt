@@ -11,8 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -27,7 +27,7 @@ internal fun NoTransactionsStub(
         horizontalArrangement = Arrangement.Center
     ) {
         Icon(
-            painter = rememberVectorPainter("ic_error"),
+            painter = rememberAsyncImagePainter(MR.files.ic_error),
             contentDescription = null,
             tint = CoinTheme.color.secondary
         )

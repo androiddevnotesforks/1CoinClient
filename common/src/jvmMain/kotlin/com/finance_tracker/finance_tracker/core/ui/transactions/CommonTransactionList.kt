@@ -20,9 +20,10 @@ import com.finance_tracker.finance_tracker.core.common.date.isToday
 import com.finance_tracker.finance_tracker.core.common.date.isYesterday
 import com.finance_tracker.finance_tracker.core.common.pagination.LazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.pagination.items
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.theme.provideThemeImage
 import com.finance_tracker.finance_tracker.core.ui.EmptyStub
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import dev.icerock.moko.resources.compose.stringResource
 
@@ -39,7 +40,12 @@ internal fun CommonTransactionsList(
     if (transactions.itemCount == 0) {
         EmptyStub(
             modifier = modifier,
-            image = rememberVectorPainter("transactions_empty", isSupportDarkMode = true),
+            image = rememberAsyncImagePainter(
+                provideThemeImage(
+                    darkFile = MR.files.transactions_empty_dark,
+                    lightFile = MR.files.transactions_empty_light
+                )
+            ),
             text = stringResource(MR.strings.add_transaction),
             onClick = { onAddTransactionClick.invoke() },
             stubHeightAlignment = stubHeightAlignment,

@@ -7,10 +7,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -38,14 +38,14 @@ internal fun TransactionsAppBar(
         },
         navigationIcon = if (hasSelectedItems) {{
             AppBarIcon(
-                painter = rememberVectorPainter("ic_close"),
+                painter = rememberAsyncImagePainter(MR.files.ic_close),
                 onClick = onCloseClick,
             )
         }} else null,
         actions = {
             if (hasSelectedItems) {
                 AppBarIcon(
-                    painter = rememberVectorPainter("ic_delete"),
+                    painter = rememberAsyncImagePainter(MR.files.ic_delete),
                     onClick = onDeleteClick,
                     tint = CoinTheme.color.accentRed
                 )

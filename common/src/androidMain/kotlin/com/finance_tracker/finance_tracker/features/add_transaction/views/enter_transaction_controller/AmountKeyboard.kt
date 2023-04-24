@@ -13,8 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.features.add_transaction.KeyboardCommand
 
 private val commands = listOf(
@@ -51,7 +52,7 @@ internal fun AmountKeyboard(
                             KeyboardCommand.Delete -> {
                                 Icon(
                                     modifier = Modifier.size(24.dp),
-                                    painter = rememberVectorPainter("ic_backspace"),
+                                    painter = rememberAsyncImagePainter(MR.files.ic_backspace),
                                     contentDescription = null
                                 )
                             }

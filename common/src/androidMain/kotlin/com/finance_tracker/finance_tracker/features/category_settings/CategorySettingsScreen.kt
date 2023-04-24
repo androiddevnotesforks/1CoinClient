@@ -21,14 +21,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
+import com.finance_tracker.finance_tracker.core.theme.provideThemeImage
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.core.ui.DraggableItem
 import com.finance_tracker.finance_tracker.core.ui.EmptyStub
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
 import com.finance_tracker.finance_tracker.core.ui.rememberDragDropState
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.domain.models.Category
 import dev.icerock.moko.resources.compose.stringResource
@@ -70,7 +71,12 @@ internal fun CategorySettingsScreen() {
                 TransactionTypeTab.Expense -> {
                     if (expenseCategories.isEmpty()) {
                         EmptyStub(
-                            image = rememberVectorPainter("categories_empty", isSupportDarkMode = true),
+                            image = rememberAsyncImagePainter(
+                                provideThemeImage(
+                                    darkFile = MR.files.categories_empty_dark,
+                                    lightFile = MR.files.categories_empty_light
+                                )
+                            ),
                             text = stringResource(MR.strings.add_category),
                             onClick = viewModel::onAddCategoryClick
                         )
@@ -86,7 +92,12 @@ internal fun CategorySettingsScreen() {
                 TransactionTypeTab.Income -> {
                     if (incomeCategories.isEmpty()) {
                         EmptyStub(
-                            image = rememberVectorPainter("categories_empty", isSupportDarkMode = true),
+                            image = rememberAsyncImagePainter(
+                                provideThemeImage(
+                                    darkFile = MR.files.categories_empty_dark,
+                                    lightFile = MR.files.categories_empty_light
+                                )
+                            ),
                             text = stringResource(MR.strings.add_category),
                             onClick = viewModel::onAddCategoryClick
                         )

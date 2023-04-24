@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Category
 
@@ -37,7 +39,7 @@ internal fun CategoryCard(
             )
     ) {
         Icon(
-            painter = rememberVectorPainter("ic_three_stripes"),
+            painter = rememberAsyncImagePainter(MR.files.ic_three_stripes),
             contentDescription = null,
             modifier = Modifier
                 .padding(end = 12.dp)
@@ -46,7 +48,7 @@ internal fun CategoryCard(
             tint = CoinTheme.color.content
         )
         Icon(
-            painter = rememberVectorPainter(data.iconId),
+            painter = rememberAsyncImagePainter(data.icon),
             contentDescription = null,
             Modifier
                 .size(42.dp)
@@ -71,7 +73,7 @@ internal fun CategoryCard(
             color = CoinTheme.color.content
         )
         Icon(
-            painter = rememberVectorPainter("ic_cross"),
+            painter = rememberAsyncImagePainter(MR.files.ic_close),
             contentDescription = null,
             modifier = Modifier
                 .clip(CircleShape)

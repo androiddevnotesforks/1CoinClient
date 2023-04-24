@@ -14,12 +14,12 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarHeight
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.SearchCurrencyTextField
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import dev.icerock.moko.resources.compose.stringResource
 
 private const val TopBarAnimDurationMillis = 150
@@ -52,7 +52,7 @@ fun SelectCurrencyTopBar(
                         )
                     ) {
                         AppBarIcon(
-                            painter = rememberVectorPainter("ic_arrow_back"),
+                            painter = rememberAsyncImagePainter(MR.files.ic_arrow_back),
                             onClick = onBackClickWhileSearch
                         )
                     }
@@ -67,7 +67,7 @@ fun SelectCurrencyTopBar(
                         )
                     ) {
                         AppBarIcon(
-                            painter = rememberVectorPainter("ic_arrow_back"),
+                            painter = rememberAsyncImagePainter(MR.files.ic_arrow_back),
                             onClick = onBackClick
                         )
                     }
@@ -123,7 +123,7 @@ fun SelectCurrencyTopBar(
                         )
                     ) {
                         AppBarIcon(
-                            painter = rememberVectorPainter("ic_search"),
+                            painter = rememberAsyncImagePainter(MR.files.ic_search),
                             onClick = onSearchClick,
                         )
                     }

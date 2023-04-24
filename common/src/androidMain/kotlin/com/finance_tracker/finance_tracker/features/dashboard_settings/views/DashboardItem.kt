@@ -17,12 +17,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.noRippleClickable
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinRadioButton
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.DashboardWidgetData
 import dev.icerock.moko.resources.compose.stringResource
-
+import com.finance_tracker.finance_tracker.MR
 
 @Composable
 internal fun DashboardItem(
@@ -50,7 +50,7 @@ internal fun DashboardItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            painter = rememberVectorPainter("ic_three_stripes"),
+            painter = rememberAsyncImagePainter(MR.files.ic_three_stripes),
             contentDescription = null,
             modifier = Modifier
                 .padding(end = 12.dp)

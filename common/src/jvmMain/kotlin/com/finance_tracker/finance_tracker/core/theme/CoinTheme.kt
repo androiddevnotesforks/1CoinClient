@@ -29,8 +29,13 @@ import com.finance_tracker.finance_tracker.core.common.getKoin
 import com.finance_tracker.finance_tracker.core.common.updateSystemBarsConfig
 import com.finance_tracker.finance_tracker.domain.interactors.ThemeInteractor
 import com.finance_tracker.finance_tracker.domain.models.ThemeMode
+import dev.icerock.moko.resources.FileResource
 
 private val themeInteractor: ThemeInteractor by lazy { getKoin().get() }
+
+val LocalDarkTheme = staticCompositionLocalOf {
+    false
+}
 
 val LocalCoinColors = staticCompositionLocalOf { ColorPalette.Undefined.toJvmColorPalette() }
 val LocalCoinTypography = staticCompositionLocalOf {
@@ -72,6 +77,18 @@ object CoinAlpha {
 @Composable
 internal fun TextStyle.staticTextSize(isStaticContentSize: Boolean = true): TextStyle {
     return if (isStaticContentSize) copy(fontSize = fontSize.value.dp.asSp()) else this
+}
+
+@Composable
+fun provideThemeImage(
+    darkFile: FileResource,
+    lightFile: FileResource
+): FileResource {
+    return if (LocalDarkTheme.current) {
+        darkFile
+    } else {
+        lightFile
+    }
 }
 
 @Composable
@@ -119,6 +136,7 @@ fun CoinTheme(
             LocalCoinColors provides coinColors,
             LocalCoinTypography provides CoinTheme.typography,
             LocalCoinElevation provides CoinTheme.elevation,
+            LocalDarkTheme provides isDarkTheme,
             LocalContentColor provides CoinTheme.color.content,
             LocalIndication provides rememberRipple(),
             LocalRippleTheme provides CoinRippleTheme,

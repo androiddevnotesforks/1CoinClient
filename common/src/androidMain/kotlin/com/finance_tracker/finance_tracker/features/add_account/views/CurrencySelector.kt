@@ -17,8 +17,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.features.add_account.dropdown_menus.AmountCurrenciesDropdownMenu
 
@@ -60,7 +61,7 @@ internal fun CurrencySelector(
         Icon(
             modifier = Modifier
                 .size(24.dp),
-            painter = rememberVectorPainter("ic_expand_more_small"),
+            painter = rememberAsyncImagePainter(MR.files.ic_expand_more_small),
             contentDescription = null,
             tint = CoinTheme.color.primary
         )

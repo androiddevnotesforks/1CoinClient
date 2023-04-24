@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.imePadding
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.toTextFieldValue
 import com.finance_tracker.finance_tracker.core.common.toUiTextFieldValue
@@ -36,7 +37,6 @@ import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
-import com.finance_tracker.finance_tracker.core.ui.rememberVectorPainter
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -135,7 +135,7 @@ private fun EnterEmailAppBar(
             modifier = Modifier
                 .padding(start = 8.dp)
                 .align(Alignment.CenterStart),
-            painter = rememberVectorPainter("ic_arrow_back"),
+            painter = rememberAsyncImagePainter(MR.files.ic_arrow_back),
             onClick = onBackClick,
         )
 
@@ -146,7 +146,7 @@ private fun EnterEmailAppBar(
                     width = 92.1.dp,
                     height = 22.3.dp
                 ),
-            painter = rememberVectorPainter("ic_logo_1coin"),
+            painter = rememberAsyncImagePainter(MR.files.ic_logo_1coin),
             contentDescription = null,
             tint = CoinTheme.color.primary
         )

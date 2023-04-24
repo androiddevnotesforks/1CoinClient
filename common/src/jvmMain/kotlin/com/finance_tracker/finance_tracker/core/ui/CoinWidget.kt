@@ -21,8 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.`if`
+import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
@@ -63,7 +65,7 @@ internal fun CoinWidget(
                     modifier = Modifier.weight(1f)
                 )
                 Icon(
-                    painter = rememberVectorPainter("ic_arrow_next_small"),
+                    painter = rememberAsyncImagePainter(MR.files.ic_arrow_next_small),
                     contentDescription = null,
                     modifier = Modifier
                         .size(24.dp)
