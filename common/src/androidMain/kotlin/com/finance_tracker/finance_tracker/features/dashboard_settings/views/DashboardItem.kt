@@ -16,13 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.noRippleClickable
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinRadioButton
 import com.finance_tracker.finance_tracker.domain.models.DashboardWidgetData
 import dev.icerock.moko.resources.compose.stringResource
-import com.finance_tracker.finance_tracker.MR
 
 @Composable
 internal fun DashboardItem(

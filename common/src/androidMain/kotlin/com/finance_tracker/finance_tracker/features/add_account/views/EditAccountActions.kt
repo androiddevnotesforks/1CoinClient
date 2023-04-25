@@ -40,7 +40,6 @@ internal fun EditAccountActions(
                 onClick = onDeleteClick
             )
         }
-
         PrimaryButton(
             modifier = Modifier
                 .fillMaxWidth()

@@ -28,7 +28,6 @@ import com.finance_tracker.finance_tracker.core.common.date.format
 import com.finance_tracker.finance_tracker.core.common.date.isCurrentYear
 import com.finance_tracker.finance_tracker.core.common.date.isToday
 import com.finance_tracker.finance_tracker.core.common.date.isYesterday
-import com.finance_tracker.finance_tracker.core.common.date.minus
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.toDateTime
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -39,6 +38,8 @@ import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.minus
 
 @Composable
 internal fun CalendarDayView(
@@ -54,7 +55,11 @@ internal fun CalendarDayView(
         var calendarDialogController: CalendarDialogController by remember {
             mutableStateOf(StubCalendarDialogController)
         }
-        val minDate = Clock.System.now().minus(DateTimeUnit.YEAR)
+        val minDate = Clock.System.now().minus(
+            value = 1,
+            unit = DateTimeUnit.YEAR,
+            timeZone = TimeZone.currentSystemDefault()
+        )
         val maxDate = Clock.System.now()
         CalendarDialog(
             minDate = minDate.toEpochMilliseconds(),

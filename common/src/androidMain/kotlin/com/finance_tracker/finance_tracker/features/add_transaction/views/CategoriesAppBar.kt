@@ -1,5 +1,6 @@
 package com.finance_tracker.finance_tracker.features.add_transaction.views
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesMode
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabRow
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun CategoriesAppBar(
     doneButtonEnabled: Boolean,
