@@ -52,7 +52,8 @@ internal fun ChooseIconButton(
                     onClick.invoke()
                 }
                 .padding(12.dp)
-                .align(Alignment.Center)
+                .align(Alignment.Center),
+            tint = CoinTheme.color.content
         )
 
         Box {
