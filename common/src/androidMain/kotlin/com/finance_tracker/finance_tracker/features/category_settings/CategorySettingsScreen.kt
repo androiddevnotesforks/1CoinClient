@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
@@ -30,13 +32,13 @@ import com.finance_tracker.finance_tracker.core.ui.DraggableItem
 import com.finance_tracker.finance_tracker.core.ui.EmptyStub
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
 import com.finance_tracker.finance_tracker.core.ui.rememberDragDropState
-import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.domain.models.Category
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
 
 private val CategoriesListContentPadding = 16.dp
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun CategorySettingsScreen() {
     ComposeScreen<CategorySettingsViewModel> { viewModel ->
@@ -56,62 +58,50 @@ internal fun CategorySettingsScreen() {
 
         Column(modifier = Modifier.fillMaxSize()) {
 
-            val incomeCategories by viewModel.incomeCategories.collectAsState()
-            val expenseCategories by viewModel.expenseCategories.collectAsState()
             val selectedTransactionTypeTab by viewModel.selectedTransactionType.collectAsState()
 
+            val pagerState = rememberPagerState()
+
             CategorySettingsAppBar(
+                pagerState = pagerState,
                 selectedTransactionTypeTab = selectedTransactionTypeTab,
                 onTransactionTypeSelect = viewModel::onTransactionTypeSelect,
                 onAddCategoryClick = viewModel::onAddCategoryClick,
                 onBackClick = viewModel::onBackClick
             )
 
-            when (selectedTransactionTypeTab) {
-                TransactionTypeTab.Expense -> {
-                    if (expenseCategories.isEmpty()) {
-                        EmptyStub(
-                            image = rememberAsyncImagePainter(
-                                provideThemeImage(
-                                    darkFile = MR.files.categories_empty_dark,
-                                    lightFile = MR.files.categories_empty_light
-                                )
-                            ),
-                            text = stringResource(MR.strings.add_category),
-                            onClick = viewModel::onAddCategoryClick
-                        )
-                    } else {
-                        CategoryDragColumn(
-                            categories = expenseCategories,
-                            onSwap = viewModel::swapExpenseCategories,
-                            onCrossDeleteClick = viewModel::onDeleteCategoryClick,
-                            onClick = viewModel::onCategoryCardClick
-                        )
-                    }
-                }
-                TransactionTypeTab.Income -> {
-                    if (incomeCategories.isEmpty()) {
-                        EmptyStub(
-                            image = rememberAsyncImagePainter(
-                                provideThemeImage(
-                                    darkFile = MR.files.categories_empty_dark,
-                                    lightFile = MR.files.categories_empty_light
-                                )
-                            ),
-                            text = stringResource(MR.strings.add_category),
-                            onClick = viewModel::onAddCategoryClick
-                        )
-                    } else {
-                        CategoryDragColumn(
-                            categories = incomeCategories,
-                            onSwap = viewModel::swapIncomeCategories,
-                            onCrossDeleteClick = viewModel::onDeleteCategoryClick,
-                            onClick = viewModel::onCategoryCardClick
-                        )
-                    }
-                }
-                TransactionTypeTab.Transfer -> {
-                    /* empty */
+            val transactionTypeTabPage by viewModel.transactionTypeTabPage.collectAsState()
+            LaunchedEffect(transactionTypeTabPage) {
+                pagerState.animateScrollToPage(transactionTypeTabPage)
+            }
+
+            LaunchedEffect(pagerState.currentPage) {
+                viewModel.onPageChanged(pagerState.currentPage)
+            }
+
+            HorizontalPager(
+                pageCount = viewModel.transactionTypesCount,
+                state = pagerState
+            ) { page ->
+                val categories by viewModel.getCategories(page).collectAsState()
+                if (categories.isEmpty()) {
+                    EmptyStub(
+                        image = rememberAsyncImagePainter(
+                            provideThemeImage(
+                                darkFile = MR.files.categories_empty_dark,
+                                lightFile = MR.files.categories_empty_light
+                            )
+                        ),
+                        text = stringResource(MR.strings.add_category),
+                        onClick = viewModel::onAddCategoryClick
+                    )
+                } else {
+                    CategoryDragColumn(
+                        categories = categories,
+                        onSwap = viewModel::swapExpenseCategories,
+                        onCrossDeleteClick = viewModel::onDeleteCategoryClick,
+                        onClick = viewModel::onCategoryCardClick
+                    )
                 }
             }
         }

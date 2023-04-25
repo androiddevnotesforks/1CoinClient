@@ -4,6 +4,7 @@ import app.cash.paging.PagingData
 import app.cash.paging.insertSeparators
 import app.cash.paging.map
 import com.finance_tracker.finance_tracker.AppDatabase
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.common.suspendTransaction
 import com.finance_tracker.finance_tracker.core.common.toString
@@ -23,7 +24,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
-import com.finance_tracker.finance_tracker.MR
 
 private const val LastTransactionsLimit = 3L
 

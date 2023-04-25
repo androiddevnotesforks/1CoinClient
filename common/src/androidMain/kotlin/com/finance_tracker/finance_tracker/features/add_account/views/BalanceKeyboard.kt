@@ -30,7 +30,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
@@ -146,24 +145,8 @@ private fun RowScope.KeyboardGridElement(
             is KeyboardAction.Operation -> KeyboardGridChar(keyboardAction.operation)
             is KeyboardAction.Digit -> KeyboardGridChar(keyboardAction.digit)
             is KeyboardAction.NumberSeparator -> KeyboardGridChar(keyboardAction.char)
-            KeyboardAction.Delete -> KeyboardGridIcon(MR.files.ic_backspace, 24.dp)
+            KeyboardAction.Delete -> KeyboardGridIcon(MR.files.ic_backspace)
         }
-    }
-}
-
-@Composable
-private fun RowScope.KeyboardCloseIcon(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-            .weight(1F)
-            .fillMaxHeight()
-            .clickable { onClick() }
-    ) {
-        KeyboardGridIcon(MR.files.ic_close_keyboard, 38.dp)
     }
 }
 
@@ -180,13 +163,33 @@ private fun KeyboardGridChar(
 
 @Composable
 private fun KeyboardGridIcon(
-    iconFileRes: FileResource,
-    iconSize: Dp,
+    iconFileRes: FileResource
 ) {
     Icon(
         painter = rememberAsyncImagePainter(iconFileRes),
         contentDescription = "Icon",
         tint = CoinTheme.color.content,
-        modifier = Modifier.size(iconSize)
+        modifier = Modifier.size(24.dp)
     )
+}
+
+@Composable
+private fun RowScope.KeyboardCloseIcon(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+            .weight(1F)
+            .fillMaxHeight()
+            .clickable { onClick() }
+    ) {
+        Icon(
+            painter = rememberAsyncImagePainter(MR.files.ic_close_keyboard),
+            contentDescription = "Icon",
+            tint = CoinTheme.color.primary,
+            modifier = Modifier.size(38.dp)
+        )
+    }
 }

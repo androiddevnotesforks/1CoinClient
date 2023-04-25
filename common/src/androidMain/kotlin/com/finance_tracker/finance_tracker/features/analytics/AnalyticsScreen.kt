@@ -1,9 +1,12 @@
 package com.finance_tracker.finance_tracker.features.analytics
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
@@ -15,13 +18,13 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
-import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.features.widgets.AnalyticsByCategoryWidget
 import com.finance_tracker.finance_tracker.features.widgets.AnalyticsTrendWidget
 
 val PieChartSize = 240.dp
 val PieChartLabelSize = 20.dp
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun AnalyticsScreen() {
     ComposeScreen<AnalyticsViewModel> { viewModel ->
@@ -33,42 +36,48 @@ internal fun AnalyticsScreen() {
         Column(modifier = Modifier.fillMaxSize()) {
             val selectedTransactionTypeTab by viewModel.transactionTypeTab.collectAsState()
 
-            LaunchedEffect(selectedTransactionTypeTab) {
-                viewModel.trendsAnalyticsDelegate.setSelectedTransactionType(
-                    transactionType = selectedTransactionTypeTab.toTransactionType()
-                )
-                viewModel.monthTxsByCategoryDelegate.setSelectedTransactionType(
-                    transactionType = selectedTransactionTypeTab.toTransactionType()
-                )
-            }
-
+            val pagerState = rememberPagerState()
             AnalyticsScreenAppBar(
                 selectedTransactionTypeTab = selectedTransactionTypeTab,
+                pagerState = pagerState,
                 onTransactionTypeSelect = viewModel::onTransactionTypeSelect
             )
+            val transactionTypeTabPage by viewModel.transactionTypeTabPage.collectAsState()
+            LaunchedEffect(transactionTypeTabPage) {
+                pagerState.animateScrollToPage(transactionTypeTabPage)
+            }
 
-            Column(
-                modifier = Modifier
-                    .verticalScroll(rememberScrollState())
-                    .padding(top = 12.dp)
-            ) {
-                val primaryCurrency by viewModel.primaryCurrency.collectAsState()
-                AnalyticsByCategoryWidget(
-                    primaryCurrency = primaryCurrency,
-                    monthTxsByCategoryDelegate = viewModel.monthTxsByCategoryDelegate,
-                    selectedTransactionTypeTab = selectedTransactionTypeTab
-                )
+            LaunchedEffect(pagerState.currentPage) {
+                viewModel.onPageChanged(pagerState.currentPage)
+            }
 
-                AnalyticsTrendWidget(
-                    trendsAnalyticsDelegate = viewModel.trendsAnalyticsDelegate,
-                    transactionTypeTab = selectedTransactionTypeTab
-                )
-
-                Spacer(
+            HorizontalPager(
+                pageCount = viewModel.transactionTypesCount,
+                state = pagerState
+            ) { page ->
+                Column(
                     modifier = Modifier
-                        .navigationBarsPadding()
-                        .padding(bottom = CoinPaddings.bottomNavigationBar)
-                )
+                        .verticalScroll(rememberScrollState())
+                        .padding(top = 12.dp)
+                ) {
+                    val primaryCurrency by viewModel.primaryCurrency.collectAsState()
+                    AnalyticsByCategoryWidget(
+                        primaryCurrency = primaryCurrency,
+                        monthTxsByCategoryDelegate = viewModel.getMonthTxsByCategoryDelegate(page),
+                        selectedTransactionTypeTab = selectedTransactionTypeTab
+                    )
+
+                    AnalyticsTrendWidget(
+                        trendsAnalyticsDelegate = viewModel.getTrendsAnalyticsDelegate(page),
+                        transactionTypeTab = selectedTransactionTypeTab
+                    )
+
+                    Spacer(
+                        modifier = Modifier
+                            .navigationBarsPadding()
+                            .padding(bottom = CoinPaddings.bottomNavigationBar)
+                    )
+                }
             }
         }
     }

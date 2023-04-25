@@ -1,5 +1,6 @@
 package com.finance_tracker.finance_tracker.features.add_category
 
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
@@ -8,7 +9,6 @@ import dev.icerock.moko.resources.FileResource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import com.finance_tracker.finance_tracker.MR
 
 private const val MaxCategoryNameLength = 28
 

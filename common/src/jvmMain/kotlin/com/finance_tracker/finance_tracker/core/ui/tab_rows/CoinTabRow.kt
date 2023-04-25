@@ -2,8 +2,10 @@ package com.finance_tracker.finance_tracker.core.ui.tab_rows
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material.ScrollableTabRow
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRowDefaults
@@ -27,17 +29,21 @@ import com.finance_tracker.finance_tracker.core.common.toDp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.NoRippleTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
+import com.finance_tracker.finance_tracker.core.ui.pagerTabIndicatorOffset
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 
 private const val TabIndicationAnimDuration = 250L
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun CoinTabRow(
     selectedTabIndex: Int,
-    data: List<String>,
+    data: ImmutableList<String>,
     modifier: Modifier = Modifier,
     hasBottomDivider: Boolean = true,
     isHorizontallyCentered: Boolean = false,
+    pagerState: PagerState? = null,
     onTabSelect: (index: Int) -> Unit = {}
 ) {
     var totalWidth by remember { mutableStateOf(0) }
@@ -84,9 +90,13 @@ internal fun CoinTabRow(
             contentColor = CoinTheme.color.primary,
             indicator = { tabPositions ->
                 TabRowDefaults.Indicator(
-                    modifier = Modifier
-                        .tabIndicatorOffset(tabPositions[selectedTabIndex])
-                        .padding(horizontal = 16.dp),
+                    modifier = if (pagerState != null) {
+                        Modifier
+                            .pagerTabIndicatorOffset(pagerState, tabPositions)
+                    } else {
+                        Modifier
+                            .tabIndicatorOffset(tabPositions[selectedTabIndex])
+                    }.padding(horizontal = 16.dp),
                     height = 2.dp
                 )
             },
