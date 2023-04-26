@@ -15,8 +15,8 @@ data class Category(
         fun empty(context: Context): Category {
             return Category(
                 id = -1,
-                name = MR.strings.category_empty.localizedString(context),
-                icon = MR.files.ic_category_13
+                name = MR.strings.category_uncategorized.localizedString(context),
+                icon = MR.files.ic_category_uncategorized
             )
         }
     }
