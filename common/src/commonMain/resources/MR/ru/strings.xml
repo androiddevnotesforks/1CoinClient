@@ -49,13 +49,14 @@
     <string name="category_sport">Спорт</string>
     <string name="category_public_transport">Транспорт</string>
     <string name="category_shop">Магазины</string>
-    <string name="category_utilities">Другое</string>
+    <string name="category_utilities">ЖКХ</string>
     <string name="category_clothes">Одежда</string>
     <string name="category_electronics">Электроника</string>
-    <string name="category_correct">Без категории</string>
+    <string name="category_correct">Корректировка</string>
     <string name="category_salary">Зарплата</string>
     <string name="category_allowance">Бонусы</string>
     <string name="category_gift">Подарок</string>
+    <string name="category_uncategorized">Без\u00A0категории</string>
 
     <!-- Colors -->
     <string name="color_purple">Фиолетовый</string>
