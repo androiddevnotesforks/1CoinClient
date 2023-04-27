@@ -31,7 +31,7 @@ import com.finance_tracker.finance_tracker.core.common.toDateTime
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
-import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
+import com.finance_tracker.finance_tracker.core.ui.DeleteAlertDialog
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.domain.models.Amount
@@ -332,7 +332,7 @@ private fun DeleteTransactionDialog(
     modalNavController: ModalController,
     onDeleteTransactionClick: (Transaction) -> Unit
 ) {
-    DeleteDialog(
+    DeleteAlertDialog(
         titleEntity = stringResource(MR.strings.deleting_transaction),
         onCancelClick = {
             modalNavController.popBackStack(key, animate = false)
