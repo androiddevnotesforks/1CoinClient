@@ -51,7 +51,8 @@ internal fun SendingUsageDataDialog(
                     append("\n\n")
                     append(stringResource(MR.strings.sending_usage_data_description_2))
                 },
-                style = CoinTheme.typography.body1
+                style = CoinTheme.typography.body1,
+                color = CoinTheme.color.content
             )
 
             Row(
