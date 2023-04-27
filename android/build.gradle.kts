@@ -63,6 +63,7 @@ android {
             initWith(getByName("release"))
             applicationIdSuffix = ".staging"
             versionNameSuffix = "-staging"
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     java {
