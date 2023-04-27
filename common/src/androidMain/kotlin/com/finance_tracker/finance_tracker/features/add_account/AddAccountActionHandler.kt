@@ -5,7 +5,7 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.localizedString
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
-import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
+import com.finance_tracker.finance_tracker.core.ui.DeleteBottomDialog
 import com.finance_tracker.finance_tracker.domain.models.Account
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.launch
@@ -34,7 +34,7 @@ fun handleAction(
         is AddAccountAction.ShowDeleteDialog -> {
             val modalNavController = rootController.findModalController()
             modalNavController.present(DialogConfigurations.bottomSheet) { key ->
-                DeleteDialog(
+                DeleteBottomDialog(
                     titleEntity = stringResource(MR.strings.deleting_account),
                     onCancelClick = { onCancelDeletingClick.invoke(action.account, key) },
                     onDeleteClick = { onConfirmDeletingClick.invoke(action.account, key) }

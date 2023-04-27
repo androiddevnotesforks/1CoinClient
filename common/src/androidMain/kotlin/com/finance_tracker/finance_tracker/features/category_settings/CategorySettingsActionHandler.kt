@@ -4,7 +4,7 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
 import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTree
-import com.finance_tracker.finance_tracker.core.ui.DeleteDialog
+import com.finance_tracker.finance_tracker.core.ui.DeleteAlertDialog
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.features.add_category.AddCategoryScreenParams
@@ -36,7 +36,7 @@ fun handleAction(
         is CategorySettingsAction.OpenDeleteDialog -> {
             val modalNavController = rootController.findModalController()
             modalNavController.present(DialogConfigurations.alert) { key ->
-                DeleteDialog(
+                DeleteAlertDialog(
                     titleEntity = stringResource(MR.strings.deleting_category),
                     onCancelClick = { onCancelClick.invoke(action.category, key) },
                     onDeleteClick = { onConfirmDeleteClick.invoke(action.category, key) }

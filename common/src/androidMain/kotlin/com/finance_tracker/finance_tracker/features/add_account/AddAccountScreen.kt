@@ -168,7 +168,10 @@ internal fun AddAccountScreen(
                     EditAccountActions(
                         deleteEnabled = account != Account.EMPTY,
                         addEnabled = isAddButtonEnabled,
-                        onDeleteClick = viewModel::onDeleteClick,
+                        onDeleteClick = {
+                            focusManager.clearFocus()
+                            viewModel.onDeleteClick()
+                        },
                         onAddAccountClick = viewModel::onAddAccountClick,
                     )
                 }
