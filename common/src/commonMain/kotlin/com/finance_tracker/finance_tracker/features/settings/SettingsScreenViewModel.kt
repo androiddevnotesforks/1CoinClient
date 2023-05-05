@@ -1,7 +1,6 @@
 package com.finance_tracker.finance_tracker.features.settings
 
 import com.finance_tracker.finance_tracker.core.common.AppBuildConfig
-import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
@@ -42,8 +41,8 @@ class SettingsScreenViewModel(
 
     val versionName = AppBuildConfig.appVersion
     val themes = ThemeMode.getAllThemes()
-    val currentTheme = themeInteractor.getThemeModeFlow()
-        .stateIn(viewModelScope, initialValue = ThemeMode.System)
+
+    val currentTheme = themeInteractor.getThemeMode()
 
     fun onBackClick() {
         settingsAnalytics.trackBackClick()

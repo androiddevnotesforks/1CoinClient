@@ -10,24 +10,21 @@ import com.russhwolf.settings.coroutines.toFlowSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 @OptIn(ExperimentalSettingsApi::class)
 class ThemeSettings(factory: Settings.Factory) {
-
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
     private val settings: ObservableSettings = factory.create("theme") as ObservableSettings
     private val flowSettings: FlowSettings = settings.toFlowSettings(Dispatchers.Default)
-    val themeMode = getThemeMode().stateIn(coroutineScope, initialValue = null)
+    val themeMode = flowSettings
+        .getStringOrNullFlow(KEY_THEME_MODE)
+        .map(ThemeMode::from)
+        .map { it ?: ThemeMode.System }
+        .stateIn(coroutineScope, initialValue = ThemeMode.System)
 
     fun saveThemeMode(themeMode: ThemeMode) {
         settings.putString(KEY_THEME_MODE, themeMode.modeId)
-    }
-
-    fun getThemeMode(): Flow<ThemeMode?> {
-        return flowSettings.getStringOrNullFlow(KEY_THEME_MODE)
-            .map(ThemeMode::from)
     }
 
     companion object {

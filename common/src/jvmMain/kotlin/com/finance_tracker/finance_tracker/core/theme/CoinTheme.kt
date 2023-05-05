@@ -99,8 +99,7 @@ fun provideThemeImage(
 fun CoinTheme(
     content: @Composable () -> Unit
 ) {
-    val themeMode by themeInteractor.getThemeModeFlow()
-        .collectAsState(initial = ThemeMode.System)
+    val themeMode by themeInteractor.getThemeMode().collectAsState()
 
     val isSystemInDarkTheme = isSystemInDarkTheme()
     val isDarkTheme by remember(themeMode, isSystemInDarkTheme) {
@@ -112,6 +111,7 @@ fun CoinTheme(
             }
         }
     }
+
     val coinColors by remember(isDarkTheme) {
         derivedStateOf { ColorPalette.provideColorPalette(isDarkTheme).toJvmColorPalette() }
     }
@@ -128,11 +128,11 @@ fun CoinTheme(
             caption = CoinTheme.typography.subtitle2
         ),
         colors = MaterialTheme.colors.copy(
-            background = coinColors.background,
-            onBackground = coinColors.content,
-            surface = CoinTheme.color.backgroundSurface,
-            primary = coinColors.primary,
-            primaryVariant = coinColors.primaryVariant
+            background = coinColors.switch().background,
+            onBackground = coinColors.switch().content,
+            surface = CoinTheme.color.switch().backgroundSurface,
+            primary = coinColors.switch().primary,
+            primaryVariant = coinColors.switch().primaryVariant
         ),
         shapes = Shapes(
             medium = CoinTheme.shapes.medium
@@ -140,7 +140,7 @@ fun CoinTheme(
     ) {
         CompositionLocalProvider(
             LocalContext provides context,
-            LocalCoinColors provides coinColors,
+            LocalCoinColors provides coinColors.switch(),
             LocalCoinTypography provides CoinTheme.typography,
             LocalCoinShapes provides CoinTheme.shapes,
             LocalCoinElevation provides CoinTheme.elevation,
