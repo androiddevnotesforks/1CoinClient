@@ -119,6 +119,7 @@
     <string name="tab_transactions">Операции</string>
     <string name="tab_accounts">Счета</string>
     <string name="tab_analytics">Аналитика</string>
+    <string name="tab_plans">Планы</string>
 
     <!-- Add transaction -->
     <string name="add_transaction_amount">Сумма</string>
@@ -241,5 +242,8 @@
     <!-- Currency screen -->
     <string name="currency_screen_topbar_text">Валюта</string>
     <string name="currency_screen_search">Искать</string>
+
+    <!-- Plans screen -->
+    <string name="plans_screen_topbar_text">Планы</string>
 
 </resources>

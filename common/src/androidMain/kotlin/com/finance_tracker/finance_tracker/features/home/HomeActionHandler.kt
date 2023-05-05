@@ -29,8 +29,10 @@ fun handleAction(
             )
         }
         HomeAction.OpenAccountsScreen -> {
-            val navController = rootController.parentRootController as MultiStackRootController
-            navController.switchTab(TabsNavigationTree.Accounts.ordinal)
+            val navController = rootController.findRootController()
+            navController.push(
+                screen = MainNavigationTree.Accounts.name,
+            )
         }
         HomeAction.OpenAddAccountScreen -> {
             val navController = rootController.findRootController()

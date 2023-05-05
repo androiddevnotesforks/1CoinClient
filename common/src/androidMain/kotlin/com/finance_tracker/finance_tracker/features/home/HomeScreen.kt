@@ -20,6 +20,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.domain.models.DashboardWidgetData
+import com.finance_tracker.finance_tracker.features.home.views.HomeTopBar
 import com.finance_tracker.finance_tracker.features.widgets.AnalyticsByCategoryWidget
 import com.finance_tracker.finance_tracker.features.widgets.AnalyticsTrendWidget
 import com.finance_tracker.finance_tracker.features.widgets.LastTransactionsWidget

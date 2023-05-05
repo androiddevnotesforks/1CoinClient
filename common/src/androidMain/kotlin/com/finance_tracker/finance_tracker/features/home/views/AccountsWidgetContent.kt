@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.features.home
+package com.finance_tracker.finance_tracker.features.home.views
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues

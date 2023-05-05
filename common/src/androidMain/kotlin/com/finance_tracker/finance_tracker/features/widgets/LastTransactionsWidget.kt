@@ -6,7 +6,7 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
-import com.finance_tracker.finance_tracker.features.home.LastTransactionsWidgetContent
+import com.finance_tracker.finance_tracker.features.home.views.LastTransactionsWidgetContent
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable

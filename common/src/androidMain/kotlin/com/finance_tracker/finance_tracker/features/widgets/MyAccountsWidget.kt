@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
 import com.finance_tracker.finance_tracker.domain.models.Account
-import com.finance_tracker.finance_tracker.features.home.AccountsWidgetContent
+import com.finance_tracker.finance_tracker.features.home.views.AccountsWidgetContent
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
