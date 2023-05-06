@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.finance_tracker.finance_tracker.core.common.asDp
@@ -21,7 +23,9 @@ import com.finance_tracker.finance_tracker.core.common.formatters.AmountFormatMo
 import com.finance_tracker.finance_tracker.core.common.formatters.format
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
+import com.finance_tracker.finance_tracker.core.common.toDp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import dev.icerock.moko.resources.FileResource
 
@@ -31,6 +35,7 @@ internal fun DetailAccountExpandedAppBar(
     amount: Amount,
     icon: FileResource,
     contentAlpha: Float,
+    editButtonPositionX: Int,
     modifier: Modifier = Modifier,
     onIconClick: () -> Unit = {},
 ) {
@@ -57,12 +62,16 @@ internal fun DetailAccountExpandedAppBar(
             tint = CoinTheme.color.white
         )
         Text(
-            modifier = Modifier.padding(
-                top = 16.dp,
-                bottom = 30.sp.asDp()
-            ),
+            modifier = Modifier
+                .padding(
+                    top = 16.dp,
+                    bottom = 30.sp.asDp()
+                )
+                .widthIn(max = editButtonPositionX.toDp()),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
             text = amount.format(mode = AmountFormatMode.NegativeSign),
-            style = CoinTheme.typography.h2,
+            style = CoinTheme.typography.h2.staticTextSize(),
             color = CoinTheme.color.white
         )
     }

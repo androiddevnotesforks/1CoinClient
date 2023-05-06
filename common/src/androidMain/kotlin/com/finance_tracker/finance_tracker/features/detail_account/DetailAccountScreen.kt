@@ -4,12 +4,18 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
@@ -18,6 +24,7 @@ import com.finance_tracker.finance_tracker.core.common.pagination.AutoRefreshLis
 import com.finance_tracker.finance_tracker.core.common.pagination.collectAsLazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
+import com.finance_tracker.finance_tracker.core.common.toDp
 import com.finance_tracker.finance_tracker.core.common.toUIColor
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -58,6 +65,7 @@ internal fun DetailAccountScreen(
             state = state,
             scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
             toolbar = {
+                var editButtonPositionX by remember { mutableStateOf(0) }
                 DetailAccountAppBar(
                     modifier = Modifier
                         .graphicsLayer {
@@ -72,6 +80,7 @@ internal fun DetailAccountScreen(
                     color = accountData.colorModel.color.toUIColor(),
                     amount = accountData.balance,
                     icon = accountData.icon,
+                    editButtonPositionX = editButtonPositionX,
                     onIconClick = viewModel::onIconClick
                 )
 
@@ -89,11 +98,15 @@ internal fun DetailAccountScreen(
                 )
 
                 AccountNameText(
+                    modifier = Modifier.widthIn(max = editButtonPositionX.toDp()),
                     name = accountData.name,
                     state = state
                 )
 
                 EditButton(
+                    modifier = Modifier.onGloballyPositioned {
+                        editButtonPositionX = it.positionInParent().x.toInt()
+                    },
                     state = state,
                     tint = accountData.colorModel.color.toUIColor(),
                     onClick = viewModel::onEditClick
