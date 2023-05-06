@@ -113,6 +113,7 @@
     <string name="account_type_bank_account">Банковский счет</string>
     <string name="account_type_credit">Кредит</string>
     <string name="account_type_deposit">Депозит</string>
+    <string name="account_type_investment_account">Инвестиционный счет</string>
 
     <!-- Tabs -->
     <string name="tab_home">Главная</string>
