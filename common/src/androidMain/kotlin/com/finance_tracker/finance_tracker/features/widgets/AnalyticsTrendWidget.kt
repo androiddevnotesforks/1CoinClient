@@ -8,6 +8,7 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.core.common.formatters.format
+import com.finance_tracker.finance_tracker.core.common.toLimitedFloat
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.features.analytics.delegates.TrendsAnalyticsDelegate
@@ -59,7 +60,7 @@ private fun List<TrendBarDetails>.mapToBarChartEntities(): List<CoinBarChartEntr
         CoinBarChartEntry(
             xValue = (index + 1).toFloat(),
             yMin = 0f,
-            yMax = trendBarDetails.value.toFloat(),
+            yMax = trendBarDetails.value.toLimitedFloat(),
             overviewTitle = trendBarDetails.title(context),
             overviewValue = amount.format(format)
         )

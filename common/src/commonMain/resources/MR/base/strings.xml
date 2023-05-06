@@ -127,6 +127,7 @@
     <string name="account_type_bank_account">Bank account</string>
     <string name="account_type_credit">Credit</string>
     <string name="account_type_deposit">Deposit</string>
+    <string name="account_type_investment_account">Investment account</string>
 
     <!-- Tabs -->
     <string name="tab_home">Home</string>

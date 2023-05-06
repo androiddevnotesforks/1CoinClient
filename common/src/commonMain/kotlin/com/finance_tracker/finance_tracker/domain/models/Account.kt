@@ -34,6 +34,10 @@ data class Account(
         Deposit(
             textId = MR.strings.account_type_deposit,
             analyticsName = "Deposit"
+        ),
+        Investment(
+            textId = MR.strings.account_type_investment_account,
+            analyticsName = "Investment"
         )
     }
 

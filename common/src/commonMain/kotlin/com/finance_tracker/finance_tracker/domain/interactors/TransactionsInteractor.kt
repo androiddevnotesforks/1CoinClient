@@ -7,6 +7,7 @@ import com.finance_tracker.finance_tracker.AppDatabase
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.common.suspendTransaction
+import com.finance_tracker.finance_tracker.core.common.toLimitedFloat
 import com.finance_tracker.finance_tracker.core.common.toString
 import com.finance_tracker.finance_tracker.core.theme.ChartConfig
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
@@ -242,7 +243,7 @@ class TransactionsInteractor(
             )
             val allPieces = rawCategoryPieces.mapIndexed { index, piece ->
                 piece.copy(
-                    percentValue = categoryPercentValues[index].toFloat()
+                    percentValue = categoryPercentValues[index].toLimitedFloat()
                 )
             }
 
@@ -275,7 +276,7 @@ class TransactionsInteractor(
                     ),
                     percentValue = otherPieces.sumOf {
                         it.percentValue.toDouble()
-                    }.toFloat(),
+                    }.toLimitedFloat(),
                     transactionsCount = otherPieces.sumOf { it.transactionsCount }
                 ).apply {
                     color = ChartConfig.colorOther
