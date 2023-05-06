@@ -19,6 +19,7 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.formatters.format
 import com.finance_tracker.finance_tracker.core.common.`if`
+import com.finance_tracker.finance_tracker.core.common.toLimitedFloat
 import com.finance_tracker.finance_tracker.core.common.toUIColor
 import com.finance_tracker.finance_tracker.core.common.transparent
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -97,7 +98,7 @@ private fun CategoryPieChart(
     total: Double,
     modifier: Modifier = Modifier
 ) {
-    val percentage = remember { (piece.amount.amountValue / total * 100).toFloat() }
+    val percentage = remember { (piece.amount.amountValue / total * 100).toLimitedFloat() }
     val chartSize = 32.dp
     Box(
         modifier = modifier
