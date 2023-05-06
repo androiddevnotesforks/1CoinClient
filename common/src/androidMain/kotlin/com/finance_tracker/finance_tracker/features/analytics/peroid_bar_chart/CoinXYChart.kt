@@ -97,7 +97,11 @@ internal fun CoinXYChart(
             minimumMajorTickSpacing = 4.dp
         ),
         yAxisModel = LinearAxisModel(
-            range = 0f..barChartEntries.maxOf { it.yMax }.coerceAtLeast(1f),
+            range = 0f..barChartEntries.maxOf { it.yMax }
+                .coerceIn(
+                    minimumValue = 1f,
+                    maximumValue = Float.MAX_VALUE
+                ),
             allowZooming = false,
             allowPanning = false,
             minorTickCount = 0,
