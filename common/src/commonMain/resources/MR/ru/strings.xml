@@ -246,5 +246,7 @@
 
     <!-- Plans screen -->
     <string name="plans_screen_topbar_text">Планы</string>
+    <string name="budget_empty_stub">Еще нет бюджетов</string>
+    <string name="budgets_by_categories">Бюджеты по категориям</string>
 
 </resources>
