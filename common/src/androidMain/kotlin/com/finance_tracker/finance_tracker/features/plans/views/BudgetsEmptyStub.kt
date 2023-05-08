@@ -49,7 +49,7 @@ internal fun BudgetsEmptyStub(
         Text(
             modifier = Modifier
                 .padding(start = 8.dp),
-            text = stringResource(MR.strings.general_no_transactions),
+            text = stringResource(MR.strings.budget_empty_stub),
             textAlign = TextAlign.Center,
             style = CoinTheme.typography.subtitle2,
             color = CoinTheme.color.content.copy(alpha = 0.5f)

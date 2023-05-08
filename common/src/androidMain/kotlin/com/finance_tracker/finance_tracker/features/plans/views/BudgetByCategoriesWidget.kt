@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -49,7 +50,7 @@ internal fun BudgetByCategoriesWidget(
                 end = 16.dp,
             )
     ) {
-        Row {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = stringResource(MR.strings.budgets_by_categories),
                 style = CoinTheme.typography.h5,
@@ -57,59 +58,83 @@ internal fun BudgetByCategoriesWidget(
                 overflow = TextOverflow.Ellipsis,
                 color = CoinTheme.color.content
             )
-        }
-        Box(
-            modifier = Modifier
-                .padding(top = 12.dp)
-                .fillMaxWidth()
-                .border(
-                    width = 1.dp,
-                    color = CoinTheme.color.dividers,
-                    shape = RoundedCornerShape(12.dp)
-                )
-                .padding(16.dp)
-        ) {
-            Column {
-                if (budgets.size <= 5) {
-                    LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                        items(budgets) { budget ->
-                            BudgetCard(budget = budget)
-                        }
+            Spacer(modifier = Modifier.weight(1f))
+            Row(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(12.dp))
+                    .clickable {
+                        //TODO
                     }
-                } else if (budgets.size > 5 && !expanded) {
-                    LazyColumn(
-                        modifier = Modifier.animateContentSize(),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        items(budgets.subList(0,5)) { budget ->
-                            BudgetCard(budget = budget)
-                        }
-                    }
-                } else if (budgets.size > 5 && expanded) {
-                    LazyColumn(
-                        modifier = Modifier.animateContentSize(),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        items(budgets) { budget ->
-                            BudgetCard(budget = budget)
-                        }
-                    }
-                } else if (budgets.isEmpty()) {
-                    BudgetsEmptyStub()
-                }
+                    .padding(4.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Icon(
                     modifier = Modifier
-                        .padding(top = 16.dp)
-                        .size(24.dp)
-                        .clip(CircleShape)
-                        .clickable {
-                            expanded = !expanded
-                        }
-                        .align(Alignment.CenterHorizontally),
-                    painter = rememberAsyncImagePainter(MR.files.ic_arrow_down),
+                        .size(24.dp),
+                    painter = rememberAsyncImagePainter(MR.files.ic_plus),
                     contentDescription = null,
                     tint = CoinTheme.color.primary
                 )
+                Text(
+                    text = stringResource(MR.strings.add_limit),
+                    style = CoinTheme.typography.subtitle1,
+                    overflow = TextOverflow.Ellipsis,
+                    color = CoinTheme.color.primary
+                )
+            }
+        }
+        if (budgets.isEmpty()) {
+            BudgetsEmptyStub(
+                modifier = Modifier
+                    .padding(top = 12.dp)
+            )
+        } else {
+            Box(
+                modifier = Modifier
+                    .padding(top = 12.dp)
+                    .fillMaxWidth()
+                    .border(
+                        width = 1.dp,
+                        color = CoinTheme.color.dividers,
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .padding(16.dp)
+                    .animateContentSize()
+            ) {
+                Column {
+                    LazyColumn(
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        if (budgets.size <= 5) {
+                            items(budgets) { budget ->
+                                BudgetCard(budget)
+                            }
+                        } else if (budgets.size > 5 && !expanded) {
+                            items(budgets.take(5)) { budget ->
+                                BudgetCard(budget)
+                            }
+                        } else if (budgets.size > 5 && expanded) {
+                            items(budgets) { budget ->
+                                BudgetCard(budget)
+                            }
+                        }
+                    }
+                    if (budgets.size > 5) {
+                        Icon(
+                            modifier = Modifier
+                                .padding(top = 16.dp)
+                                .size(38.dp)
+                                .clip(CircleShape)
+                                .clickable {
+                                    expanded = !expanded
+                                }
+                                .align(Alignment.CenterHorizontally),
+                            painter = rememberAsyncImagePainter(MR.files.ic_arrow_down),
+                            contentDescription = null,
+                            tint = CoinTheme.color.primary
+                        )
+                    }
+                }
             }
         }
     }

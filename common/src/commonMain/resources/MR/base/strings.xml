@@ -253,5 +253,6 @@
     <string name="plans_screen_topbar_text">Plans</string>
     <string name="budget_empty_stub">No budgets yet</string>
     <string name="budgets_by_categories">Budgets by categories</string>
+    <string name="add_limit">Add limit</string>
 
 </resources>
