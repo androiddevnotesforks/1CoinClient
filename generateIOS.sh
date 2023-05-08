@@ -7,10 +7,14 @@ red=`tput setaf 1`
 green=`tput setaf 2`
 reset=`tput sgr0`
 
-# Check to see if Homebrew is installed, and install it if it is not
-command -v brew >/dev/null 2>&1 && echo "${green}[✓]${reset} HomewBrew Installed\n" || { echo "${red}[✖] ${reset}Installing Homebrew Now...${reset}"; /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; }
+# 1) Check to see if Homebrew is installed, and install it if it is not
+if command -v brew >/dev/null 2>&1; then
+    echo "${green}[✓]${reset} HomewBrew Installed\n"
+else
+    echo "${red}[✖] ${reset}Installing Homebrew Now...${reset}"; /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)";
+fi
 
-# Check Java Version
+# 2) Check Java Version
 if type -p java >/dev/null 2>&1; then
     _java=java
 elif [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]];  then
@@ -26,19 +30,29 @@ if [[ "$_java" ]]; then
     if [[ "$version" > "11.0.0" ]]; then
         echo "${green}[✓]${reset} Its more or equal 11.0.0\n"
     else
-        echo "${red}[✖] ${reset}Installing Java\n"
+        echo "${red}[✖]${reset} Its less version than 11.0.0\n"
+        echo "Installing Java...\n"
         brew install java11
     fi
 fi
 
-# Kdoctor 
-command -v kdoctor >/dev/null 2>&1 && kdoctor || { echo "${red}[✖] ${reset}Installing kdoctor Now...${reset}"; brew install kdoctor; kdoctor; }
+# 3) Kdoctor
+runKDoctor() {
+    (kdoctor | tee /dev/tty | grep "[✖]" >/dev/null) && 
+    (echo "${red}\nPlease resolve all error then start again${reset}"; exit -1)
+}
 
-# Generate DummyFramework
+if command -v kdoctor >/dev/null 2>&1; then
+    runKDoctor
+else 
+    echo "${red}[✖] ${reset}Installing kdoctor Now...${reset}"
+    brew install kdoctor && runKDoctor
+fi
+
+# 4) Generate DummyFramework
+echo "\n${green}Generating KMM binary for project...${reset}\n"
 ./gradlew generateDummyFramework
 
-# Pod
-cd ./ios/ && pod install
-
-# Open
-open ./*.xcworkspace
+# 5) Pods and Opening Workspace
+echo "\n${green}Pod install...${reset}\n"
+cd ./ios/ && pod install && open ./*.xcworkspace
