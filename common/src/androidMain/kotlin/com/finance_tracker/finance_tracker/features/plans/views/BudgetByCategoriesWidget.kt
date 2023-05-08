@@ -34,6 +34,8 @@ import com.finance_tracker.finance_tracker.core.ui.BudgetCard
 import com.finance_tracker.finance_tracker.domain.models.Budget
 import dev.icerock.moko.resources.compose.stringResource
 
+private const val MaxBudgetsBeforeUncoverWidget = 5
+
 @Composable
 internal fun BudgetByCategoriesWidget(
     modifier: Modifier = Modifier,
@@ -105,21 +107,21 @@ internal fun BudgetByCategoriesWidget(
                     LazyColumn(
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        if (budgets.size <= 5) {
+                        if (budgets.size <= MaxBudgetsBeforeUncoverWidget) {
                             items(budgets) { budget ->
                                 BudgetCard(budget)
                             }
-                        } else if (budgets.size > 5 && !expanded) {
-                            items(budgets.take(5)) { budget ->
+                        } else if (budgets.size > MaxBudgetsBeforeUncoverWidget && !expanded) {
+                            items(budgets.take(MaxBudgetsBeforeUncoverWidget)) { budget ->
                                 BudgetCard(budget)
                             }
-                        } else if (budgets.size > 5 && expanded) {
+                        } else if (budgets.size > MaxBudgetsBeforeUncoverWidget && expanded) {
                             items(budgets) { budget ->
                                 BudgetCard(budget)
                             }
                         }
                     }
-                    if (budgets.size > 5) {
+                    if (budgets.size > MaxBudgetsBeforeUncoverWidget) {
                         Icon(
                             modifier = Modifier
                                 .padding(top = 16.dp)
