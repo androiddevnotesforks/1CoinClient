@@ -8,7 +8,7 @@ import com.finance_tracker.finance_tracker.features.plans.views.PlansTopBar
 
 @Composable
 fun PlansScreen() {
-    ComposeScreen<PlansScreenViewModel> { viewModel ->
+    ComposeScreen<PlansViewModel> { viewModel ->
 
         Column {
             PlansTopBar()
