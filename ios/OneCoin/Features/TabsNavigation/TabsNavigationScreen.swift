@@ -6,19 +6,8 @@
 //
 
 import SwiftUI
-import OneCoinShared
-
-enum Tab {
-    case home
-    case transactions
-    case add
-    case accounts
-    case analytics
-    
-}
 
 struct TabsNavigationScreen: View {
-    
     @State private var selectedTab: Tab = .home
     @Environment(\.safeAreaInsets) private var safeAreaInsets: (top: CGFloat, bottom: CGFloat)
     @EnvironmentObject private var theme: CoinTheme
@@ -35,13 +24,13 @@ struct TabsNavigationScreen: View {
                     TransactionsScreen()
                 case .add:
                     AddTransactionScreen()
-                case .accounts:
-                    AccountsScreen()
+                case .plans:
+                    PlansScreen()
                 case .analytics:
                     AnalyticsScreen()
                 }
             }
-            CoinTabView(selectedTab: $selectedTab)
+            CoinTabsView(selectedTab: $selectedTab)
                 .safeAreaInset(edge: .bottom) {
                     Spacer().frame(height: safeAreaInsets.bottom)
                 }
