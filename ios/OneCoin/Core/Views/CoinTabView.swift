@@ -8,68 +8,72 @@
 import SwiftUI
 import OneCoinShared
 
-struct CoinTabView: View {
-    
+struct CoinTabsView: View {
     @EnvironmentObject var theme: CoinTheme
     @Binding var selectedTab: Tab
     
     var body: some View {
         HStack {
+            // MARK: - Home Tab
             Spacer()
-            CoinTab(
-                text: MR.strings().tab_home.desc().localized(),
-                url: MR.files().ic_home_inactive.url,
-                isActive: selectedTab == .home
-            ) { selectedTab = .home }
+            showSelectedTabScreen(with: .home)
+            
+            // MARK: - Transactions Tab
             Spacer()
-            CoinTab(
-                text: MR.strings().tab_transactions.desc().localized(),
-                url: MR.files().ic_transactions_inactive.url,
-                isActive: selectedTab == .transactions
-            ) { selectedTab = .transactions }
+            showSelectedTabScreen(with: .transactions)
 
-            Button {
-                selectedTab = .add
-            } label: {
-                ZStack {
-                    Circle()
-                        .foregroundColor(theme.colors.primary)
-                        .frame(width: 56, height: 56)
-                        .shadow(radius: 4)
+            // MARK: - Plus Button
+            addTransactionButton
 
-                    SVGImageView(url: MR.files().ic_plus.url)
-                        .tintColor(theme.colors.white)
-                        .frameSvg(width: 30, height: 30)
-                }
-                .offset(y: -32)
-            }
-
-            CoinTab(
-                text: MR.strings().tab_accounts.desc().localized(),
-                url: MR.files().ic_wallet_inactive.url,
-                isActive: selectedTab == .accounts
-            ) { selectedTab = .accounts }
+            // MARK: - Plans Tab
+            showSelectedTabScreen(with: .plans)
             Spacer()
-            CoinTab(
-                text: MR.strings().tab_analytics.desc().localized(),
-                url: MR.files().ic_analytics_inactive.url,
-                isActive: selectedTab == .analytics
-            ) { selectedTab = .analytics }
+            
+            // MARK: - Analytics Tab
+            showSelectedTabScreen(with: .analytics)
             Spacer()
         }
+        .background {
+            Divider()
+                .padding(.bottom, 55)
+        }
         .background(theme.colors.backgroundSurface)
-        .shadow(radius: 1)
+    }
+    
+    private var addTransactionButton: some View {
+        Button {
+            selectedTab = .add
+        } label: {
+            ZStack {
+                Circle()
+                    .foregroundColor(theme.colors.primary)
+                    .frame(width: 56, height: 56)
+                    .shadow(radius: 4)
+                
+                SVGImageView(url: Tab.add.tabURL)
+                    .tintColor(theme.colors.white)
+                    .frameSvg(width: 30, height: 30)
+            }
+            .padding(.bottom, 32)
+        }
+    }
+    
+    private func showSelectedTabScreen(with tab: Tab) -> some View {
+        CoinTab(
+            text: tab.tabName,
+            url: tab.tabURL,
+            isActive: selectedTab == tab
+        ) { selectedTab = tab }
     }
 }
 
-private struct CoinTab: View {
-    
+fileprivate struct CoinTab: View {
     @EnvironmentObject var theme: CoinTheme
     
-    let text: String
-    let url: URL
-    var isActive: Bool
-    let action: () -> ()
+    private let text: String
+    private let url: URL
+    private var isActive: Bool
+    private let action: () -> ()
     
     init(text: String, url: URL, isActive: Bool, action: @escaping () -> Void) {
         self.text = text
@@ -93,8 +97,9 @@ private struct CoinTab: View {
     }
 }
 
-//struct CoinTabView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        //CoinTabView(selectedTab: Tab.home)
-//    }
-//}
+struct CoinTabView_Previews: PreviewProvider {
+    static var previews: some View {
+        CoinTabsView(selectedTab: .constant(Tab.home))
+            .environmentObject(CoinTheme.light)
+    }
+}

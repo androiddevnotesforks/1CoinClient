@@ -22,8 +22,9 @@ struct HomeScreen: View {
                         title: "My Accounts",
                         withBorder: false
                     ) {
-                        Text("Accounts' list")
+                        CardAccountsScreen()
                     }
+                    
                     CoinWidget(
                         title: "Last Transactions",
                         withBorder: true

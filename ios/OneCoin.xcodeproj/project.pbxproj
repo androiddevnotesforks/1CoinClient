@@ -32,6 +32,9 @@
 		3AF88E0729F3DC9E0011C207 /* CoinWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF88E0629F3DC9E0011C207 /* CoinWidget.swift */; };
 		3AF88E0929F3DE220011C207 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF88E0829F3DE220011C207 /* View+Extension.swift */; };
 		3AF88E0D29F3EDB30011C207 /* LastTransactionsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF88E0C29F3EDB30011C207 /* LastTransactionsWidget.swift */; };
+		7E7F35102A0AEEEA008C345E /* AccountCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F350F2A0AEEEA008C345E /* AccountCardModel.swift */; };
+		7E7F35172A0AF421008C345E /* PlansScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F35162A0AF421008C345E /* PlansScreen.swift */; };
+		7E7F35192A0AFAFF008C345E /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F35182A0AFAFF008C345E /* Tab.swift */; };
 		B3E49C0266F031A1198D961B /* Pods_OneCoin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20EC0D6E66424714DD8562F4 /* Pods_OneCoin.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +68,9 @@
 		3AF88E0629F3DC9E0011C207 /* CoinWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinWidget.swift; sourceTree = "<group>"; };
 		3AF88E0829F3DE220011C207 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		3AF88E0C29F3EDB30011C207 /* LastTransactionsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTransactionsWidget.swift; sourceTree = "<group>"; };
+		7E7F350F2A0AEEEA008C345E /* AccountCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCardModel.swift; sourceTree = "<group>"; };
+		7E7F35162A0AF421008C345E /* PlansScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansScreen.swift; sourceTree = "<group>"; };
+		7E7F35182A0AFAFF008C345E /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		9EE0A9CAE319A78AC1868C04 /* Pods-OneCoin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneCoin.debug.xcconfig"; path = "Target Support Files/Pods-OneCoin/Pods-OneCoin.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,11 +141,7 @@
 			children = (
 				3AF88E0B29F3ED9D0011C207 /* Widgets */,
 				3A5BA30329B3A97400085ACF /* Settings */,
-				3A5BA2DF29A901A000085ACF /* AddTransaction */,
-				3A5BA2D629A900F300085ACF /* Analytics */,
-				3A5BA2D529A900E600085ACF /* Accounts */,
-				3A5BA2D429A900DA00085ACF /* Transactions */,
-				3A5BA2D329A9008D00085ACF /* Home */,
+				7E7F35112A0AF3D9008C345E /* TabScreens */,
 				3A5BA2D229A9008100085ACF /* TabsNavigation */,
 			);
 			path = Features;
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				3A5BA2D029A8FE0D00085ACF /* TabsNavigationScreen.swift */,
+				7E7F35182A0AFAFF008C345E /* Tab.swift */,
 			);
 			path = TabsNavigation;
 			sourceTree = "<group>";
@@ -174,7 +177,8 @@
 		3A5BA2D529A900E600085ACF /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
-				3A5BA2DB29A9016200085ACF /* AccountsScreen.swift */,
+				7E7F350C2A0AEA9F008C345E /* Model */,
+				7E7F350D2A0AEAA8008C345E /* View */,
 			);
 			path = Accounts;
 			sourceTree = "<group>";
@@ -250,6 +254,43 @@
 				3AF88E0C29F3EDB30011C207 /* LastTransactionsWidget.swift */,
 			);
 			path = Widgets;
+			sourceTree = "<group>";
+		};
+		7E7F350C2A0AEA9F008C345E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7E7F350F2A0AEEEA008C345E /* AccountCardModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7E7F350D2A0AEAA8008C345E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3A5BA2DB29A9016200085ACF /* AccountsScreen.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7E7F35112A0AF3D9008C345E /* TabScreens */ = {
+			isa = PBXGroup;
+			children = (
+				7E7F35122A0AF3FE008C345E /* Plans */,
+				3A5BA2DF29A901A000085ACF /* AddTransaction */,
+				3A5BA2D529A900E600085ACF /* Accounts */,
+				3A5BA2D629A900F300085ACF /* Analytics */,
+				3A5BA2D429A900DA00085ACF /* Transactions */,
+				3A5BA2D329A9008D00085ACF /* Home */,
+			);
+			path = TabScreens;
+			sourceTree = "<group>";
+		};
+		7E7F35122A0AF3FE008C345E /* Plans */ = {
+			isa = PBXGroup;
+			children = (
+				7E7F35162A0AF421008C345E /* PlansScreen.swift */,
+			);
+			path = Plans;
 			sourceTree = "<group>";
 		};
 		B69A29D5410520987788C79C /* Pods */ = {
@@ -377,10 +418,12 @@
 			files = (
 				3A5BA2FE29B3895200085ACF /* CoinTopAppBar.swift in Sources */,
 				3A5BA2DA29A9014300085ACF /* AnalyticsScreen.swift in Sources */,
+				7E7F35172A0AF421008C345E /* PlansScreen.swift in Sources */,
 				3A5BA2FA29B376E300085ACF /* AppScreen.swift in Sources */,
 				3A5BA2F029B10BE000085ACF /* CoinColors.swift in Sources */,
 				3A23C5D2299256BA0033CCF8 /* HomeScreen.swift in Sources */,
 				3A5BA2D129A8FE0D00085ACF /* TabsNavigationScreen.swift in Sources */,
+				7E7F35192A0AFAFF008C345E /* Tab.swift in Sources */,
 				3AF88E0D29F3EDB30011C207 /* LastTransactionsWidget.swift in Sources */,
 				3A5BA2E429A9FFDF00085ACF /* SVGImageView.swift in Sources */,
 				3A5BA2DC29A9016200085ACF /* AccountsScreen.swift in Sources */,
@@ -396,6 +439,7 @@
 				3A5BA2EE29B10B2D00085ACF /* Typography.swift in Sources */,
 				3A5BA30029B39BB800085ACF /* HomeTopBar.swift in Sources */,
 				3AF88E0929F3DE220011C207 /* View+Extension.swift in Sources */,
+				7E7F35102A0AEEEA008C345E /* AccountCardModel.swift in Sources */,
 				3A5BA2E129A901C100085ACF /* AddTransactionScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
