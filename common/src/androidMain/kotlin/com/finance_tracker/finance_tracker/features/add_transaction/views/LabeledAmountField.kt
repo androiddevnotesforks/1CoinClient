@@ -5,28 +5,29 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
-import com.finance_tracker.finance_tracker.core.common.formatters.isCurrencyPositionAtStart
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.AmountTextField
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal fun AmountTextField(
+internal fun LabeledAmountTextField(
     currency: Currency?,
     amount: String,
     active: Boolean,
     label: String,
+    amountFontSize: TextUnit,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    amountFontSize: TextUnit = 42.sp,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
@@ -38,20 +39,17 @@ internal fun AmountTextField(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val currencySymbol = currency?.symbol
-        Text(
-            text = when {
-                currencySymbol == null -> amount
-                isCurrencyPositionAtStart() -> "$currencySymbol $amount"
-                else -> "$amount $currencySymbol"
-            },
-            color = if (active) {
-                CoinTheme.color.content
-            } else {
-                CoinTheme.color.secondary
-            },
-            style = CoinTheme.typography.h1,
-            fontSize = amountFontSize
+        AmountTextField(
+            currency = currency,
+            amount = amount,
+            style = CoinTheme.typography.h1.copy(
+                color = if (active) {
+                    CoinTheme.color.content
+                } else {
+                    CoinTheme.color.secondary
+                },
+                fontSize = amountFontSize
+            )
         )
         Text(
             modifier = Modifier.padding(top = 8.dp),
