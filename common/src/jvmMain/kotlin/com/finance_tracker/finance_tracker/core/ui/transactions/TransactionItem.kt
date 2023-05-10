@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -28,6 +29,8 @@ import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
+
+private val MaxAmountTextWidth = 120.dp
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -82,6 +85,8 @@ internal fun TransactionItem(
                 } else {
                     category.name
                 },
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 style = CoinTheme.typography.body1,
                 color = CoinTheme.color.content,
             )
@@ -116,8 +121,11 @@ internal fun TransactionItem(
                 transaction.primaryAmount.format()
             }
             Text(
+                modifier = Modifier.widthIn(max = MaxAmountTextWidth),
                 text = primaryAmountSign + amount,
                 style = CoinTheme.typography.body1,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
                 color = if (transaction.type == TransactionType.Income) {
                     CoinTheme.color.accentGreen
                 } else {
@@ -130,8 +138,11 @@ internal fun TransactionItem(
                 Spacer(modifier = Modifier.height(2.dp))
 
                 Text(
+                    modifier = Modifier.widthIn(max = MaxAmountTextWidth),
                     text = secondaryAmountSign + transaction.primaryAmount.format(),
                     style = CoinTheme.typography.subtitle2,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     color = CoinTheme.color.secondary
                 )
             }

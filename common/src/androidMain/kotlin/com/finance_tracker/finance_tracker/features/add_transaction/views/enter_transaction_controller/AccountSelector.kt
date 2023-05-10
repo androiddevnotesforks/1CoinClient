@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.features.add_transaction.views.enter
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
@@ -62,7 +63,8 @@ internal fun AccountSelector(
                 AccountCard(
                     modifier = Modifier
                         .height(cellHeight)
-                        .fillMaxSize(),
+                        .fillMaxSize()
+                        .padding(8.dp),
                     account = account
                 )
             }
