@@ -41,7 +41,8 @@ kotlin {
                 implementation(libs.datetime)
                 implementation(libs.immutableCollections)
                 implementation(libs.paging)
-                implementation(libs.arithmetic.evaluator)
+                implementation(libs.arithmeticEvaluator)
+                implementation(libs.bignum)
             }
         }
 
