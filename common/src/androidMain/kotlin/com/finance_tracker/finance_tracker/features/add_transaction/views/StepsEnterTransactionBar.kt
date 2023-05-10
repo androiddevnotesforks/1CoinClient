@@ -207,8 +207,8 @@ private fun <T: Any> RowScope.StageText(
                 shape = RoundedCornerShape(percent = 50)
             )
             .padding(
-                start = 8.dp,
-                end = 8.dp
+                start = 12.dp,
+                end = 12.dp
             )
             .height(36.dp),
         contentAlignment = Alignment.Center

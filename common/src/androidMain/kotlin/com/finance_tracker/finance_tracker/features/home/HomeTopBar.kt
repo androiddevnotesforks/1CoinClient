@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.formatters.AmountFormatMode
@@ -34,12 +35,16 @@ internal fun HomeTopBar(
                 Text(
                     text = totalBalance.format(mode = AmountFormatMode.NegativeSign),
                     style = CoinTheme.typography.h4,
-                    color = CoinTheme.color.content
+                    color = CoinTheme.color.content,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = stringResource(MR.strings.home_topbar_text),
                     style = CoinTheme.typography.subtitle2,
-                    color = CoinTheme.color.secondary
+                    color = CoinTheme.color.secondary,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
                 )
             }
         },
