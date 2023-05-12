@@ -9,7 +9,6 @@ import SwiftUI
 import OneCoinShared
 
 struct Typography {
-    
     var h1: Font
     var h2: Font
     var h3: Font

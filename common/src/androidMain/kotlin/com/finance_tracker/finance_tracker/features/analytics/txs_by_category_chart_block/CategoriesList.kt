@@ -8,12 +8,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalContext
@@ -32,6 +34,7 @@ import io.github.koalaplot.core.pie.PieChart
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 
 private val CircleChartRange = 10f..90f
+private val MaxAmountTextWidth = 120.dp
 
 @Composable
 internal fun CategoriesList(
@@ -74,7 +77,9 @@ internal fun CategoryItem(
             val category = piece.category ?: Category.empty(context)
             Text(
                 text = category.name,
-                style = CoinTheme.typography.body1
+                style = CoinTheme.typography.body1,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
             )
             val transactionsCount = piece.transactionsCount
             Text(
@@ -85,8 +90,11 @@ internal fun CategoryItem(
         }
 
         Text(
+            modifier = Modifier.widthIn(max = MaxAmountTextWidth),
             text = piece.amount.format(),
-            style = CoinTheme.typography.body1
+            style = CoinTheme.typography.body1,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1
         )
     }
 }

@@ -33,6 +33,9 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 
+private const val MaxAmountValue = 100_000_000_000_000.0
+private const val MaxAmountLength = 18
+
 class AddTransactionViewModel(
     private val transactionsInteractor: TransactionsInteractor,
     private val accountsEntityQueries: AccountsEntityQueries,
@@ -321,6 +324,11 @@ class AddTransactionViewModel(
         }
         amountTextStateFlow.update {
             amountTextStateFlow.value.applyKeyboardCommand(command)
+                .takeIf {
+                    it.length < MaxAmountLength &&
+                            it.toDoubleOrNull() ?: 0.0 <= MaxAmountValue
+                }
+                ?: amountTextStateFlow.value
         }
     }
 

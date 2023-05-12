@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.formatters.AmountFormatMode
@@ -60,7 +61,9 @@ internal fun AccountCard(
                 style = CoinTheme.typography.h5,
                 color = CoinTheme.color.white,
                 modifier = Modifier
-                    .padding(start = 16.dp)
+                    .padding(start = 16.dp),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
             val accountName = if (data.type == Account.Type.Cash) {
                 "${data.name} (${data.balance.currency.symbol})"
@@ -75,7 +78,9 @@ internal fun AccountCard(
                     .padding(
                         start = 16.dp,
                         bottom = 16.dp
-                    )
+                    ),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
     }

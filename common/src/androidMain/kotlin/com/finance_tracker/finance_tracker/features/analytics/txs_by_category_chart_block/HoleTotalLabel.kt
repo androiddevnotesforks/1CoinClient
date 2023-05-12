@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.date.currentYearMonth
@@ -60,7 +61,9 @@ internal fun HoleTotalLabel(
                     reductionMode = ReductionMode.Hard
                 ),
                 color = CoinTheme.color.content,
-                style = CoinTheme.typography.h2.staticTextSize()
+                style = CoinTheme.typography.h2.staticTextSize(),
+                maxLines = 3,
+                overflow = TextOverflow.Ellipsis
             )
         } else {
             Box(

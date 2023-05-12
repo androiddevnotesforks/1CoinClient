@@ -37,6 +37,7 @@ immutableCollections = "0.3.5"
 coil = "2.2.2"
 imageloader = "1.4.0"
 arithmetic-evaluator = "0.15.0"
+bignum = "0.3.8"
 
 [libraries]
 gradleplugins-android = { module = "com.android.tools.build:gradle", version.ref = "android_plugin" }
@@ -126,7 +127,9 @@ immutableCollections = { module = "org.jetbrains.kotlinx:kotlinx-collections-imm
 
 imageloader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "imageloader" }
 
-arithmetic-evaluator = { module = "io.github.murzagalin:multiplatform-expressions-evaluator", version.ref = "arithmetic-evaluator" }
+arithmeticEvaluator = { module = "io.github.murzagalin:multiplatform-expressions-evaluator", version.ref = "arithmetic-evaluator" }
+
+bignum = { module = "com.ionspin.kotlin:bignum", version.ref = "bignum" }
 
 [bundles]
 odyssey = ["odyssey-core", "odyssey-compose"]

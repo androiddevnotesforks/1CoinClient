@@ -37,9 +37,9 @@ import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.features.add_transaction.views.ActionButtonsSection
-import com.finance_tracker.finance_tracker.features.add_transaction.views.AmountTextField
 import com.finance_tracker.finance_tracker.features.add_transaction.views.CalendarDayView
 import com.finance_tracker.finance_tracker.features.add_transaction.views.CategoriesAppBar
+import com.finance_tracker.finance_tracker.features.add_transaction.views.LabeledAmountTextField
 import com.finance_tracker.finance_tracker.features.add_transaction.views.StepsEnterTransactionBar
 import com.finance_tracker.finance_tracker.features.add_transaction.views.StepsEnterTransactionBarData
 import com.finance_tracker.finance_tracker.features.add_transaction.views.enter_transaction_controller.EnterTransactionController
@@ -174,7 +174,7 @@ internal fun AddTransactionScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                AmountTextField(
+                LabeledAmountTextField(
                     currency = primaryCurrencyData,
                     amount = primaryAmountText,
                     amountFontSize = if (currentFlow == AddTransactionFlow.Transfer) {
@@ -195,7 +195,7 @@ internal fun AddTransactionScreen(
                 )
 
                 if (currentFlow == AddTransactionFlow.Transfer) {
-                    AmountTextField(
+                    LabeledAmountTextField(
                         modifier = Modifier
                             .padding(top = 24.dp),
                         currency = secondaryCurrencyData,

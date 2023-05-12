@@ -54,6 +54,7 @@ internal fun MainTxsByCategoryChart(
             derivedStateOf {
                 txsByCategoryChartPieces.map {
                     it.amount.amountValue.toLimitedFloat()
+                        .coerceAtMost(Float.MAX_VALUE / 2f)
                 }
             }
         }

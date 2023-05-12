@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.zeroPrefixed
@@ -44,7 +45,8 @@ internal fun PeriodBarChart(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(bottom = 12.dp),
+            .padding(bottom = 12.dp)
+            .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -65,7 +67,9 @@ internal fun PeriodBarChart(
                 CoinTheme.color.content
             } else {
                 CoinTheme.color.primary
-            }
+            },
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
 
         Row(
