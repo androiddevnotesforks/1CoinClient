@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.LinearProgressIndicator
@@ -55,6 +56,8 @@ internal fun BudgetCard(
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
+                    modifier = Modifier
+                        .padding(end = 12.dp),
                     text = budget.category.name,
                     style = CoinTheme.typography.body1,
                     maxLines = 1,
@@ -64,11 +67,12 @@ internal fun BudgetCard(
                 Spacer(modifier = Modifier.weight(1f))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
+                        modifier = Modifier.widthIn(max = 80.dp),
                         text = "${budget.spentAmount.currency.symbol}${budget.spentAmount.amountValue.format()}",
                         style = CoinTheme.typography.body1,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        color = CoinTheme.color.content
+                        color = CoinTheme.color.content,
                     )
                     Text(
                         text = "/",
@@ -76,6 +80,7 @@ internal fun BudgetCard(
                         color = CoinTheme.color.content
                     )
                     Text(
+                        modifier = Modifier.widthIn(max = 80.dp),
                         text = "${budget.limitAmount.currency.symbol}${budget.limitAmount.amountValue.format()}",
                         style = CoinTheme.typography.body1,
                         maxLines = 1,
