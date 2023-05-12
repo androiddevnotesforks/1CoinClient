@@ -29,6 +29,7 @@ import com.finance_tracker.finance_tracker.domain.models.Budget
 
 private const val MaxBudgetsBeforeUncoverWidget = 5
 
+@Suppress("MagicNumber")
 @Composable
 fun BudgetsView(
     modifier: Modifier = Modifier,
