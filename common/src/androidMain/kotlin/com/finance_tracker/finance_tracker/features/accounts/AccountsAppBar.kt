@@ -15,16 +15,24 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun AccountsAppBar(
     onAddAccountClick: () -> Unit,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     CoinTopAppBar(
         modifier = modifier,
+        navigationIcon = {
+            AppBarIcon(
+                painter = rememberAsyncImagePainter(MR.files.ic_arrow_back),
+                onClick = onBackClick,
+            )
+        },
         title = {
             Text(
                 text = stringResource(MR.strings.accounts_screen_header),

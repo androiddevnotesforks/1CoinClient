@@ -29,6 +29,11 @@ class AccountsViewModel(
         viewAction = AccountsAction.OpenEditAccountScreen(account)
     }
 
+    fun onBackClick() {
+        accountsAnalytics.trackAccountsScreenBackClick()
+        viewAction = AccountsAction.CloseScreen
+    }
+
     fun onAddAccountClick() {
         accountsAnalytics.trackAddAccountClick()
         viewAction = AccountsAction.OpenAddAccountScreen

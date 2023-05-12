@@ -8,4 +8,5 @@ sealed interface AccountsAction {
     ): AccountsAction
     object OpenAddAccountScreen:
         AccountsAction
+    object CloseScreen: AccountsAction
 }

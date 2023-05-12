@@ -27,9 +27,9 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.NoRippleTheme
 import com.finance_tracker.finance_tracker.core.ui.BottomNavigationBar
 import com.finance_tracker.finance_tracker.features.tabs_navigation.analytics.TabsNavigationAnalytics
-import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.AccountsTab
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.AnalyticsTab
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.HomeTab
+import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.PlansTab
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.TransactionsTab
 import ru.alexgladkov.odyssey.compose.base.AnimatedHost
 import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
@@ -54,7 +54,7 @@ internal fun TabsNavigationScreen() {
                     val eventName = when (tab.tabInfo.tabItem) {
                         is HomeTab -> "TabHome"
                         is TransactionsTab -> "TabTransactions"
-                        is AccountsTab -> "TabAccounts"
+                        is PlansTab -> "TabPlans"
                         is AnalyticsTab -> "TabAnalytics"
                         else -> "Undefined"
                     }

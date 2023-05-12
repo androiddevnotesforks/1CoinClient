@@ -42,7 +42,8 @@ internal fun AccountsScreen() {
 
         Column {
             AccountsAppBar(
-                onAddAccountClick = viewModel::onAddAccountClick
+                onAddAccountClick = viewModel::onAddAccountClick,
+                onBackClick = viewModel::onBackClick
             )
 
             val accounts by viewModel.accounts.collectAsState()

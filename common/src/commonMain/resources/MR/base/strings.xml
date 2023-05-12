@@ -134,6 +134,7 @@
     <string name="tab_transactions">Transactions</string>
     <string name="tab_accounts">Accounts</string>
     <string name="tab_analytics">Analytics</string>
+    <string name="tab_plans">Plans</string>
 
     <!-- Add transaction -->
     <string name="add_transaction_amount">Amount</string>
@@ -247,5 +248,11 @@
     <!-- Currency screen -->
     <string name="currency_screen_topbar_text">Currency</string>
     <string name="currency_screen_search">Search</string>
+
+    <!-- Plans screen -->
+    <string name="plans_screen_topbar_text">Plans</string>
+    <string name="budget_empty_stub">No budgets yet</string>
+    <string name="budgets_by_categories">Budgets by categories</string>
+    <string name="add_limit">Add limit</string>
 
 </resources>
