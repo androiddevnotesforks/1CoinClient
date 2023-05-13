@@ -6,6 +6,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -33,7 +34,9 @@ internal fun TransactionsAppBar(
                     stringResource(MR.strings.transactions_title_normal)
                 },
                 style = CoinTheme.typography.h4,
-                color = CoinTheme.color.content
+                color = CoinTheme.color.content,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         },
         navigationIcon = if (hasSelectedItems) {{
