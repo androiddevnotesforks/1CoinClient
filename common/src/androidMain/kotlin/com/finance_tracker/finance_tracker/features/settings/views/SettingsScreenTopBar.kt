@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.features.settings.views
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
@@ -30,6 +31,8 @@ internal fun SettingsScreenTopBar(
                 text = stringResource(MR.strings.settings_topbar_text),
                 style = CoinTheme.typography.h4,
                 color = CoinTheme.color.content,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         }
 

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
@@ -37,7 +38,9 @@ internal fun AccountsAppBar(
             Text(
                 text = stringResource(MR.strings.accounts_screen_header),
                 style = CoinTheme.typography.h4,
-                color = CoinTheme.color.content
+                color = CoinTheme.color.content,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         },
         actions = {

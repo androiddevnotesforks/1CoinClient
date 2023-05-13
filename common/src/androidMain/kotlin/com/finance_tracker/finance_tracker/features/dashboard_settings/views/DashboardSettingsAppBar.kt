@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.features.dashboard_settings.views
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -27,7 +28,9 @@ internal fun DashboardSettingsAppBar(
             Text(
                 text = stringResource(MR.strings.widget_settings_title),
                 style = CoinTheme.typography.h4,
-                color = CoinTheme.color.content
+                color = CoinTheme.color.content,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
         },
     )

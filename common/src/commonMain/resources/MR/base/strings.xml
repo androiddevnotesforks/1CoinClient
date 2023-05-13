@@ -167,7 +167,7 @@
     <string name="got_it">Got it</string>
 
     <!-- Categories -->
-    <string name="category_settings">Category Settings</string>
+    <string name="category_settings_title">Category Settings</string>
     <string name="new_expense_category">New Expense Category</string>
     <string name="new_income_category">New Income Category</string>
     <string name="expense_category">Expense Category</string>
