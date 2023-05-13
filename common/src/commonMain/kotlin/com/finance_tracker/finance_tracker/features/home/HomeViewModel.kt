@@ -1,6 +1,10 @@
 package com.finance_tracker.finance_tracker.features.home
 
+import com.finance_tracker.finance_tracker.core.common.getKoin
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesMode
+import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.DashboardSettingsInteractor
@@ -10,13 +14,13 @@ import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.Transaction
+import com.finance_tracker.finance_tracker.features.analytics.delegates.AnalyticsDelegates
 import com.finance_tracker.finance_tracker.features.analytics.delegates.MonthTxsByCategoryDelegate
 import com.finance_tracker.finance_tracker.features.analytics.delegates.TrendsAnalyticsDelegate
 import com.finance_tracker.finance_tracker.features.home.analytics.HomeAnalytics
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,14 +31,35 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 
 class HomeViewModel(
-    val trendsAnalyticsDelegate: TrendsAnalyticsDelegate,
-    val monthTxsByCategoryDelegate: MonthTxsByCategoryDelegate,
     private val accountsRepository: AccountsRepository,
     private val currenciesInteractor: CurrenciesInteractor,
     transactionsInteractor: TransactionsInteractor,
     private val homeAnalytics: HomeAnalytics,
     dashboardSettingsInteractor: DashboardSettingsInteractor
 ): BaseViewModel<HomeAction>() {
+
+    private val transactionTypes = TransactionTypesMode.Main.types
+    private val typesToAnalyticsDelegates = transactionTypes.associateWith {
+        getKoin().get<AnalyticsDelegates>().apply {
+            setTransactionType(it.toTransactionType())
+        }
+    }
+    private val incomeAnalyticsDelegates by lazy {
+        typesToAnalyticsDelegates[TransactionTypeTab.Income]
+            ?: error("No AnalyticsDelegates for Income")
+    }
+    private val expenseAnalyticsDelegates by lazy {
+        typesToAnalyticsDelegates[TransactionTypeTab.Expense]
+            ?: error("No AnalyticsDelegates for Expense")
+    }
+    val incomeMonthTxsByCategoryDelegate: MonthTxsByCategoryDelegate
+        get() = incomeAnalyticsDelegates.monthTxsByCategoryDelegate
+    val expenseMonthTxsByCategoryDelegate: MonthTxsByCategoryDelegate
+        get() = expenseAnalyticsDelegates.monthTxsByCategoryDelegate
+    val incomeTrendsAnalyticsDelegate: TrendsAnalyticsDelegate
+        get() = incomeAnalyticsDelegates.trendsAnalyticsDelegate
+    val expenseTrendsAnalyticsDelegate: TrendsAnalyticsDelegate
+        get() = expenseAnalyticsDelegates.trendsAnalyticsDelegate
 
     private val currencyRatesFlow = currenciesInteractor.getCurrencyRatesFlow()
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = mapOf())
@@ -72,7 +97,7 @@ class HomeViewModel(
     }
 
     private fun updateMonthTxsByCategory() {
-        monthTxsByCategoryDelegate.updateMonthTxsByCategory()
+        typesToAnalyticsDelegates.values.forEach { it.updateMonthTxsByCategory() }
     }
 
     private fun updateCurrencyRates() {
@@ -153,7 +178,6 @@ class HomeViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        trendsAnalyticsDelegate.cancel()
-        monthTxsByCategoryDelegate.cancel()
+        typesToAnalyticsDelegates.values.forEach { it.cancel() }
     }
 }

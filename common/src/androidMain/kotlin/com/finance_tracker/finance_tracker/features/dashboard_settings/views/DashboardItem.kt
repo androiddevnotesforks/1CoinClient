@@ -3,7 +3,6 @@ package com.finance_tracker.finance_tracker.features.dashboard_settings.views
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -58,14 +57,13 @@ internal fun DashboardItem(
             tint = CoinTheme.color.content
         )
         Text(
+            modifier = Modifier.weight(1f),
             text = stringResource(data.type.nameRes),
             style = CoinTheme.typography.h5,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             color = CoinTheme.color.content
         )
-        Spacer(modifier = Modifier.weight(1f))
-
         CoinRadioButton(
             modifier = Modifier
                 .padding(start = 12.dp),

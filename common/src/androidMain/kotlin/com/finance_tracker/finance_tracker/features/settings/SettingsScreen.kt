@@ -29,7 +29,6 @@ import com.finance_tracker.finance_tracker.features.settings.views.items.Setting
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsDashboardItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsMainCurrencyItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsMyProfileItem
-import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsPrivacyItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsSendingUsageDataItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsTelegramChatItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsThemeItem
@@ -118,9 +117,10 @@ internal fun SettingsScreen() {
                     onInfoClick = viewModel::onSendingUsageDataInfoClick
                 )
 
-                SettingsPrivacyItem(
+                // TODO: Implement Privacy policy in app
+                /*SettingsPrivacyItem(
                     onClick = viewModel::onPrivacyClick
-                )
+                )*/
 
                 if (viewModel.featuresManager.isEnabled(FeatureFlag.ChooseTheme)) {
                     val themeMode by viewModel.currentTheme.collectAsState()

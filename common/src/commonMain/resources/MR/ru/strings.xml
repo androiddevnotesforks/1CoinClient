@@ -152,7 +152,7 @@
     <string name="got_it">Понятно</string>
 
     <!-- Categories -->
-    <string name="category_settings">Настройки категорий</string>
+    <string name="category_settings_title">Настройки категорий</string>
     <string name="new_expense_category">Новая категория расходов</string>
     <string name="new_income_category">Новая категория доходов</string>
     <string name="expense_category">Категория расходов</string>
@@ -191,7 +191,7 @@
     <string name="add_category">Добавить категорию</string>
 
     <!-- Widget settings -->
-    <string name="widget_settings_title">Настройка виджетов</string>
+    <string name="widget_settings_title">Настройки виджетов</string>
     <string name="widget_settings_item_my_accounts">Мои счета</string>
     <string name="widget_settings_item_expense_trend">Тренд расходов</string>
     <string name="widget_settings_item_income_trend">Тренд доходов</string>
@@ -210,9 +210,9 @@
     <string name="settings_theme_dark">Тёмная</string>
     <string name="settings_theme_light">Светлая</string>
     <string name="settings_theme_system">Системная</string>
-    <string name="settings_dashboard">Настройка виджетов</string>
+    <string name="settings_dashboard">Настройки виджетов</string>
     <string name="settings_main_currency">Основная валюта</string>
-    <string name="settings_categories">Настройка категорий</string>
+    <string name="settings_categories">Настройки категорий</string>
     <string name="settings_telegram_community">Telegram сообщество</string>
     <string name="settings_sending_usage_data">Отправка аналитики</string>
     <string name="sending_usage_data_description_1">Помогите улучшить пользовательский опыт с\u00A0помощью автоматической отправки данных использования приложения.</string>
