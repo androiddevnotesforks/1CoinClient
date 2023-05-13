@@ -70,27 +70,27 @@ internal fun HomeScreen() {
                         }
                         DashboardWidgetData.DashboardWidgetType.ExpenseTrend -> {
                             AnalyticsTrendWidget(
-                                trendsAnalyticsDelegate = viewModel.trendsAnalyticsDelegate,
+                                trendsAnalyticsDelegate = viewModel.expenseTrendsAnalyticsDelegate,
                                 transactionTypeTab = TransactionTypeTab.Expense
                             )
                         }
                         DashboardWidgetData.DashboardWidgetType.IncomeTrend -> {
                             AnalyticsTrendWidget(
-                                trendsAnalyticsDelegate = viewModel.trendsAnalyticsDelegate,
+                                trendsAnalyticsDelegate = viewModel.incomeTrendsAnalyticsDelegate,
                                 transactionTypeTab = TransactionTypeTab.Income
                             )
                         }
                         DashboardWidgetData.DashboardWidgetType.ExpenseByCategory -> {
                             AnalyticsByCategoryWidget(
                                 primaryCurrency = totalBalance.currency,
-                                monthTxsByCategoryDelegate = viewModel.monthTxsByCategoryDelegate,
+                                monthTxsByCategoryDelegate = viewModel.expenseMonthTxsByCategoryDelegate,
                                 selectedTransactionTypeTab = TransactionTypeTab.Expense
                             )
                         }
                         DashboardWidgetData.DashboardWidgetType.IncomeByCategory -> {
                             AnalyticsByCategoryWidget(
                                 primaryCurrency = totalBalance.currency,
-                                monthTxsByCategoryDelegate = viewModel.monthTxsByCategoryDelegate,
+                                monthTxsByCategoryDelegate = viewModel.incomeMonthTxsByCategoryDelegate,
                                 selectedTransactionTypeTab = TransactionTypeTab.Income
                             )
                         }
