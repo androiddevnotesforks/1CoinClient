@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 
-# Steps documentation in Notion: https://regal-bone-e41.notion.site/iOS-1Coin-93a26d9be65e491c86b390f0f2448aae
+## !!!
+## Steps documentation in Notion: https://www.notion.so/1coin/Guide-for-iOS-developer-for-first-cold-run-80aaa5af802a4e359ab98e46e9f14782
+## !!!
 
 # Shell colors variables
 red=`tput setaf 1`
@@ -15,13 +17,20 @@ else
 fi
 
 # 2) Check Java Version
+JavaInstallation() {
+    echo "Installing Java...\n"
+    brew install java11 &&
+    sudo ln -sfn $HOMEBREW_PREFIX/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk &&
+    echo 'export JAVA_HOME="$HOMEBREW_PREFIX/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home"' >> ~/.zshrc
+}
+
 if type -p java >/dev/null 2>&1; then
     _java=java
 elif [[ -n "$JAVA_HOME" ]] && [[ -x "$JAVA_HOME/bin/java" ]];  then
     _java="$JAVA_HOME/bin/java"
 else
     echo "${red}[✖] ${reset}Java not found\n"
-    brew install java11
+    JavaInstallation
 fi
 
 if [[ "$_java" ]]; then
@@ -31,27 +40,26 @@ if [[ "$_java" ]]; then
         echo "${green}[✓]${reset} Its more or equal 11.0.0\n"
     else
         echo "${red}[✖]${reset} Its less version than 11.0.0\n"
-        echo "Installing Java...\n"
-        brew install java11
+       JavaInstallation
     fi
 fi
 
 # 3) Kdoctor
-runKDoctor() {
+RunKDoctor() {
     (kdoctor | tee /dev/tty | grep "[✖]" >/dev/null) && 
     (echo "${red}\nPlease resolve all error then start again${reset}"; exit -1)
 }
 
 if command -v kdoctor >/dev/null 2>&1; then
-    runKDoctor
+    RunKDoctor
 else 
     echo "${red}[✖] ${reset}Installing kdoctor Now...${reset}"
-    brew install kdoctor && runKDoctor
+    brew install kdoctor && RunKDoctor
 fi
 
 # 4) Generate DummyFramework
 echo "\n${green}Generating KMM binary for project...${reset}\n"
-./gradlew generateDummyFramework
+./gradlew generateDummyFramework &&
 
 # 5) Pods and Opening Workspace
 echo "\n${green}Pod install...${reset}\n"
