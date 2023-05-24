@@ -9,7 +9,6 @@ import SwiftUI
 import OneCoinShared
 
 struct HomeScreen: View {
-
     var body: some View {
         VStack {
             HomeTopBar(
@@ -40,6 +39,5 @@ struct HomeScreen: View {
 struct HomeScreen_Previews: PreviewProvider {
     static var previews: some View {
         HomeScreen()
-            .environmentObject(CoinTheme.light)
     }
 }

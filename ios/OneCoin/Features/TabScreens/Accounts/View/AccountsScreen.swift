@@ -9,8 +9,12 @@ import SwiftUI
 
 struct CardAccountsScreen: View {
     var body: some View {
-        ForEach(accountCardModelsMock, id: \.id) { card in
-            AccountCard(with: card)
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack(spacing: UI.Padding.Horizontal.small) {
+                ForEach(AccountCardModel.getModelsMock(), id: \.id) { card in
+                    AccountCard(with: card)
+                }
+            }
         }
     }
 }
@@ -25,19 +29,24 @@ struct AccountCard: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 12)
             .fill(card.color)
-            .frame(height: 145)
+            .frame(height: 128)
+            .frame(minWidth: 160)
             .overlay(alignment: .top) {
                 VStack(alignment: .leading) {
+                    Image("DebitCard")
+                    
                     Spacer()
                         .frame(maxWidth: .infinity)
                     
-                    Text(card.name)
-                        .fontH5Style(color: .white)
+                    Text("$" + String(card.expences))
+                        .fixedSize(horizontal: false, vertical: true)
+                        .fontH5Style(color: CoinTheme.shared.colors.white)
                     
-                    Text(String(card.expences))
-                        .fontSubtitle2Style(color: .white)
+                    Text(card.name)
+                        .opacity(0.5)
+                        .fontSubtitle2Style(color: CoinTheme.shared.colors.secondaryBackground)
                 }
-                .padding(16)
+                .padding(UI.Padding.Horizontal.default)
             }
     }
 }

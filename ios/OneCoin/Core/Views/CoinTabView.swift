@@ -9,7 +9,6 @@ import SwiftUI
 import OneCoinShared
 
 struct CoinTabsView: View {
-    @EnvironmentObject var theme: CoinTheme
     @Binding var selectedTab: Tab
     
     var body: some View {
@@ -37,7 +36,7 @@ struct CoinTabsView: View {
             Divider()
                 .padding(.bottom, 55)
         }
-        .background(theme.colors.backgroundSurface)
+        .background(CoinTheme.shared.colors.backgroundSurface)
     }
     
     private var addTransactionButton: some View {
@@ -46,12 +45,12 @@ struct CoinTabsView: View {
         } label: {
             ZStack {
                 Circle()
-                    .foregroundColor(theme.colors.primary)
+                    .foregroundColor(CoinTheme.shared.colors.primary)
                     .frame(width: 56, height: 56)
                     .shadow(radius: 4)
                 
                 SVGImageView(url: Tab.add.tabURL)
-                    .tintColor(theme.colors.white)
+                    .tintColor(CoinTheme.shared.colors.white)
                     .frameSvg(width: 30, height: 30)
             }
             .padding(.bottom, 32)
@@ -68,8 +67,6 @@ struct CoinTabsView: View {
 }
 
 fileprivate struct CoinTab: View {
-    @EnvironmentObject var theme: CoinTheme
-    
     private let text: String
     private let url: URL
     private var isActive: Bool
@@ -88,10 +85,10 @@ fileprivate struct CoinTab: View {
         } label: {
             VStack {
                 SVGImageView(url: url)
-                    .tintColor(isActive ? theme.colors.primary : theme.colors.secondary)
+                    .tintColor(isActive ? CoinTheme.shared.colors.primary : CoinTheme.shared.colors.secondary)
                     .frameSvg(width: 25, height: 25)
                 Text(text)
-                    .fontSubtitle4Style(color: isActive ? theme.colors.primary : theme.colors.secondary)
+                    .fontSubtitle4Style(color: isActive ? CoinTheme.shared.colors.primary : CoinTheme.shared.colors.secondary)
             }
         }
     }
@@ -100,6 +97,5 @@ fileprivate struct CoinTab: View {
 struct CoinTabView_Previews: PreviewProvider {
     static var previews: some View {
         CoinTabsView(selectedTab: .constant(Tab.home))
-            .environmentObject(CoinTheme.light)
     }
 }

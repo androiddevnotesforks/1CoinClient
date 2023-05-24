@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310099652A1BF69F003BC155 /* UIOneCoinConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310099642A1BF69F003BC155 /* UIOneCoinConstants.swift */; };
 		3A23C5D0299256BA0033CCF8 /* OneCoinApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A23C5CF299256BA0033CCF8 /* OneCoinApp.swift */; };
 		3A23C5D2299256BA0033CCF8 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A23C5D1299256BA0033CCF8 /* HomeScreen.swift */; };
 		3A23C5D4299256BB0033CCF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A23C5D3299256BB0033CCF8 /* Assets.xcassets */; };
@@ -21,7 +22,6 @@
 		3A5BA2EC29B10B0A00085ACF /* CoinTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2EB29B10B0A00085ACF /* CoinTheme.swift */; };
 		3A5BA2EE29B10B2D00085ACF /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2ED29B10B2D00085ACF /* Typography.swift */; };
 		3A5BA2F029B10BE000085ACF /* CoinColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2EF29B10BE000085ACF /* CoinColors.swift */; };
-		3A5BA2F629B138DD00085ACF /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2F529B138DD00085ACF /* ThemeManager.swift */; };
 		3A5BA2FA29B376E300085ACF /* AppScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2F929B376E300085ACF /* AppScreen.swift */; };
 		3A5BA2FC29B37D1E00085ACF /* CustomEnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2FB29B37D1E00085ACF /* CustomEnvironmentValues.swift */; };
 		3A5BA2FE29B3895200085ACF /* CoinTopAppBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2FD29B3895200085ACF /* CoinTopAppBar.swift */; };
@@ -41,6 +41,7 @@
 /* Begin PBXFileReference section */
 		106BD4D641D5FF7BDD1FC52C /* Pods-OneCoin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneCoin.release.xcconfig"; path = "Target Support Files/Pods-OneCoin/Pods-OneCoin.release.xcconfig"; sourceTree = "<group>"; };
 		20EC0D6E66424714DD8562F4 /* Pods_OneCoin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneCoin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		310099642A1BF69F003BC155 /* UIOneCoinConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOneCoinConstants.swift; sourceTree = "<group>"; };
 		3A23C5CC299256BA0033CCF8 /* OneCoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneCoin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A23C5CF299256BA0033CCF8 /* OneCoinApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCoinApp.swift; sourceTree = "<group>"; };
 		3A23C5D1299256BA0033CCF8 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -56,7 +57,6 @@
 		3A5BA2EB29B10B0A00085ACF /* CoinTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTheme.swift; sourceTree = "<group>"; };
 		3A5BA2ED29B10B2D00085ACF /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		3A5BA2EF29B10BE000085ACF /* CoinColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinColors.swift; sourceTree = "<group>"; };
-		3A5BA2F529B138DD00085ACF /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		3A5BA2F929B376E300085ACF /* AppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppScreen.swift; path = ../AppScreen.swift; sourceTree = "<group>"; };
 		3A5BA2FB29B37D1E00085ACF /* CustomEnvironmentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentValues.swift; sourceTree = "<group>"; };
 		3A5BA2FD29B3895200085ACF /* CoinTopAppBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTopAppBar.swift; sourceTree = "<group>"; };
@@ -222,22 +222,22 @@
 		3A5BA2E829B10AB900085ACF /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				3A5BA2EA29B10AF900085ACF /* Theme */,
+				3A5BA2EA29B10AF900085ACF /* UI */,
 				3A5BA2E529AA673300085ACF /* Views */,
 				3A5BA2E229A9FFC600085ACF /* Utils */,
 			);
 			path = Core;
 			sourceTree = "<group>";
 		};
-		3A5BA2EA29B10AF900085ACF /* Theme */ = {
+		3A5BA2EA29B10AF900085ACF /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				3A5BA2EB29B10B0A00085ACF /* CoinTheme.swift */,
 				3A5BA2ED29B10B2D00085ACF /* Typography.swift */,
 				3A5BA2EF29B10BE000085ACF /* CoinColors.swift */,
-				3A5BA2F529B138DD00085ACF /* ThemeManager.swift */,
+				310099642A1BF69F003BC155 /* UIOneCoinConstants.swift */,
 			);
-			path = Theme;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		3A5BA30329B3A97400085ACF /* Settings */ = {
@@ -421,13 +421,13 @@
 				7E7F35172A0AF421008C345E /* PlansScreen.swift in Sources */,
 				3A5BA2FA29B376E300085ACF /* AppScreen.swift in Sources */,
 				3A5BA2F029B10BE000085ACF /* CoinColors.swift in Sources */,
+				310099652A1BF69F003BC155 /* UIOneCoinConstants.swift in Sources */,
 				3A23C5D2299256BA0033CCF8 /* HomeScreen.swift in Sources */,
 				3A5BA2D129A8FE0D00085ACF /* TabsNavigationScreen.swift in Sources */,
 				7E7F35192A0AFAFF008C345E /* Tab.swift in Sources */,
 				3AF88E0D29F3EDB30011C207 /* LastTransactionsWidget.swift in Sources */,
 				3A5BA2E429A9FFDF00085ACF /* SVGImageView.swift in Sources */,
 				3A5BA2DC29A9016200085ACF /* AccountsScreen.swift in Sources */,
-				3A5BA2F629B138DD00085ACF /* ThemeManager.swift in Sources */,
 				3A5BA2DE29A9017700085ACF /* TransactionsScreen.swift in Sources */,
 				3A5BA2FC29B37D1E00085ACF /* CustomEnvironmentValues.swift in Sources */,
 				3A5BA30529B3A98300085ACF /* SettingsScreen.swift in Sources */,
@@ -588,7 +588,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.finance-tracker.OneCoin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -623,6 +625,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.finance-tracker.OneCoin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

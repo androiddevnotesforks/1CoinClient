@@ -8,7 +8,7 @@
 import SwiftUI
 import OneCoinShared
 
-struct CoinColors {
+public struct CoinColors {
     let primary: SwiftUI.Color
     let primaryVariant: SwiftUI.Color
     let secondary: SwiftUI.Color
@@ -21,7 +21,7 @@ struct CoinColors {
     let accentRed: SwiftUI.Color
     let white: SwiftUI.Color
     
-    init(
+    fileprivate init(
         primary: SwiftUI.Color,
         primaryVariant: SwiftUI.Color,
         secondary: SwiftUI.Color,
@@ -48,8 +48,7 @@ struct CoinColors {
     }
 }
 
-extension CoinColors {
-    
+public extension CoinColors {
     static let darkColorPalette = ColorPalette.shared.provideColorPalette(isDarkMode: true)
     static let lightColorPalette = ColorPalette.shared.provideColorPalette(isDarkMode: false)
     
@@ -82,7 +81,7 @@ extension CoinColors {
     )
 }
 
-extension OneCoinShared.Color {
+public extension OneCoinShared.Color {
     func toSwiftUIColor() -> SwiftUI.Color {
         return Color(self.toUIColor())
     }

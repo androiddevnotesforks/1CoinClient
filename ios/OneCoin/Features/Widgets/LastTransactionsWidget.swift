@@ -9,13 +9,11 @@ import SwiftUI
 import OneCoinShared
 
 struct LastTransactionsWidget: View {
-    
-    var lastTransactions: [TransactionListModelData]
-    var onClick: () -> ()
-    var onTransactionClick: (_ transaction: TransactionModel) -> ()
+    let lastTransactions: [TransactionListModelData]
+    let onClick: () -> ()
+    let onTransactionClick: (_ transaction: TransactionModel) -> ()
     
     var body: some View {
-        
         CoinWidget(
             title: MR.strings().home_last_transactions.desc().localized(),
             withBorder: true,
@@ -30,9 +28,8 @@ struct LastTransactionsWidget: View {
 }
 
 struct LastTransactionsWidgetContent: View {
-    
-    var lastTransactions: [TransactionListModelData]
-    var onTransactionClick: (_ transaction: TransactionModel) -> ()
+    let lastTransactions: [TransactionListModelData]
+    let onTransactionClick: (_ transaction: TransactionModel) -> ()
     
     var body: some View {
         if (lastTransactions.isEmpty) {

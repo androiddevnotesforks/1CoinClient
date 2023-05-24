@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct AppScreen: View {
-    
-    @StateObject var themeManeger = ThemeManager()
-    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     
     @State private var safeAreaInsets: (top: CGFloat, bottom: CGFloat) = (0, 0)
     
@@ -19,27 +17,11 @@ struct AppScreen: View {
             ZStack {
                 TabsNavigationScreen()
                     .ignoresSafeArea()
-                    .environmentObject(themeManeger)
-                    .environmentObject(themeManeger.current)
                     .environment(\.safeAreaInsets, safeAreaInsets)
-                    .onAppear {
-                        applyActualTheme(newColorScheme: colorScheme)
-                    }
                     .onAppear {
                         safeAreaInsets = (proxy.safeAreaInsets.top, proxy.safeAreaInsets.bottom)
                     }
-                    .onChange(of: colorScheme) { newColorScheme in
-                        applyActualTheme(newColorScheme: newColorScheme)
-                    }
             }
-        }
-    }
-    
-    private func applyActualTheme(newColorScheme: ColorScheme) {
-        if newColorScheme == .light {
-            themeManeger.current = .light
-        } else {
-            themeManeger.current = .dark
         }
     }
 }

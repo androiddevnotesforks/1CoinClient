@@ -8,12 +8,7 @@
 import SwiftUI
 import OneCoinShared
 
-private let HorizontalPadding = 16.0
-
 struct CoinWidget<Content: View>: View {
-    
-    @EnvironmentObject var theme: CoinTheme
-    
     var title: String
     var withBorder: Bool = false
     var withHorizontalPadding: Bool = true
@@ -33,8 +28,7 @@ struct CoinWidget<Content: View>: View {
 }
 
 private struct CoinWidgetTitle: View {
-    
-    @EnvironmentObject var theme: CoinTheme
+    private let theme = CoinTheme.shared
     
     var title: String
     var onClick: (() -> ())? = nil
@@ -53,24 +47,21 @@ private struct CoinWidgetTitle: View {
             }
         }
             .onTapGestureIf(clickEnabled) {
-                onClick!()
+                onClick?()
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, 8)
-            .padding(.horizontal, HorizontalPadding)
+            .padding(.vertical, UI.Padding.Vertical.default)
+            .padding(.horizontal, UI.Padding.Horizontal.default)
     }
 }
 
 private struct CoinWidgetContent<Content: View>: View {
-    
-    @EnvironmentObject var theme: CoinTheme
-    
     var withBorder: Bool = false
     var withHorizontalPadding: Bool = true
     var content: () -> Content
     
     var body: some View {
-        let contentHorizontalPadding = withHorizontalPadding ? HorizontalPadding : 0
+        let contentHorizontalPadding = withHorizontalPadding ? UI.Padding.Horizontal.default : 0
         let borderWidth: CGFloat = withBorder ? 1 : 0
         let borderRadius: CGFloat = withBorder ? 12 : 0
         let shape = withBorder ? RoundedRectangle(cornerRadius: borderRadius) : RoundedRectangle(cornerRadius: 0)
@@ -78,9 +69,9 @@ private struct CoinWidgetContent<Content: View>: View {
         content()
             .frame(maxWidth: .infinity, alignment: .leading)
             .overlay(
-                shape.stroke(theme.colors.dividers, lineWidth: borderWidth)
+                shape.stroke(CoinTheme.shared.colors.dividers, lineWidth: borderWidth)
             )
-            .background(theme.colors.background)
+            .background(CoinTheme.shared.colors.background)
             .clipShape(shape)
             .padding(.horizontal, contentHorizontalPadding)
             .padding(.top, 4)
@@ -97,6 +88,5 @@ struct CoinWidget_Previews: PreviewProvider {
         ) {
             Text("Content")
         }
-        .environmentObject(CoinTheme.light)
     }
 }

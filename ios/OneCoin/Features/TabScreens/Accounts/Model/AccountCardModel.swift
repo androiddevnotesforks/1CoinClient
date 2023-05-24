@@ -15,7 +15,19 @@ struct AccountCardModel: Identifiable {
     let color: Color
 }
 
-let accountCardModelsMock: [AccountCardModel] = [
-    .init(name: "Дебетовая карта", expences: 1000, color: .green),
-    .init(name: "Кредитная карта", expences: 10000, color: .red)
-]
+extension AccountCardModel {
+    static func getModelsMock() -> [AccountCardModel] { 
+        [
+            AccountCardModel(
+                name: "Debit card (*5841)", 
+                expences: 35000, 
+                color: Color(red: 75 / 255, green: 63 / 255, blue: 114 / 255)
+            ),
+            AccountCardModel(
+                name: "Debit card (*5841)", 
+                expences: 35000, 
+                color: Color(red: 7 / 255, green: 190 / 255, blue: 184 / 255)
+            )
+        ]
+    }
+}

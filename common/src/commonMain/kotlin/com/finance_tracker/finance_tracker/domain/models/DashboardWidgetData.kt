@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.domain.models
 
-import com.finance_tracker.finance_tracker.MR
 import dev.icerock.moko.resources.StringResource
+import com.finance_tracker.finance_tracker.MR as MR
 
 data class DashboardWidgetData(
     val id: Int,

@@ -11,7 +11,6 @@ import SwiftUI
 import SVGKit
 
 struct SVGImageView: UIViewRepresentable {
-    
     var url: URL
     var size: CGSize = CGSize(width: 50, height: 50)
     var tint: Color = .black
@@ -36,14 +35,13 @@ struct SVGImageView: UIViewRepresentable {
 struct SVGImageView_Previews: PreviewProvider {
   static var previews: some View {
     SVGImageView(
-        url:URL(string:"https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/atom.svg")!
+        url: URL(string:"https://dev.w3.org/SVG/tools/svgweb/samples/svg-files/atom.svg")!
     )
     .frameSvg(width: 50, height: 50)
   }
 }
 
 extension SVGImageView {
-    
     // MARK:- Public Method(s)
     @inlinable func frameSvg(
         width: CGFloat,

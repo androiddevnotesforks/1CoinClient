@@ -10,9 +10,8 @@ import SwiftUI
 private let AppBarHeight: Double = 56
 
 struct CoinTopAppBar<Title: View, NavIcon: View, Actions: View>: View {
-    
-    @EnvironmentObject private var theme: CoinTheme
     @Environment(\.safeAreaInsets) private var safeAreaInsets: (top: CGFloat, bottom: CGFloat)
+    private let theme = CoinTheme.shared
     
     var title: () -> Title
     var navigationIcon: () -> NavIcon
@@ -59,6 +58,5 @@ struct CoinTopAppBar_Previews: PreviewProvider {
                 Text("Title")
             }
         )
-        .environmentObject(CoinTheme.light)
     }
 }

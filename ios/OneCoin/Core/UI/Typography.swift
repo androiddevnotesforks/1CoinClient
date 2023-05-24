@@ -8,22 +8,22 @@
 import SwiftUI
 import OneCoinShared
 
-struct Typography {
-    var h1: Font
-    var h2: Font
-    var h3: Font
-    var h4: Font
-    var h5: Font
-    var body1: Font
-    var body1_medium: Font
-    var subtitle1: Font
-    var subtitle2: Font
-    var subtitle2_medium: Font
-    var subtitle3: Font
-    var subtitle4: Font
+public struct Typography {
+    let h1: Font
+    let h2: Font
+    let h3: Font
+    let h4: Font
+    let h5: Font
+    let body1: Font
+    let body1_medium: Font
+    let subtitle1: Font
+    let subtitle2: Font
+    let subtitle2_medium: Font
+    let subtitle3: Font
+    let subtitle4: Font
 }
 
-extension Typography {
+public extension Typography {
     static let main = Typography(
         h1: Font.rubikMedium(withSize: 42),
         h2: Font.rubikMedium(withSize: 32),
@@ -40,9 +40,8 @@ extension Typography {
     )
 }
 
-struct DefaultTextStyle :  ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct DefaultTextStyle:  ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -50,15 +49,14 @@ struct DefaultTextStyle :  ViewModifier {
     
     func body(content: Content) -> some View {
         return content
-            .foregroundColor(fontColor ?? theme.colors.content)
+            .foregroundColor(fontColor ?? CoinTheme.shared.colors.content)
             .multilineTextAlignment(.leading)
     }
 }
 
 
-struct H1Style : ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct H1Style: ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -67,13 +65,12 @@ struct H1Style : ViewModifier {
     func body(content: Content) -> some View {
         return content
             .modifier(DefaultTextStyle(fontColor: fontColor))
-            .font(theme.typography.h1)
+            .font(CoinTheme.shared.typography.h1)
     }
 }
 
-struct H2Style : ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct H2Style: ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -82,13 +79,12 @@ struct H2Style : ViewModifier {
     func body(content: Content) -> some View {
         return content
             .modifier(DefaultTextStyle(fontColor: fontColor))
-            .font(theme.typography.h2)
+            .font(CoinTheme.shared.typography.h2)
     }
 }
 
-struct H3Style : ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct H3Style: ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -97,13 +93,12 @@ struct H3Style : ViewModifier {
     func body(content: Content) -> some View {
         return content
             .modifier(DefaultTextStyle(fontColor: fontColor))
-            .font(theme.typography.h3)
+            .font(CoinTheme.shared.typography.h3)
     }
 }
 
-struct H4Style : ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct H4Style: ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -112,13 +107,12 @@ struct H4Style : ViewModifier {
     func body(content: Content) -> some View {
         return content
             .modifier(DefaultTextStyle(fontColor: fontColor))
-            .font(theme.typography.h4)
+            .font(CoinTheme.shared.typography.h4)
     }
 }
 
-struct H5Style : ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct H5Style: ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -127,13 +121,12 @@ struct H5Style : ViewModifier {
     func body(content: Content) -> some View {
         return content
             .modifier(DefaultTextStyle(fontColor: fontColor))
-            .font(theme.typography.h5)
+            .font(CoinTheme.shared.typography.h5)
     }
 }
 
-struct Body1Style : ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct Body1Style: ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -142,13 +135,12 @@ struct Body1Style : ViewModifier {
     func body(content: Content) -> some View {
         return content
             .modifier(DefaultTextStyle(fontColor: fontColor))
-            .font(theme.typography.body1)
+            .font(CoinTheme.shared.typography.body1)
     }
 }
 
-struct Body1MediumStyle : ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct Body1MediumStyle: ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -157,13 +149,12 @@ struct Body1MediumStyle : ViewModifier {
     func body(content: Content) -> some View {
         return content
             .modifier(DefaultTextStyle(fontColor: fontColor))
-            .font(theme.typography.body1_medium)
+            .font(CoinTheme.shared.typography.body1_medium)
     }
 }
 
-struct Subtitle1Style : ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct Subtitle1Style: ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -172,13 +163,12 @@ struct Subtitle1Style : ViewModifier {
     func body(content: Content) -> some View {
         return content
             .modifier(DefaultTextStyle(fontColor: fontColor))
-            .font(theme.typography.subtitle1)
+            .font(CoinTheme.shared.typography.subtitle1)
     }
 }
 
-struct Subtitle2Style : ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct Subtitle2Style: ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -187,13 +177,12 @@ struct Subtitle2Style : ViewModifier {
     func body(content: Content) -> some View {
         return content
             .modifier(DefaultTextStyle(fontColor: fontColor))
-            .font(theme.typography.subtitle2)
+            .font(CoinTheme.shared.typography.subtitle2)
     }
 }
 
-struct Subtitle2MediumStyle : ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct Subtitle2MediumStyle: ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -202,13 +191,12 @@ struct Subtitle2MediumStyle : ViewModifier {
     func body(content: Content) -> some View {
         return content
             .modifier(DefaultTextStyle(fontColor: fontColor))
-            .font(theme.typography.subtitle2_medium)
+            .font(CoinTheme.shared.typography.subtitle2_medium)
     }
 }
 
-struct Subtitle3Style : ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct Subtitle3Style: ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -217,13 +205,12 @@ struct Subtitle3Style : ViewModifier {
     func body(content: Content) -> some View {
         return content
             .modifier(DefaultTextStyle(fontColor: fontColor))
-            .font(theme.typography.subtitle3)
+            .font(CoinTheme.shared.typography.subtitle3)
     }
 }
 
-struct Subtitle4Style : ViewModifier {
-    @EnvironmentObject var theme: CoinTheme
-    var fontColor: SwiftUI.Color?
+fileprivate struct Subtitle4Style: ViewModifier {
+    let fontColor: SwiftUI.Color?
     
     init(fontColor: SwiftUI.Color? = nil) {
         self.fontColor = fontColor
@@ -232,12 +219,11 @@ struct Subtitle4Style : ViewModifier {
     func body(content: Content) -> some View {
         return content
             .modifier(DefaultTextStyle(fontColor: fontColor))
-            .font(theme.typography.subtitle4)
+            .font(CoinTheme.shared.typography.subtitle4)
     }
 }
 
 extension View {
-    
     func fontH1Style(color: SwiftUI.Color? = nil) -> some View {
         modifier(H1Style(fontColor: color))
     }
@@ -288,7 +274,6 @@ extension View {
 }
 
 extension Font {
-    
     static func rubikMedium(withSize: Double) -> Font {
         MR.fontsRubik().medium.toSwiftUIFont(withSize: withSize)
     }

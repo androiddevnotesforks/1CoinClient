@@ -10,7 +10,6 @@ import OneCoinShared
 
 @main
 struct OneCoinApp: App {
-    
     private let diManager = DiManager.shared
     
     init() {
