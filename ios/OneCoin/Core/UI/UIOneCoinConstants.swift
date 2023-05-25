@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum UI { }
+public enum UI { }
 
-extension UI {
+public extension UI {
     enum Padding {
         enum Vertical {
             static let small: CGFloat = 8
@@ -20,5 +20,10 @@ extension UI {
             static let small: CGFloat = 8
             static let `default`: CGFloat = 16
         }
+    }
+    
+    enum Card {
+        static let height: CGFloat = 128
+        static let width: CGFloat = 160
     }
 }

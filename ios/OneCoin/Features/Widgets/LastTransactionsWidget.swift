@@ -10,7 +10,7 @@ import OneCoinShared
 
 struct LastTransactionsWidget: View {
     let lastTransactions: [TransactionListModelData]
-    let onClick: () -> ()
+    let onClick: (() -> ())?
     let onTransactionClick: (_ transaction: TransactionModel) -> ()
     
     var body: some View {

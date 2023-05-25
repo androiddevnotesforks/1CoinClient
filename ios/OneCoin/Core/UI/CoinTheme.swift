@@ -11,7 +11,9 @@ public final class CoinTheme: ObservableObject {
     public var colors: CoinColors
     public var typography: Typography = .main
     
-    public static var shared = CoinTheme.isCurrentColorSchemeDark ? CoinTheme.dark : CoinTheme.light
+    public static var shared: CoinTheme {
+         CoinTheme.isCurrentColorSchemeDark ? CoinTheme.dark : CoinTheme.light
+    }
     
     private init(colors: CoinColors, typography: Typography = .main) {
         self.colors = colors

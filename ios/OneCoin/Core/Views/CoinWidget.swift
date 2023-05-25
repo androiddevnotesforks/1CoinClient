@@ -16,7 +16,7 @@ struct CoinWidget<Content: View>: View {
     var content: () -> Content
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             CoinWidgetTitle(title: title, onClick: onClick)
             CoinWidgetContent<Content>(
                 withBorder: withBorder,
@@ -56,25 +56,32 @@ private struct CoinWidgetTitle: View {
 }
 
 private struct CoinWidgetContent<Content: View>: View {
-    var withBorder: Bool = false
-    var withHorizontalPadding: Bool = true
-    var content: () -> Content
+    private let withBorder: Bool
+    private let withHorizontalPadding: Bool
+    private let content: () -> Content
+    
+    init(
+        withBorder: Bool = false, 
+        withHorizontalPadding: Bool = true, 
+        content: @escaping () -> Content
+    ) {
+        self.withBorder = withBorder
+        self.withHorizontalPadding = withHorizontalPadding
+        self.content = content
+    }
     
     var body: some View {
         let contentHorizontalPadding = withHorizontalPadding ? UI.Padding.Horizontal.default : 0
-        let borderWidth: CGFloat = withBorder ? 1 : 0
         let borderRadius: CGFloat = withBorder ? 12 : 0
         let shape = withBorder ? RoundedRectangle(cornerRadius: borderRadius) : RoundedRectangle(cornerRadius: 0)
         
         content()
             .frame(maxWidth: .infinity, alignment: .leading)
-            .overlay(
-                shape.stroke(CoinTheme.shared.colors.dividers, lineWidth: borderWidth)
-            )
             .background(CoinTheme.shared.colors.background)
             .clipShape(shape)
             .padding(.horizontal, contentHorizontalPadding)
-            .padding(.top, 4)
+            .padding(.top, 2)
+            .shadow(radius: withBorder ? 1 : 0)
     }
 }
 

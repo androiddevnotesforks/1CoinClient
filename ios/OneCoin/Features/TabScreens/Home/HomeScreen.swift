@@ -16,20 +16,21 @@ struct HomeScreen: View {
                 onSettingsClick: {}
             )
             ScrollView(.vertical, showsIndicators: false) {
-                VStack {
+                VStack(spacing: 16) {
                     CoinWidget(
-                        title: "My Accounts",
+                        title: MR.strings().widget_settings_item_my_accounts.desc().localized(),
                         withBorder: false
                     ) {
                         CardAccountsScreen()
                     }
                     
-                    CoinWidget(
-                        title: "Last Transactions",
-                        withBorder: true
-                    ) {
-                        Text("Transactions' list")
-                    }
+                    TotalExpenseChartWidget()
+                    
+                    LastTransactionsWidget(
+                        lastTransactions: [], 
+                        onClick: nil, 
+                        onTransactionClick: { _ in }
+                    )
                 }
             }
         }
