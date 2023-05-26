@@ -61,6 +61,8 @@ fi
 echo "\n${green}Generating KMM binary for project...${reset}\n"
 ./gradlew generateDummyFramework &&
 
+if [[ $? == 1 ]]; then exit $?; fi
+
 # 5) Pods and Opening Workspace
 echo "\n${green}Pod install...${reset}\n"
 cd ./ios/ && pod install && open ./*.xcworkspace
