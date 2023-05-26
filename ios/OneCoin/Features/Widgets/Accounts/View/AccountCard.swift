@@ -24,7 +24,7 @@ struct AccountCardView<Content>: View where Content: View {
     }
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 12)
+        RoundedRectangle(cornerRadius: UI.Components.cornerRadius)
             .fill(color)
             .frame(height: sizeOfContainer.height)
             .frame(width: sizeOfContainer.width)

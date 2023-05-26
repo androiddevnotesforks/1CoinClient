@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TabsNavigationScreen: View {
-    @State private var selectedTab: Tab = .home
+    @State private var selectedTab = OneCoinTabs.home
     @Environment(\.safeAreaInsets) private var safeAreaInsets: (top: CGFloat, bottom: CGFloat)
     
     var body: some View {

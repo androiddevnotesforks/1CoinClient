@@ -9,13 +9,13 @@ import SwiftUI
 import OneCoinShared
 
 struct CoinTabsView: View {
-    @Binding var selectedTab: Tab
+    @Binding var selectedTab: OneCoinTabs
     
     var body: some View {
         HStack {
             // MARK: - Home Tab
             Spacer()
-            showSelectedTabScreen(with: .home)
+            showSelectedTabScreen(with: OneCoinTabs.home)
             
             // MARK: - Transactions Tab
             Spacer()
@@ -41,7 +41,7 @@ struct CoinTabsView: View {
     
     private var addTransactionButton: some View {
         Button {
-            selectedTab = .add
+            selectedTab = OneCoinTabs.add
         } label: {
             ZStack {
                 Circle()
@@ -49,7 +49,7 @@ struct CoinTabsView: View {
                     .frame(width: 56, height: 56)
                     .shadow(radius: 4)
                 
-                SVGImageView(url: Tab.add.tabURL)
+                SVGImageView(url: OneCoinTabs.add.tabURL)
                     .tintColor(CoinTheme.shared.colors.white)
                     .frameSvg(width: 30, height: 30)
             }
@@ -57,7 +57,7 @@ struct CoinTabsView: View {
         }
     }
     
-    private func showSelectedTabScreen(with tab: Tab) -> some View {
+    private func showSelectedTabScreen(with tab: OneCoinTabs) -> some View {
         CoinTab(
             text: tab.tabName,
             url: tab.tabURL,
@@ -96,6 +96,6 @@ fileprivate struct CoinTab: View {
 
 struct CoinTabView_Previews: PreviewProvider {
     static var previews: some View {
-        CoinTabsView(selectedTab: .constant(Tab.home))
+        CoinTabsView(selectedTab: .constant(OneCoinTabs.home))
     }
 }

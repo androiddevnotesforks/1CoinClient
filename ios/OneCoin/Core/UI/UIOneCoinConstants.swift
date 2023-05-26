@@ -27,5 +27,15 @@ public extension UI {
         static let largeHeight: CGFloat = 329
         
         static let width: CGFloat = 160
+        
+        enum Rectangle {
+            static let height: CGFloat = 58
+            static let width: CGFloat = 94
+        }
+    }
+    
+    enum Components {
+        static let cornerRadius: CGFloat = 12
+        static let dedaultHStackSpace: CGFloat = 8
     }
 }

@@ -8,23 +8,21 @@
 import SwiftUI
 
 struct TotalExpenseChartWidgetContent: View {
+    @State private var selectedTimeline = TimelineType.Month
+    
     var body: some View {
-        VStack(alignment: .center, spacing: 7) {
+        VStack(alignment: .center, spacing: 0) {
             Text("Total expense")
-                .fontSubtitle2MediumStyle(color: Color.secondary)
+                .fontSubtitle2MediumStyle(color: CoinTheme.shared.colors.secondary)
                 .padding(.top, 15)
             
             Text("$12776")
-                .fontH2Style(color: Color.primary)
+                .fontH2Style(color: CoinTheme.shared.colors.primary)
             
-            HStack {
-                ForEach([TimelineTypes.Week, TimelineTypes.Month, TimelineTypes.Year]) { timeline in 
-                    Text(timeline.rawValue)
-                        .fontSubtitle2MediumStyle(color: Color.secondary)
-                }
-            }
+            Tabs(tabs: TimelineType.allCases, selected: $selectedTimeline)
             
-            InteractiveLollipop(data: LollipopChartMockData.last30DaysStruct)
+            InteractiveLollipop()
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 4, trailing: 8))
         }
         .frame(maxWidth: .infinity)
         .frame(height: UI.Card.largeHeight)

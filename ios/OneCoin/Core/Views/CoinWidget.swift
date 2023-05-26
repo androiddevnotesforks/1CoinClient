@@ -72,8 +72,7 @@ private struct CoinWidgetContent<Content: View>: View {
     
     var body: some View {
         let contentHorizontalPadding = withHorizontalPadding ? UI.Padding.Horizontal.default : 0
-        let borderRadius: CGFloat = withBorder ? 12 : 0
-        let shape = withBorder ? RoundedRectangle(cornerRadius: borderRadius) : RoundedRectangle(cornerRadius: 0)
+        let shape = withBorder ? RoundedRectangle(cornerRadius: UI.Components.cornerRadius) : RoundedRectangle(cornerRadius: 0)
         
         content()
             .frame(maxWidth: .infinity, alignment: .leading)

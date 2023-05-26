@@ -14,6 +14,8 @@
 		314515B72A1FB5EA00E31A17 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515B62A1FB5EA00E31A17 /* Date.swift */; };
 		314515BA2A1FF0A100E31A17 /* SafeInCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515B92A1FF0A100E31A17 /* SafeInCollection.swift */; };
 		314515BC2A1FF38500E31A17 /* InteractionWithLollipopChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515BB2A1FF38500E31A17 /* InteractionWithLollipopChart.swift */; };
+		314515C12A20FDA700E31A17 /* YAxisDashedLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515C02A20FDA700E31A17 /* YAxisDashedLine.swift */; };
+		314515C52A210B0700E31A17 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515C42A210B0700E31A17 /* Tabs.swift */; };
 		319CBA882A1D5D3300E5B8FD /* AccountCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319CBA872A1D5D3300E5B8FD /* AccountCard.swift */; };
 		319CBA8B2A1E3B3400E5B8FD /* TotalExpenseChartWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319CBA8A2A1E3B3400E5B8FD /* TotalExpenseChartWidget.swift */; };
 		319CBA8F2A1E57E200E5B8FD /* TimelineTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319CBA8E2A1E57E200E5B8FD /* TimelineTypes.swift */; };
@@ -57,6 +59,8 @@
 		314515B62A1FB5EA00E31A17 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		314515B92A1FF0A100E31A17 /* SafeInCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInCollection.swift; sourceTree = "<group>"; };
 		314515BB2A1FF38500E31A17 /* InteractionWithLollipopChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionWithLollipopChart.swift; sourceTree = "<group>"; };
+		314515C02A20FDA700E31A17 /* YAxisDashedLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAxisDashedLine.swift; sourceTree = "<group>"; };
+		314515C42A210B0700E31A17 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		319CBA872A1D5D3300E5B8FD /* AccountCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCard.swift; sourceTree = "<group>"; };
 		319CBA8A2A1E3B3400E5B8FD /* TotalExpenseChartWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalExpenseChartWidget.swift; sourceTree = "<group>"; };
 		319CBA8E2A1E57E200E5B8FD /* TimelineTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTypes.swift; sourceTree = "<group>"; };
@@ -128,6 +132,30 @@
 				314515B92A1FF0A100E31A17 /* SafeInCollection.swift */,
 			);
 			path = Collection;
+			sourceTree = "<group>";
+		};
+		314515C22A210A3900E31A17 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				314515C02A20FDA700E31A17 /* YAxisDashedLine.swift */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
+		314515C32A210AFB00E31A17 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				314515C42A210B0700E31A17 /* Tabs.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		314515C62A210B3700E31A17 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				3A5BA2FB29B37D1E00085ACF /* CustomEnvironmentValues.swift */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		319CBA892A1E3B1900E5B8FD /* TotalExpenseChart */ = {
@@ -274,7 +302,9 @@
 		3A5BA2E229A9FFC600085ACF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3A5BA2FB29B37D1E00085ACF /* CustomEnvironmentValues.swift */,
+				314515C62A210B3700E31A17 /* Preferences */,
+				314515C32A210AFB00E31A17 /* Components */,
+				314515C22A210A3900E31A17 /* Shapes */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -496,6 +526,7 @@
 				3A5BA2DA29A9014300085ACF /* AnalyticsScreen.swift in Sources */,
 				314515B72A1FB5EA00E31A17 /* Date.swift in Sources */,
 				7E7F35172A0AF421008C345E /* PlansScreen.swift in Sources */,
+				314515C52A210B0700E31A17 /* Tabs.swift in Sources */,
 				3A5BA2FA29B376E300085ACF /* AppScreen.swift in Sources */,
 				3A5BA2F029B10BE000085ACF /* CoinColors.swift in Sources */,
 				310099652A1BF69F003BC155 /* UIOneCoinConstants.swift in Sources */,
@@ -510,6 +541,7 @@
 				3A5BA2FC29B37D1E00085ACF /* CustomEnvironmentValues.swift in Sources */,
 				3A5BA30529B3A98300085ACF /* SettingsScreen.swift in Sources */,
 				319CBA8B2A1E3B3400E5B8FD /* TotalExpenseChartWidget.swift in Sources */,
+				314515C12A20FDA700E31A17 /* YAxisDashedLine.swift in Sources */,
 				3AF88E0729F3DC9E0011C207 /* CoinWidget.swift in Sources */,
 				3A5BA2EC29B10B0A00085ACF /* CoinTheme.swift in Sources */,
 				314515B12A1F9D2D00E31A17 /* LollipopChart.swift in Sources */,
@@ -674,7 +706,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -709,7 +741,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.finance-tracker.OneCoin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

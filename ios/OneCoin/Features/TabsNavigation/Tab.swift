@@ -7,7 +7,7 @@
 
 import OneCoinShared
 
-enum Tab {
+enum OneCoinTabs {
     case home
     case transactions
     case add

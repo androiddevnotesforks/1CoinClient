@@ -5,12 +5,26 @@
 //  Created by Эльдар Попов on 25.05.2023.
 //
 
+import SwiftUI
 import Foundation
 
-struct LollipopChartData: Identifiable {
-    let id = UUID().uuidString
+struct LollipopChartData: Identifiable, Hashable {
+    let id: String
     let day: Date
     let expences: Int
+    var color: Color
+    
+    init(
+        id: String = UUID().uuidString, 
+        day: Date, 
+        expences: Int, 
+        color: Color = CoinTheme.shared.colors.dividers
+    ) {
+        self.id = id
+        self.day = day
+        self.expences = expences
+        self.color = color
+    }
 }
 
 enum LollipopChartMockData {

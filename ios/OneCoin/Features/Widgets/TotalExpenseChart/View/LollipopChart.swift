@@ -18,7 +18,12 @@ struct LollipopChart: View {
                 x: PlottableValue.value($0.id, $0.day, unit: .day),
                 y: PlottableValue.value($0.expences.description, $0.expences)
             )
+            .foregroundStyle($0.id == selectedElement?.id ? CoinTheme.shared.colors.primary : CoinTheme.shared.colors.dividers) 
         }
+        .chartXAxis() {
+            AxisMarks(stroke: StrokeStyle(lineWidth: 0))
+        }
+        .chartYAxis(.hidden)
         .chartOverlay { proxy in
             GeometryReader { geometry in
                 Rectangle()
