@@ -24,9 +24,9 @@ struct TotalExpenseChartWidgetContent: View {
                 }
             }
             
-            LollipopChart()
+            InteractiveLollipop(data: LollipopChartMockData.last30DaysStruct)
         }
         .frame(maxWidth: .infinity)
-        .frame(height: UI.Card.height * 2)
+        .frame(height: UI.Card.largeHeight)
     }
 }

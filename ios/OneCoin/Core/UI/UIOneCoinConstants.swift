@@ -24,6 +24,8 @@ public extension UI {
     
     enum Card {
         static let height: CGFloat = 128
+        static let largeHeight: CGFloat = 329
+        
         static let width: CGFloat = 160
     }
 }
