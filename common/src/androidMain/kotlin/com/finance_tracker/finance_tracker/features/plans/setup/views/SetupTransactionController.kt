@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.features.add_transaction.views.enter_transaction_controller
+package com.finance_tracker.finance_tracker.features.plans.setup.views
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -12,25 +12,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
-import com.finance_tracker.finance_tracker.features.add_transaction.EnterTransactionStep
 import com.finance_tracker.finance_tracker.features.add_transaction.KeyboardCommand
+import com.finance_tracker.finance_tracker.features.add_transaction.views.enter_transaction_controller.AmountKeyboard
+import com.finance_tracker.finance_tracker.features.add_transaction.views.enter_transaction_controller.CategorySelector
+import com.finance_tracker.finance_tracker.features.plans.setup.SetupPlanStep
 
 private const val ContentAnimationDuration = 200
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-internal fun EnterTransactionController(
-    accounts: List<Account>,
+internal fun SetupPlanController(
     categories: List<Category>,
-    currentStep: EnterTransactionStep?,
+    currentStep: SetupPlanStep?,
     animationDirection: Int,
     modifier: Modifier = Modifier,
-    onAccountSelect: (Account) -> Unit = {},
-    onAccountAdd: () -> Unit = {},
     onCategorySelect: (Category) -> Unit = {},
-    onCategoryAdd: () -> Unit = {},
     onKeyboardButtonClick: (KeyboardCommand) -> Unit = {}
 ) {
     Box(
@@ -51,26 +48,17 @@ internal fun EnterTransactionController(
             }
         ) { targetStep ->
             when (targetStep) {
-                EnterTransactionStep.PrimaryAccount,
-                EnterTransactionStep.SecondaryAccount-> {
-                    AccountSelector(
-                        accounts = accounts,
-                        onAccountSelect = onAccountSelect,
-                        onAccountAdd = onAccountAdd
-                    )
-                }
 
-                EnterTransactionStep.Category -> {
+                SetupPlanStep.Category -> {
                     CategorySelector(
-                        withAddButton = true,
+                        withAddButton = false,
                         categories = categories,
                         onCategorySelect = onCategorySelect,
-                        onCategoryAdd = onCategoryAdd
+                        onCategoryAdd = { /*onCategoryAdd*/ }
                     )
                 }
 
-                EnterTransactionStep.PrimaryAmount,
-                EnterTransactionStep.SecondaryAmount -> {
+                SetupPlanStep.PrimaryAmount -> {
                     AmountKeyboard(
                         onButtonClick = onKeyboardButtonClick
                     )

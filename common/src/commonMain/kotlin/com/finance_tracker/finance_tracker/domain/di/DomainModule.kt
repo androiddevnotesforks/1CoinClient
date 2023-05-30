@@ -5,6 +5,7 @@ import com.finance_tracker.finance_tracker.domain.interactors.AuthInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.DashboardSettingsInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.PlansInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.ThemeInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.transactions.GetTransactionsForChartUseCase
@@ -27,4 +28,5 @@ internal val domainModule = module {
     factoryOf(::DashboardSettingsInteractor)
     factoryOf(::AuthInteractor)
     factoryOf(::ThemeInteractor)
+    factoryOf(::PlansInteractor)
 }

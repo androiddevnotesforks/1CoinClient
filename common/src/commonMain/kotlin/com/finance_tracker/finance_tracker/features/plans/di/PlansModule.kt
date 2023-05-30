@@ -1,11 +1,15 @@
 package com.finance_tracker.finance_tracker.features.plans.di
 
+import com.finance_tracker.finance_tracker.features.plans.overview.PlansOverviewViewModel
+import com.finance_tracker.finance_tracker.features.plans.overview.analytics.PlansOverviewAnalytics
+import com.finance_tracker.finance_tracker.features.plans.setup.SetupPlanViewModel
+import com.finance_tracker.finance_tracker.features.plans.setup.analytics.SetupPlanAnalytics
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
-import com.finance_tracker.finance_tracker.features.plans.PlansViewModel
-import com.finance_tracker.finance_tracker.features.plans.analytics.PlansAnalytics
 
 internal val plansModule = module {
-    factoryOf(::PlansViewModel)
-    factoryOf(::PlansAnalytics)
+    factoryOf(::PlansOverviewViewModel)
+    factoryOf(::PlansOverviewAnalytics)
+    factoryOf(::SetupPlanViewModel)
+    factoryOf(::SetupPlanAnalytics)
 }

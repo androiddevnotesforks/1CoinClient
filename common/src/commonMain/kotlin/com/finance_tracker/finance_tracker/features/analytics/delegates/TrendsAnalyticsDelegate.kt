@@ -13,6 +13,7 @@ import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
+import com.finance_tracker.finance_tracker.domain.models.convertToCurrencyValue
 import com.finance_tracker.finance_tracker.features.analytics.PeriodChip
 import com.finance_tracker.finance_tracker.features.analytics.analytics.AnalyticsScreenAnalytics
 import com.finance_tracker.finance_tracker.features.analytics.models.TrendBarDetails
@@ -245,7 +246,7 @@ class TrendsAnalyticsDelegate(
             val amount = Amount(
                 currency = Currency.getByCode(transaction.amountCurrency),
                 amountValue = transaction.amount
-            ).convertToCurrency(
+            ).convertToCurrencyValue(
                 currencyRates = currencyRates,
                 toCurrency = primaryCurrency
             )

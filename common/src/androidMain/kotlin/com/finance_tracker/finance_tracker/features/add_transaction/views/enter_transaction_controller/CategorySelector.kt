@@ -31,6 +31,7 @@ import kotlin.math.roundToInt
 
 @Composable
 internal fun CategorySelector(
+    withAddButton: Boolean,
     categories: List<Category>,
     onCategorySelect: (category: Category) -> Unit,
     onCategoryAdd: () -> Unit,
@@ -82,16 +83,18 @@ internal fun CategorySelector(
                 )
             }
         }
-        item {
-            AddCell(
-                columnCount = columnCount,
-                index = categories.size,
-                dividerWidth = dividerWidth,
-                dividerColor = dividerColor,
-                cellHeight = cellHeight,
-                onCellWidthChange = { cellWidth = it },
-                onClick = onCategoryAdd
-            )
+        if (withAddButton) {
+            item {
+                AddCell(
+                    columnCount = columnCount,
+                    index = categories.size,
+                    dividerWidth = dividerWidth,
+                    dividerColor = dividerColor,
+                    cellHeight = cellHeight,
+                    onCellWidthChange = { cellWidth = it },
+                    onClick = onCategoryAdd
+                )
+            }
         }
     }
 }

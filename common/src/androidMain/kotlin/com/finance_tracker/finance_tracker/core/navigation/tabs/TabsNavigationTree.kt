@@ -3,7 +3,7 @@ package com.finance_tracker.finance_tracker.core.navigation.tabs
 import androidx.compose.runtime.Composable
 import com.finance_tracker.finance_tracker.features.analytics.AnalyticsScreen
 import com.finance_tracker.finance_tracker.features.home.HomeScreen
-import com.finance_tracker.finance_tracker.features.plans.PlansScreen
+import com.finance_tracker.finance_tracker.features.plans.overview.PlansOverviewScreen
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.AnalyticsTab
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.HomeTab
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.PlansTab
@@ -25,7 +25,7 @@ enum class TabsNavigationTree(
     ),
     Plans(
         tab = PlansTab(),
-        screen = { PlansScreen() }
+        screen = { PlansOverviewScreen() }
     ),
     Analytics(
         tab = AnalyticsTab(),

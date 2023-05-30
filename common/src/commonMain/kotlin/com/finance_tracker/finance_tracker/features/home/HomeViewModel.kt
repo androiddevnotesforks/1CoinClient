@@ -14,6 +14,7 @@ import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.Transaction
+import com.finance_tracker.finance_tracker.domain.models.convertToCurrencyValue
 import com.finance_tracker.finance_tracker.features.analytics.delegates.AnalyticsDelegates
 import com.finance_tracker.finance_tracker.features.analytics.delegates.MonthTxsByCategoryDelegate
 import com.finance_tracker.finance_tracker.features.analytics.delegates.TrendsAnalyticsDelegate
@@ -139,7 +140,7 @@ class HomeViewModel(
     ): Double {
         return accountsRepository.getAllAccountsFromDatabase()
             .sumOf { account ->
-                account.balance.convertToCurrency(
+                account.balance.convertToCurrencyValue(
                     currencyRates = currencyRates,
                     toCurrency = currency
                 )

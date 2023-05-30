@@ -24,11 +24,11 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.formatters.format
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.domain.models.Budget
+import com.finance_tracker.finance_tracker.domain.models.Plan
 
 @Composable
-internal fun BudgetCard(
-    budget: Budget,
+internal fun ExpenseLimitItem(
+    plan: Plan,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -36,7 +36,7 @@ internal fun BudgetCard(
             .fillMaxWidth()
     ) {
         Icon(
-            painter = rememberAsyncImagePainter(budget.category.icon),
+            painter = rememberAsyncImagePainter(plan.category.icon),
             contentDescription = null,
             modifier = Modifier
                 .size(44.dp)
@@ -58,7 +58,7 @@ internal fun BudgetCard(
                 Text(
                     modifier = Modifier
                         .padding(end = 12.dp),
-                    text = budget.category.name,
+                    text = plan.category.name,
                     style = CoinTheme.typography.body1,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -68,7 +68,7 @@ internal fun BudgetCard(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         modifier = Modifier.widthIn(max = 80.dp),
-                        text = "${budget.spentAmount.currency.symbol}${budget.spentAmount.amountValue.format()}",
+                        text = "${plan.spentAmount.currency.symbol}${plan.spentAmount.amountValue.format()}",
                         style = CoinTheme.typography.body1,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -81,7 +81,7 @@ internal fun BudgetCard(
                     )
                     Text(
                         modifier = Modifier.widthIn(max = 80.dp),
-                        text = "${budget.limitAmount.currency.symbol}${budget.limitAmount.amountValue.format()}",
+                        text = "${plan.limitAmount.currency.symbol}${plan.limitAmount.amountValue.format()}",
                         style = CoinTheme.typography.body1,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
@@ -97,10 +97,10 @@ internal fun BudgetCard(
                 color = CoinTheme.color.primary,
                 backgroundColor = CoinTheme.color.secondaryBackground,
                 strokeCap = StrokeCap.Round,
-                progress = if (budget.limitAmount.amountValue == 0.0) {
+                progress = if (plan.limitAmount.amountValue == 0.0) {
                     1f
                 } else {
-                    (budget.spentAmount.amountValue / budget.limitAmount.amountValue).toFloat()
+                    (plan.spentAmount.amountValue / plan.limitAmount.amountValue).toFloat()
                 }
             )
         }

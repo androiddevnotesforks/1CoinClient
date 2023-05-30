@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.features.plans.views
+package com.finance_tracker.finance_tracker.features.plans.setup.views
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -10,7 +10,7 @@ import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-internal fun PlansTopBar(
+internal fun ExpenseLimitTopBar(
     modifier: Modifier = Modifier
 ) {
     CoinTopAppBar(
@@ -18,7 +18,7 @@ internal fun PlansTopBar(
         appBarHeight = 64.dp,
         title = {
             Text(
-                text = stringResource(MR.strings.plans_screen_topbar_text),
+                text = stringResource(MR.strings.setup_plans_title),
                 style = CoinTheme.typography.h4,
                 color = CoinTheme.color.content
             )

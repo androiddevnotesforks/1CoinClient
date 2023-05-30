@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.features.plans.views
+package com.finance_tracker.finance_tracker.features.plans.overview.views
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -20,8 +20,8 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-internal fun BudgetsEmptyStub(
-    modifier: Modifier = Modifier,
+internal fun ExpenseLimitsEmptyStub(
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
@@ -49,7 +49,7 @@ internal fun BudgetsEmptyStub(
         Text(
             modifier = Modifier
                 .padding(start = 8.dp),
-            text = stringResource(MR.strings.budget_empty_stub),
+            text = stringResource(MR.strings.plans_budget_empty_stub),
             textAlign = TextAlign.Center,
             style = CoinTheme.typography.subtitle2,
             color = CoinTheme.color.content.copy(alpha = 0.5f)

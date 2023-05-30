@@ -12,6 +12,7 @@ import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
+import com.finance_tracker.finance_tracker.domain.models.convertToCurrencyValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -28,11 +29,11 @@ class GetTransactionsForChartUseCase(
         return withContext(Dispatchers.Default) {
             val transactions = transactionsRepository.getTransactions(transactionType, yearMonth)
             val totalAmount = transactions.sumOf {
-                it.primaryAmount.convertToCurrency(currencyRates, primaryCurrency)
+                it.primaryAmount.convertToCurrencyValue(currencyRates, primaryCurrency)
             }
 
             val sortRules: (TxsByCategoryChart.Piece) -> Double = {
-                it.amount.convertToCurrency(currencyRates, primaryCurrency)
+                it.amount.convertToCurrencyValue(currencyRates, primaryCurrency)
             }
             val rawCategoryPieces = transactions
                 .groupBy { it._category }
@@ -42,7 +43,7 @@ class GetTransactionsForChartUseCase(
                         amount = Amount(
                             currency = primaryCurrency,
                             amountValue = transactions.sumOf {
-                                it.primaryAmount.convertToCurrency(currencyRates, primaryCurrency)
+                                it.primaryAmount.convertToCurrencyValue(currencyRates, primaryCurrency)
                             }
                         ),
                         percentValue = 0f,
@@ -83,7 +84,7 @@ class GetTransactionsForChartUseCase(
                     amount = Amount(
                         currency = primaryCurrency,
                         amountValue = otherPieces.sumOf {
-                            it.amount.convertToCurrency(currencyRates, primaryCurrency)
+                            it.amount.convertToCurrencyValue(currencyRates, primaryCurrency)
                         }
                     ),
                     percentValue = otherPieces.sumOf {

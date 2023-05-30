@@ -6,6 +6,7 @@
     <string name="btn_delete">Удалить</string>
     <string name="dialog_body_delete">Вы уверены, что хотите удалить?</string>
     <string name="deleting_transaction">Удаление транзакции</string>
+    <string name="deleting_plan">Удаление лимита</string>
     <string name="deleting_category">Удаление категории</string>
     <string name="deleting_transactions">Удаление транзакций</string>
     <string name="deleting_account">Удаление счета</string>
@@ -248,9 +249,15 @@
     <string name="currency_screen_search">Искать</string>
 
     <!-- Plans screen -->
-    <string name="plans_screen_topbar_text">Планы</string>
-    <string name="budget_empty_stub">Еще нет бюджетов</string>
-    <string name="budgets_by_categories">Бюджеты по категориям</string>
-    <string name="add_limit">Добавить лимит</string>
+    <string name="plans_title">Планы</string>
+    <string name="plans_budget_empty_stub">Еще нет бюджетов</string>
+    <string name="plans_expense_limits">Лимиты трат</string>
+    <string name="plans_btn_add_limit">Добавить лимит</string>
+
+    <!-- Setup plans screen -->
+    <string name="setup_plans_title">Лимит трат</string>
+    <string name="setup_plans_amount_hint">Лимит трат</string>
+    <string name="setup_plans_btn_add_limit">Добавить лимит</string>
+    <string name="setup_plans_btn_edit_limit">Редактировать лимит</string>
 
 </resources>

@@ -1,5 +1,6 @@
-package com.finance_tracker.finance_tracker.features.plans.views
+package com.finance_tracker.finance_tracker.features.plans.overview.views
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -24,47 +25,47 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import com.finance_tracker.finance_tracker.core.ui.BudgetCard
-import com.finance_tracker.finance_tracker.domain.models.Budget
+import com.finance_tracker.finance_tracker.core.ui.ExpenseLimitItem
+import com.finance_tracker.finance_tracker.domain.models.Plan
 
 private const val MaxBudgetsBeforeUncoverWidget = 5
+private const val ArrowRotationDurationMillis = 250
 
 @Suppress("MagicNumber")
 @Composable
-fun BudgetsView(
+internal fun ExpenseLimitsList(
     modifier: Modifier = Modifier,
-    budgets: List<Budget> = emptyList()
+    plans: List<Plan> = emptyList()
 ) {
-
-    var isRotated by remember { mutableStateOf(false) }
-
-    val rotationAngle by animateFloatAsState(
-        targetValue = if (isRotated) 180F else 0F,
-        animationSpec = tween(
-            durationMillis = 250,
-            easing = FastOutLinearInEasing
-        )
-    )
-
-    var expanded by remember { mutableStateOf(false) }
-
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .padding(16.dp)
+            .animateContentSize(),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-
+        var expanded by remember { mutableStateOf(false) }
         val filteredBudgets = if (expanded) {
-            budgets
+            plans
         } else {
-            budgets.take(MaxBudgetsBeforeUncoverWidget)
+            plans.take(MaxBudgetsBeforeUncoverWidget)
         }
 
         filteredBudgets.forEach { budget ->
             key(budget.category.id) {
-                BudgetCard(budget)
+                ExpenseLimitItem(budget)
             }
         }
-        if (budgets.size > MaxBudgetsBeforeUncoverWidget) {
+        if (plans.size > MaxBudgetsBeforeUncoverWidget) {
+            var isRotated by remember { mutableStateOf(false) }
+
+            val rotationAngle by animateFloatAsState(
+                targetValue = if (isRotated) 180f else 0f,
+                animationSpec = tween(
+                    durationMillis = ArrowRotationDurationMillis,
+                    easing = FastOutLinearInEasing
+                ),
+                label = "FloatAnimation"
+            )
             Icon(
                 modifier = Modifier
                     .padding(
@@ -73,12 +74,12 @@ fun BudgetsView(
                         bottom = 8.dp,
                     )
                     .size(32.dp)
-                    .padding(4.dp)
                     .clip(CircleShape)
                     .clickable {
                         expanded = !expanded
                         isRotated = !isRotated
                     }
+                    .padding(4.dp)
                     .align(Alignment.CenterHorizontally)
                     .rotate(rotationAngle),
                 painter = rememberAsyncImagePainter(MR.files.ic_arrow_down_plans),

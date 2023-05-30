@@ -4,6 +4,7 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.combineExtended
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDate
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDateTime
+import com.finance_tracker.finance_tracker.core.common.isNotEmptyAmount
 import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.toString
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
@@ -163,11 +164,6 @@ class AddTransactionViewModel(
         observeCurrentFlowState()
         initCurrentStep()
         observePrimaryAmount()
-    }
-
-    @Suppress("UnnecessaryParentheses")
-    private fun String.isNotEmptyAmount(): Boolean {
-        return (this.toDoubleOrNull() ?: 0.0) > 0.0
     }
 
     private fun observePrimaryAmount() {

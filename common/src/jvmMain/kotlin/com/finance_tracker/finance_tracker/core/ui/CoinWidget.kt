@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -37,6 +38,7 @@ internal fun CoinWidget(
     withBorder: Boolean = false,
     withHorizontalPadding: Boolean = true,
     onClick: (() -> Unit)? = null,
+    action: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit = {}
 ) {
     val clickEnabled = onClick != null
@@ -56,14 +58,21 @@ internal fun CoinWidget(
                 ),
             horizontalArrangement = Arrangement.Start
         ) {
-            Text(
-                text = title,
-                style = CoinTheme.typography.h5
-            )
-            if (onClick != null) {
-                Spacer(
-                    modifier = Modifier.weight(1f)
+            Row(
+                modifier = Modifier.heightIn(min = 32.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = title,
+                    style = CoinTheme.typography.h5
                 )
+                if (action != null) {
+                    Spacer(modifier = Modifier.weight(1f))
+                    action()
+                }
+            }
+            if (onClick != null) {
+                Spacer(modifier = Modifier.weight(1f))
                 Icon(
                     painter = rememberAsyncImagePainter(MR.files.ic_arrow_next_small),
                     contentDescription = null,
@@ -88,7 +97,6 @@ internal fun CoinWidget(
                 .`if`(withHorizontalPadding) {
                     padding(horizontal = HorizontalPadding)
                 }
-                .padding(top = 4.dp)
                 .border(
                     width = if (withBorder) 1.dp else 0.dp,
                     color = if (withBorder) CoinTheme.color.dividers else Color.Transparent,

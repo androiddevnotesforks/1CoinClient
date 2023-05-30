@@ -5,6 +5,7 @@ import com.finance_tracker.finance_tracker.data.repositories.AuthRepository
 import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepository
 import com.finance_tracker.finance_tracker.data.repositories.CurrenciesRepository
 import com.finance_tracker.finance_tracker.data.repositories.DashboardSettingsRepository
+import com.finance_tracker.finance_tracker.data.repositories.PlansRepository
 import com.finance_tracker.finance_tracker.data.repositories.ThemeRepository
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
 import com.finance_tracker.finance_tracker.data.repositories.UserRepository
@@ -20,4 +21,5 @@ internal val repositoriesModule = module {
     factoryOf(::DashboardSettingsRepository)
     factoryOf(::AuthRepository)
     factoryOf(::ThemeRepository)
+    factoryOf(::PlansRepository)
 }

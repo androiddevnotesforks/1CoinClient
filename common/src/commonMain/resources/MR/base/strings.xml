@@ -15,6 +15,7 @@
     <string name="tab_transfer">Transfer</string>
     <string name="total">Total</string>
     <string name="deleting_transaction">Deleting transaction</string>
+    <string name="deleting_plan">Deleting limit</string>
     <string name="deleting_category">Deleting category</string>
     <string name="deleting_transactions">Deleting transactions</string>
     <string name="deleting_account">Deleting account</string>
@@ -253,9 +254,15 @@
     <string name="currency_screen_search">Search</string>
 
     <!-- Plans screen -->
-    <string name="plans_screen_topbar_text">Plans</string>
-    <string name="budget_empty_stub">No budgets yet</string>
-    <string name="budgets_by_categories">Budgets by categories</string>
-    <string name="add_limit">Add limit</string>
+    <string name="plans_title">Plans</string>
+    <string name="plans_budget_empty_stub">No limits yet</string>
+    <string name="plans_expense_limits">Expense Limits</string>
+    <string name="plans_btn_add_limit">Add limit</string>
+
+    <!-- Setup plans screen -->
+    <string name="setup_plans_title">Expense Limit</string>
+    <string name="setup_plans_amount_hint">Expense Limit</string>
+    <string name="setup_plans_btn_add_limit">Add Limit</string>
+    <string name="setup_plans_btn_edit_limit">Edit Limit</string>
 
 </resources>
