@@ -10,7 +10,6 @@ import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 
@@ -93,10 +92,8 @@ class TransactionsInteractor(
             .map(::insertSeparators)
     }
 
-    fun getTransactionsSizeUpdates(): Flow<Unit> {
-        return transactionsRepository.getTransactionsSize()
-            .distinctUntilChanged()
-            .map {}
+    fun getTransactionsSizeUpdates(): Flow<Long> {
+        return transactionsRepository.getTransactionsSizeUpdates()
     }
 
     fun getPaginatedTransactionsByAccountId(id: Long): Flow<PagingData<TransactionListModel>> {
@@ -106,10 +103,8 @@ class TransactionsInteractor(
             .flowOn(Dispatchers.Default)
     }
 
-    fun getTransactionsByAccountIdSizeUpdates(id: Long): Flow<Unit> {
-        return transactionsRepository.getTransactionsByAccountSize(id)
-            .distinctUntilChanged()
-            .map {}
+    fun getTransactionsByAccountIdSizeUpdates(id: Long): Flow<Long> {
+        return transactionsRepository.getTransactionsByAccountSizeUpdates(id)
     }
 
     @Suppress("LABEL_NAME_CLASH")

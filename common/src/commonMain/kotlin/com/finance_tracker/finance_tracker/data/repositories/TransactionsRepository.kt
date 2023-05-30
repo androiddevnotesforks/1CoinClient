@@ -17,6 +17,7 @@ import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOneOrDefault
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
@@ -81,11 +82,12 @@ class TransactionsRepository(
         return paginatedTransactions
     }
 
-    fun getTransactionsSize(): Flow<Long> {
+    fun getTransactionsSizeUpdates(): Flow<Long> {
         return transactionsEntityQueries.getAllTransactionsCount()
             .asFlow()
             .mapToOneOrDefault(0L)
             .flowOn(Dispatchers.Default)
+            .distinctUntilChanged()
     }
 
     fun getPaginatedTransactionsByAccountId(id: Long): Flow<PagingData<Transaction>> {
@@ -95,11 +97,12 @@ class TransactionsRepository(
             .flowOn(Dispatchers.Default)
     }
 
-    fun getTransactionsByAccountSize(id: Long): Flow<Long> {
+    fun getTransactionsByAccountSizeUpdates(id: Long): Flow<Long> {
         return transactionsEntityQueries.getAllTransactionsByAccountIdCount(id)
             .asFlow()
             .mapToOneOrDefault(0L)
             .flowOn(Dispatchers.Default)
+            .distinctUntilChanged()
     }
 
     fun getLastTransactions(limit: Long) : Flow<List<Transaction>> {

@@ -45,17 +45,6 @@ class CoinSnackbarHostState(
             .launchIn(coroutineScope)
     }
 
-    private suspend fun showSnackbarWithResult(
-        snackbarState: SnackbarState
-    ): SnackbarResult? {
-        currentSnackbarState = snackbarState
-        return try {
-            baseSnackbarHostState.showSnackbar("")
-        } finally {
-            baseSnackbarHostState.currentSnackbarData?.dismiss()
-        }
-    }
-
     fun handleSnackbarState(snackbarState: SnackbarState?) {
         if (snackbarState != null) {
             showSnackbar(snackbarState)
@@ -73,11 +62,22 @@ class CoinSnackbarHostState(
         }
     }
 
+    private suspend fun showSnackbarWithResult(
+        snackbarState: SnackbarState
+    ): SnackbarResult? {
+        currentSnackbarState = snackbarState
+        return try {
+            baseSnackbarHostState.showSnackbar("")
+        } finally {
+            baseSnackbarHostState.currentSnackbarData?.dismiss()
+        }
+    }
+
     fun setSnackbarHostPadding(bottom: Dp) {
         bottomPadding = bottom
     }
 
-    fun dismiss() {
+    private fun dismiss() {
         snackbarJob?.cancel()
         snackbarJob = null
     }
