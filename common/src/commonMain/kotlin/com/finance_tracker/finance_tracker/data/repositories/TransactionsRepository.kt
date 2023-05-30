@@ -14,6 +14,7 @@ import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.financetracker.financetracker.data.TransactionsEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
+import com.squareup.sqldelight.runtime.coroutines.mapToOneOrDefault
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -80,10 +81,24 @@ class TransactionsRepository(
         return paginatedTransactions
     }
 
+    fun getTransactionsSize(): Flow<Long> {
+        return transactionsEntityQueries.getAllTransactionsCount()
+            .asFlow()
+            .mapToOneOrDefault(0L)
+            .flowOn(Dispatchers.Default)
+    }
+
     fun getPaginatedTransactionsByAccountId(id: Long): Flow<PagingData<Transaction>> {
         return Pager(PagingConfig(pageSize = PageSize)) {
             transactionsPagingSourceFactory.create(id)
         }.flow
+            .flowOn(Dispatchers.Default)
+    }
+
+    fun getTransactionsByAccountSize(id: Long): Flow<Long> {
+        return transactionsEntityQueries.getAllTransactionsByAccountIdCount(id)
+            .asFlow()
+            .mapToOneOrDefault(0L)
             .flowOn(Dispatchers.Default)
     }
 

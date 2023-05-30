@@ -11,7 +11,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
-import com.finance_tracker.finance_tracker.core.common.pagination.AutoRefreshList
 import com.finance_tracker.finance_tracker.core.common.pagination.collectAsLazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
@@ -22,7 +21,7 @@ import com.finance_tracker.finance_tracker.features.transactions.views.Transacti
 
 @Composable
 internal fun TransactionsScreen() {
-    ComposeScreen<TransactionsViewModel> { viewModel ->
+    ComposeScreen<TransactionsViewModel>(withBottomNavigation = true) { viewModel ->
 
         val lazyTransactionList =
             viewModel.paginatedTransactions.collectAsLazyPagingItems()
@@ -53,8 +52,6 @@ internal fun TransactionsScreen() {
                 }
             )
         }
-
-        AutoRefreshList(lazyTransactionList)
 
         Column(
             modifier = Modifier.fillMaxSize()

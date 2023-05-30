@@ -8,7 +8,7 @@ import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.DashboardSettingsInteractor
-import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.transactions.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
@@ -33,7 +33,7 @@ import kotlinx.coroutines.plus
 class HomeViewModel(
     private val accountsRepository: AccountsRepository,
     private val currenciesInteractor: CurrenciesInteractor,
-    transactionsInteractor: TransactionsInteractor,
+    private val transactionsInteractor: TransactionsInteractor,
     private val homeAnalytics: HomeAnalytics,
     dashboardSettingsInteractor: DashboardSettingsInteractor
 ): BaseViewModel<HomeAction>() {

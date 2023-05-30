@@ -28,9 +28,8 @@ import com.finance_tracker.finance_tracker.features.widgets.MyAccountsWidget
 
 @Composable
 internal fun HomeScreen() {
-    ComposeScreen<HomeViewModel> { viewModel ->
+    ComposeScreen<HomeViewModel>(withBottomNavigation = true) { screenState, viewModel ->
         val accounts by viewModel.accounts.collectAsState()
-
         LaunchedEffect(Unit) {
             viewModel.onScreenComposed()
         }

@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.UpdateSystemBarsConfigEffect
-import com.finance_tracker.finance_tracker.core.common.pagination.AutoRefreshList
 import com.finance_tracker.finance_tracker.core.common.pagination.collectAsLazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
@@ -54,8 +53,9 @@ internal fun DetailAccountScreen(
             isStatusBarLight = false
         }
 
+        val transactions = viewModel.paginatedTransactions.collectAsLazyPagingItems()
         viewModel.watchViewActions { action, baseLocalsStorage ->
-            handleAction(action, baseLocalsStorage)
+            handleAction(action, baseLocalsStorage, transactions)
         }
 
         val accountData by viewModel.accountData.collectAsState()
@@ -113,10 +113,6 @@ internal fun DetailAccountScreen(
                 )
             }
         ) {
-            val transactions = viewModel.paginatedTransactions.collectAsLazyPagingItems()
-
-            AutoRefreshList(transactions)
-
             val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
             CommonTransactionsList(
                 modifier = Modifier

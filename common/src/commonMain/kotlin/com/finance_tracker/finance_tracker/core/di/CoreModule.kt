@@ -2,6 +2,7 @@ package com.finance_tracker.finance_tracker.core.di
 
 import com.finance_tracker.finance_tracker.core.common.AppInitializer
 import com.finance_tracker.finance_tracker.core.common.logger.LoggerInitializer
+import com.finance_tracker.finance_tracker.core.common.snackbar.SnackbarManager
 import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
 import kotlinx.serialization.json.Json
 import org.koin.core.module.dsl.factoryOf
@@ -13,6 +14,7 @@ internal val coreModule = module {
     singleOf(::AppInitializer)
     singleOf(::LoggerInitializer)
     singleOf(::FeaturesManager)
+    singleOf(::SnackbarManager)
 }
 
 private fun provideJsonFactory(): Json {

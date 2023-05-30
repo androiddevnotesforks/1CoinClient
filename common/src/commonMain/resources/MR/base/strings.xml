@@ -44,6 +44,9 @@
     <string name="month_nov">Nov</string>
     <string name="month_dec">Dec</string>
 
+    <string name="toast_action">Undo</string>
+    <string name="toast_text_transaction_deleted">Transaction has been deleted</string>
+
     <!-- Widget settings -->
     <string name="widget_settings_title">Widgets Settings</string>
     <string name="widget_settings_item_my_accounts">My Accounts</string>

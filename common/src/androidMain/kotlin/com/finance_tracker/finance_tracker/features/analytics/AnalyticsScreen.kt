@@ -27,7 +27,7 @@ val PieChartLabelSize = 20.dp
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun AnalyticsScreen() {
-    ComposeScreen<AnalyticsViewModel> { viewModel ->
+    ComposeScreen<AnalyticsViewModel>(withBottomNavigation = true) { viewModel ->
 
         LaunchedEffect(Unit) {
             viewModel.onScreenComposed()

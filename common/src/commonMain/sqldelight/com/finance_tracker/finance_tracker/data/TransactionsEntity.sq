@@ -76,6 +76,11 @@ ORDER BY
     insertionDate DESC
 LIMIT :limit OFFSET :offset;
 
+getAllTransactionsCount:
+SELECT COUNT(*)
+FROM TransactionsEntity
+WHERE TransactionsEntity.accountId IS NOT NULL;
+
 getFullTransactionsByAccountIdPaginated:
 SELECT *
 FROM TransactionsEntity
@@ -87,6 +92,12 @@ ORDER BY
     date DESC,
     insertionDate DESC
 LIMIT :limit OFFSET :offset;
+
+getAllTransactionsByAccountIdCount:
+SELECT COUNT(*)
+FROM TransactionsEntity
+INNER JOIN AccountsEntity AS accounts ON TransactionsEntity.accountId = accounts.id
+WHERE accounts.id = :accountId;
 
 deleteTransactionById:
 DELETE FROM TransactionsEntity

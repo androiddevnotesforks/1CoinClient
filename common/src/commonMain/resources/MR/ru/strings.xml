@@ -39,6 +39,9 @@
     <string name="month_nov">Ноя</string>
     <string name="month_dec">Дек</string>
 
+    <string name="toast_action">Отменить</string>
+    <string name="toast_text_transaction_deleted">Транзакция удалена</string>
+
     <!-- Categories -->
     <string name="category_restoraunt">Рестораны</string>
     <string name="category_health">Здоровье</string>

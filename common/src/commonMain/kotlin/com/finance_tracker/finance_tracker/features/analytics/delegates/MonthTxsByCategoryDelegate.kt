@@ -3,7 +3,7 @@ package com.finance_tracker.finance_tracker.features.analytics.delegates
 import com.finance_tracker.finance_tracker.core.common.date.currentYearMonth
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
-import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.transactions.GetTransactionsForChartUseCase
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
 import com.finance_tracker.finance_tracker.features.analytics.analytics.AnalyticsScreenAnalytics
@@ -22,7 +22,7 @@ import kotlinx.datetime.Clock
 import kotlin.coroutines.CoroutineContext
 
 class MonthTxsByCategoryDelegate(
-    private val transactionsInteractor: TransactionsInteractor,
+    private val getTransactionsForChartUseCase: GetTransactionsForChartUseCase,
     currenciesInteractor: CurrenciesInteractor,
     private val analyticsScreenAnalytics: AnalyticsScreenAnalytics
 ): CoroutineScope {
@@ -63,7 +63,7 @@ class MonthTxsByCategoryDelegate(
         loadMonthTxsByCategoryJob?.cancel()
         loadMonthTxsByCategoryJob = primaryCurrency.combine(currencyRatesFlow) { currency, currencyRates ->
             _isLoadingMonthTxsByCategory.value = true
-            _monthTransactionsByCategory.value = transactionsInteractor.getTransactions(
+            _monthTransactionsByCategory.value = getTransactionsForChartUseCase.invoke(
                 transactionType = transactionType,
                 yearMonth = yearMonth,
                 primaryCurrency = currency,

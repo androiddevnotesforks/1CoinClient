@@ -28,6 +28,7 @@ import com.finance_tracker.finance_tracker.core.common.getContext
 import com.finance_tracker.finance_tracker.core.common.getFixedInsets
 import com.finance_tracker.finance_tracker.core.common.getKoin
 import com.finance_tracker.finance_tracker.core.common.updateSystemBarsConfig
+import com.finance_tracker.finance_tracker.core.ui.snackbar.CoinSnackbarHostState
 import com.finance_tracker.finance_tracker.domain.interactors.ThemeInteractor
 import com.finance_tracker.finance_tracker.domain.models.ThemeMode
 import dev.icerock.moko.resources.FileResource
@@ -55,6 +56,8 @@ val LocalCoinElevation = staticCompositionLocalOf {
 val LocalCoinShapes = staticCompositionLocalOf {
     CoinShapes()
 }
+
+val LocalCoinSnackbarHostState = staticCompositionLocalOf<CoinSnackbarHostState?> { null }
 
 // Ripple
 

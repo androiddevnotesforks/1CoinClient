@@ -1,18 +1,23 @@
 package com.finance_tracker.finance_tracker.features.add_transaction
 
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.combineExtended
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDate
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDateTime
 import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.toString
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
+import com.finance_tracker.finance_tracker.core.common.view_models.showPreviousScreenSnackbar
 import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
+import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarActionState
+import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarState
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionTypeTab
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
-import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.transactions.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Transaction
@@ -251,6 +256,15 @@ class AddTransactionViewModel(
         viewModelScope.launch {
             transactionsInteractor.deleteTransaction(transaction)
             viewAction = AddTransactionAction.DismissDialog(dialogKey)
+            showPreviousScreenSnackbar(
+                snackbarState = SnackbarState.Information(
+                    iconResId = MR.files.ic_delete,
+                    textResId = MR.strings.toast_text_transaction_deleted,
+                    actionState = SnackbarActionState.Undo(
+                        onAction = { restoreTransaction(transaction) }
+                    )
+                )
+            )
             viewAction = AddTransactionAction.Close
         }
     }
@@ -329,6 +343,14 @@ class AddTransactionViewModel(
                             it.toDoubleOrNull() ?: 0.0 <= MaxAmountValue
                 }
                 ?: amountTextStateFlow.value
+        }
+    }
+
+    private fun restoreTransaction(transaction: Transaction) {
+        viewModelScope.launch {
+            addTransactionAnalytics.trackRestoreTransaction()
+            transactionsInteractor.addTransaction(transaction)
+            hideSnackbar()
         }
     }
 

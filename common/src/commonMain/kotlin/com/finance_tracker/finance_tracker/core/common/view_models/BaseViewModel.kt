@@ -1,24 +1,23 @@
 package com.finance_tracker.finance_tracker.core.common.view_models
 
 import com.adeo.kviewmodel.KViewModel
-import com.adeo.kviewmodel.WrappedSharedFlow
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 
-abstract class BaseViewModel<Action>: KViewModel() {
+abstract class BaseViewModel<Action : Any>: KViewModel() {
 
-    private val _viewActions = MutableSharedFlow<Action?>(
-        replay = 0,
-        extraBufferCapacity = Int.MAX_VALUE,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
+    val screenKey: String = this::class.simpleName.orEmpty()
+
+    private val _viewActions = Channel<Action?>(
+        capacity = Channel.Factory.UNLIMITED
     )
 
     protected var viewAction: Action?
         get() = null
         set(value) {
-            _viewActions.tryEmit(value)
+            _viewActions.trySend(value)
         }
 
-    fun viewActions(): WrappedSharedFlow<Action?> = WrappedSharedFlow(_viewActions.asSharedFlow())
+    val channelFlow = _viewActions.receiveAsFlow()
+    fun viewActions(): WrappedFlow<Action?> = WrappedFlow(channelFlow)
 }

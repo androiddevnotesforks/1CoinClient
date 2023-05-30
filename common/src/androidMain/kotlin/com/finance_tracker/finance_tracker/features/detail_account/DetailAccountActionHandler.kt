@@ -1,13 +1,16 @@
 package com.finance_tracker.finance_tracker.features.detail_account
 
+import com.finance_tracker.finance_tracker.core.common.pagination.LazyPagingItems
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
 import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTree
+import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.features.add_transaction.AddTransactionScreenParams
 import ru.alexgladkov.odyssey.compose.extensions.push
 
 fun handleAction(
     action: DetailAccountAction,
-    baseLocalsStorage: BaseLocalsStorage
+    baseLocalsStorage: BaseLocalsStorage,
+    lazyTransactionList: LazyPagingItems<TransactionListModel>
 ) {
     val rootController = baseLocalsStorage.rootController
     when (action) {
@@ -39,6 +42,9 @@ fun handleAction(
                     preselectedAccount = action.account
                 )
             )
+        }
+        DetailAccountAction.RefreshTransactions -> {
+            lazyTransactionList.refresh()
         }
     }
 }

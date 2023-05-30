@@ -17,7 +17,7 @@ import com.finance_tracker.finance_tracker.features.plans.views.PlansTopBar
 
 @Composable
 fun PlansScreen() {
-    ComposeScreen<PlansViewModel> { viewModel ->
+    ComposeScreen<PlansViewModel>(withBottomNavigation = true) { viewModel ->
 
         Column(modifier = Modifier.fillMaxSize()) {
             PlansTopBar()
