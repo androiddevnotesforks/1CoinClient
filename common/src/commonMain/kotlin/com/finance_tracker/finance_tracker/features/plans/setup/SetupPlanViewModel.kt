@@ -1,9 +1,14 @@
 package com.finance_tracker.finance_tracker.features.plans.setup
 
+import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.isNotEmptyAmount
 import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.toString
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
+import com.finance_tracker.finance_tracker.core.common.view_models.showPreviousScreenSnackbar
+import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarActionState
+import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarState
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.PlansInteractor
@@ -131,7 +136,24 @@ class SetupPlanViewModel(
         viewModelScope.launch {
             plansInteractor.deletePlan(plan)
             viewAction = SetupPlanAction.DismissDialog(dialogKey)
+            showPreviousScreenSnackbar(
+                snackbarState = SnackbarState.Information(
+                    iconResId = MR.files.ic_delete,
+                    textResId = MR.strings.toast_text_limit_deleted,
+                    actionState = SnackbarActionState.Undo(
+                        onAction = { restorePlan(plan) }
+                    )
+                )
+            )
             viewAction = SetupPlanAction.Close
+        }
+    }
+
+    private fun restorePlan(plan: Plan) {
+        viewModelScope.launch {
+            setupPlanAnalytics.trackRestorePlan()
+            plansInteractor.addPlan(plan)
+            hideSnackbar()
         }
     }
 

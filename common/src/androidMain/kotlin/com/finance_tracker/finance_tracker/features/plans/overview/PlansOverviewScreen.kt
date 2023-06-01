@@ -39,7 +39,8 @@ fun PlansOverviewScreen() {
                 val plans by viewModel.plans.collectAsState()
                 ExpenseLimitsWidget(
                     onAddLimitClick = viewModel::onAddLimitClick,
-                    plans = plans
+                    plans = plans,
+                    onLimitClick = viewModel::onLimitClick
                 )
 
                 Spacer(

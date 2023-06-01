@@ -42,6 +42,7 @@
 
     <string name="toast_action">Отменить</string>
     <string name="toast_text_transaction_deleted">Транзакция удалена</string>
+    <string name="toast_text_limit_deleted">Лимит трат удален</string>
 
     <!-- Categories -->
     <string name="category_restoraunt">Рестораны</string>

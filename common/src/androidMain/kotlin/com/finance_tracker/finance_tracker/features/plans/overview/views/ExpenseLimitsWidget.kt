@@ -25,6 +25,7 @@ import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 @Composable
 internal fun ExpenseLimitsWidget(
     onAddLimitClick: () -> Unit,
+    onLimitClick: (Plan) -> Unit,
     modifier: Modifier = Modifier,
     plans: List<Plan> = emptyList()
 ) {
@@ -38,13 +39,15 @@ internal fun ExpenseLimitsWidget(
     ) {
         ExpenseLimitsContentWidget(
             modifier = modifier,
-            plans = plans
+            plans = plans,
+            onLimitClick = onLimitClick
         )
     }
 }
 
 @Composable
 private fun ExpenseLimitsContentWidget(
+    onLimitClick: (Plan) -> Unit,
     modifier: Modifier = Modifier,
     plans: List<Plan> = emptyList()
 ) {
@@ -55,7 +58,8 @@ private fun ExpenseLimitsContentWidget(
     } else {
         ExpenseLimitsList(
             modifier = modifier,
-            plans = plans
+            plans = plans,
+            onLimitClick = onLimitClick
         )
     }
 }

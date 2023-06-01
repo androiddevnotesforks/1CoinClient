@@ -5,7 +5,6 @@ import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -34,25 +33,28 @@ private const val ArrowRotationDurationMillis = 250
 @Suppress("MagicNumber")
 @Composable
 internal fun ExpenseLimitsList(
+    onLimitClick: (Plan) -> Unit,
     modifier: Modifier = Modifier,
     plans: List<Plan> = emptyList()
 ) {
     Column(
         modifier = modifier
-            .padding(16.dp)
-            .animateContentSize(),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+            .padding(vertical = 10.dp)
+            .animateContentSize()
     ) {
         var expanded by remember { mutableStateOf(false) }
-        val filteredBudgets = if (expanded) {
+        val filteredPlans = if (expanded) {
             plans
         } else {
             plans.take(MaxBudgetsBeforeUncoverWidget)
         }
 
-        filteredBudgets.forEach { budget ->
-            key(budget.category.id) {
-                ExpenseLimitItem(budget)
+        filteredPlans.forEach { plan ->
+            key(plan.category.id) {
+                ExpenseLimitItem(
+                    plan = plan,
+                    onClick = { onLimitClick(plan) }
+                )
             }
         }
         if (plans.size > MaxBudgetsBeforeUncoverWidget) {

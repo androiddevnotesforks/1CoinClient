@@ -12,7 +12,10 @@ fun handleAction(
             navController.popBackStack()
         }
         is SetupPlanAction.DismissDialog -> {
-            // TODO
+            navController.findModalController().popBackStack(
+                key = action.dialogKey,
+                animate = false
+            )
         }
     }
 }

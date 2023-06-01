@@ -153,6 +153,10 @@ class SetupPlanAnalytics: BaseAnalytics() {
         )
     }
 
+    fun trackRestorePlan() {
+        trackClick(eventName = "RestoreExpenseLimit")
+    }
+
     companion object {
         private const val ActionIdKey = "action_id"
         private const val DurationKey = "duration"

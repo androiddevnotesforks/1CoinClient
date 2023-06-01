@@ -47,6 +47,7 @@
 
     <string name="toast_action">Undo</string>
     <string name="toast_text_transaction_deleted">Transaction has been deleted</string>
+    <string name="toast_text_limit_deleted">Expense limit has been deleted</string>
 
     <!-- Widget settings -->
     <string name="widget_settings_title">Widgets Settings</string>

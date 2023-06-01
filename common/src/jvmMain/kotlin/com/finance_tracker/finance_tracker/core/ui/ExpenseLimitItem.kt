@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.core.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,16 +25,20 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.formatters.format
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Plan
 
 @Composable
 internal fun ExpenseLimitItem(
     plan: Plan,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
+            .clickable { onClick.invoke() }
+            .padding(vertical = 6.dp, horizontal = 16.dp)
     ) {
         Icon(
             painter = rememberAsyncImagePainter(plan.category.icon),
@@ -65,29 +70,10 @@ internal fun ExpenseLimitItem(
                     color = CoinTheme.color.content
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        modifier = Modifier.widthIn(max = 80.dp),
-                        text = "${plan.spentAmount.currency.symbol}${plan.spentAmount.amountValue.format()}",
-                        style = CoinTheme.typography.body1,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        color = CoinTheme.color.content,
-                    )
-                    Text(
-                        text = "/",
-                        style = CoinTheme.typography.body1,
-                        color = CoinTheme.color.content
-                    )
-                    Text(
-                        modifier = Modifier.widthIn(max = 80.dp),
-                        text = "${plan.limitAmount.currency.symbol}${plan.limitAmount.amountValue.format()}",
-                        style = CoinTheme.typography.body1,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        color = CoinTheme.color.content
-                    )
-                }
+                SpentAndLimitAmounts(
+                    spentAmount = plan.spentAmount,
+                    limitAmount = plan.limitAmount
+                )
             }
             LinearProgressIndicator(
                 modifier = Modifier
@@ -104,5 +90,39 @@ internal fun ExpenseLimitItem(
                 }
             )
         }
+    }
+}
+
+@Composable
+private fun SpentAndLimitAmounts(
+    spentAmount: Amount,
+    limitAmount: Amount,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            modifier = Modifier.widthIn(max = 80.dp),
+            text = "${spentAmount.currency.symbol}${spentAmount.amountValue.format()}",
+            style = CoinTheme.typography.body1,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = CoinTheme.color.content,
+        )
+        Text(
+            text = "/",
+            style = CoinTheme.typography.body1,
+            color = CoinTheme.color.content
+        )
+        Text(
+            modifier = Modifier.widthIn(max = 80.dp),
+            text = "${limitAmount.currency.symbol}${limitAmount.amountValue.format()}",
+            style = CoinTheme.typography.body1,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            color = CoinTheme.color.content
+        )
     }
 }

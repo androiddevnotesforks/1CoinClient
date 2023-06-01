@@ -17,12 +17,26 @@ class PlansRepository(
 
     suspend fun addOrUpdatePlan(plan: Plan) {
         withContext(Dispatchers.Default) {
-            limitsEntityQueries.insertLimit(
-                id = plan.id,
-                categoryId = plan.category.id,
-                limitAmount = plan.limitAmount.amountValue,
-                currency = plan.limitAmount.currency.code
-            )
+            limitsEntityQueries.transaction {
+                val isPlanExist = limitsEntityQueries
+                    .getFullLimitByCategoryId(plan.category.id)
+                    .executeAsOneOrNull() != null
+
+                if (isPlanExist) {
+                    limitsEntityQueries.updateLimitByCategoryId(
+                        limitAmount = plan.limitAmount.amountValue,
+                        currency = plan.limitAmount.currency.code,
+                        categoryId = plan.category.id
+                    )
+                } else {
+                    limitsEntityQueries.insertLimit(
+                        id = plan.id,
+                        categoryId = plan.category.id,
+                        limitAmount = plan.limitAmount.amountValue,
+                        currency = plan.limitAmount.currency.code
+                    )
+                }
+            }
         }
     }
 

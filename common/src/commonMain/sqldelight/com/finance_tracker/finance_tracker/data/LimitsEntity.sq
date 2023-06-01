@@ -10,10 +10,21 @@ SELECT *
 FROM LimitsEntity
 LEFT JOIN CategoriesEntity AS categories ON LimitsEntity.categoryId = categories.id;
 
+getFullLimitByCategoryId:
+SELECT * FROM LimitsEntity
+LEFT JOIN CategoriesEntity AS categories ON LimitsEntity.categoryId = categories.id
+WHERE categoryId = :categoryId
+LIMIT 1;
+
 insertLimit:
 INSERT OR REPLACE
 INTO LimitsEntity
 VALUES (?,?,?,?);
+
+updateLimitByCategoryId:
+UPDATE LimitsEntity
+SET limitAmount = :limitAmount, currency = :currency
+WHERE categoryId = :categoryId;
 
 deleteLimitById:
 DELETE FROM LimitsEntity
@@ -22,8 +33,3 @@ WHERE id = :id;
 deleteLimitsByCategoryId:
 DELETE FROM LimitsEntity
 WHERE categoryId = :categoryId;
-
-updateLimitById:
-UPDATE LimitsEntity
-SET categoryId = :categoryId, limitAmount = :limitAmount, currency = :currency
-WHERE id = :id;

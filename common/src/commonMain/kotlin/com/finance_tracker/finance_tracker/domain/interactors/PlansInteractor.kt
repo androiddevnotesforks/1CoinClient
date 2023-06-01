@@ -1,15 +1,24 @@
 package com.finance_tracker.finance_tracker.domain.interactors
 
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.data.repositories.CurrenciesRepository
 import com.finance_tracker.finance_tracker.data.repositories.PlansRepository
+import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
+import com.finance_tracker.finance_tracker.domain.models.Amount
+import com.finance_tracker.finance_tracker.domain.models.Currency
+import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.Plan
+import com.finance_tracker.finance_tracker.domain.models.Transaction
+import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.domain.models.convertToCurrencyAmount
+import com.finance_tracker.finance_tracker.domain.models.convertToCurrencyValue
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 
 class PlansInteractor(
     private val plansRepository: PlansRepository,
-    private val currenciesRepository: CurrenciesRepository
+    private val currenciesRepository: CurrenciesRepository,
+    private val transactionsRepository: TransactionsRepository
 ) {
 
     suspend fun addPlan(plan: Plan) {
@@ -33,24 +42,51 @@ class PlansInteractor(
         plansRepository.deletePlan(plan)
     }
 
-    fun getPlans(): Flow<List<Plan>> {
+    fun getPlans(yearMonth: YearMonth): Flow<List<Plan>> {
         return combine(
             plansRepository.getPlans(),
             currenciesRepository.getCurrencyRatesFlow(),
-            currenciesRepository.getPrimaryCurrencyFlow()
-        ) { plans, currencyRates, primaryCurrency ->
-            plans.map {
-                it.copy(
-                    spentAmount = it.spentAmount.convertToCurrencyAmount(
+            currenciesRepository.getPrimaryCurrencyFlow(),
+            transactionsRepository.getTransactionsFlow(
+                transactionType = TransactionType.Expense,
+                yearMonth = yearMonth
+            )
+        ) { plans, currencyRates, primaryCurrency, transactions ->
+            plans.map { plan ->
+                plan.copy(
+                    spentAmount = getSpentAmount(
+                        plan = plan,
+                        transactions = transactions,
                         currencyRates = currencyRates,
-                        toCurrency = primaryCurrency
+                        primaryCurrency = primaryCurrency
                     ),
-                    limitAmount = it.limitAmount.convertToCurrencyAmount(
+                    limitAmount = plan.limitAmount.convertToCurrencyAmount(
                         currencyRates = currencyRates,
                         toCurrency = primaryCurrency
                     )
                 )
             }
         }
+    }
+
+    private fun getSpentAmount(
+        plan: Plan,
+        transactions: List<Transaction>,
+        currencyRates: CurrencyRates,
+        primaryCurrency: Currency
+    ): Amount {
+        val spentAmountValue = transactions
+            .filter { plan.category == it._category }
+            .sumOf {
+                it.primaryAmount.convertToCurrencyValue(
+                    currencyRates = currencyRates,
+                    toCurrency = primaryCurrency
+                )
+            }
+
+        return Amount(
+            currency = primaryCurrency,
+            amountValue = spentAmountValue
+        )
     }
 }

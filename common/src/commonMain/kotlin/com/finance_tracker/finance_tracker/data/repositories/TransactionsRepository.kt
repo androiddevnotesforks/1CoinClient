@@ -12,6 +12,7 @@ import com.finance_tracker.finance_tracker.data.database.mappers.fullTransaction
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.financetracker.financetracker.data.TransactionsEntityQueries
+import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOneOrDefault
@@ -36,15 +37,33 @@ class TransactionsRepository(
         }.flow
             .flowOn(Dispatchers.Default)
 
+    fun getTransactionsFlow(
+        transactionType: TransactionType,
+        yearMonth: YearMonth
+    ): Flow<List<Transaction>> {
+        return getTransactionsQuery(transactionType, yearMonth)
+            .asFlow()
+            .mapToList(Dispatchers.Default)
+            .flowOn(Dispatchers.Default)
+    }
+
     suspend fun getTransactions(transactionType: TransactionType, yearMonth: YearMonth): List<Transaction> {
         return withContext(Dispatchers.Default) {
-            transactionsEntityQueries.getFullTransactions(
-                transactionType = transactionType,
-                monthNumber = yearMonth.month.number.zeroPrefixed(2),
-                year = yearMonth.year.toString(),
-                mapper = fullTransactionMapper
-            ).executeAsList()
+            getTransactionsQuery(transactionType, yearMonth)
+                .executeAsList()
         }
+    }
+
+    private fun getTransactionsQuery(
+        transactionType: TransactionType,
+        yearMonth: YearMonth
+    ): Query<Transaction> {
+        return transactionsEntityQueries.getFullTransactions(
+            transactionType = transactionType,
+            monthNumber = yearMonth.month.number.zeroPrefixed(2),
+            year = yearMonth.year.toString(),
+            mapper = fullTransactionMapper
+        )
     }
 
     suspend fun deleteTransaction(transaction: Transaction) {
