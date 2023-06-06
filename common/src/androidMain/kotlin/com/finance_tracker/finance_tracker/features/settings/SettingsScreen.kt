@@ -94,6 +94,15 @@ internal fun SettingsScreen() {
                     primaryCurrency = primaryCurrency
                 )
 
+                if (viewModel.featuresManager.isEnabled(FeatureFlag.ChooseTheme)) {
+                    val themeMode by viewModel.currentTheme.collectAsState()
+                    SettingsThemeItem(
+                        themes = viewModel.themes,
+                        themeMode = themeMode,
+                        onClick = viewModel::onThemeChange
+                    )
+                }
+
                 SettingsCategoriesItem(
                     onClick = viewModel::onCategorySettingsClick
                 )
@@ -121,15 +130,6 @@ internal fun SettingsScreen() {
                 /*SettingsPrivacyItem(
                     onClick = viewModel::onPrivacyClick
                 )*/
-
-                if (viewModel.featuresManager.isEnabled(FeatureFlag.ChooseTheme)) {
-                    val themeMode by viewModel.currentTheme.collectAsState()
-                    SettingsThemeItem(
-                        themes = viewModel.themes,
-                        themeMode = themeMode,
-                        onClick = viewModel::onThemeChange
-                    )
-                }
 
                 SettingsTelegramChatItem(
                     onClick = viewModel::onTelegramCommunityClick
