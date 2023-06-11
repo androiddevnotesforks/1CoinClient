@@ -1,5 +1,7 @@
-package com.finance_tracker.finance_tracker.domain.interactors
+package com.finance_tracker.finance_tracker.domain.interactors.plans
 
+import com.finance_tracker.finance_tracker.core.common.convertToCurrencyAmount
+import com.finance_tracker.finance_tracker.core.common.convertToCurrencyValue
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.data.repositories.CurrenciesRepository
 import com.finance_tracker.finance_tracker.data.repositories.PlansRepository
@@ -10,8 +12,6 @@ import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.Plan
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
-import com.finance_tracker.finance_tracker.domain.models.convertToCurrencyAmount
-import com.finance_tracker.finance_tracker.domain.models.convertToCurrencyValue
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 
@@ -30,7 +30,7 @@ class PlansInteractor(
             val currencyRates = currenciesRepository.getCurrencyRates()
             val toCurrency = currenciesRepository.getPrimaryCurrency()
             newPlan.copy(
-                spentAmount = oldPlan.spentAmount.convertToCurrencyAmount(currencyRates, toCurrency),
+                spentAmount = oldPlan.spentAmount.convertToCurrencyAmount(toCurrency, currencyRates),
             )
         } else {
             newPlan
@@ -79,8 +79,8 @@ class PlansInteractor(
             .filter { plan.category == it._category }
             .sumOf {
                 it.primaryAmount.convertToCurrencyValue(
-                    currencyRates = currencyRates,
-                    toCurrency = primaryCurrency
+                    toCurrency = primaryCurrency,
+                    currencyRates = currencyRates
                 )
             }
 

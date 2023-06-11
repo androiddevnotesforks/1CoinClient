@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.domain.interactors.transactions
 
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.convertToCurrencyValue
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.common.toLimitedFloat
 import com.finance_tracker.finance_tracker.core.common.toString
@@ -12,12 +13,11 @@ import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
-import com.finance_tracker.finance_tracker.domain.models.convertToCurrencyValue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class GetTransactionsForChartUseCase(
-    private val transactionsRepository: TransactionsRepository,
+    private val transactionsRepository: TransactionsRepository
 ) {
     @Suppress("MagicNumber")
     suspend fun invoke(
@@ -29,11 +29,11 @@ class GetTransactionsForChartUseCase(
         return withContext(Dispatchers.Default) {
             val transactions = transactionsRepository.getTransactions(transactionType, yearMonth)
             val totalAmount = transactions.sumOf {
-                it.primaryAmount.convertToCurrencyValue(currencyRates, primaryCurrency)
+                it.primaryAmount.convertToCurrencyValue(primaryCurrency, currencyRates)
             }
 
             val sortRules: (TxsByCategoryChart.Piece) -> Double = {
-                it.amount.convertToCurrencyValue(currencyRates, primaryCurrency)
+                it.amount.convertToCurrencyValue(primaryCurrency, currencyRates)
             }
             val rawCategoryPieces = transactions
                 .groupBy { it._category }
@@ -43,7 +43,7 @@ class GetTransactionsForChartUseCase(
                         amount = Amount(
                             currency = primaryCurrency,
                             amountValue = transactions.sumOf {
-                                it.primaryAmount.convertToCurrencyValue(currencyRates, primaryCurrency)
+                                it.primaryAmount.convertToCurrencyValue(primaryCurrency, currencyRates)
                             }
                         ),
                         percentValue = 0f,
@@ -84,7 +84,7 @@ class GetTransactionsForChartUseCase(
                     amount = Amount(
                         currency = primaryCurrency,
                         amountValue = otherPieces.sumOf {
-                            it.amount.convertToCurrencyValue(currencyRates, primaryCurrency)
+                            it.amount.convertToCurrencyValue(primaryCurrency, currencyRates)
                         }
                     ),
                     percentValue = otherPieces.sumOf {

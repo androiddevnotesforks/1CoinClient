@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.features.plans.overview.views
+package com.finance_tracker.finance_tracker.features.plans.overview.views.category_expense_limits
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -37,7 +37,7 @@ internal fun ExpenseLimitsWidget(
             AddLimitButton(onClick = onAddLimitClick)
         }
     ) {
-        ExpenseLimitsContentWidget(
+        ExpenseLimitsWidgetContent(
             modifier = modifier,
             plans = plans,
             onLimitClick = onLimitClick
@@ -46,7 +46,7 @@ internal fun ExpenseLimitsWidget(
 }
 
 @Composable
-private fun ExpenseLimitsContentWidget(
+private fun ExpenseLimitsWidgetContent(
     onLimitClick: (Plan) -> Unit,
     modifier: Modifier = Modifier,
     plans: List<Plan> = emptyList()

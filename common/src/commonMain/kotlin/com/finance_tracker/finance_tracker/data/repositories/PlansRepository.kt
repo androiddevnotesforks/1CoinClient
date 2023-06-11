@@ -1,13 +1,17 @@
 package com.finance_tracker.finance_tracker.data.repositories
 
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.data.database.mappers.EmptyCategoryId
 import com.finance_tracker.finance_tracker.data.database.mappers.fullPlanMapper
+import com.finance_tracker.finance_tracker.domain.models.Amount
+import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.Plan
 import com.financetracker.financetracker.data.LimitsEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
@@ -64,5 +68,16 @@ class PlansRepository(
             .map { plans ->
                 plans.filter { it.category.id != EmptyCategoryId }
             }
+    }
+
+    @Suppress("UnusedPrivateMember")
+    fun getMonthLimitAmount(yearMonth: YearMonth): Flow<Amount> {
+        // TODO: Get real limit amount from local storage
+        return flowOf(
+            Amount(
+                currency = Currency.default,
+                amountValue = 100.0
+            )
+        )
     }
 }

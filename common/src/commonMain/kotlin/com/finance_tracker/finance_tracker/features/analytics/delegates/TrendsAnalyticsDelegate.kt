@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.features.analytics.delegates
 
 import com.finance_tracker.finance_tracker.core.common.Context
+import com.finance_tracker.finance_tracker.core.common.convertToCurrencyValue
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDate
 import com.finance_tracker.finance_tracker.core.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.core.common.localizedString
@@ -13,7 +14,6 @@ import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
-import com.finance_tracker.finance_tracker.domain.models.convertToCurrencyValue
 import com.finance_tracker.finance_tracker.features.analytics.PeriodChip
 import com.finance_tracker.finance_tracker.features.analytics.analytics.AnalyticsScreenAnalytics
 import com.finance_tracker.finance_tracker.features.analytics.models.TrendBarDetails
@@ -247,8 +247,8 @@ class TrendsAnalyticsDelegate(
                 currency = Currency.getByCode(transaction.amountCurrency),
                 amountValue = transaction.amount
             ).convertToCurrencyValue(
-                currencyRates = currencyRates,
-                toCurrency = primaryCurrency
+                toCurrency = primaryCurrency,
+                currencyRates = currencyRates
             )
 
             val dayOfWeek = transformDateToBarOrder.invoke(date)

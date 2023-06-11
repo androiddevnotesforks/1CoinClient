@@ -16,6 +16,9 @@ import androidx.compose.material.Icon
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -75,18 +78,37 @@ internal fun ExpenseLimitItem(
                     limitAmount = plan.limitAmount
                 )
             }
+            val progress by remember(plan.spentAmount, plan.limitAmount) {
+                derivedStateOf {
+                    (plan.spentAmount.amountValue / plan.limitAmount.amountValue).toFloat()
+                }
+            }
             LinearProgressIndicator(
                 modifier = Modifier
                     .padding(top = 8.dp)
                     .fillMaxWidth()
                     .height(8.dp),
-                color = CoinTheme.color.primary,
-                backgroundColor = CoinTheme.color.secondaryBackground,
-                strokeCap = StrokeCap.Round,
-                progress = if (plan.limitAmount.amountValue == 0.0) {
-                    1f
+                color = if (progress > 1) {
+                    CoinTheme.color.accentRed
                 } else {
-                    (plan.spentAmount.amountValue / plan.limitAmount.amountValue).toFloat()
+                    CoinTheme.color.primary
+                },
+                backgroundColor = if (progress > 1) {
+                    CoinTheme.color.primary
+                } else {
+                    CoinTheme.color.secondaryBackground
+                },
+                strokeCap = StrokeCap.Round,
+                progress = when {
+                    plan.limitAmount.amountValue == 0.0 -> {
+                        1f
+                    }
+                    plan.spentAmount.amountValue <= plan.limitAmount.amountValue -> {
+                        (plan.spentAmount.amountValue / plan.limitAmount.amountValue).toFloat()
+                    }
+                    else -> {
+                        (plan.spentAmount.amountValue / plan.limitAmount.amountValue - 1f).toFloat()
+                    }
                 }
             )
         }

@@ -266,4 +266,10 @@
     <string name="setup_plans_btn_add_limit">Add Limit</string>
     <string name="setup_plans_btn_edit_limit">Edit Limit</string>
 
+    <!-- Month budget widget -->
+    <string name="month_budget_widget_title">Month Budget</string>
+    <string name="month_budget_widget_money_spent">Money spent</string>
+    <string name="month_budget_widget_remain_money">Remaining money</string>
+    <string name="month_budget_widget_exceeding_limit">Exceeding the\u00A0limit</string>
+
 </resources>

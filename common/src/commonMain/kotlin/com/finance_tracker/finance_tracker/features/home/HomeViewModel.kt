@@ -1,5 +1,6 @@
 package com.finance_tracker.finance_tracker.features.home
 
+import com.finance_tracker.finance_tracker.core.common.convertToCurrencyValue
 import com.finance_tracker.finance_tracker.core.common.getKoin
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
@@ -14,7 +15,6 @@ import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.Transaction
-import com.finance_tracker.finance_tracker.domain.models.convertToCurrencyValue
 import com.finance_tracker.finance_tracker.features.analytics.delegates.AnalyticsDelegates
 import com.finance_tracker.finance_tracker.features.analytics.delegates.MonthTxsByCategoryDelegate
 import com.finance_tracker.finance_tracker.features.analytics.delegates.TrendsAnalyticsDelegate
@@ -141,8 +141,8 @@ class HomeViewModel(
         return accountsRepository.getAllAccountsFromDatabase()
             .sumOf { account ->
                 account.balance.convertToCurrencyValue(
-                    currencyRates = currencyRates,
-                    toCurrency = currency
+                    toCurrency = currency,
+                    currencyRates = currencyRates
                 )
             }
     }

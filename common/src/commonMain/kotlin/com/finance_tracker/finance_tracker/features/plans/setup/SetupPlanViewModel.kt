@@ -11,7 +11,7 @@ import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarActionState
 import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarState
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
-import com.finance_tracker.finance_tracker.domain.interactors.PlansInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.plans.PlansInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Currency

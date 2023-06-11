@@ -5,9 +5,10 @@ import com.finance_tracker.finance_tracker.domain.interactors.AuthInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.DashboardSettingsInteractor
-import com.finance_tracker.finance_tracker.domain.interactors.PlansInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.ThemeInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.plans.MonthExpenseLimitInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.plans.PlansInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.transactions.GetTransactionsForChartUseCase
 import com.finance_tracker.finance_tracker.domain.interactors.transactions.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.transactions.UpdateAccountBalanceForTransactionUseCase
@@ -29,4 +30,5 @@ internal val domainModule = module {
     factoryOf(::AuthInteractor)
     factoryOf(::ThemeInteractor)
     factoryOf(::PlansInteractor)
+    factoryOf(::MonthExpenseLimitInteractor)
 }

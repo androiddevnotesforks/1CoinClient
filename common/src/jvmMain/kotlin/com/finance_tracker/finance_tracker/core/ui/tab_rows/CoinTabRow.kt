@@ -3,8 +3,10 @@ package com.finance_tracker.finance_tracker.core.ui.tab_rows
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.material.ScrollableTabRow
 import androidx.compose.material.Tab
@@ -22,7 +24,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.toDp
@@ -41,6 +45,7 @@ internal fun CoinTabRow(
     selectedTabIndex: Int,
     data: ImmutableList<String>,
     modifier: Modifier = Modifier,
+    maxTabsWidth: Dp = Int.MAX_VALUE.dp,
     hasBottomDivider: Boolean = true,
     isHorizontallyCentered: Boolean = false,
     pagerState: PagerState? = null,
@@ -69,6 +74,7 @@ internal fun CoinTabRow(
 
     Column(
         modifier = modifier
+            .background(CoinTheme.color.backgroundSurface)
             .alpha(
                 alpha = if (isHorizontallyCentered) {
                     alphaAnimatable
@@ -79,6 +85,7 @@ internal fun CoinTabRow(
     ) {
         ScrollableTabRow(
             modifier = Modifier
+                .widthIn(max = maxTabsWidth)
                 .`if`(isHorizontallyCentered) {
                     onSizeChanged {
                         totalWidth = it.width
@@ -86,7 +93,7 @@ internal fun CoinTabRow(
                 },
             edgePadding = centeredEdgePadding.toInt().toDp(),
             selectedTabIndex = selectedTabIndex,
-            backgroundColor = CoinTheme.color.backgroundSurface,
+            backgroundColor = Color.Transparent,
             contentColor = CoinTheme.color.primary,
             indicator = { tabPositions ->
                 TabRowDefaults.Indicator(

@@ -1,5 +1,6 @@
 package com.finance_tracker.finance_tracker.features.plans.overview.views
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -13,15 +14,16 @@ import dev.icerock.moko.resources.compose.stringResource
 internal fun PlansOverviewTopBar(
     modifier: Modifier = Modifier
 ) {
-    CoinTopAppBar(
-        modifier = modifier,
-        appBarHeight = 64.dp,
-        title = {
-            Text(
-                text = stringResource(MR.strings.plans_title),
-                style = CoinTheme.typography.h4,
-                color = CoinTheme.color.content
-            )
-        }
-    )
+    Column(modifier = modifier) {
+        CoinTopAppBar(
+            appBarHeight = 64.dp,
+            title = {
+                Text(
+                    text = stringResource(MR.strings.plans_title),
+                    style = CoinTheme.typography.h4,
+                    color = CoinTheme.color.content
+                )
+            }
+        )
+    }
 }

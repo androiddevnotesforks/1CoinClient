@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.features.plans.overview.views
+package com.finance_tracker.finance_tracker.features.plans.overview.views.category_expense_limits
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement

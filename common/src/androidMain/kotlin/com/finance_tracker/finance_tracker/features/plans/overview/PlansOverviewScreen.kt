@@ -16,8 +16,10 @@ import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
-import com.finance_tracker.finance_tracker.features.plans.overview.views.ExpenseLimitsWidget
 import com.finance_tracker.finance_tracker.features.plans.overview.views.PlansOverviewTopBar
+import com.finance_tracker.finance_tracker.features.plans.overview.views.category_expense_limits.ExpenseLimitsWidget
+import com.finance_tracker.finance_tracker.features.plans.overview.views.month_expense_limit.MonthExpenseLimitWidget
+
 
 @Composable
 fun PlansOverviewScreen() {
@@ -36,11 +38,16 @@ fun PlansOverviewScreen() {
                     .fillMaxWidth()
                     .padding(top = 12.dp)
             ) {
+                val monthExpenseLimitChartData by viewModel.monthExpenseLimitChartData.collectAsState()
+                MonthExpenseLimitWidget(
+                    monthExpenseLimitChartData = monthExpenseLimitChartData
+                )
+
                 val plans by viewModel.plans.collectAsState()
                 ExpenseLimitsWidget(
-                    onAddLimitClick = viewModel::onAddLimitClick,
+                    onAddLimitClick = viewModel::onAddCategoryExpenseLimitClick,
                     plans = plans,
-                    onLimitClick = viewModel::onLimitClick
+                    onLimitClick = viewModel::onCategoryExpenseLimitClick
                 )
 
                 Spacer(

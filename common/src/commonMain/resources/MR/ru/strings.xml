@@ -261,4 +261,10 @@
     <string name="setup_plans_btn_add_limit">Добавить лимит</string>
     <string name="setup_plans_btn_edit_limit">Редактировать лимит</string>
 
+    <!-- Month budget widget -->
+    <string name="month_budget_widget_title">Месячный бюджет</string>
+    <string name="month_budget_widget_money_spent">Потрачено</string>
+    <string name="month_budget_widget_remain_money">Осталось</string>
+    <string name="month_budget_widget_exceeding_limit">Превышение лимита</string>
+
 </resources>
