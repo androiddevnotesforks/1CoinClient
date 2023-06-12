@@ -20,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
-import com.finance_tracker.finance_tracker.core.ui.DraggableItem
-import com.finance_tracker.finance_tracker.core.ui.rememberDragDropState
+import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.column.DraggableItem
+import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.column.rememberDragDropState
 import com.finance_tracker.finance_tracker.domain.models.DashboardWidgetData
 import com.finance_tracker.finance_tracker.features.dashboard_settings.views.DashboardItem
 import com.finance_tracker.finance_tracker.features.dashboard_settings.views.DashboardSettingsAppBar

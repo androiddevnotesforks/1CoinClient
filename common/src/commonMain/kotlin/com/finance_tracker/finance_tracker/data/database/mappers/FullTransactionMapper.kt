@@ -11,7 +11,6 @@ import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import kotlinx.datetime.LocalDateTime
 
 val fullTransactionMapper: (
-
     // Transaction
     id: Long,
     type: TransactionType,
@@ -32,6 +31,7 @@ val fullTransactionMapper: (
     balance: Double,
     colorId: Int,
     currency: String,
+    position: Int,
 
     // Secondary Account
     id__: Long?,
@@ -40,22 +40,26 @@ val fullTransactionMapper: (
     balance_: Double?,
     colorId_: Int?,
     currency_: String?,
+    position_: Int?,
 
     // Category
     id___: Long?,
     name__: String?,
     icon: String?,
-    position: Long?,
+    position__: Long?,
     isExpense: Boolean?,
     isIncome: Boolean?
 ) -> Transaction = {
-        // Transaction
+    // Transaction
         id, type, amount, amountCurrency, categoryId, accountId, insertionDate, date,
         secondaryAmount, secondaryAmountCurrency, secondaryAccountId,
+
         // Primary Account
-        _, accountType, accountName, balance, accountColorId, _,
+        _, accountType, accountName, balance, accountColorId, _, _,
+
         // Secondary Account
-        _, secondaryAccountType, secondaryAccountName, secondaryBalance, secondaryAccountColorId, _,
+        _, secondaryAccountType, secondaryAccountName, secondaryBalance, secondaryAccountColorId, _, _,
+
         // Category
         _, categoryName, categoryIcon, _, _, _ ->
 

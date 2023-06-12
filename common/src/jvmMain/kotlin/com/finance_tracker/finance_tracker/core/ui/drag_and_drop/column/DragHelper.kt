@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.core.ui
+package com.finance_tracker.finance_tracker.core.ui.drag_and_drop.column
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring

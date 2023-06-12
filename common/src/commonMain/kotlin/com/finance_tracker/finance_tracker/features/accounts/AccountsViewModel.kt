@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class AccountsViewModel(
-    private val repository: AccountsRepository,
+    private val accountsRepository: AccountsRepository,
     private val accountsAnalytics: AccountsAnalytics
 ): BaseViewModel<AccountsAction>() {
 
@@ -39,9 +39,24 @@ class AccountsViewModel(
         viewAction = AccountsAction.OpenAddAccountScreen
     }
 
+    fun onCardMove(fromIndex: Int, toIndex: Int) {
+        val firstAccout = _accounts.value[fromIndex]
+        val secondAccout = _accounts.value[toIndex]
+
+        viewModelScope.launch {
+            val newList = _accounts.value.toMutableList()
+            newList[fromIndex] = secondAccout
+            newList[toIndex] = firstAccout
+            _accounts.value = newList
+            
+            accountsRepository.updateAccountPosition(position = fromIndex, accountId = secondAccout.id)
+            accountsRepository.updateAccountPosition(position = toIndex, accountId = firstAccout.id)
+        }
+    }
+
     private fun loadAccounts() {
         viewModelScope.launch {
-            _accounts.value = repository.getAllAccountsFromDatabase()
+            _accounts.value = accountsRepository.getAllAccountsFromDatabase()
         }
     }
 }

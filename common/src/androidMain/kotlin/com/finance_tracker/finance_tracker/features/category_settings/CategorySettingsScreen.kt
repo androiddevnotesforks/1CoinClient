@@ -28,10 +28,10 @@ import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActi
 import com.finance_tracker.finance_tracker.core.theme.provideThemeImage
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
-import com.finance_tracker.finance_tracker.core.ui.DraggableItem
 import com.finance_tracker.finance_tracker.core.ui.EmptyStub
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
-import com.finance_tracker.finance_tracker.core.ui.rememberDragDropState
+import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.column.DraggableItem
+import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.column.rememberDragDropState
 import com.finance_tracker.finance_tracker.domain.models.Category
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList

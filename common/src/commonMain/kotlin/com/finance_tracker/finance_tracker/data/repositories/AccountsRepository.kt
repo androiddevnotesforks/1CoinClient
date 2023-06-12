@@ -24,13 +24,19 @@ class AccountsRepository(
         currency: Currency
     ) {
         withContext(Dispatchers.Default) {
+            val currentMaxPosition: Int? = accountsEntityQueries
+                .getAllAccounts()
+                .executeAsList()
+                .maxOfOrNull { it.position }
+
             accountsEntityQueries.insertAccount(
                 id = null,
                 type = type,
                 name = accountName,
                 balance = balance,
                 colorId = colorId,
-                currency = currency.code
+                currency = currency.code,
+                position = currentMaxPosition?.let { it + 1 } ?: 0
             )
         }
     }
@@ -42,6 +48,7 @@ class AccountsRepository(
     suspend fun getAllAccountsFromDatabase(): List<Account> {
         return withContext(Dispatchers.Default) {
             accountsEntityQueries.getAllAccounts().executeAsList()
+                .sortedBy { it.position }
                 .map { it.accountToDomainModel() }
         }
     }
@@ -98,5 +105,11 @@ class AccountsRepository(
             .asFlow()
             .mapToOneOrNull(Dispatchers.Default)
             .map { it?.toInt() ?: 0 }
+    }
+
+    suspend fun updateAccountPosition(position: Int, accountId: Long) {
+        withContext(Dispatchers.Default) {
+            accountsEntityQueries.updateAccountPositionById(position = position, id = accountId)
+        }
     }
 }

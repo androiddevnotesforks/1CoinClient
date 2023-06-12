@@ -5,6 +5,7 @@ import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.core.common.getRaw
 import com.finance_tracker.finance_tracker.core.common.localizedString
 import com.finance_tracker.finance_tracker.core.common.toCategoryString
+import com.finance_tracker.finance_tracker.data.settings.AccountSettings
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Category
@@ -12,6 +13,8 @@ import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.financetracker.financetracker.data.AccountsEntityQueries
 import com.financetracker.financetracker.data.CategoriesEntityQueries
 import com.financetracker.financetracker.data.CurrencyRatesEntityQueries
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
@@ -20,16 +23,25 @@ import kotlinx.serialization.json.jsonPrimitive
 
 class DatabaseInitializer(
     private val jsonFactory: Json,
+    private val accountSettings: AccountSettings,
     private val categoriesEntityQueries: CategoriesEntityQueries,
     private val accountsEntityQueries: AccountsEntityQueries,
     private val currencyRatesEntityQueries: CurrencyRatesEntityQueries
 ) {
+    suspend fun init(context: Context) {
+        withContext(Dispatchers.Default) {
+            if (!accountSettings.isInitDefaultData()) {
+                initAccounts(context)
+                initCategories(context)
+                initCurrencyRates(context)
+                accountSettings.setIsInitDefaultData(true)
+            }
 
-
-    fun init(context: Context) {
-        initAccounts(context)
-        initCategories(context)
-        initCurrencyRates(context)
+            if (!accountSettings.isInitAccountPositions()) {
+                initAccountPositions()
+                accountSettings.setIsInitAccountPositions(true)
+            }
+        }
     }
 
     private fun initAccounts(context: Context) {
@@ -40,7 +52,8 @@ class DatabaseInitializer(
                 name = MR.strings.account_type_cash.localizedString(context),
                 balance = 0.0,
                 colorId = AccountColorModel.EastBay.id,
-                currency = Currency.default.code
+                currency = Currency.default.code,
+                position = 0
             )
         }
     }
@@ -178,6 +191,14 @@ class DatabaseInitializer(
                     )
                 }
             }
+        }
+    }
+
+    private fun initAccountPositions() {
+        val allAccounts = accountsEntityQueries.getAllAccounts().executeAsList()
+
+        allAccounts.forEachIndexed { index, accountsEntity ->
+            accountsEntityQueries.updateAccountPositionById(index, accountsEntity.id)
         }
     }
 }
