@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.features.plans.overview.analytics
 
 import com.finance_tracker.finance_tracker.core.analytics.BaseAnalytics
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.domain.models.Plan
 
 class PlansOverviewAnalytics: BaseAnalytics() {
@@ -15,6 +16,24 @@ class PlansOverviewAnalytics: BaseAnalytics() {
         trackClick(
             eventName = "Limit",
             properties = mapOf("category_name" to plan.category.name)
+        )
+    }
+
+    fun trackNextPeriodClick(yearMonth: YearMonth) {
+        trackClick(
+            eventName = "NextPeriod",
+            properties = mapOf(
+                "current_period" to "${yearMonth.year}-${yearMonth.month}"
+            )
+        )
+    }
+
+    fun trackPreviousPeriodClick(yearMonth: YearMonth) {
+        trackClick(
+            eventName = "PreviousPeriod",
+            properties = mapOf(
+                "current_period" to "${yearMonth.year}-${yearMonth.month}"
+            )
         )
     }
 }

@@ -21,11 +21,18 @@ class PlansInteractor(
     private val transactionsRepository: TransactionsRepository
 ) {
 
-    suspend fun addPlan(plan: Plan) {
-        plansRepository.addOrUpdatePlan(plan)
+    suspend fun addPlan(
+        yearMonth: YearMonth,
+        plan: Plan
+    ) {
+        plansRepository.addOrUpdatePlan(yearMonth, plan)
     }
 
-    suspend fun updatePlan(oldPlan: Plan, newPlan: Plan) {
+    suspend fun updatePlan(
+        yearMonth: YearMonth,
+        oldPlan: Plan,
+        newPlan: Plan
+    ) {
         val plan = if (oldPlan.spentAmount != newPlan.limitAmount) {
             val currencyRates = currenciesRepository.getCurrencyRates()
             val toCurrency = currenciesRepository.getPrimaryCurrency()
@@ -35,7 +42,7 @@ class PlansInteractor(
         } else {
             newPlan
         }
-        plansRepository.addOrUpdatePlan(plan)
+        plansRepository.addOrUpdatePlan(yearMonth, plan)
     }
 
     suspend fun deletePlan(plan: Plan) {
@@ -44,7 +51,7 @@ class PlansInteractor(
 
     fun getPlans(yearMonth: YearMonth): Flow<List<Plan>> {
         return combine(
-            plansRepository.getPlans(),
+            plansRepository.getPlans(yearMonth),
             currenciesRepository.getCurrencyRatesFlow(),
             currenciesRepository.getPrimaryCurrencyFlow(),
             transactionsRepository.getTransactionsFlow(

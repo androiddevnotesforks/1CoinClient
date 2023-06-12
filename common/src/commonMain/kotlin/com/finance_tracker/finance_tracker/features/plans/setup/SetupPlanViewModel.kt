@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.features.plans.setup
 
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.common.isNotEmptyAmount
 import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.toString
@@ -39,6 +40,7 @@ class SetupPlanViewModel(
     currenciesInteractor: CurrenciesInteractor
 ): BaseViewModel<SetupPlanAction>() {
 
+    private val yearMonth: YearMonth = params.yearMonth
     private val plan: Plan? = params.plan
 
     val isEditMode = plan != null
@@ -108,7 +110,10 @@ class SetupPlanViewModel(
     ) {
         setupPlanAnalytics.trackAddClick(isFromButtonClick, plan)
         viewModelScope.launch {
-            plansInteractor.addPlan(plan)
+            plansInteractor.addPlan(
+                yearMonth = yearMonth,
+                plan = plan
+            )
             viewAction = SetupPlanAction.Close
         }
     }
@@ -126,7 +131,11 @@ class SetupPlanViewModel(
 
             setupPlanAnalytics.trackEditClick(isFromButtonClick, oldPlan, newPlan)
 
-            plansInteractor.updatePlan(oldPlan, newPlan)
+            plansInteractor.updatePlan(
+                yearMonth = yearMonth,
+                oldPlan = oldPlan,
+                newPlan = newPlan
+            )
             viewAction = SetupPlanAction.Close
         }
     }
@@ -152,7 +161,10 @@ class SetupPlanViewModel(
     private fun restorePlan(plan: Plan) {
         viewModelScope.launch {
             setupPlanAnalytics.trackRestorePlan()
-            plansInteractor.addPlan(plan)
+            plansInteractor.addPlan(
+                yearMonth = yearMonth,
+                plan = plan
+            )
             hideSnackbar()
         }
     }

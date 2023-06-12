@@ -76,7 +76,7 @@ fun RootComposeBuilder.navigationGraph() {
 
     screen(MainNavigationTree.SetupPlan.name) {
         SetupPlanScreen(
-            params = it as? SetupPlanScreenParams ?: SetupPlanScreenParams()
+            params = it as SetupPlanScreenParams
         )
     }
 

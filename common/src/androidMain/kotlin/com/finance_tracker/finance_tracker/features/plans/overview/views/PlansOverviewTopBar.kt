@@ -8,10 +8,14 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
+import com.finance_tracker.finance_tracker.features.plans.overview.views.plan_period.PlanPeriodCallback
+import com.finance_tracker.finance_tracker.features.plans.overview.views.plan_period.PlanPeriodState
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun PlansOverviewTopBar(
+    planPeriodState: PlanPeriodState,
+    planPeriodCallback: PlanPeriodCallback,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
@@ -24,6 +28,11 @@ internal fun PlansOverviewTopBar(
                     color = CoinTheme.color.content
                 )
             }
+        )
+
+        PlanPeriodView(
+            state = planPeriodState,
+            callback = planPeriodCallback
         )
     }
 }

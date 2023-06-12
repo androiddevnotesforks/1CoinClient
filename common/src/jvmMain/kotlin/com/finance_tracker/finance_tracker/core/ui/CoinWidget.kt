@@ -74,7 +74,7 @@ internal fun CoinWidget(
             if (onClick != null) {
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
-                    painter = rememberAsyncImagePainter(MR.files.ic_arrow_next_small),
+                    painter = rememberAsyncImagePainter(MR.files.ic_arrow_right_small),
                     contentDescription = null,
                     modifier = Modifier
                         .size(24.dp)

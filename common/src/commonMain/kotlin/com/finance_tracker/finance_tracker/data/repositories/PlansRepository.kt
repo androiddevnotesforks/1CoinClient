@@ -14,30 +14,42 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.number
 
 class PlansRepository(
     private val limitsEntityQueries: LimitsEntityQueries
 ) {
 
-    suspend fun addOrUpdatePlan(plan: Plan) {
+    suspend fun addOrUpdatePlan(
+        yearMonth: YearMonth,
+        plan: Plan
+    ) {
         withContext(Dispatchers.Default) {
             limitsEntityQueries.transaction {
                 val isPlanExist = limitsEntityQueries
-                    .getFullLimitByCategoryId(plan.category.id)
+                    .getFullLimitByCategoryId(
+                        categoryId = plan.category.id,
+                        year = yearMonth.year.toLong(),
+                        month = yearMonth.month.number.toLong()
+                    )
                     .executeAsOneOrNull() != null
 
                 if (isPlanExist) {
                     limitsEntityQueries.updateLimitByCategoryId(
                         limitAmount = plan.limitAmount.amountValue,
                         currency = plan.limitAmount.currency.code,
-                        categoryId = plan.category.id
+                        categoryId = plan.category.id,
+                        year = yearMonth.year.toLong(),
+                        month = yearMonth.month.number.toLong()
                     )
                 } else {
                     limitsEntityQueries.insertLimit(
                         id = plan.id,
                         categoryId = plan.category.id,
                         limitAmount = plan.limitAmount.amountValue,
-                        currency = plan.limitAmount.currency.code
+                        currency = plan.limitAmount.currency.code,
+                        year = yearMonth.year.toLong(),
+                        month = yearMonth.month.number.toLong()
                     )
                 }
             }
@@ -59,8 +71,10 @@ class PlansRepository(
     }
 
     @Suppress("UnusedPrivateMember")
-    fun getPlans(): Flow<List<Plan>> {
+    fun getPlans(yearMonth: YearMonth): Flow<List<Plan>> {
         return limitsEntityQueries.getAllFullLimits(
+            year = yearMonth.year.toLong(),
+            month = yearMonth.month.number.toLong(),
             mapper = fullPlanMapper
         )
             .asFlow()

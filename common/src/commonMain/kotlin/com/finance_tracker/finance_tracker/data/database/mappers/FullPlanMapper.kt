@@ -15,6 +15,8 @@ val fullPlanMapper: (
     categoryId: Long?,
     limitAmount: Double,
     currencyCode: String,
+    year: Long,
+    month: Long,
 
     // Category
     id_: Long?,
@@ -25,7 +27,7 @@ val fullPlanMapper: (
     isIncome: Boolean?
 ) -> Plan = {
     // Plan
-    id, planCategoryId, limitAmount, currencyCode,
+    id, planCategoryId, limitAmount, currencyCode, _, _,
     // Category
     categoryId, categoryName, categoryIcon, _, _, _ ->
 

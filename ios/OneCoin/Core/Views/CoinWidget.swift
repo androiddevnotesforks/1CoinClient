@@ -40,7 +40,7 @@ private struct CoinWidgetTitle: View {
                 .fontH5Style(color: theme.colors.content)
             if (clickEnabled) {
                 Spacer()
-                // TODO: replace ic_arrow_down to ic_arrow_next_small
+                // TODO: replace ic_arrow_down to ic_arrow_right_small
                 SVGImageView(url: MR.files().ic_arrow_down.url)
                     .tintColor(theme.colors.content)
                     .frameSvg(width: 24, height: 24)

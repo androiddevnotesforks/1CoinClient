@@ -173,7 +173,7 @@ internal fun NextIcon(
     Icon(
         modifier = modifier
             .padding(horizontal = 2.dp),
-        painter = rememberAsyncImagePainter(MR.files.ic_arrow_next_small),
+        painter = rememberAsyncImagePainter(MR.files.ic_arrow_right_small),
         contentDescription = null,
         tint = CoinTheme.color.content
     )

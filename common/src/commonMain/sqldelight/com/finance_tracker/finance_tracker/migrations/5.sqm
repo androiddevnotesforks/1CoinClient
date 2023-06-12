@@ -3,5 +3,7 @@ CREATE TABLE IF NOT EXISTS LimitsEntity (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     categoryId INTEGER,
     limitAmount REAL NOT NULL,
-    currency TEXT NOT NULL
+    currency TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    month INTEGER NOT NULL
 );
