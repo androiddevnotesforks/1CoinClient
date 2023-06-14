@@ -18,6 +18,6 @@ abstract class BaseViewModel<Action : Any>: KViewModel() {
             _viewActions.trySend(value)
         }
 
-    val channelFlow = _viewActions.receiveAsFlow()
-    fun viewActions(): WrappedFlow<Action?> = WrappedFlow(channelFlow)
+    val viewActionChannel = _viewActions.receiveAsFlow()
+    fun viewActions(): WrappedFlow<Action?> = WrappedFlow(viewActionChannel)
 }

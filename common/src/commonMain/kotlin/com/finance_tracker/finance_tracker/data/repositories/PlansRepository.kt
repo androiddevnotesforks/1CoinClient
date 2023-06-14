@@ -10,6 +10,7 @@ import com.financetracker.financetracker.data.LimitsEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
@@ -24,7 +25,7 @@ class PlansRepository(
         yearMonth: YearMonth,
         plan: Plan
     ) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             limitsEntityQueries.transaction {
                 val isPlanExist = limitsEntityQueries
                     .getFullLimitByCategoryId(
@@ -59,13 +60,13 @@ class PlansRepository(
     suspend fun deletePlan(plan: Plan) {
         if (plan.id == null) return
 
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             limitsEntityQueries.deleteLimitById(id = plan.id)
         }
     }
 
     suspend fun deletePlansByCategoryId(categoryId: Long?) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             limitsEntityQueries.deleteLimitsByCategoryId(categoryId)
         }
     }
@@ -78,7 +79,7 @@ class PlansRepository(
             mapper = fullPlanMapper
         )
             .asFlow()
-            .mapToList(Dispatchers.Default)
+            .mapToList(Dispatchers.IO)
             .map { plans ->
                 plans.filter { it.category.id != EmptyCategoryId }
             }

@@ -11,6 +11,7 @@ import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
 import dev.icerock.moko.resources.FileResource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -25,7 +26,7 @@ class CategoriesRepository(
         isExpense: Boolean,
         isIncome: Boolean,
     ) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             categoriesEntityQueries.insertCategory(
                 id = null,
                 name = categoryName,
@@ -38,13 +39,13 @@ class CategoriesRepository(
     }
 
     suspend fun deleteCategoryById(id: Long) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             categoriesEntityQueries.deleteCategoryById(id)
         }
     }
 
     suspend fun updateCategoryPosition(categoryId1: Long, newPosition1: Int, categoryId2: Long, newPosition2: Int) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             categoriesEntityQueries.transaction {
                 categoriesEntityQueries.replaceCategory(
                     position = newPosition1.toLong(),
@@ -59,14 +60,14 @@ class CategoriesRepository(
     }
 
     suspend fun getAllExpenseCategories(): List<Category> {
-        return withContext(Dispatchers.Default) {
+        return withContext(Dispatchers.IO) {
             categoriesEntityQueries.getAllExpenseCategories().executeAsList()
                 .map { it.categoryToDomainModel() }
         }
     }
 
     suspend fun getAllIncomeCategories(): List<Category> {
-        return withContext(Dispatchers.Default) {
+        return withContext(Dispatchers.IO) {
             categoriesEntityQueries.getAllIncomeCategories().executeAsList()
                 .map { it.categoryToDomainModel() }
         }
@@ -75,18 +76,18 @@ class CategoriesRepository(
     fun getCategoriesCountFlow(): Flow<Int> {
         return categoriesEntityQueries.getCategoriesCount()
             .asFlow()
-            .mapToOneOrNull(Dispatchers.Default)
+            .mapToOneOrNull(Dispatchers.IO)
             .map { it?.toInt() ?: 0 }
     }
 
     suspend fun updateCategory(id: Long, name: String, iconId: FileResource) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             categoriesEntityQueries.updateAccountById(name = name, icon = iconId.toCategoryString(), id = id)
         }
     }
 
     suspend fun getCategoryIcon(iconName: String): FileResource? {
-        return withContext(Dispatchers.Default) {
+        return withContext(Dispatchers.IO) {
             MR.files.getCategoryIconFile(context = context, iconName)
         }
     }

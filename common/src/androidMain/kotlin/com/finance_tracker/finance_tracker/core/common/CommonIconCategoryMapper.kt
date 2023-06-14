@@ -8,9 +8,9 @@ private val appContext: Context by lazy { getKoin().get() }
 private val categories by lazy {
     List(63) {
         val index = it + 1
-        val iconName = "ic_category_$index"
-        iconName to MR.files.getCategoryIconFile(
-            context = appContext, iconName
+        val categoryId = "ic_category_$index"
+        categoryId to MR.files.getCategoryIconFile(
+            context = appContext, categoryId
         )
     }
 }

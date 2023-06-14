@@ -8,6 +8,7 @@ import com.financetracker.financetracker.data.CurrencyRatesEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOn
@@ -28,7 +29,7 @@ class CurrenciesRepository(
                 .map { currencyRatesEntities ->
                     currencyRatesEntities.associateBy { it.currency }
                 }
-                .flowOn(Dispatchers.Default)
+                .flowOn(Dispatchers.IO)
     }
 
     suspend fun getCurrencyRates(): CurrencyRates {
@@ -36,7 +37,7 @@ class CurrenciesRepository(
     }
 
     suspend fun updateCurrencyRates() {
-        return withContext(Dispatchers.Default) {
+        return withContext(Dispatchers.IO) {
             val currencyRates = currenciesNetworkDataSource.getCurrenciesRates()
                 .getOrNull() ?: return@withContext
             currencyRatesEntityQueries.transaction {
@@ -51,7 +52,7 @@ class CurrenciesRepository(
     }
 
     suspend fun savePrimaryCurrency(currency: Currency) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             accountSettings.savePrimaryCurrency(currency.code)
         }
     }

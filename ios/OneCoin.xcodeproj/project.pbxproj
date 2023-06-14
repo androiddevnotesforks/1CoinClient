@@ -46,12 +46,10 @@
 		7E7F35102A0AEEEA008C345E /* AccountCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F350F2A0AEEEA008C345E /* AccountCardModel.swift */; };
 		7E7F35172A0AF421008C345E /* PlansScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F35162A0AF421008C345E /* PlansScreen.swift */; };
 		7E7F35192A0AFAFF008C345E /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F35182A0AFAFF008C345E /* Tab.swift */; };
-		B3E49C0266F031A1198D961B /* Pods_OneCoin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20EC0D6E66424714DD8562F4 /* Pods_OneCoin.framework */; };
+		8DEF964FB2E6B8623F46DD4A /* Pods_OneCoin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC40B00253D5E47B1DDE56C4 /* Pods_OneCoin.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		106BD4D641D5FF7BDD1FC52C /* Pods-OneCoin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneCoin.release.xcconfig"; path = "Target Support Files/Pods-OneCoin/Pods-OneCoin.release.xcconfig"; sourceTree = "<group>"; };
-		20EC0D6E66424714DD8562F4 /* Pods_OneCoin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneCoin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		310099642A1BF69F003BC155 /* UIOneCoinConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOneCoinConstants.swift; sourceTree = "<group>"; };
 		314515AE2A1F94E500E31A17 /* TotalExpenseChartWidgetContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalExpenseChartWidgetContent.swift; sourceTree = "<group>"; };
 		314515B02A1F9D2D00E31A17 /* LollipopChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LollipopChart.swift; sourceTree = "<group>"; };
@@ -90,10 +88,12 @@
 		3AF88E0629F3DC9E0011C207 /* CoinWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinWidget.swift; sourceTree = "<group>"; };
 		3AF88E0829F3DE220011C207 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		3AF88E0C29F3EDB30011C207 /* LastTransactionsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTransactionsWidget.swift; sourceTree = "<group>"; };
+		53E6CEA5556B37E170A8A2CD /* Pods-OneCoin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneCoin.release.xcconfig"; path = "Target Support Files/Pods-OneCoin/Pods-OneCoin.release.xcconfig"; sourceTree = "<group>"; };
 		7E7F350F2A0AEEEA008C345E /* AccountCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCardModel.swift; sourceTree = "<group>"; };
 		7E7F35162A0AF421008C345E /* PlansScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansScreen.swift; sourceTree = "<group>"; };
 		7E7F35182A0AFAFF008C345E /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
-		9EE0A9CAE319A78AC1868C04 /* Pods-OneCoin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneCoin.debug.xcconfig"; path = "Target Support Files/Pods-OneCoin/Pods-OneCoin.debug.xcconfig"; sourceTree = "<group>"; };
+		9903A3ABE7558B5D938A9DE7 /* Pods-OneCoin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneCoin.debug.xcconfig"; path = "Target Support Files/Pods-OneCoin/Pods-OneCoin.debug.xcconfig"; sourceTree = "<group>"; };
+		EC40B00253D5E47B1DDE56C4 /* Pods_OneCoin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneCoin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +102,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AE30BF929957A1400482B0D /* OneCoinShared.framework in Frameworks */,
-				B3E49C0266F031A1198D961B /* Pods_OneCoin.framework in Frameworks */,
+				8DEF964FB2E6B8623F46DD4A /* Pods_OneCoin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,7 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				3AE30BF829957A1400482B0D /* OneCoinShared.framework */,
-				20EC0D6E66424714DD8562F4 /* Pods_OneCoin.framework */,
+				EC40B00253D5E47B1DDE56C4 /* Pods_OneCoin.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -401,8 +401,8 @@
 		B69A29D5410520987788C79C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9EE0A9CAE319A78AC1868C04 /* Pods-OneCoin.debug.xcconfig */,
-				106BD4D641D5FF7BDD1FC52C /* Pods-OneCoin.release.xcconfig */,
+				9903A3ABE7558B5D938A9DE7 /* Pods-OneCoin.debug.xcconfig */,
+				53E6CEA5556B37E170A8A2CD /* Pods-OneCoin.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -414,11 +414,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A23C5DA299256BB0033CCF8 /* Build configuration list for PBXNativeTarget "OneCoin" */;
 			buildPhases = (
-				F9D732022391754963135969 /* [CP] Check Pods Manifest.lock */,
+				E9A7486019277EB338788B16 /* [CP] Check Pods Manifest.lock */,
 				3A23C5C8299256BA0033CCF8 /* Sources */,
 				3A23C5C9299256BA0033CCF8 /* Frameworks */,
 				3A23C5CA299256BA0033CCF8 /* Resources */,
-				D836A29EE9D16490C917FE00 /* [CP] Embed Pods Frameworks */,
+				F4E638A11978EC0146EA7A27 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -475,24 +475,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D836A29EE9D16490C917FE00 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OneCoin/Pods-OneCoin-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OneCoin/Pods-OneCoin-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OneCoin/Pods-OneCoin-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F9D732022391754963135969 /* [CP] Check Pods Manifest.lock */ = {
+		E9A7486019277EB338788B16 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -512,6 +495,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F4E638A11978EC0146EA7A27 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OneCoin/Pods-OneCoin-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OneCoin/Pods-OneCoin-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OneCoin/Pods-OneCoin-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -679,7 +679,7 @@
 		};
 		3A23C5DB299256BB0033CCF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EE0A9CAE319A78AC1868C04 /* Pods-OneCoin.debug.xcconfig */;
+			baseConfigurationReference = 9903A3ABE7558B5D938A9DE7 /* Pods-OneCoin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -714,7 +714,7 @@
 		};
 		3A23C5DC299256BB0033CCF8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 106BD4D641D5FF7BDD1FC52C /* Pods-OneCoin.release.xcconfig */;
+			baseConfigurationReference = 53E6CEA5556B37E170A8A2CD /* Pods-OneCoin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

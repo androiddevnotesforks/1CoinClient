@@ -11,6 +11,7 @@ import com.finance_tracker.finance_tracker.features.detail_account.di.detailAcco
 import com.finance_tracker.finance_tracker.features.email_auth.enter_email.di.enterEmailModule
 import com.finance_tracker.finance_tracker.features.email_auth.enter_otp.di.enterOtpModule
 import com.finance_tracker.finance_tracker.features.home.di.homeModule
+import com.finance_tracker.finance_tracker.features.ios_interaction_sample.di.sampleModule
 import com.finance_tracker.finance_tracker.features.plans.di.plansModule
 import com.finance_tracker.finance_tracker.features.select_currency.di.currencyModule
 import com.finance_tracker.finance_tracker.features.settings.di.settingsModule
@@ -36,4 +37,7 @@ fun featureModules() = listOf(
     enterOtpModule,
     currencyModule,
     plansModule,
+
+    // TODO -- Delete after ViewModel consuming from iOS debugging
+    sampleModule
 )

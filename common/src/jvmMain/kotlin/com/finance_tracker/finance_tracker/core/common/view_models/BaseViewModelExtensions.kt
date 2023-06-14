@@ -39,7 +39,7 @@ inline fun <Action: Any> BaseViewModel<Action>.watchViewActions(
     }
 
     LaunchedEffect(Unit) {
-        channelFlow
+        viewActionChannel
             .onEach { action ->
                 action ?: return@onEach
                 onExecute.invoke(action, baseLocalsStorage)

@@ -3,6 +3,7 @@ package com.finance_tracker.finance_tracker.core.common.snackbar
 import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
@@ -16,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class SnackbarManager {
 
-    private val coroutineScope = CoroutineScope(Dispatchers.Default)
+    private val coroutineScope = CoroutineScope(Dispatchers.IO)
     private var checkingPendingModel: Job? = null
     private var pendingSnackbarStateWithScreenParams: SnackbarStateWithScreenParams? = null
     private val snackbarStateWithScreenParams = Channel<SnackbarStateWithScreenParams?>(capacity = 1)

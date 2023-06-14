@@ -22,6 +22,8 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.codingfeline.buildkonfig")
     id("dev.icerock.mobile.multiplatform-resources")
+    id("com.rickclephas.kmp.nativecoroutines")
+    id("dev.icerock.moko.kswift")
 }
 
 kotlin {
@@ -38,7 +40,8 @@ kotlin {
                 implementation(libs.bundles.ktor)
                 implementation(libs.bundles.settings)
                 implementation(libs.uuid)
-                implementation(libs.datetime)
+                implementation(libs.kotlin.datetime)
+                implementation(libs.kotlin.coroutines)
                 implementation(libs.immutableCollections)
                 implementation(libs.paging)
                 implementation(libs.arithmeticEvaluator)
@@ -85,6 +88,7 @@ kotlin {
         iosMain {
             dependencies {
                 implementation(libs.sqldelight.ios)
+                implementation(libs.ktor.ios)
             }
         }
     }
@@ -156,4 +160,14 @@ buildkonfig {
 multiplatformResources {
     multiplatformResourcesPackage = "com.finance_tracker.finance_tracker"
     multiplatformResourcesClassName = "MR"
+}
+
+kswift {
+    projectPodspecName.set("OneCoinShared")
+
+    // https://github.com/icerockdev/moko-kswift#how-to-exclude-generation-of-entries-from-some-libraries
+    // https://github.com/icerockdev/moko-kswift/blob/master/sample/mpp-library/build.gradle.kts
+    includeLibrary("common")
+
+    install(dev.icerock.moko.kswift.plugin.feature.SealedToSwiftEnumFeature)
 }

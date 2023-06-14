@@ -11,6 +11,7 @@ import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.financetracker.financetracker.data.TransactionsEntityQueries
 import io.ktor.utils.io.errors.IOException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 
 class TransactionsPagingSource(
@@ -60,7 +61,7 @@ class TransactionsPagingSource(
         page: Long,
         limit: Long
     ): List<Transaction> {
-        return withContext(Dispatchers.Default) {
+        return withContext(Dispatchers.IO) {
             transactionsEntityQueries.getAllFullTransactionsPaginated(
                 limit = limit,
                 offset = page,
@@ -74,7 +75,7 @@ class TransactionsPagingSource(
         limit: Long,
         id: Long,
     ): List<Transaction> {
-        return withContext(Dispatchers.Default) {
+        return withContext(Dispatchers.IO) {
             transactionsEntityQueries.getFullTransactionsByAccountIdPaginated(
                 limit = limit,
                 offset = page,

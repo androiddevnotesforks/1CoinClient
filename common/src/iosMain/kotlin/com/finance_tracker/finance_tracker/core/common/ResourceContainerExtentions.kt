@@ -8,5 +8,10 @@ actual fun ResourceContainer<FileResource>.getCategoryIconFile(
     context: Context,
     fileResourceName: String
 ): FileResource? {
-    TODO()
+    return runCatching {
+        FileResource(
+            fileName = fileResourceName,
+            extension = "svg"
+        )
+    }.getOrDefault(null)
 }

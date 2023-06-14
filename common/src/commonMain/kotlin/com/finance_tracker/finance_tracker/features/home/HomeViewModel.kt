@@ -38,7 +38,6 @@ class HomeViewModel(
     private val homeAnalytics: HomeAnalytics,
     dashboardSettingsInteractor: DashboardSettingsInteractor
 ): BaseViewModel<HomeAction>() {
-
     private val transactionTypes = TransactionTypesMode.Main.types
     private val typesToAnalyticsDelegates = transactionTypes.associateWith {
         getKoin().get<AnalyticsDelegates>().apply {

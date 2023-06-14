@@ -8,6 +8,7 @@ import com.financetracker.financetracker.data.AccountsEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
@@ -23,7 +24,7 @@ class AccountsRepository(
         colorId: Int,
         currency: Currency
     ) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             val currentMaxPosition: Int? = accountsEntityQueries
                 .getAllAccounts()
                 .executeAsList()
@@ -46,7 +47,7 @@ class AccountsRepository(
     }
 
     suspend fun getAllAccountsFromDatabase(): List<Account> {
-        return withContext(Dispatchers.Default) {
+        return withContext(Dispatchers.IO) {
             accountsEntityQueries.getAllAccounts().executeAsList()
                 .sortedBy { it.position }
                 .map { it.accountToDomainModel() }
@@ -54,13 +55,13 @@ class AccountsRepository(
     }
 
     suspend fun increaseAccountBalance(id: Long, value: Double) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             accountsEntityQueries.increaseBalanceByAccountId(value, id)
         }
     }
 
     suspend fun decreaseAccountBalance(id: Long, value: Double) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             accountsEntityQueries.decreaseBalanceByAccountId(value, id)
         }
     }
@@ -73,7 +74,7 @@ class AccountsRepository(
         currency: Currency,
         id: Long
     ) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             accountsEntityQueries.updateAccountById(
                 type = type,
                 name = name,
@@ -88,14 +89,14 @@ class AccountsRepository(
     fun getAccountByIdFlow(id: Long): Flow<Account> {
         return accountsEntityQueries.getAccountById(id)
             .asFlow()
-            .mapToOneOrNull(Dispatchers.Default)
+            .mapToOneOrNull(Dispatchers.IO)
             .map {
                 it?.accountToDomainModel() ?: Account.EMPTY
             }
     }
 
     suspend fun deleteAccountById(id: Long) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             accountsEntityQueries.deleteAccountById(id)
         }
     }
@@ -103,7 +104,7 @@ class AccountsRepository(
     fun getAccountsCountFlow(): Flow<Int> {
         return accountsEntityQueries.getAccountsCount()
             .asFlow()
-            .mapToOneOrNull(Dispatchers.Default)
+            .mapToOneOrNull(Dispatchers.IO)
             .map { it?.toInt() ?: 0 }
     }
 

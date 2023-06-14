@@ -20,4 +20,6 @@ dependencies {
     implementation(libs.gradleplugins.sqldelight)
     implementation(libs.gradleplugins.buildkonfig)
     implementation(libs.gradleplugins.resources)
+    implementation(libs.gradleplugins.nativecoroutines)
+    implementation(libs.gradleplugins.kswift)
 }

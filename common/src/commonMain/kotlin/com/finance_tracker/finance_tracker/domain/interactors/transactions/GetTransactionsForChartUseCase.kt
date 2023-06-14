@@ -14,6 +14,7 @@ import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 
 class GetTransactionsForChartUseCase(
@@ -26,7 +27,7 @@ class GetTransactionsForChartUseCase(
         primaryCurrency: Currency,
         currencyRates: CurrencyRates
     ): TxsByCategoryChart {
-        return withContext(Dispatchers.Default) {
+        return withContext(Dispatchers.IO) {
             val transactions = transactionsRepository.getTransactions(transactionType, yearMonth)
             val totalAmount = transactions.sumOf {
                 it.primaryAmount.convertToCurrencyValue(primaryCurrency, currencyRates)

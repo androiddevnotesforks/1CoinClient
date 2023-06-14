@@ -5,12 +5,13 @@ import com.russhwolf.settings.Settings
 import com.russhwolf.settings.coroutines.SuspendSettings
 import com.russhwolf.settings.coroutines.toSuspendSettings
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 
 @OptIn(ExperimentalSettingsApi::class)
 class UserSettings(factory: Settings.Factory) {
 
     private val settings: Settings = factory.create("user")
-    private val suspendSettings: SuspendSettings = settings.toSuspendSettings(Dispatchers.Default)
+    private val suspendSettings: SuspendSettings = settings.toSuspendSettings(Dispatchers.IO)
 
     suspend fun saveUserId(userId: String) {
         suspendSettings.putString(KEY_USER_ID, userId)

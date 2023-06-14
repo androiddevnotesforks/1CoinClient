@@ -17,6 +17,7 @@ import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import com.squareup.sqldelight.runtime.coroutines.mapToOneOrDefault
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
@@ -35,7 +36,7 @@ class TransactionsRepository(
         Pager(PagingConfig(pageSize = PageSize)) {
             TransactionsPagingSource(transactionsEntityQueries)
         }.flow
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.IO)
 
     fun getTransactionsFlow(
         transactionType: TransactionType,
@@ -43,12 +44,12 @@ class TransactionsRepository(
     ): Flow<List<Transaction>> {
         return getTransactionsQuery(transactionType, yearMonth)
             .asFlow()
-            .mapToList(Dispatchers.Default)
-            .flowOn(Dispatchers.Default)
+            .mapToList(Dispatchers.IO)
+            .flowOn(Dispatchers.IO)
     }
 
     suspend fun getTransactions(transactionType: TransactionType, yearMonth: YearMonth): List<Transaction> {
-        return withContext(Dispatchers.Default) {
+        return withContext(Dispatchers.IO) {
             getTransactionsQuery(transactionType, yearMonth)
                 .executeAsList()
         }
@@ -67,20 +68,20 @@ class TransactionsRepository(
     }
 
     suspend fun deleteTransaction(transaction: Transaction) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             val transactionId = transaction.id ?: return@withContext
             transactionsEntityQueries.deleteTransactionById(transactionId)
         }
     }
 
     suspend fun deleteCategoryForTransactionsByCategoryId(categoryId: Long) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             transactionsEntityQueries.deleteCategoryForTransactionsByCategoryId(categoryId)
         }
     }
 
     suspend fun addOrUpdateTransaction(transaction: Transaction) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             transactionsEntityQueries.insertTransaction(
                 id = transaction.id,
                 type = transaction.type,
@@ -105,7 +106,7 @@ class TransactionsRepository(
         return transactionsEntityQueries.getAllTransactionsCount()
             .asFlow()
             .mapToOneOrDefault(0L)
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.IO)
             .distinctUntilChanged()
     }
 
@@ -113,14 +114,14 @@ class TransactionsRepository(
         return Pager(PagingConfig(pageSize = PageSize)) {
             transactionsPagingSourceFactory.create(id)
         }.flow
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.IO)
     }
 
     fun getTransactionsByAccountSizeUpdates(id: Long): Flow<Long> {
         return transactionsEntityQueries.getAllTransactionsByAccountIdCount(id)
             .asFlow()
             .mapToOneOrDefault(0L)
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.IO)
             .distinctUntilChanged()
     }
 
@@ -131,6 +132,6 @@ class TransactionsRepository(
         )
             .asFlow()
             .mapToList()
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.IO)
     }
 }

@@ -9,6 +9,7 @@ import com.finance_tracker.finance_tracker.data.repositories.TransactionsReposit
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -100,7 +101,7 @@ class TransactionsInteractor(
         return transactionsRepository.getPaginatedTransactionsByAccountId(id)
             .map { it.map(TransactionListModel::Data) }
             .map(::insertSeparators)
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.IO)
     }
 
     fun getTransactionsByAccountIdSizeUpdates(id: Long): Flow<Long> {
