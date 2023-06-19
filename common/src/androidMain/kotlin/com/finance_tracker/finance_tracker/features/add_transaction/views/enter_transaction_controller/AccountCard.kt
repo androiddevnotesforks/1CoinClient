@@ -23,7 +23,7 @@ import com.finance_tracker.finance_tracker.domain.models.Account
 internal fun AccountCard(
     account: Account,
     modifier: Modifier = Modifier,
-    maxLines: Int = 2,
+    maxLines: Int = 1,
     textStyle: TextStyle = CoinTheme.typography.body1
 ) {
     Row(
