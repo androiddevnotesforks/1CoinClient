@@ -4,7 +4,7 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
 import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTree
-import com.finance_tracker.finance_tracker.core.ui.DeleteAlertDialog
+import com.finance_tracker.finance_tracker.core.ui.dialogs.DeleteAlertDialog
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.features.add_category.AddCategoryScreenParams

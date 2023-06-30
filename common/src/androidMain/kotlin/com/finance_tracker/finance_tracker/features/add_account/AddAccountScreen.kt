@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -41,6 +42,7 @@ import com.finance_tracker.finance_tracker.core.common.toUiTextFieldValue
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
+import com.finance_tracker.finance_tracker.core.ui.keyboard.ArithmeticKeyboard
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.features.add_account.views.AccountColorTextField
 import com.finance_tracker.finance_tracker.features.add_account.views.AccountNameTextField
@@ -48,7 +50,6 @@ import com.finance_tracker.finance_tracker.features.add_account.views.AccountTyp
 import com.finance_tracker.finance_tracker.features.add_account.views.AddAccountTopBar
 import com.finance_tracker.finance_tracker.features.add_account.views.AmountTextField
 import com.finance_tracker.finance_tracker.features.add_account.views.BalanceCalculationResult
-import com.finance_tracker.finance_tracker.features.add_account.views.BalanceKeyboard
 import com.finance_tracker.finance_tracker.features.add_account.views.EditAccountActions
 import org.koin.core.parameter.parametersOf
 
@@ -176,11 +177,12 @@ internal fun AddAccountScreen(
                     )
                 }
 
-                BalanceKeyboard(
+                ArithmeticKeyboard(
                     shouldShowAmountKeyboard = shouldShowAmountKeyboard,
                     onKeyboardClick = viewModel::onKeyboardButtonClick,
                     onKeyboardClose = focusManager::clearFocus,
                     modifier = Modifier
+                        .heightIn(max = 290.dp)
                         .align(Alignment.BottomCenter)
                         .onGloballyPositioned {
                             with(screenDensity) {

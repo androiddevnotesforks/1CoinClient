@@ -137,6 +137,9 @@
     <string name="add_transaction_yesterday">Вчера</string>
     <string name="add_transaction_btn_add">Добавить</string>
     <string name="add_transaction_btn_edit">Редактировать</string>
+    <string name="add_transaction_negative_balance">Некорректная отрицательная сумма транзакции.</string>
+    <string name="add_transaction_incorrect_calculation">Введена некорректная сумма транзакции.</string>
+
 
     <!-- Home -->
     <string name="home_topbar_text">Общий баланс</string>

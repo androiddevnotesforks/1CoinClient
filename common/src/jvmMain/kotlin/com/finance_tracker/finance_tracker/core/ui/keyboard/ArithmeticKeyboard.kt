@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.features.add_account.views
+package com.finance_tracker.finance_tracker.core.ui.keyboard
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
@@ -34,22 +34,24 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
+import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
+import com.finance_tracker.finance_tracker.core.common.keyboard.arithmeticActions
+import com.finance_tracker.finance_tracker.core.common.keyboard.numPadActions
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.DefaultRippleTheme
-import com.finance_tracker.finance_tracker.features.add_account.KeyboardAction
-import com.finance_tracker.finance_tracker.features.add_account.arithmeticActions
-import com.finance_tracker.finance_tracker.features.add_account.numPadActions
 import dev.icerock.moko.resources.FileResource
 
 private const val KeyboardRowSize = 3
+private const val OperationsWeight = 0.8F
 
 @Composable
-internal fun BalanceKeyboard(
+internal fun ArithmeticKeyboard(
     shouldShowAmountKeyboard: Boolean,
     onKeyboardClick: (KeyboardAction) -> Unit,
-    onKeyboardClose: () -> Unit,
     modifier: Modifier = Modifier,
+    onKeyboardClose: () -> Unit = {},
+    isBottomExpandable: Boolean = true,
 ) {
     val navBarInsets = LocalFixedInsets.current.navigationBarsHeight
     val keyboardBodyRows = numPadActions.chunked(KeyboardRowSize)
@@ -74,26 +76,28 @@ internal fun BalanceKeyboard(
     ) {
         Surface(
             color = CoinTheme.color.secondaryBackground,
-            elevation = 8.dp
+            elevation = if(isBottomExpandable) 8.dp else 0.dp
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 CompositionLocalProvider(LocalRippleTheme provides DefaultRippleTheme) {
-                    KeyboardGridRow(Modifier.height(43.dp)) {
+                    KeyboardGridRow(Modifier.weight(OperationsWeight)) {
                         arithmeticActions.forEach {
                             KeyboardGridElement(
                                 keyboardAction = it,
                                 onClick = { onKeyboardClick(it) })
                         }
 
-                        KeyboardCloseIcon(onClick = onKeyboardClose)
+                        if (isBottomExpandable) {
+                            KeyboardCloseIcon(onClick = onKeyboardClose)
+                        }
                     }
 
                     Divider(modifier = Modifier.background(CoinTheme.color.dividers))
 
                     keyboardBodyRows.forEach {
-                        KeyboardGridRow(Modifier.height(60.dp)) {
+                        KeyboardGridRow(Modifier.weight(1F)) {
                             it.forEach {
                                 KeyboardGridElement(
                                     keyboardAction = it,
@@ -108,7 +112,9 @@ internal fun BalanceKeyboard(
                     }
                 }
 
-                Spacer(Modifier.height(navBarInsets))
+                if (isBottomExpandable) {
+                    Spacer(Modifier.height(navBarInsets))
+                }
             }
         }
     }

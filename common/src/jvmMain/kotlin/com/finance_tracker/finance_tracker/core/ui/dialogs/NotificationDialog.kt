@@ -1,55 +1,37 @@
-package com.finance_tracker.finance_tracker.features.settings.views
+package com.finance_tracker.finance_tracker.core.ui.dialogs
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.button.ActionButton
+import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.compose.stringResource
 
-@Suppress("ReusedModifierInstance")
 @Composable
-internal fun SendingUsageDataDialog(
-    onOkClick: () -> Unit,
-    modifier: Modifier = Modifier
+fun NotificationDialog(
+    text: StringResource,
+    onOkClick: () -> Unit
 ) {
-    CoinTheme {
+    DialogSurface {
         Column(
-            modifier = modifier
-                .background(CoinTheme.color.background)
-                .padding(8.dp),
+            modifier = Modifier.padding(8.dp)
         ) {
             Text(
                 modifier = Modifier
-                    .padding(
-                        start = 16.dp,
-                        top = 16.dp,
-                        end = 16.dp
-                    ),
-                text = buildAnnotatedString {
-                    withStyle(SpanStyle(fontWeight = FontWeight.Medium)) {
-                        append(stringResource(MR.strings.sending_usage_data_description_1))
-                    }
-                    append("\n\n")
-                    append(stringResource(MR.strings.sending_usage_data_description_2))
-                },
+                    .padding(horizontal = 16.dp)
+                    .padding(top = 16.dp),
+                text = stringResource(text),
                 style = CoinTheme.typography.body1,
                 color = CoinTheme.color.content
             )
-
             Row(
                 modifier = Modifier
                     .padding(
@@ -60,12 +42,9 @@ internal fun SendingUsageDataDialog(
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-
-                Spacer(modifier = Modifier.weight(1f))
-
                 ActionButton(
                     text = stringResource(MR.strings.okey),
-                    onClick = { onOkClick.invoke() }
+                    onClick = onOkClick
                 )
             }
         }

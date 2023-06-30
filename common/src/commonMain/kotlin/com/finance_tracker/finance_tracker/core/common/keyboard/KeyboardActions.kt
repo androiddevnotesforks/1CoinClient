@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.features.add_account
+package com.finance_tracker.finance_tracker.core.common.keyboard
 
 import com.finance_tracker.finance_tracker.core.common.formatters.getNumberSeparatorSymbol
 import kotlinx.collections.immutable.persistentListOf

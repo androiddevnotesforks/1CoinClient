@@ -151,6 +151,8 @@
     <string name="add_transaction_yesterday">Yesterday</string>
     <string name="add_transaction_btn_add">Add</string>
     <string name="add_transaction_btn_edit">Edit</string>
+    <string name="add_transaction_negative_balance">Incorrect negative transaction amount.</string>
+    <string name="add_transaction_incorrect_calculation">Incorrect transaction amount entered.</string>
 
     <!-- Home -->
     <string name="home_topbar_text">Total Balance</string>

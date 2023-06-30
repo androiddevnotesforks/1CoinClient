@@ -6,6 +6,9 @@ import com.finance_tracker.finance_tracker.core.common.TextRange
 import com.finance_tracker.finance_tracker.core.common.formatters.evaluateDoubleWithReplace
 import com.finance_tracker.finance_tracker.core.common.formatters.format
 import com.finance_tracker.finance_tracker.core.common.formatters.parse
+import com.finance_tracker.finance_tracker.core.common.keyboard.CalculationState
+import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
+import com.finance_tracker.finance_tracker.core.common.keyboard.applyKeyboardAction
 import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTree
@@ -15,7 +18,6 @@ import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.features.add_account.analytics.AddAccountAnalytics
-import com.finance_tracker.finance_tracker.features.add_account.models.BalanceCalculationState
 import com.github.murzagalin.evaluator.Evaluator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -74,11 +76,11 @@ class AddAccountViewModel(
                 "0" to enteredBalance.value.text.isNotEmpty()
             }
 
-            BalanceCalculationState(
+            CalculationState(
                 calculationResult = calculation,
                 isError = isError
             )
-        }.stateIn(viewModelScope, initialValue = BalanceCalculationState("0", false))
+        }.stateIn(viewModelScope, initialValue = CalculationState("0", false))
 
     val isAddButtonEnabled = combine(
         enteredAccountName,

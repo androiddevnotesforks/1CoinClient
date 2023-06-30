@@ -5,7 +5,7 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.localizedString
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseLocalsStorage
-import com.finance_tracker.finance_tracker.core.ui.DeleteBottomDialog
+import com.finance_tracker.finance_tracker.core.ui.dialogs.DeleteBottomDialog
 import com.finance_tracker.finance_tracker.domain.models.Account
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.launch

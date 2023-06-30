@@ -11,27 +11,28 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.keyboard.ArithmeticKeyboard
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.features.add_transaction.EnterTransactionStep
-import com.finance_tracker.finance_tracker.features.add_transaction.KeyboardCommand
 
 private const val ContentAnimationDuration = 200
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 internal fun EnterTransactionController(
-    accounts: List<Account>,
     categories: List<Category>,
     currentStep: EnterTransactionStep?,
     animationDirection: Int,
+    accounts: List<Account>,
     modifier: Modifier = Modifier,
     onAccountSelect: (Account) -> Unit = {},
     onAccountAdd: () -> Unit = {},
     onCategorySelect: (Category) -> Unit = {},
     onCategoryAdd: () -> Unit = {},
-    onKeyboardButtonClick: (KeyboardCommand) -> Unit = {}
+    onKeyboardButtonClick: (KeyboardAction) -> Unit = {}
 ) {
     Box(
         modifier = modifier
@@ -71,11 +72,12 @@ internal fun EnterTransactionController(
 
                 EnterTransactionStep.PrimaryAmount,
                 EnterTransactionStep.SecondaryAmount -> {
-                    AmountKeyboard(
-                        onButtonClick = onKeyboardButtonClick
-                    )
-                }
-
+                        ArithmeticKeyboard(
+                            shouldShowAmountKeyboard = true,
+                            isBottomExpandable = false,
+                            onKeyboardClick = onKeyboardButtonClick
+                        )
+                    }
                 else -> {
                     /* no keyboard */
                 }
