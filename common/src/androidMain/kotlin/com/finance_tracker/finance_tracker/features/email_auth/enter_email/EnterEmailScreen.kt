@@ -36,7 +36,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
-import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
+import com.finance_tracker.finance_tracker.core.ui.button.PrimaryButton
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable

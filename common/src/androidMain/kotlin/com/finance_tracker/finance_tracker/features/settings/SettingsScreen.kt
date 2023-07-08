@@ -1,5 +1,7 @@
 package com.finance_tracker.finance_tracker.features.settings
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +27,7 @@ import com.finance_tracker.finance_tracker.features.settings.views.ListGroupHead
 import com.finance_tracker.finance_tracker.features.settings.views.ListItemDivider
 import com.finance_tracker.finance_tracker.features.settings.views.SettingsScreenTopBar
 import com.finance_tracker.finance_tracker.features.settings.views.SettingsVersionAndUserIdInfo
+import com.finance_tracker.finance_tracker.features.settings.views.items.ExportImportDataItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsCategoriesItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsDashboardItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsMainCurrencyItem
@@ -40,6 +43,13 @@ internal fun SettingsScreen() {
 
         val uriHandler = LocalUriHandler.current
         val clipboardManager = LocalClipboardManager.current
+        val pickFileLauncher = rememberLauncherForActivityResult(
+            ActivityResultContracts.GetContent()
+        ) { imageUri ->
+            if (imageUri != null) {
+                viewModel.onFileChosen(imageUri.toString())
+            }
+        }
 
         viewModel.watchViewActions { action, baseLocalsStorage ->
             handleAction(
@@ -47,6 +57,8 @@ internal fun SettingsScreen() {
                 baseLocalsStorage = baseLocalsStorage,
                 uriHandler = uriHandler,
                 clipboardManager = clipboardManager,
+                viewModel = viewModel,
+                pickFileLauncher = pickFileLauncher
             )
         }
 
@@ -130,6 +142,10 @@ internal fun SettingsScreen() {
                 /*SettingsPrivacyItem(
                     onClick = viewModel::onPrivacyClick
                 )*/
+
+                ExportImportDataItem(
+                    onClick = viewModel::onExportImportClick
+                )
 
                 SettingsTelegramChatItem(
                     onClick = viewModel::onTelegramCommunityClick

@@ -10,6 +10,7 @@ import com.finance_tracker.finance_tracker.features.dashboard_settings.di.dashbo
 import com.finance_tracker.finance_tracker.features.detail_account.di.detailAccountModule
 import com.finance_tracker.finance_tracker.features.email_auth.enter_email.di.enterEmailModule
 import com.finance_tracker.finance_tracker.features.email_auth.enter_otp.di.enterOtpModule
+import com.finance_tracker.finance_tracker.features.export_import.di.exportImportModule
 import com.finance_tracker.finance_tracker.features.home.di.homeModule
 import com.finance_tracker.finance_tracker.features.ios_interaction_sample.di.sampleModule
 import com.finance_tracker.finance_tracker.features.plans.di.plansModule
@@ -29,6 +30,7 @@ fun featureModules() = listOf(
     detailAccountModule,
     dashboardSettingsModule,
     homeModule,
+    exportImportModule,
     tabsNavigationModule,
     transactionsModule,
     settingsModule,

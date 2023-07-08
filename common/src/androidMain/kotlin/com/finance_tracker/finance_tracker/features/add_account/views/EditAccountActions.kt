@@ -12,7 +12,7 @@ import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.IconActionButton
-import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
+import com.finance_tracker.finance_tracker.core.ui.button.PrimaryButton
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable

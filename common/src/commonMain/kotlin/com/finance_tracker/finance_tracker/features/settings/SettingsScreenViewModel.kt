@@ -24,6 +24,8 @@ class SettingsScreenViewModel(
     val featuresManager: FeaturesManager
 ): BaseViewModel<SettingsScreenAction>() {
 
+    var lastExportImportDialogKey: String? = null
+
     private val _userEmail = MutableStateFlow("")
     val userEmail = _userEmail.asStateFlow()
 
@@ -97,6 +99,29 @@ class SettingsScreenViewModel(
     fun onDashboardSettingsClick() {
         settingsAnalytics.trackDashboardSettingsClick()
         viewAction = SettingsScreenAction.OpenDashboardSettingsScreen
+    }
+
+    fun onExportImportClick() {
+        settingsAnalytics.trackExportImportClick()
+        viewAction = SettingsScreenAction.OpenExportImportDialog
+    }
+
+    fun onExportClick() {
+        settingsAnalytics.trackExportClick()
+        viewAction = SettingsScreenAction.OpenExportDialog
+    }
+
+    fun onImportClick() {
+        settingsAnalytics.trackImportClick()
+        viewAction = SettingsScreenAction.OpenExportImportDialog
+        viewAction = SettingsScreenAction.ChooseImportFile
+    }
+
+    fun onFileChosen(uri: String) {
+        lastExportImportDialogKey?.let { key ->
+            viewAction = SettingsScreenAction.DismissAllDialogs(key)
+        }
+        viewAction = SettingsScreenAction.OpenImportDialog(uri)
     }
 
     companion object {

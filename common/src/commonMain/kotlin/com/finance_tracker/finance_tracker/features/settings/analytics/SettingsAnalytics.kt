@@ -42,4 +42,16 @@ class SettingsAnalytics: BaseAnalytics() {
     fun trackSelectCurrencyClick() {
         trackClick(eventName = "SelectCurrency")
     }
+
+    fun trackExportImportClick() {
+        trackClick(eventName = "ExportImport")
+    }
+
+    fun trackExportClick() {
+        trackClick(eventName = "Export")
+    }
+
+    fun trackImportClick() {
+        trackClick(eventName = "Import")
+    }
 }

@@ -5,6 +5,11 @@ sealed interface SettingsScreenAction {
     object OpenCategorySettingsScreen: SettingsScreenAction
     object ShowUsageDataInfoDialog: SettingsScreenAction
     object OpenDashboardSettingsScreen: SettingsScreenAction
+    object OpenExportImportDialog: SettingsScreenAction
+    object OpenExportDialog: SettingsScreenAction
+    data class OpenImportDialog(val uri: String): SettingsScreenAction
+    object ChooseImportFile: SettingsScreenAction
+    data class DismissAllDialogs(val dialogKey: String): SettingsScreenAction
     object OpenPrivacyScreen: SettingsScreenAction
     object OpenSelectCurrencyScreen: SettingsScreenAction
     data class OpenUri(val uri: String): SettingsScreenAction

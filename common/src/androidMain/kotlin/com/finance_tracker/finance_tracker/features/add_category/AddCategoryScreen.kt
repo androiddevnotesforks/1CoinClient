@@ -20,7 +20,7 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
-import com.finance_tracker.finance_tracker.core.ui.PrimaryButton
+import com.finance_tracker.finance_tracker.core.ui.button.PrimaryButton
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.features.add_category.views.AddCategoryAppBar
 import com.finance_tracker.finance_tracker.features.add_category.views.ChooseIconButton

@@ -48,6 +48,10 @@
     <string name="toast_action">Undo</string>
     <string name="toast_text_transaction_deleted">Transaction has been deleted</string>
     <string name="toast_text_limit_deleted">Expense limit has been deleted</string>
+    <string name="toast_import_completed">Import has been completed</string>
+    <string name="toast_import_not_completed">Import has not been completed</string>
+    <string name="toast_export_completed">Export has been completed</string>
+    <string name="toast_export_not_completed">Export has not been completed</string>
 
     <!-- Widget settings -->
     <string name="widget_settings_title">Widgets Settings</string>
@@ -228,6 +232,9 @@
     <string name="settings_telegram_community">Telegram community</string>
     <string name="settings_categories">Category settings</string>
     <string name="settings_sending_usage_data">Sending usage data</string>
+    <string name="settings_export_import_data">Export/Import Transactions</string>
+    <string name="settings_export">Export</string>
+    <string name="settings_import">Import</string>
     <string name="sending_usage_data_description_1">Help improve your experience by\u00A0automatically sending app usage data.</string>
     <string name="sending_usage_data_description_2">We don\'t collect Personally\u00A0Identifiable\u00A0Information or Information about\u00A0the\u00A0quantitative value of\u00A0cash spending.\n\nThe security of\u00A0your personal data is one of\u00A0our top priorities!</string>
     <string name="version">Version:</string>
@@ -273,5 +280,13 @@
     <string name="month_budget_widget_money_spent">Money spent</string>
     <string name="month_budget_widget_remain_money">Remaining money</string>
     <string name="month_budget_widget_exceeding_limit">Exceeding the\u00A0limit</string>
+
+    <!-- Export -->
+    <string name="export_title">Exporting</string>
+    <string name="export_description">Please don’t close the dialog until the end of the operation</string>
+
+    <!-- Import -->
+    <string name="import_title">Importing</string>
+    <string name="import_description">Please don’t close the dialog until the end of the operation</string>
 
 </resources>

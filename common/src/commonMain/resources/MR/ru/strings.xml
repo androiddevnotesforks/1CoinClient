@@ -43,6 +43,10 @@
     <string name="toast_action">Отменить</string>
     <string name="toast_text_transaction_deleted">Транзакция удалена</string>
     <string name="toast_text_limit_deleted">Лимит трат удален</string>
+    <string name="toast_import_completed">Импорт успешно завершен</string>
+    <string name="toast_import_not_completed">Импорт не был завершен</string>
+    <string name="toast_export_completed">Экспорт успешно завершен</string>
+    <string name="toast_export_not_completed">Экспорт не был завершен</string>
 
     <!-- Categories -->
     <string name="category_restoraunt">Рестораны</string>
@@ -224,6 +228,9 @@
     <string name="settings_categories">Настройки категорий</string>
     <string name="settings_telegram_community">Telegram сообщество</string>
     <string name="settings_sending_usage_data">Отправка аналитики</string>
+    <string name="settings_export_import_data">Экспорт/Импорт транзакций</string>
+    <string name="settings_export">Экспорт</string>
+    <string name="settings_import">Импорт</string>
     <string name="sending_usage_data_description_1">Помогите улучшить пользовательский опыт с\u00A0помощью автоматической отправки данных использования приложения.</string>
     <string name="sending_usage_data_description_2">Мы не\u00A0собираем Личную\u00A0информацию или\u00A0информацию о\u00A0количественном значении денежных расходов.\n\nБезопасность ваших личных данных — один из\u00A0наших главных приоритетов!</string>
     <string name="version">Версия:</string>
@@ -269,5 +276,13 @@
     <string name="month_budget_widget_money_spent">Потрачено</string>
     <string name="month_budget_widget_remain_money">Осталось</string>
     <string name="month_budget_widget_exceeding_limit">Превышение лимита</string>
+
+    <!-- Export -->
+    <string name="export_title">Экспортируем</string>
+    <string name="export_description">Пожалуйста, не\u00A0закрывайте окно до\u00A0окончания операции</string>
+
+    <!-- Import -->
+    <string name="import_title">Импортируем</string>
+    <string name="import_description">Пожалуйста, не\u00A0закрывайте окно до\u00A0окончания операции</string>
 
 </resources>
