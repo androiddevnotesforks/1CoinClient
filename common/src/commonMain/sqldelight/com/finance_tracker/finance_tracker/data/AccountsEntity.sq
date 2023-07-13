@@ -56,3 +56,6 @@ updateAccountPositionById:
 UPDATE AccountsEntity
 SET position = :position
 WHERE id = :id;
+
+deleteAll:
+DELETE FROM AccountsEntity;

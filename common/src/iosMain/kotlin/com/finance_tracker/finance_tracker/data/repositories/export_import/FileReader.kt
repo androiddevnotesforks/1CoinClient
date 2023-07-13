@@ -9,4 +9,14 @@ actual class FileReader actual constructor(
         // TODO: Read file on iOS
         return emptyList()
     }
+
+    actual suspend fun readText(uri: String): String {
+        // TODO: Read file on iOS
+        return ""
+    }
+
+    actual suspend fun unzipFiles(zipFilePath: String, destinationDirectoryPath: String): Map<String, String> {
+        // TODO: Unzip file on iOS
+        return emptyMap()
+    }
 }

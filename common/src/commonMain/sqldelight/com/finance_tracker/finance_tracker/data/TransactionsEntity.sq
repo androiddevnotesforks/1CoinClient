@@ -129,3 +129,11 @@ ORDER BY
     date DESC,
     insertionDate DESC
 LIMIT :limit;
+
+getAllTransactions:
+SELECT *
+FROM TransactionsEntity
+WHERE TransactionsEntity.accountId IS NOT NULL;
+
+deleteAll:
+DELETE FROM TransactionsEntity;

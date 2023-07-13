@@ -1,0 +1,3 @@
+package com.finance_tracker.finance_tracker.domain.exceptions
+
+class DeprecatedBackupFileException: IllegalStateException()

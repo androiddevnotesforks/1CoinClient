@@ -50,6 +50,13 @@ internal fun SettingsScreen() {
                 viewModel.onFileChosen(imageUri.toString())
             }
         }
+        val pickDirectoryLauncher = rememberLauncherForActivityResult(
+            ActivityResultContracts.OpenDocumentTree()
+        ) { imageUri ->
+            if (imageUri != null) {
+                viewModel.onDirectoryChosen(imageUri.toString())
+            }
+        }
 
         viewModel.watchViewActions { action, baseLocalsStorage ->
             handleAction(
@@ -58,7 +65,8 @@ internal fun SettingsScreen() {
                 uriHandler = uriHandler,
                 clipboardManager = clipboardManager,
                 viewModel = viewModel,
-                pickFileLauncher = pickFileLauncher
+                pickFileLauncher = pickFileLauncher,
+                pickDirectoryLauncher = pickDirectoryLauncher
             )
         }
 

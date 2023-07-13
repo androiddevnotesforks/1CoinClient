@@ -11,6 +11,7 @@ import com.finance_tracker.finance_tracker.data.repositories.TransactionsReposit
 import com.finance_tracker.finance_tracker.data.repositories.UserRepository
 import com.finance_tracker.finance_tracker.data.repositories.export_import.ExportImportRepository
 import com.finance_tracker.finance_tracker.data.repositories.export_import.FileReader
+import com.finance_tracker.finance_tracker.data.repositories.export_import.FileWriter
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
@@ -26,4 +27,5 @@ internal val repositoriesModule = module {
     factoryOf(::PlansRepository)
     factoryOf(::ExportImportRepository)
     factoryOf(::FileReader)
+    factoryOf(::FileWriter)
 }

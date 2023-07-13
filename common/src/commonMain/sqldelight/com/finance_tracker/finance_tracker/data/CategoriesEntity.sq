@@ -50,3 +50,6 @@ updateAccountById:
 UPDATE CategoriesEntity
 SET name = :name, icon = :icon
 WHERE id = :id;
+
+deleteAll:
+DELETE FROM CategoriesEntity;

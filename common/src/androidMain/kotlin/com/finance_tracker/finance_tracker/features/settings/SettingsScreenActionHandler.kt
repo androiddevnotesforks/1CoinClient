@@ -16,13 +16,15 @@ import com.finance_tracker.finance_tracker.features.settings.views.dialogs.Expor
 import ru.alexgladkov.odyssey.compose.extensions.present
 import ru.alexgladkov.odyssey.compose.extensions.push
 
+@Suppress("CyclomaticComplexMethod")
 fun handleAction(
     viewModel: SettingsScreenViewModel,
     action: SettingsScreenAction,
     baseLocalsStorage: BaseLocalsStorage,
     uriHandler: UriHandler,
     clipboardManager: ClipboardManager,
-    pickFileLauncher: ManagedActivityResultLauncher<String, Uri?>
+    pickFileLauncher: ManagedActivityResultLauncher<String, Uri?>,
+    pickDirectoryLauncher: ManagedActivityResultLauncher<Uri?, Uri?>,
 ) {
     val rootController = baseLocalsStorage.rootController
 
@@ -82,11 +84,18 @@ fun handleAction(
             }
         }
 
-        SettingsScreenAction.OpenExportDialog -> {
+        is SettingsScreenAction.OpenExportDialog -> {
             val modalNavController = rootController.findModalController()
             modalNavController.present(DialogConfigurations.bottomSheet) { key ->
-                ExportLoadingDialog(dialogKey = key)
+                ExportLoadingDialog(
+                    dialogKey = key,
+                    uri = action.uri
+                )
             }
+        }
+
+        SettingsScreenAction.ChooseExportDirectory -> {
+            pickDirectoryLauncher.launch(null)
         }
 
         is SettingsScreenAction.OpenImportDialog -> {
@@ -100,7 +109,7 @@ fun handleAction(
         }
 
         SettingsScreenAction.ChooseImportFile -> {
-            pickFileLauncher.launch("text/comma-separated-values")
+            pickFileLauncher.launch("application/zip")
         }
 
         is SettingsScreenAction.DismissAllDialogs -> {

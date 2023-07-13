@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS DbVersionEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    version INTEGER NOT NULL
+);
+
+setVersion:
+INSERT OR REPLACE
+INTO DbVersionEntity
+VALUES (1, :version);
+
+getVersion:
+SELECT version FROM DbVersionEntity WHERE id = 1;

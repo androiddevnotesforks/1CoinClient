@@ -6,6 +6,7 @@ import com.finance_tracker.finance_tracker.core.feature_flags.FeatureFlag
 import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
 import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.data.database.DatabaseInitializer
+import com.finance_tracker.finance_tracker.data.repositories.export_import.ExportImportRepository
 import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.DashboardSettingsInteractor
@@ -29,6 +30,7 @@ class AppInitializer(
     private val analyticsTracker: AnalyticsTracker,
     private val databaseInitializer: DatabaseInitializer,
     private val loggerInitializer: LoggerInitializer,
+    private val exportImportRepository: ExportImportRepository,
     private val context: Context,
     featuresManager: FeaturesManager
 ): CoroutineScope {
@@ -49,10 +51,22 @@ class AppInitializer(
         initDatabase()
         initAnalytics()
         updateDashboardItems()
+        checkDbVersion()
     }
 
     private fun initLogger() {
         loggerInitializer.init()
+    }
+
+    private fun checkDbVersion() {
+        launch(
+            CoroutineExceptionHandler { _, throwable ->
+                Napier.e("AppInitializer", throwable)
+                throw throwable
+            }
+        ) {
+            exportImportRepository.checkDbVersion()
+        }
     }
 
     private fun initAnalytics() {

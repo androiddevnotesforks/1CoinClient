@@ -45,8 +45,8 @@
     <string name="toast_text_limit_deleted">Лимит трат удален</string>
     <string name="toast_import_completed">Импорт успешно завершен</string>
     <string name="toast_import_not_completed">Импорт не был завершен</string>
-    <string name="toast_export_completed">Экспорт успешно завершен</string>
     <string name="toast_export_not_completed">Экспорт не был завершен</string>
+    <string name="toast_backup_not_supported">Резервное копия не поддерживается. Обновите приложение или выберите другой файл.</string>
 
     <!-- Categories -->
     <string name="category_restoraunt">Рестораны</string>

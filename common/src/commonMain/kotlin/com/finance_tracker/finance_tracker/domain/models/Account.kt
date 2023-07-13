@@ -38,7 +38,21 @@ data class Account(
         Investment(
             textId = MR.strings.account_type_investment_account,
             analyticsName = "Investment"
-        )
+        );
+
+        companion object {
+            fun fromName(name: String): Type {
+                return when (name) {
+                    "Cash" -> Cash
+                    "Card" -> Card
+                    "BankAccount" -> BankAccount
+                    "Credit" -> Credit
+                    "Deposit" -> Deposit
+                    "Investment" -> Investment
+                    else -> error("No account type for name: $name")
+                }
+            }
+        }
     }
 
     val icon: FileResource

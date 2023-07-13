@@ -71,6 +71,7 @@ kotlin {
                 implementation(libs.firebase.crashlytics)
                 implementation(libs.lottie)
                 implementation(libs.googleServicesAuth)
+                implementation(libs.documentfile)
             }
         }
 

@@ -3,7 +3,7 @@
 -- DatabaseInitializer.CurrentDbVersion and ExportImportRepository.LastSupportedDbVersion.
 -- Update MIGRATION logic in ExportImportRepository!
 
-CREATE TABLE IF NOT EXISTS DashboardItemsEntity (
+CREATE TABLE IF NOT EXISTS DbVersionEntity (
     id INTEGER NOT NULL PRIMARY KEY,
-    isEnabled INTEGER AS Boolean DEFAULT 0 NOT NULL
+    version INTEGER NOT NULL
 );

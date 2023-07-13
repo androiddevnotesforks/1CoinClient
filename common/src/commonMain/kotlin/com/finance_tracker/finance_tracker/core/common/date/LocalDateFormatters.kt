@@ -37,3 +37,10 @@ private fun LocalDateTime.toFullDateFormat(): String {
     return "${dayOfMonth.zeroPrefixed(2)}." +
             "${monthNumber.zeroPrefixed(2)}.$year"
 }
+
+// Format: "yyyy-MM-dd_ms"
+fun LocalDateTime.toShortFormatWithMilliseconds(): String {
+    return "${year}-${monthNumber.zeroPrefixed(2)}-" +
+            "${dayOfMonth.zeroPrefixed(2)}_" +
+            "${this.time.toMillisecondOfDay()}"
+}

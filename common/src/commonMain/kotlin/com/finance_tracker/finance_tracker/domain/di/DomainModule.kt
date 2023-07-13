@@ -5,6 +5,7 @@ import com.finance_tracker.finance_tracker.domain.interactors.AuthInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.DashboardSettingsInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.ExportImportInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.ThemeInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.plans.MonthExpenseLimitInteractor
@@ -31,4 +32,5 @@ internal val domainModule = module {
     factoryOf(::ThemeInteractor)
     factoryOf(::PlansInteractor)
     factoryOf(::MonthExpenseLimitInteractor)
+    factoryOf(::ExportImportInteractor)
 }

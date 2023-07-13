@@ -41,6 +41,7 @@ arithmetic-evaluator = "0.15.0"
 bignum = "0.3.8"
 nativecoroutines = "0.13.3"
 moko_kswift = "0.6.1"
+documentfile = "1.0.1"
 
 [libraries]
 gradleplugins-android = { module = "com.android.tools.build:gradle", version.ref = "android_plugin" }
@@ -137,6 +138,8 @@ imageloader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "image
 arithmeticEvaluator = { module = "io.github.murzagalin:multiplatform-expressions-evaluator", version.ref = "arithmetic-evaluator" }
 
 bignum = { module = "com.ionspin.kotlin:bignum", version.ref = "bignum" }
+
+documentfile = { module = "androidx.documentfile:documentfile", version.ref = "documentfile" }
 
 [bundles]
 odyssey = ["odyssey-core", "odyssey-compose"]

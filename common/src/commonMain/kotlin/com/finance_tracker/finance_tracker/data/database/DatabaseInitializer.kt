@@ -13,7 +13,9 @@ import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.financetracker.financetracker.data.AccountsEntityQueries
 import com.financetracker.financetracker.data.CategoriesEntityQueries
 import com.financetracker.financetracker.data.CurrencyRatesEntityQueries
+import com.financetracker.financetracker.data.DbVersionEntityQueries
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -26,10 +28,13 @@ class DatabaseInitializer(
     private val accountSettings: AccountSettings,
     private val categoriesEntityQueries: CategoriesEntityQueries,
     private val accountsEntityQueries: AccountsEntityQueries,
-    private val currencyRatesEntityQueries: CurrencyRatesEntityQueries
+    private val currencyRatesEntityQueries: CurrencyRatesEntityQueries,
+    private val dbVersionEntityQueries: DbVersionEntityQueries
 ) {
     suspend fun init(context: Context) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
+            initDbVersion()
+
             if (!accountSettings.isInitDefaultData()) {
                 initAccounts(context)
                 initCategories(context)
@@ -42,6 +47,10 @@ class DatabaseInitializer(
                 accountSettings.setIsInitAccountPositions(true)
             }
         }
+    }
+
+    private fun initDbVersion() {
+        dbVersionEntityQueries.setVersion(CurrentDbVersion)
     }
 
     private fun initAccounts(context: Context) {
@@ -200,5 +209,9 @@ class DatabaseInitializer(
         allAccounts.forEachIndexed { index, accountsEntity ->
             accountsEntityQueries.updateAccountPositionById(index, accountsEntity.id)
         }
+    }
+
+    companion object {
+        private const val CurrentDbVersion = 8L
     }
 }

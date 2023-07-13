@@ -108,20 +108,24 @@ class SettingsScreenViewModel(
 
     fun onExportClick() {
         settingsAnalytics.trackExportClick()
-        viewAction = SettingsScreenAction.OpenExportDialog
+        viewAction = SettingsScreenAction.DismissAllDialogs
+        viewAction = SettingsScreenAction.ChooseExportDirectory
     }
 
     fun onImportClick() {
         settingsAnalytics.trackImportClick()
         viewAction = SettingsScreenAction.OpenExportImportDialog
+        viewAction = SettingsScreenAction.DismissAllDialogs
         viewAction = SettingsScreenAction.ChooseImportFile
     }
 
     fun onFileChosen(uri: String) {
-        lastExportImportDialogKey?.let { key ->
-            viewAction = SettingsScreenAction.DismissAllDialogs(key)
-        }
+        viewAction = SettingsScreenAction.DismissAllDialogs
         viewAction = SettingsScreenAction.OpenImportDialog(uri)
+    }
+
+    fun onDirectoryChosen(uri: String) {
+        viewAction = SettingsScreenAction.OpenExportDialog(uri)
     }
 
     companion object {
