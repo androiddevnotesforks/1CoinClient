@@ -47,7 +47,8 @@ struct CoinTopAppBar<Title: View, NavIcon: View, Actions: View>: View {
         .safeAreaInset(edge: .top) {
             Spacer().frame(height: safeAreaInsets.top)
         }
-        .shadow(radius: 1)
+        .clipShape(Rectangle())
+        .shadow(color: Color.black.opacity(0.15), radius: 0.5, x: 0, y: 2)
     }
 }
 

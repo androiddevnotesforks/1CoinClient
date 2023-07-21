@@ -15,11 +15,12 @@ struct InteractiveLollipop: View {
 
     var body: some View {
         LollipopChart(data: data, selectedElement: $selectedElement)
+            // Overlay Rectangle with additional data of chart 
             .chartOverlay { proxy in
                 ZStack(alignment: .topLeading) {
                     GeometryReader { nthGeoItem in
                         if let selectedElement = selectedElement {
-                            let dateInterval = Calendar.current.dateInterval(of: .day, for: selectedElement.day)!
+                            let dateInterval = Calendar.current.dateInterval(of: .day, for: selectedElement.day ?? Date()) ?? .init()
                             let startPositionX1 = proxy.position(forX: dateInterval.start) ?? 0
                             let startPositionX2 = proxy.position(forX: dateInterval.end) ?? 0
                             let midStartPositionX = (startPositionX1 + startPositionX2) / 2 + nthGeoItem[proxy.plotAreaFrame].origin.x
@@ -37,7 +38,7 @@ struct InteractiveLollipop: View {
                                 .offset(x: lineX)
                             
                             VStack(alignment: .center) {
-                                Text("\(selectedElement.day, format: .dateTime.year().month().day())")
+                                Text("\(selectedElement.day ?? Date(), format: .dateTime.year().month().day())")
                                     .fontSubtitle2Style(color: CoinTheme.shared.colors.backgroundSurface)                                
                                 Text("-$\(selectedElement.expences, format: .number)")
                                     .fontBody1MediumStyle(color: CoinTheme.shared.colors.backgroundSurface)

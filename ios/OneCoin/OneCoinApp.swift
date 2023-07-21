@@ -26,7 +26,15 @@ struct OneCoinApp: App {
         sampleViewModelUsage()
         //  homeViewModelUsage()
     }
+ 
+    var body: some Scene {
+        WindowGroup {
+            AppScreen()
+        }
+    }
+}
 
+extension OneCoinApp {
     // Initialize logger first
     private func initKMMLogger() {
         LoggerInitializer().doInit()
@@ -118,11 +126,5 @@ struct OneCoinApp: App {
         // homeViewModel.onScreenComposed() - called after screen rendered
         // createPublisher(for: homeViewModel.totalBalanceNative) - example of listening state changes
         // createPublisher(for: homeViewModel.viewActionChannelNative) - for listening actions
-    }
- 
-    var body: some Scene {
-        WindowGroup {
-            AppScreen()
-        }
     }
 }

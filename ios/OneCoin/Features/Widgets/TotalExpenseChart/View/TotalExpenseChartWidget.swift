@@ -9,11 +9,14 @@ import SwiftUI
 import OneCoinShared
 
 struct TotalExpenseChartWidget: View {
+    @EnvironmentObject var router: Router
+    
     var body: some View {
+        // Expense trend
         CoinWidget(
             title: MR.strings().expense_analytics_trend.desc().localized(),
             withBorder: true,
-            onClick: nil
+            onClick: { router.navigate(to: OneCoinTabs.analytics) }
         ) {
             TotalExpenseChartWidgetContent()
         }

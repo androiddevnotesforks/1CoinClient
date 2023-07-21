@@ -8,21 +8,43 @@
 import SwiftUI
 
 struct AppScreen: View {
-    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    @StateObject var router = Router()
     
-    @State private var safeAreaInsets: (top: CGFloat, bottom: CGFloat) = (0, 0)
+    init() {
+        UINavigationBar.setAnimationsEnabled(false)
+    }
     
     var body: some View {
-        GeometryReader { proxy in
-            ZStack {
-                TabsNavigationScreen()
-                    .ignoresSafeArea()
-                    .environment(\.safeAreaInsets, safeAreaInsets)
-                    .onAppear {
-                        safeAreaInsets = (proxy.safeAreaInsets.top, proxy.safeAreaInsets.bottom)
+        NavigationStack(path: $router.navPath) {
+                VStack {
+                    HomeScreen()
+                    CoinTabsView(selectedTab: OneCoinTabs.home)
+                }
+                .navigationDestination(for: Router.Destination.self) { selectedTab in
+                    VStack {
+                        switch selectedTab {
+                        case .home:
+                            HomeScreen()
+                                .navigationBarBackButtonHidden()
+                        case .transactions:
+                            TransactionsScreen()
+                                .navigationBarBackButtonHidden()
+                        case .add:
+                            AddTransactionScreen()
+                                .navigationBarBackButtonHidden()
+                        case .plans:
+                            PlansScreen()
+                                .navigationBarBackButtonHidden()
+                        case .analytics:
+                            AnalyticsScreen()
+                                .navigationBarBackButtonHidden()
+                        }
+                        
+                        CoinTabsView(selectedTab: selectedTab)
                     }
+                }
             }
-        }
+            .environmentObject(router)
     }
 }
 

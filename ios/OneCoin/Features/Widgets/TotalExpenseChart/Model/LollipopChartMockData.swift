@@ -10,13 +10,13 @@ import Foundation
 
 struct LollipopChartData: Identifiable, Hashable {
     let id: String
-    let day: Date
+    let day: Date?
     let expences: Int
     var color: Color
     
     init(
         id: String = UUID().uuidString, 
-        day: Date, 
+        day: Date?, 
         expences: Int, 
         color: Color = CoinTheme.shared.colors.dividers
     ) {

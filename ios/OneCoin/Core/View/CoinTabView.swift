@@ -9,52 +9,63 @@ import SwiftUI
 import OneCoinShared
 
 struct CoinTabsView: View {
-    @Binding var selectedTab: OneCoinTabs
+    private enum Constant {
+        static let plusIconFrame: CGFloat = 30
+        static let plusButtonFrame: CGFloat = 56
+        static let tabOffset: CGFloat = 5
+    }
+    let selectedTab: OneCoinTabs
+    @EnvironmentObject var router: Router
     
     var body: some View {
         HStack {
             // MARK: - Home Tab
-            Spacer()
             showSelectedTabScreen(with: OneCoinTabs.home)
             
             // MARK: - Transactions Tab
             Spacer()
             showSelectedTabScreen(with: .transactions)
-
+            
             // MARK: - Plus Button
             addTransactionButton
-
+                .offset(y: -Constant.plusIconFrame)
+            
             // MARK: - Plans Tab
             showSelectedTabScreen(with: .plans)
             Spacer()
             
             // MARK: - Analytics Tab
             showSelectedTabScreen(with: .analytics)
-            Spacer()
         }
+        .navigationBarBackButtonHidden()
+        .padding(.horizontal, Constant.plusIconFrame)
+        .offset(y: -Constant.tabOffset)
+        .frame(height: Constant.plusButtonFrame)
         .background {
             Divider()
-                .padding(.bottom, 55)
+                .frame(height: 2)
+                .overlay(Color.black.opacity(0.15))
+                .offset(y: -Constant.plusIconFrame - Constant.tabOffset)
         }
         .background(CoinTheme.shared.colors.backgroundSurface)
     }
     
     private var addTransactionButton: some View {
         Button {
-            selectedTab = OneCoinTabs.add
+            router.navigate(to: OneCoinTabs.add)
         } label: {
             ZStack {
                 Circle()
                     .foregroundColor(CoinTheme.shared.colors.primary)
-                    .frame(width: 56, height: 56)
+                    .frame(width: Constant.plusButtonFrame, height: Constant.plusButtonFrame)
                     .shadow(radius: 4)
                 
                 SVGImageView(url: OneCoinTabs.add.tabURL)
                     .tintColor(CoinTheme.shared.colors.white)
-                    .frameSvg(width: 30, height: 30)
+                    .frameSvg(width: Constant.plusIconFrame, height: Constant.plusIconFrame)
             }
-            .padding(.bottom, 32)
         }
+        .buttonStyle(PlainButtonStyle())
     }
     
     private func showSelectedTabScreen(with tab: OneCoinTabs) -> some View {
@@ -62,7 +73,7 @@ struct CoinTabsView: View {
             text: tab.tabName,
             url: tab.tabURL,
             isActive: selectedTab == tab
-        ) { selectedTab = tab }
+        ) { router.navigate(to: tab) }
     }
 }
 
@@ -91,11 +102,12 @@ fileprivate struct CoinTab: View {
                     .fontSubtitle4Style(color: isActive ? CoinTheme.shared.colors.primary : CoinTheme.shared.colors.secondary)
             }
         }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
 struct CoinTabView_Previews: PreviewProvider {
     static var previews: some View {
-        CoinTabsView(selectedTab: .constant(OneCoinTabs.home))
+        CoinTabsView(selectedTab: OneCoinTabs.home)
     }
 }

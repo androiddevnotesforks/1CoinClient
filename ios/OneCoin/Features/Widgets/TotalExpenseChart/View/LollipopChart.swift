@@ -15,7 +15,7 @@ struct LollipopChart: View {
     var body: some View {
         Chart(data, id: \.day) {
             BarMark(
-                x: PlottableValue.value($0.id, $0.day, unit: .day),
+                x: PlottableValue.value($0.id, $0.day ?? Date(), unit: .day),
                 y: PlottableValue.value($0.expences.description, $0.expences)
             )
             .foregroundStyle($0.id == selectedElement?.id ? CoinTheme.shared.colors.primary : CoinTheme.shared.colors.dividers) 
@@ -60,7 +60,7 @@ struct LollipopChart: View {
             var minDistance: TimeInterval = .infinity
             var index: Int? = nil
             for salesDataIndex in data.indices {
-                let nthSalesDataDistance = data[salesDataIndex].day.distance(to: date)
+                let nthSalesDataDistance: TimeInterval = data[salesDataIndex].day?.distance(to: date) ?? .init()
                 if abs(nthSalesDataDistance) < minDistance {
                     minDistance = abs(nthSalesDataDistance)
                     index = salesDataIndex

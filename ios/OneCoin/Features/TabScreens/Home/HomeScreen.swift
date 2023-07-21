@@ -9,6 +9,8 @@ import SwiftUI
 import OneCoinShared
 
 struct HomeScreen: View {
+    @EnvironmentObject var router: Router
+    
     var body: some View {
         VStack {
             HomeTopBar(
@@ -18,8 +20,10 @@ struct HomeScreen: View {
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(spacing: 16) {
                     CoinWidget(
+                        // My accounts
                         title: MR.strings().widget_settings_item_my_accounts.desc().localized(),
-                        withBorder: false
+                        withBorder: false,
+                        onClick: { print("ahah") }
                     ) {
                         CardAccountsScreen()
                     }
@@ -28,10 +32,11 @@ struct HomeScreen: View {
                     
                     LastTransactionsWidget(
                         lastTransactions: [], 
-                        onClick: nil, 
+                        widgetClick: { router.navigate(to: OneCoinTabs.transactions) }, 
                         onTransactionClick: { _ in }
                     )
                 }
+                .padding(.bottom, UI.Padding.Scroll.bottom)
             }
         }
     }

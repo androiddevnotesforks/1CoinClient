@@ -40,18 +40,18 @@ private struct CoinWidgetTitle: View {
                 .fontH5Style(color: theme.colors.content)
             if (clickEnabled) {
                 Spacer()
-                // TODO: replace ic_arrow_down to ic_arrow_right_small
-                SVGImageView(url: MR.files().ic_arrow_down.url)
+                SVGImageView(url: MR.files().ic_arrow_right_small.url)
                     .tintColor(theme.colors.content)
                     .frameSvg(width: 24, height: 24)
             }
         }
-            .onTapGestureIf(clickEnabled) {
-                onClick?()
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.vertical, UI.Padding.Vertical.default)
-            .padding(.horizontal, UI.Padding.Horizontal.default)
+        .contentShape(Rectangle())
+        .onTapGestureIf(clickEnabled) {
+            onClick?()
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.vertical, UI.Padding.Vertical.default)
+        .padding(.horizontal, UI.Padding.Horizontal.default)
     }
 }
 
@@ -80,7 +80,11 @@ private struct CoinWidgetContent<Content: View>: View {
             .clipShape(shape)
             .padding(.horizontal, contentHorizontalPadding)
             .padding(.top, 2)
-            .shadow(radius: withBorder ? 1 : 0)
+            .if(withBorder) { view in
+                view
+                    .shadow(radius: 1)
+                    .shadow(color: Color.black.opacity(0.15), radius: 1, x: 0, y: 5)
+            }
     }
 }
 

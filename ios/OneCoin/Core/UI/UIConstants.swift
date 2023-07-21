@@ -1,5 +1,5 @@
 //
-//  UIOneCoinConstants.swift
+//  UIConstants.swift
 //  OneCoin
 //
 //  Created by Эльдар Попов on 22.05.2023.
@@ -20,6 +20,15 @@ public extension UI {
             static let small: CGFloat = 8
             static let `default`: CGFloat = 16
         }
+        
+        enum Scroll {
+            static let bottom: CGFloat = 30
+        }
+    }
+    
+    enum Spacing {
+        static let `default`: CGFloat = 12
+        static let large: CGFloat = 24
     }
     
     enum Card {
@@ -37,5 +46,11 @@ public extension UI {
     enum Components {
         static let cornerRadius: CGFloat = 12
         static let dedaultHStackSpace: CGFloat = 8
+    }
+    
+    enum SVGIcon {
+        static let small: CGFloat = 18
+        static let `default`: CGFloat = 24
+        static let large: CGFloat = 44
     }
 }

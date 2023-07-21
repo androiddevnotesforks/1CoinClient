@@ -39,7 +39,7 @@ private extension Tabs {
             .background {
                 if isSelected {
                     Capsule()
-                        .fill(CoinTheme.shared.colors.secondary)
+                        .fill(CoinTheme.shared.colors.dividers)
                         .matchedGeometryEffect(id: animationEffectID, in: nameSpace, properties: .frame)
                 }
             }

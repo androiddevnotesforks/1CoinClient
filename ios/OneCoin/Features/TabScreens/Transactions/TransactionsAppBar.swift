@@ -12,6 +12,7 @@ struct TransactionsAppBar: View {
     var body: some View {
         CoinTopAppBar(
             title: {
+                // Transactions
                 Text(MR.strings().transactions_title_normal.desc().localized())
                     .fontH4Style()
             }

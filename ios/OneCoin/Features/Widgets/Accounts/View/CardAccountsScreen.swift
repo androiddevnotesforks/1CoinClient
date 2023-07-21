@@ -11,7 +11,7 @@ struct CardAccountsScreen: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: UI.Padding.Horizontal.small) {
-                ForEach(AccountCardModel.getModelsMock(), id: \.id) { card in
+                ForEach(AccountCardModel.getAccountCardModelsMock(), id: \.id) { card in
                     AccountCardView(color: card.color, sizeOfContainer: CGSize(width: UI.Card.width, height: UI.Card.height)) {
                             accountCardView(with: card)
                                 .padding(UI.Padding.Horizontal.default)

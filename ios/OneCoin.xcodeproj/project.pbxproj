@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		310099652A1BF69F003BC155 /* UIOneCoinConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310099642A1BF69F003BC155 /* UIOneCoinConstants.swift */; };
+		310099652A1BF69F003BC155 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310099642A1BF69F003BC155 /* UIConstants.swift */; };
+		3143C09B2A5FE77F001CDAF8 /* LastTransactionsContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3143C09A2A5FE77F001CDAF8 /* LastTransactionsContent.swift */; };
+		3143C09F2A5FE9C2001CDAF8 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3143C09E2A5FE9C2001CDAF8 /* TransactionCell.swift */; };
+		3143C0A22A5FF55F001CDAF8 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3143C0A12A5FF55F001CDAF8 /* TransactionType.swift */; };
+		3143C0A42A6005AB001CDAF8 /* TransactionListModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3143C0A32A6005AB001CDAF8 /* TransactionListModelMock.swift */; };
+		3143C0A62A61E792001CDAF8 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3143C0A52A61E792001CDAF8 /* Router.swift */; };
+		3143C0A82A6970ED001CDAF8 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3143C0A72A6970ED001CDAF8 /* Array.swift */; };
 		314515AF2A1F94E500E31A17 /* TotalExpenseChartWidgetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515AE2A1F94E500E31A17 /* TotalExpenseChartWidgetContent.swift */; };
 		314515B12A1F9D2D00E31A17 /* LollipopChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515B02A1F9D2D00E31A17 /* LollipopChart.swift */; };
 		314515B32A1FA92600E31A17 /* LollipopChartMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515B22A1FA92600E31A17 /* LollipopChartMockData.swift */; };
@@ -50,7 +56,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		310099642A1BF69F003BC155 /* UIOneCoinConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOneCoinConstants.swift; sourceTree = "<group>"; };
+		310099642A1BF69F003BC155 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
+		3143C09A2A5FE77F001CDAF8 /* LastTransactionsContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTransactionsContent.swift; sourceTree = "<group>"; };
+		3143C09E2A5FE9C2001CDAF8 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
+		3143C0A12A5FF55F001CDAF8 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
+		3143C0A32A6005AB001CDAF8 /* TransactionListModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListModelMock.swift; sourceTree = "<group>"; };
+		3143C0A52A61E792001CDAF8 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		3143C0A72A6970ED001CDAF8 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		314515AE2A1F94E500E31A17 /* TotalExpenseChartWidgetContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalExpenseChartWidgetContent.swift; sourceTree = "<group>"; };
 		314515B02A1F9D2D00E31A17 /* LollipopChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LollipopChart.swift; sourceTree = "<group>"; };
 		314515B22A1FA92600E31A17 /* LollipopChartMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LollipopChartMockData.swift; sourceTree = "<group>"; };
@@ -109,6 +121,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3143C09C2A5FE7EC001CDAF8 /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				3143C0A02A5FF547001CDAF8 /* Model */,
+				3143C09D2A5FE7FC001CDAF8 /* View */,
+			);
+			path = Transactions;
+			sourceTree = "<group>";
+		};
+		3143C09D2A5FE7FC001CDAF8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3AF88E0C29F3EDB30011C207 /* LastTransactionsWidget.swift */,
+				3143C09A2A5FE77F001CDAF8 /* LastTransactionsContent.swift */,
+				3143C09E2A5FE9C2001CDAF8 /* TransactionCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3143C0A02A5FF547001CDAF8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3143C0A12A5FF55F001CDAF8 /* TransactionType.swift */,
+				3143C0A32A6005AB001CDAF8 /* TransactionListModelMock.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		314515B42A1FB5B500E31A17 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				314515B92A1FF0A100E31A17 /* SafeInCollection.swift */,
+				3143C0A72A6970ED001CDAF8 /* Array.swift */,
 			);
 			path = Collection;
 			sourceTree = "<group>";
@@ -215,6 +256,7 @@
 				3A23C5CF299256BA0033CCF8 /* OneCoinApp.swift */,
 				3A23C5D3299256BB0033CCF8 /* Assets.xcassets */,
 				3A23C5D5299256BB0033CCF8 /* Preview Content */,
+				3143C0A52A61E792001CDAF8 /* Router.swift */,
 			);
 			path = OneCoin;
 			sourceTree = "<group>";
@@ -309,7 +351,7 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		3A5BA2E529AA673300085ACF /* Views */ = {
+		3A5BA2E529AA673300085ACF /* View */ = {
 			isa = PBXGroup;
 			children = (
 				3A5BA2E329A9FFDF00085ACF /* SVGImageView.swift */,
@@ -318,7 +360,7 @@
 				3AF88E0629F3DC9E0011C207 /* CoinWidget.swift */,
 				3AF88E0829F3DE220011C207 /* View+Extension.swift */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		3A5BA2E829B10AB900085ACF /* Core */ = {
@@ -326,7 +368,7 @@
 			children = (
 				314515B42A1FB5B500E31A17 /* Extension */,
 				3A5BA2EA29B10AF900085ACF /* UI */,
-				3A5BA2E529AA673300085ACF /* Views */,
+				3A5BA2E529AA673300085ACF /* View */,
 				3A5BA2E229A9FFC600085ACF /* Utils */,
 			);
 			path = Core;
@@ -338,7 +380,7 @@
 				3A5BA2EB29B10B0A00085ACF /* CoinTheme.swift */,
 				3A5BA2ED29B10B2D00085ACF /* Typography.swift */,
 				3A5BA2EF29B10BE000085ACF /* CoinColors.swift */,
-				310099642A1BF69F003BC155 /* UIOneCoinConstants.swift */,
+				310099642A1BF69F003BC155 /* UIConstants.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -354,9 +396,9 @@
 		3AF88E0B29F3ED9D0011C207 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				3143C09C2A5FE7EC001CDAF8 /* Transactions */,
 				319CBA892A1E3B1900E5B8FD /* TotalExpenseChart */,
 				3A5BA2D529A900E600085ACF /* Accounts */,
-				3AF88E0C29F3EDB30011C207 /* LastTransactionsWidget.swift */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -521,6 +563,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3143C0A62A61E792001CDAF8 /* Router.swift in Sources */,
 				3A5BA2FE29B3895200085ACF /* CoinTopAppBar.swift in Sources */,
 				314515B32A1FA92600E31A17 /* LollipopChartMockData.swift in Sources */,
 				3A5BA2DA29A9014300085ACF /* AnalyticsScreen.swift in Sources */,
@@ -528,12 +571,16 @@
 				7E7F35172A0AF421008C345E /* PlansScreen.swift in Sources */,
 				314515C52A210B0700E31A17 /* Tabs.swift in Sources */,
 				3A5BA2FA29B376E300085ACF /* AppScreen.swift in Sources */,
+				3143C0A22A5FF55F001CDAF8 /* TransactionType.swift in Sources */,
+				3143C0A82A6970ED001CDAF8 /* Array.swift in Sources */,
 				3A5BA2F029B10BE000085ACF /* CoinColors.swift in Sources */,
-				310099652A1BF69F003BC155 /* UIOneCoinConstants.swift in Sources */,
+				310099652A1BF69F003BC155 /* UIConstants.swift in Sources */,
 				314515AF2A1F94E500E31A17 /* TotalExpenseChartWidgetContent.swift in Sources */,
 				3A23C5D2299256BA0033CCF8 /* HomeScreen.swift in Sources */,
 				3A5BA2D129A8FE0D00085ACF /* TabsNavigationScreen.swift in Sources */,
 				7E7F35192A0AFAFF008C345E /* Tab.swift in Sources */,
+				3143C0A42A6005AB001CDAF8 /* TransactionListModelMock.swift in Sources */,
+				3143C09B2A5FE77F001CDAF8 /* LastTransactionsContent.swift in Sources */,
 				3AF88E0D29F3EDB30011C207 /* LastTransactionsWidget.swift in Sources */,
 				3A5BA2E429A9FFDF00085ACF /* SVGImageView.swift in Sources */,
 				3A5BA2DC29A9016200085ACF /* CardAccountsScreen.swift in Sources */,
@@ -542,6 +589,7 @@
 				3A5BA30529B3A98300085ACF /* SettingsScreen.swift in Sources */,
 				319CBA8B2A1E3B3400E5B8FD /* TotalExpenseChartWidget.swift in Sources */,
 				314515C12A20FDA700E31A17 /* YAxisDashedLine.swift in Sources */,
+				3143C09F2A5FE9C2001CDAF8 /* TransactionCell.swift in Sources */,
 				3AF88E0729F3DC9E0011C207 /* CoinWidget.swift in Sources */,
 				3A5BA2EC29B10B0A00085ACF /* CoinTheme.swift in Sources */,
 				314515B12A1F9D2D00E31A17 /* LollipopChart.swift in Sources */,
