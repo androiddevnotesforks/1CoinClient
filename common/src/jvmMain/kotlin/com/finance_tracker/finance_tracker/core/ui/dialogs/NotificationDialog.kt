@@ -20,7 +20,7 @@ fun NotificationDialog(
     text: StringResource,
     onOkClick: () -> Unit
 ) {
-    DialogSurface {
+    AlertDialogSurface {
         Column(
             modifier = Modifier.padding(8.dp)
         ) {

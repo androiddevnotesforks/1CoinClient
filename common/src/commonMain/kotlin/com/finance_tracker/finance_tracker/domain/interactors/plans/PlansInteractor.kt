@@ -96,4 +96,24 @@ class PlansInteractor(
             amountValue = spentAmountValue
         )
     }
+
+    fun getMonthLimitAmount(yearMonth: YearMonth): Flow<Amount> {
+        val currencyFlow = currenciesRepository.getPrimaryCurrencyFlow()
+        val currencyRatesFlow = currenciesRepository.getCurrencyRatesFlow()
+        val monthLimitFlow = plansRepository.getMonthLimitAmount(yearMonth)
+        return combine(currencyFlow, currencyRatesFlow, monthLimitFlow) {
+                currency, currencyRates, monthLimit ->
+            monthLimit.convertToCurrencyAmount(
+                toCurrency = currency,
+                currencyRates = currencyRates
+            )
+        }
+    }
+
+    suspend fun setMonthLimit(
+        yearMonth: YearMonth,
+        limit: Amount
+    ) {
+        plansRepository.setMonthLimit(yearMonth, limit)
+    }
 }

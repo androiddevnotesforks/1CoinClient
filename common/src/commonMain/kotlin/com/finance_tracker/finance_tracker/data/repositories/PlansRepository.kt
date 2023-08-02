@@ -3,22 +3,29 @@ package com.finance_tracker.finance_tracker.data.repositories
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.data.database.mappers.EmptyCategoryId
 import com.finance_tracker.finance_tracker.data.database.mappers.fullPlanMapper
+import com.finance_tracker.finance_tracker.data.settings.AccountSettings
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.Plan
 import com.financetracker.financetracker.data.LimitsEntityQueries
+import com.financetracker.financetracker.data.TotalMonthLimitEntity
+import com.financetracker.financetracker.data.TotalMonthLimitEntityQueries
+import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.number
 
 class PlansRepository(
-    private val limitsEntityQueries: LimitsEntityQueries
+    private val limitsEntityQueries: LimitsEntityQueries,
+    private val totalMonthLimitEntityQueries: TotalMonthLimitEntityQueries,
+    private val accountSettings: AccountSettings
 ) {
 
     suspend fun addOrUpdatePlan(
@@ -71,7 +78,6 @@ class PlansRepository(
         }
     }
 
-    @Suppress("UnusedPrivateMember")
     fun getPlans(yearMonth: YearMonth): Flow<List<Plan>> {
         return limitsEntityQueries.getAllFullLimits(
             year = yearMonth.year.toLong(),
@@ -85,14 +91,52 @@ class PlansRepository(
             }
     }
 
-    @Suppress("UnusedPrivateMember")
     fun getMonthLimitAmount(yearMonth: YearMonth): Flow<Amount> {
-        // TODO: Get real limit amount from local storage
-        return flowOf(
+        return combine(getDefaultAmountFlow(), getMonthLimitFlow(yearMonth)) { defaultAmount, monthLimit ->
+            val monthLimitEntity = monthLimit.executeAsOneOrNull() ?: return@combine defaultAmount
             Amount(
-                currency = Currency.default,
-                amountValue = 100.0
+                currency = mapCodeToCurrency(monthLimitEntity.currency),
+                amountValue = monthLimitEntity.limitAmount
             )
-        )
+        }
+            .flowOn(Dispatchers.IO)
+    }
+
+    private fun getMonthLimitFlow(yearMonth: YearMonth): Flow<Query<TotalMonthLimitEntity>> {
+        return totalMonthLimitEntityQueries.getMonthLimit(
+            year = yearMonth.year.toLong(),
+            month = yearMonth.month.number.toLong()
+        ).asFlow()
+    }
+
+    private fun getDefaultAmountFlow(): Flow<Amount> {
+        return getPrimaryCurrencyFlow()
+            .map {
+                Amount(
+                    currency = it,
+                    amountValue = 0.0
+                )
+            }
+    }
+
+    private fun getPrimaryCurrencyFlow(): Flow<Currency> {
+        return accountSettings.getPrimaryCurrencyCodeFlow()
+            .map(::mapCodeToCurrency)
+    }
+
+    private fun mapCodeToCurrency(currencyCode: String?): Currency {
+        return currencyCode?.let(Currency::getByCode) ?: Currency.default
+    }
+
+    @Suppress("UnusedPrivateMember")
+    suspend fun setMonthLimit(yearMonth: YearMonth, limit: Amount) {
+        withContext(Dispatchers.IO) {
+            totalMonthLimitEntityQueries.insertMonthLimit(
+                year = yearMonth.year.toLong(),
+                month = yearMonth.month.number.toLong(),
+                limitAmount = limit.amountValue,
+                currency = limit.currency.code
+            )
+        }
     }
 }

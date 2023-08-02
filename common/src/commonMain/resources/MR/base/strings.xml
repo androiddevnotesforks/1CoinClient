@@ -268,6 +268,9 @@
     <string name="plans_budget_empty_stub">No limits yet</string>
     <string name="plans_expense_limits">Expense Limits</string>
     <string name="plans_btn_add_limit">Add limit</string>
+    <string name="plans_btn_set_limit">Set limit</string>
+    <string name="plans_amount_btn_set_limit">Set limit</string>
+    <string name="plans_amount_subtitle">Month Limit</string>
 
     <!-- Setup plans screen -->
     <string name="setup_plans_title">Expense Limit</string>
@@ -280,6 +283,7 @@
     <string name="month_budget_widget_money_spent">Money spent</string>
     <string name="month_budget_widget_remain_money">Remaining money</string>
     <string name="month_budget_widget_exceeding_limit">Exceeding the\u00A0limit</string>
+    <string name="month_budget_amount_from">from %s</string>
 
     <!-- Export -->
     <string name="export_title">Exporting</string>

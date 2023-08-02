@@ -36,4 +36,22 @@ class PlansOverviewAnalytics: BaseAnalytics() {
             )
         )
     }
+
+    fun trackSetLimitClick(yearMonth: YearMonth) {
+        trackClick(
+            eventName = "SetLimit",
+            properties = mapOf(
+                "current_period" to "${yearMonth.year}-${yearMonth.month}"
+            )
+        )
+    }
+
+    fun trackTotalMonthLimitClick(yearMonth: YearMonth) {
+        trackClick(
+            eventName = "SemTotalMonthLimit",
+            properties = mapOf(
+                "current_period" to "${yearMonth.year}-${yearMonth.month}"
+            )
+        )
+    }
 }

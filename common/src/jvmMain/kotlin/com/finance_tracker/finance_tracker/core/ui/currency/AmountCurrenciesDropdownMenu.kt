@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.features.add_account.dropdown_menus
+package com.finance_tracker.finance_tracker.core.ui.currency
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -12,7 +12,7 @@ import com.finance_tracker.finance_tracker.core.ui.DropdownMenuItem
 import com.finance_tracker.finance_tracker.domain.models.Currency
 
 @Composable
-internal fun AmountCurrenciesDropdownMenu(
+fun AmountCurrenciesDropdownMenu(
     items: List<Currency>,
     expandedState: MutableState<Boolean>,
     modifier: Modifier = Modifier,

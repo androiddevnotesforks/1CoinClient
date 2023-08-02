@@ -9,7 +9,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,6 +29,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
@@ -52,6 +52,10 @@ internal fun ArithmeticKeyboard(
     modifier: Modifier = Modifier,
     onKeyboardClose: () -> Unit = {},
     isBottomExpandable: Boolean = true,
+    hasElevation: Boolean = isBottomExpandable,
+    hasNavBarInsets: Boolean = isBottomExpandable,
+    isArithmeticOperationsVisible: Boolean = true,
+    hasBackground: Boolean = true
 ) {
     val navBarInsets = LocalFixedInsets.current.navigationBarsHeight
     val keyboardBodyRows = numPadActions.chunked(KeyboardRowSize)
@@ -75,36 +79,37 @@ internal fun ArithmeticKeyboard(
         modifier = modifier
     ) {
         Surface(
-            color = CoinTheme.color.secondaryBackground,
-            elevation = if(isBottomExpandable) 8.dp else 0.dp
+            color = if (hasBackground) {
+                CoinTheme.color.secondaryBackground
+            } else {
+                Color.Transparent
+            },
+            elevation = if (hasElevation) 8.dp else 0.dp
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 CompositionLocalProvider(LocalRippleTheme provides DefaultRippleTheme) {
-                    KeyboardGridRow(Modifier.weight(OperationsWeight)) {
-                        arithmeticActions.forEach {
-                            KeyboardGridElement(
-                                keyboardAction = it,
-                                onClick = { onKeyboardClick(it) })
-                        }
+                    if (isArithmeticOperationsVisible) {
+                        KeyboardGridRow(Modifier.weight(OperationsWeight)) {
+                            arithmeticActions.forEach {
+                                KeyboardGridElement(
+                                    keyboardAction = it,
+                                    onClick = { onKeyboardClick(it) })
+                            }
 
-                        if (isBottomExpandable) {
-                            KeyboardCloseIcon(onClick = onKeyboardClose)
+                            if (isBottomExpandable) {
+                                KeyboardCloseIcon(onClick = onKeyboardClose)
+                            }
                         }
+                        Divider(modifier = Modifier.background(CoinTheme.color.dividers))
                     }
-
-                    Divider(modifier = Modifier.background(CoinTheme.color.dividers))
 
                     keyboardBodyRows.forEach {
                         KeyboardGridRow(Modifier.weight(1F)) {
                             it.forEach {
                                 KeyboardGridElement(
                                     keyboardAction = it,
-                                    modifier = Modifier.border(
-                                        width = 0.5.dp,
-                                        color = CoinTheme.color.dividers.copy(alpha = 0.5F)
-                                    ),
                                     onClick = { onKeyboardClick(it) }
                                 )
                             }
@@ -112,7 +117,7 @@ internal fun ArithmeticKeyboard(
                     }
                 }
 
-                if (isBottomExpandable) {
+                if (hasNavBarInsets) {
                     Spacer(Modifier.height(navBarInsets))
                 }
             }

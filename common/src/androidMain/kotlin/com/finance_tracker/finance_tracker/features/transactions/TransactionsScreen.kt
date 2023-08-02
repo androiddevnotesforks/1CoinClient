@@ -23,8 +23,8 @@ import com.finance_tracker.finance_tracker.features.transactions.views.Transacti
 internal fun TransactionsScreen() {
     ComposeScreen<TransactionsViewModel>(withBottomNavigation = true) { viewModel ->
 
-        val lazyTransactionList =
-            viewModel.paginatedTransactions.collectAsLazyPagingItems()
+        val paginatedTransactions = remember(Unit) { viewModel.getPaginatedTransactions() }
+        val lazyTransactionList = paginatedTransactions.collectAsLazyPagingItems()
 
         var selectedItems by remember {
             mutableStateOf(emptyList<TransactionListModel.Data>())

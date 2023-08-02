@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.domain.interactors.plans
 
 import com.finance_tracker.finance_tracker.core.common.convertToCurrencyAmount
+import com.finance_tracker.finance_tracker.core.common.convertToCurrencyAmountTransaction
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.common.minus
 import com.finance_tracker.finance_tracker.core.common.sumOf
@@ -25,7 +26,9 @@ class MonthExpenseLimitInteractor(
             getMonthLimitAmount(yearMonth)
         ) { monthSpentAmount, monthLimitAmount ->
             MonthExpenseLimitChartData(
-                pieces = calculatePieChartPieces(monthSpentAmount, monthLimitAmount),
+                pieces = calculatePieChartPieces(
+                    monthSpentAmount, monthLimitAmount
+                ),
                 spent = monthSpentAmount,
                 totalLimit = monthLimitAmount
             )
@@ -35,13 +38,20 @@ class MonthExpenseLimitInteractor(
     private fun getMonthSpentAmount(yearMonth: YearMonth): Flow<Amount> {
         return combine(
             currenciesRepository.getPrimaryCurrencyFlow(),
+            currenciesRepository.getCurrencyRatesFlow(),
             transactionsRepository.getTransactionsFlow(
                 transactionType = TransactionType.Expense,
                 yearMonth = yearMonth
             )
-        ) { primaryCurrency, transactions ->
+        ) { primaryCurrency, currencyRates, transactions ->
             transactions
                 .filter { it.type == TransactionType.Expense }
+                .map {
+                    it.convertToCurrencyAmountTransaction(
+                        toCurrency = primaryCurrency,
+                        currencyRates = currencyRates
+                    )
+                }
                 .sumOf(currency = primaryCurrency) { it.primaryAmount }
         }
     }
@@ -66,7 +76,20 @@ class MonthExpenseLimitInteractor(
     ): List<MonthExpenseLimitChartData.Piece> {
         return when {
             monthLimitAmount.amountValue <= 0.0 -> {
-                emptyList()
+                listOf(
+                    MonthExpenseLimitChartData.Piece(
+                        type = MonthExpenseLimitChartData.MonthExpenseLimitType.PlannedSpent,
+                        showLabel = false,
+                        amount = Amount.default(monthSpentAmount.currency),
+                        percent = 0.toFloat()
+                    ),
+                    MonthExpenseLimitChartData.Piece(
+                        type = MonthExpenseLimitChartData.MonthExpenseLimitType.Remain,
+                        showLabel = false,
+                        amount = Amount.default(monthLimitAmount.currency),
+                        percent = 100.toFloat()
+                    )
+                )
             }
             monthSpentAmount.amountValue <= monthLimitAmount.amountValue -> {
                 val spentPercent = monthSpentAmount.amountValue / monthLimitAmount.amountValue * 100.0

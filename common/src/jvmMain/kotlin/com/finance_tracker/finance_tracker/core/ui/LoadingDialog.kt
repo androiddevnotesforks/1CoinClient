@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.button.SecondaryButton
-import com.finance_tracker.finance_tracker.core.ui.dialogs.DialogSurface
+import com.finance_tracker.finance_tracker.core.ui.dialogs.BottomSheetDialogSurface
 import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.compose.stringResource
 
@@ -28,7 +28,7 @@ fun LoadingDialog(
     modifier: Modifier = Modifier,
     onCancel: () -> Unit = {}
 ) {
-    DialogSurface(withDragBar = false) {
+    BottomSheetDialogSurface(withDragBar = false) {
         Column(
             modifier = modifier
                 .padding(horizontal = 16.dp)

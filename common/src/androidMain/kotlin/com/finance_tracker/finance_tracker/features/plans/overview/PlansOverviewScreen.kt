@@ -60,7 +60,8 @@ fun PlansOverviewScreen() {
                         .padding(top = 12.dp)
                 ) {
                     MonthExpenseLimitWidget(
-                        monthExpenseLimitChartData = state.monthExpenseLimitChartData
+                        monthExpenseLimitChartData = state.monthExpenseLimitChartData,
+                        onSetLimitClick = viewModel::onSetLimitClick
                     )
 
                     ExpenseLimitsWidget(

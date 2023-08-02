@@ -264,6 +264,9 @@
     <string name="plans_budget_empty_stub">Еще нет бюджетов</string>
     <string name="plans_expense_limits">Лимиты трат</string>
     <string name="plans_btn_add_limit">Добавить лимит</string>
+    <string name="plans_btn_set_limit">Установить лимит</string>
+    <string name="plans_amount_btn_set_limit">Установить лимит</string>
+    <string name="plans_amount_subtitle">Месячный лимит</string>
 
     <!-- Setup plans screen -->
     <string name="setup_plans_title">Лимит трат</string>
@@ -276,6 +279,7 @@
     <string name="month_budget_widget_money_spent">Потрачено</string>
     <string name="month_budget_widget_remain_money">Осталось</string>
     <string name="month_budget_widget_exceeding_limit">Превышение лимита</string>
+    <string name="month_budget_amount_from">из %s</string>
 
     <!-- Export -->
     <string name="export_title">Экспортируем</string>

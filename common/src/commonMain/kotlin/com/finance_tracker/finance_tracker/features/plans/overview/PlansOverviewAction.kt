@@ -17,4 +17,8 @@ sealed interface PlansOverviewAction {
     data class ScrollToPage(
         val page: Int
     ): PlansOverviewAction
+
+    data class OpenSetLimitDialog(
+        val yearMonth: YearMonth
+    ): PlansOverviewAction
 }

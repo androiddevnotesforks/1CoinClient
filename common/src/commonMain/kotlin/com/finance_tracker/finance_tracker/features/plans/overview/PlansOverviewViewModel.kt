@@ -91,4 +91,10 @@ class PlansOverviewViewModel(
         }
             .stateIn(viewModelScope, initialValue = MonthPlansOverviewState())
     }
+
+    override fun onSetLimitClick() {
+        val selectedYearMonth = selectedYearMonth.value
+        plansOverviewAnalytics.trackSetLimitClick(selectedYearMonth)
+        viewAction = PlansOverviewAction.OpenSetLimitDialog(selectedYearMonth)
+    }
 }

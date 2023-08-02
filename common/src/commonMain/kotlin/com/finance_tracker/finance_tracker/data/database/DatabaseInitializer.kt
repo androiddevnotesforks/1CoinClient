@@ -212,6 +212,6 @@ class DatabaseInitializer(
     }
 
     companion object {
-        private const val CurrentDbVersion = 8L
+        private const val CurrentDbVersion = 9L
     }
 }

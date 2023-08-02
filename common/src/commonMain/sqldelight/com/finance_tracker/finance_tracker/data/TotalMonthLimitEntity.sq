@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS TotalMonthLimitEntity(
+    year INTEGER NOT NULL,
+    month INTEGER NOT NULL,
+    limitAmount REAL NOT NULL,
+    currency TEXT NOT NULL,
+    PRIMARY KEY (year, month)
+);
+
+insertMonthLimit:
+INSERT OR REPLACE
+INTO TotalMonthLimitEntity
+VALUES (?,?,?,?);
+
+getMonthLimit:
+SELECT * FROM TotalMonthLimitEntity
+WHERE year = :year AND month = :month
+LIMIT 1;

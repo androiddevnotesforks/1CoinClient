@@ -1,8 +1,10 @@
 package com.finance_tracker.finance_tracker.features.plans.overview.views.category_expense_limits
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -83,6 +85,7 @@ private fun AddLimitButton(
             contentDescription = null,
             tint = CoinTheme.color.primary
         )
+        Spacer(modifier = Modifier.width(4.dp))
         Text(
             text = stringResource(MR.strings.plans_btn_add_limit),
             style = CoinTheme.typography.subtitle1,

@@ -19,6 +19,8 @@ import io.github.koalaplot.core.pie.PieChart
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 
 private val PieChartSize = 240.dp
+private const val MaxPercentValue = ">999"
+private const val MaxPercentLength = 3
 
 @Suppress("MagicNumber")
 @OptIn(ExperimentalKoalaPlotApi::class)
@@ -50,7 +52,11 @@ internal fun MonthExpenseLimitPieChart(
             label = { index ->
                 val piece = monthExpenseLimitChartData.pieces.getOrNull(index)
                 if (piece != null && piece.showLabel) {
-                    val percentage = piece.percentage
+                    val percentage = if (piece.percentage.length > MaxPercentLength) {
+                        MaxPercentValue
+                    } else {
+                        piece.percentage
+                    }
                     Text(
                         modifier = Modifier
                             .clip(CircleShape)
@@ -75,9 +81,14 @@ internal fun MonthExpenseLimitPieChart(
             holeSize = 0.8f,
             holeContent = {
                 HoleTotalLabel(
-                    data = HoleTotalLabelData.Content(
-                        spentAmount = monthExpenseLimitChartData.spent
-                    )
+                    data = if (monthExpenseLimitChartData == MonthExpenseLimitChartData.Empty) {
+                        HoleTotalLabelData.Loading
+                    } else {
+                        HoleTotalLabelData.Content(
+                            spentAmount = monthExpenseLimitChartData.spent,
+                            limitAmount = monthExpenseLimitChartData.totalLimit
+                        )
+                    }
                 )
             },
             labelSpacing = 1.05f

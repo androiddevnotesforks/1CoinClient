@@ -5,4 +5,6 @@ import com.finance_tracker.finance_tracker.features.plans.overview.views.plan_pe
 interface PlansOverviewCallback: PlanPeriodCallback {
 
     fun onPageChange(page: Int)
+
+    fun onSetLimitClick()
 }

@@ -1,4 +1,4 @@
-package com.finance_tracker.finance_tracker.features.add_account.views
+package com.finance_tracker.finance_tracker.core.ui.currency
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,17 +20,16 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Currency
-import com.finance_tracker.finance_tracker.features.add_account.dropdown_menus.AmountCurrenciesDropdownMenu
 
 @Composable
-internal fun CurrencySelector(
+fun CurrencySelector(
     items: List<Currency>,
     selectedCurrency: Currency,
     modifier: Modifier = Modifier,
     onCurrencySelect: (Currency) -> Unit = {},
     onCurrencyClick: (Currency) -> Unit = {},
     xOffset: Dp = 0.dp,
-    yOffset: Dp = 0.dp,
+    yOffset: Dp = 0.dp
 ) {
     val currencyMenuExpanded = remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
@@ -53,10 +51,10 @@ internal fun CurrencySelector(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = "${selectedCurrency.code}(${selectedCurrency.symbol})",
-            color = CoinTheme.color.primary,
-            style = CoinTheme.typography.body1_medium
+        CurrencyView(
+            currency = selectedCurrency,
+            tint = CoinTheme.color.primary,
+            textStyle = CoinTheme.typography.body1_medium
         )
         Icon(
             modifier = Modifier

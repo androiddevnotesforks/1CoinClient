@@ -8,7 +8,7 @@ import com.finance_tracker.finance_tracker.core.common.date.currentLocalDate
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDateTime
 import com.finance_tracker.finance_tracker.core.common.formatters.evaluateDoubleWithReplace
 import com.finance_tracker.finance_tracker.core.common.formatters.format
-import com.finance_tracker.finance_tracker.core.common.formatters.parse
+import com.finance_tracker.finance_tracker.core.common.formatters.parseToDouble
 import com.finance_tracker.finance_tracker.core.common.keyboard.CalculationState
 import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
 import com.finance_tracker.finance_tracker.core.common.keyboard.applyKeyboardAction
@@ -261,8 +261,8 @@ class AddTransactionViewModel(
 
     @Suppress("CyclomaticComplexMethod")
     fun addOrUpdateTransaction(fromButtonClick: Boolean) {
-        val primaryAmountCalcResult = primaryAmountCalculation.value.calculationResult.parse() ?: 0.0
-        val secondaryAmountCalcResult = secondaryAmountCalculation.value.calculationResult.parse() ?: 0.0
+        val primaryAmountCalcResult = primaryAmountCalculation.value.calculationResult.parseToDouble() ?: 0.0
+        val secondaryAmountCalcResult = secondaryAmountCalculation.value.calculationResult.parseToDouble() ?: 0.0
         val isCalcIsFailed = primaryAmountCalculation.value.isError || secondaryAmountCalculation.value.isError
 
         if (isCalcIsFailed) {
@@ -475,7 +475,7 @@ class AddTransactionViewModel(
                 .applyKeyboardAction(hasInitialZero = true, keyboardAction = keyboardAction)
                 .takeIf {
                     it.text.length < MaxAmountLength &&
-                            it.text.parse() ?: 0.0 <= MaxAmountValue
+                            it.text.parseToDouble() ?: 0.0 <= MaxAmountValue
                 } ?: textField
         }
     }

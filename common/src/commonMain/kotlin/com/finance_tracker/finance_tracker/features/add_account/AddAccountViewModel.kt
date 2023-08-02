@@ -5,7 +5,7 @@ import com.finance_tracker.finance_tracker.core.common.TextFieldValue
 import com.finance_tracker.finance_tracker.core.common.TextRange
 import com.finance_tracker.finance_tracker.core.common.formatters.evaluateDoubleWithReplace
 import com.finance_tracker.finance_tracker.core.common.formatters.format
-import com.finance_tracker.finance_tracker.core.common.formatters.parse
+import com.finance_tracker.finance_tracker.core.common.formatters.parseToDouble
 import com.finance_tracker.finance_tracker.core.common.keyboard.CalculationState
 import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
 import com.finance_tracker.finance_tracker.core.common.keyboard.applyKeyboardAction
@@ -170,7 +170,7 @@ class AddAccountViewModel(
                 .value
                 .takeIf { !it.isError }
                 ?.calculationResult
-                ?.parse() ?: run {
+                ?.parseToDouble() ?: run {
                 viewAction = AddAccountAction.ShowToast(
                     textId = MR.strings.new_account_error_enter_account_balance
                 )

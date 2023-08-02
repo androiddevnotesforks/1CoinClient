@@ -123,6 +123,6 @@ class ExportImportRepository(
     }
 
     companion object {
-        private const val LastSupportedDbVersion = 8L
+        private const val LastSupportedDbVersion = 9L
     }
 }
