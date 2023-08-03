@@ -28,7 +28,7 @@ internal fun IconActionButton(
             .scaleClickAnimation()
             .clip(RoundedCornerShape(12.dp))
             .background(CoinTheme.color.secondaryBackground)
-            .noRippleClickable { onClick.invoke() }
+            .noRippleClickable { onClick() }
             .padding(8.dp),
         painter = painter,
         tint = tint,

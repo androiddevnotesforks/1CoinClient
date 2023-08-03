@@ -6,6 +6,7 @@ import ru.alexgladkov.odyssey.compose.navigation.modal_navigation.ModalSheetConf
 object DialogConfigurations {
 
     val alert = AlertConfiguration(
+        animationTime = 0, // WAIT FIX: Odyssey can't close an alert dialog with animation not like a bottom sheet
         cornerRadius = 8,
         maxWidth = 0.93f
     )

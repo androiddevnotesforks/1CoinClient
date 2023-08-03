@@ -96,14 +96,14 @@ class AddTransactionViewModel(
     private val _selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(initialSelectedDate)
     val selectedDate: StateFlow<LocalDate> = _selectedDate.asStateFlow()
 
-    private val initialAmount = transaction?.primaryAmount
+    private val initialPrimaryAmountValue = transaction?.primaryAmount?.amountValue?.format()
 
     private val _primaryAmountFormula = MutableStateFlow(
         TextFieldValue(
-            text = initialAmount?.amountValue?.format() ?: "0",
+            text = initialPrimaryAmountValue ?: "0",
             selection = TextRange(
-                start = initialAmount?.amountValue?.format()?.length ?: 1,
-                end = initialAmount?.amountValue?.format()?.length ?: 1
+                start = initialPrimaryAmountValue?.length ?: 1,
+                end = initialPrimaryAmountValue?.length ?: 1
             ),
         )
     )
@@ -113,12 +113,14 @@ class AddTransactionViewModel(
         .map { calculateAmountFormula(it.text) }
         .stateIn(viewModelScope, initialValue = CalculationState("0", false))
 
+    private val initialSecondaryAmountValue = transaction?.secondaryAmount?.amountValue?.format()
+
     private val _secondaryAmountFormula = MutableStateFlow(
         TextFieldValue(
-            text = transaction?.secondaryAmount?.amountValue?.format() ?: "0",
+            text = initialSecondaryAmountValue ?: "0",
             selection = TextRange(
-                start = initialAmount?.amountValue?.format()?.length ?: 1,
-                end = initialAmount?.amountValue?.format()?.length ?: 1
+                start = initialSecondaryAmountValue?.length ?: 1,
+                end = initialSecondaryAmountValue?.length ?: 1
             ),
         )
     )
@@ -207,7 +209,10 @@ class AddTransactionViewModel(
     private fun observeAmountCalculations() {
         primaryAmountFormula
             .onEach {
-                if (primaryCurrency.value == secondaryCurrency.value) {
+                if (
+                    primaryCurrency.value == secondaryCurrency.value &&
+                    primaryCurrency.value != null
+                ) {
                     _secondaryAmountFormula.value = it
                 }
             }

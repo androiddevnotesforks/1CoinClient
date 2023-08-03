@@ -38,7 +38,7 @@ fun handleAction(
             modalController.popBackStack(action.dialogKey, animate = false)
         }
         TransactionsAction.UnselectAllItems -> {
-            onUnselectItems.invoke()
+            onUnselectItems()
         }
         is TransactionsAction.ShowDeleteDialog -> {
             modalController.present(DialogConfigurations.alert) { key ->
@@ -48,8 +48,8 @@ fun handleAction(
                     } else {
                         stringResource(MR.strings.deleting_transaction)
                     },
-                    onCancelClick = { onCancelClick.invoke(key) },
-                    onDeleteClick = { onConfirmDeleteClick.invoke(key) }
+                    onCancelClick = { onCancelClick(key) },
+                    onDeleteClick = { onConfirmDeleteClick(key) }
                 )
             }
         }

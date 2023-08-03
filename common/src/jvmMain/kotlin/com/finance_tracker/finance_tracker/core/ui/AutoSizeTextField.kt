@@ -1,5 +1,7 @@
 package com.finance_tracker.finance_tracker.core.ui
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.width
@@ -7,9 +9,9 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.ParagraphIntrinsics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.TextUnit
@@ -19,7 +21,6 @@ import com.finance_tracker.finance_tracker.core.common.createFontFamilyResolver
 
 private const val TextScaleReductionInterval = 0.9f
 
-@OptIn(ExperimentalTextApi::class)
 @ExperimentalMaterialApi
 @Composable
 internal fun AutoSizeTextField(
@@ -28,8 +29,10 @@ internal fun AutoSizeTextField(
     style: TextStyle = LocalTextStyle.current,
     readOnly: Boolean = false,
     onValueChange: (String) -> Unit = {},
-    onSizeChange: (TextUnit) -> Unit = {}
+    onSizeChange: (TextUnit) -> Unit = {},
+    onClick: () -> Unit = {}
 ) {
+    val source = remember { MutableInteractionSource() }
     BoxWithConstraints(
         modifier = modifier
     ) {
@@ -57,10 +60,15 @@ internal fun AutoSizeTextField(
             onSizeChange(shrunkFontSize)
         }
 
+        if (source.collectIsPressedAsState().value) {
+            onClick()
+        }
+
         BasicTextField(
             modifier = Modifier
                 .width(IntrinsicSize.Min),
             value = value,
+            interactionSource = source,
             onValueChange = onValueChange,
             textStyle = style.copy(
                 fontSize = shrunkFontSize

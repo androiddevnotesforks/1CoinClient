@@ -56,7 +56,7 @@ internal fun HomeTopBar(
                     .padding(end = 2.dp)
                     .size(36.dp)
                     .clip(CircleShape)
-                    .clickable { onSettingsClick.invoke() }
+                    .clickable { onSettingsClick() }
                     .padding(6.dp),
                 tint = CoinTheme.color.content
             )

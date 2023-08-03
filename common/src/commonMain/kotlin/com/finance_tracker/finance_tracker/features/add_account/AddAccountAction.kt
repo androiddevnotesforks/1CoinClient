@@ -10,5 +10,4 @@ sealed interface AddAccountAction {
     ): AddAccountAction
     data class ShowDeleteDialog(val account: Account): AddAccountAction
     data class DismissDeleteDialog(val dialogKey: String): AddAccountAction
-    data class BackToScreen(val screenName: String): AddAccountAction
 }

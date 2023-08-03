@@ -103,6 +103,10 @@ deleteTransactionById:
 DELETE FROM TransactionsEntity
 WHERE id = :id;
 
+deleteTransactionsByAccountId:
+DELETE FROM TransactionsEntity
+WHERE accountId = :accountId OR secondaryAccountId = :accountId;
+
 deleteCategoryForTransactionsByCategoryId:
 UPDATE TransactionsEntity
 SET categoryId = NULL

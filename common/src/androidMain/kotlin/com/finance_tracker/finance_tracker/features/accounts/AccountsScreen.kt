@@ -110,7 +110,7 @@ private fun AccountsList(
 
                 AccountCard(
                     data = account,
-                    onClick = { onAccountClick.invoke(account) },
+                    onClick = { onAccountClick(account) },
                     elevation = elevation,
                     modifier = Modifier.detectReorderAfterLongPress(reorderableState)
                 )

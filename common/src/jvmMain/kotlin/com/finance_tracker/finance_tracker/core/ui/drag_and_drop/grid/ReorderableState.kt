@@ -129,14 +129,14 @@ abstract class ReorderableState<T>(
         )?.also { targetItem ->
             if (targetItem.itemIndex == firstVisibleItemIndex || draggingItem.itemIndex == firstVisibleItemIndex) {
                 scope.launch {
-                    onMove.invoke(
+                    onMove(
                         ItemPosition(draggingItem.itemIndex, draggingItem.itemKey),
                         ItemPosition(targetItem.itemIndex, targetItem.itemKey)
                     )
                     scrollToItem(firstVisibleItemIndex, firstVisibleItemScrollOffset)
                 }
             } else {
-                onMove.invoke(
+                onMove(
                     ItemPosition(draggingItem.itemIndex, draggingItem.itemKey),
                     ItemPosition(targetItem.itemIndex, targetItem.itemKey)
                 )

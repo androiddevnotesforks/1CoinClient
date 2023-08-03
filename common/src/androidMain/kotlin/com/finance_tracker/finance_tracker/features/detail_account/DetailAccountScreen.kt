@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,6 +57,10 @@ internal fun DetailAccountScreen(
         val transactions = viewModel.paginatedTransactions.collectAsLazyPagingItems()
         viewModel.watchViewActions { action, baseLocalsStorage ->
             handleAction(action, baseLocalsStorage, transactions)
+        }
+
+        LaunchedEffect(Unit) {
+            viewModel.onScreenViewed()
         }
 
         val accountData by viewModel.accountData.collectAsState()

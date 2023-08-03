@@ -139,6 +139,7 @@ internal fun NextIcon(
 }
 
 @Composable
+@Suppress("UnnecessaryEventHandlerParameter")
 private fun <T: Any> RowScope.StageText(
     currentStep: SetupPlanStep,
     data: T?,
@@ -152,7 +153,7 @@ private fun <T: Any> RowScope.StageText(
         modifier = modifier
             .scaleClickAnimation(enabled = !isActiveStage)
             .`if`(!isActiveStage) {
-                noRippleClickable { onStepSelect.invoke(currentStep) }
+                noRippleClickable { onStepSelect(currentStep) }
             }
             .weight(1f)
             .padding(vertical = 8.dp, horizontal = 8.dp)
@@ -184,7 +185,7 @@ private fun <T: Any> RowScope.StageText(
                 }
             )
         } else {
-            dataContent.invoke(data)
+            dataContent(data)
         }
     }
 }

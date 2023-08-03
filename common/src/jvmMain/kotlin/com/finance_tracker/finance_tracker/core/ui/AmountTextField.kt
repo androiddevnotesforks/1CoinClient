@@ -27,7 +27,8 @@ fun AmountTextField(
     currency: Currency?,
     amount: String,
     modifier: Modifier = Modifier,
-    style: TextStyle = LocalTextStyle.current
+    style: TextStyle = LocalTextStyle.current,
+    onClick: () -> Unit = {}
 ) {
     Row(
         modifier = modifier,
@@ -50,7 +51,8 @@ fun AmountTextField(
                 value = amount,
                 style = style,
                 readOnly = true,
-                onSizeChange = { amountFontSize = it }
+                onSizeChange = { amountFontSize = it },
+                onClick = onClick
             )
         }
         if (currencySymbol != null && !isCurrencyPositionAtStart()) {

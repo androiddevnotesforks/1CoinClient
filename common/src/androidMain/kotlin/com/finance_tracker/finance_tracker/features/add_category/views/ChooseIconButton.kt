@@ -49,7 +49,7 @@ internal fun ChooseIconButton(
                 .clip(RoundedCornerShape(12.dp))
                 .clickable {
                     expanded = true
-                    onClick.invoke()
+                    onClick()
                 }
                 .padding(12.dp)
                 .align(Alignment.Center),
@@ -73,7 +73,7 @@ internal fun ChooseIconButton(
                             .clip(CircleShape)
                             .clickable {
                                 expanded = false
-                                onIconChoose.invoke(iconId)
+                                onIconChoose(iconId)
                             }
                             .padding(7.5.dp),
                         painter = rememberAsyncImagePainter(iconId),

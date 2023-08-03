@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.features.accounts
 
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
-import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
+import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.features.accounts.analytics.AccountsAnalytics
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class AccountsViewModel(
-    private val accountsRepository: AccountsRepository,
+    private val accountsInteractor: AccountsInteractor,
     private val accountsAnalytics: AccountsAnalytics
 ): BaseViewModel<AccountsAction>() {
 
@@ -48,15 +48,15 @@ class AccountsViewModel(
             newList[fromIndex] = secondAccout
             newList[toIndex] = firstAccout
             _accounts.value = newList
-            
-            accountsRepository.updateAccountPosition(position = fromIndex, accountId = secondAccout.id)
-            accountsRepository.updateAccountPosition(position = toIndex, accountId = firstAccout.id)
+
+            accountsInteractor.updateAccountPosition(position = fromIndex, accountId = secondAccout.id)
+            accountsInteractor.updateAccountPosition(position = toIndex, accountId = firstAccout.id)
         }
     }
 
     private fun loadAccounts() {
         viewModelScope.launch {
-            _accounts.value = accountsRepository.getAllAccountsFromDatabase()
+            _accounts.value = accountsInteractor.getAllAccountsFromDatabase()
         }
     }
 }

@@ -38,8 +38,8 @@ fun handleAction(
             modalNavController.present(DialogConfigurations.alert) { key ->
                 DeleteAlertDialog(
                     titleEntity = stringResource(MR.strings.deleting_category),
-                    onCancelClick = { onCancelClick.invoke(action.category, key) },
-                    onDeleteClick = { onConfirmDeleteClick.invoke(action.category, key) }
+                    onCancelClick = { onCancelClick(action.category, key) },
+                    onDeleteClick = { onConfirmDeleteClick(action.category, key) }
                 )
             }
         }

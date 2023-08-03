@@ -42,7 +42,7 @@ private fun LastTransactionsColumn(
             TransactionItem(
                 transactionData = transactionData,
                 onClick = {
-                    onTransactionClick.invoke(transactionData.transaction)
+                    onTransactionClick(transactionData.transaction)
                 }
             )
         }

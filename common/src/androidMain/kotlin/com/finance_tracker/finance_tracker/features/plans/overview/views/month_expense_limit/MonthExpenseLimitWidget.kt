@@ -68,7 +68,7 @@ private fun SetLimitButton(
         modifier = modifier
             .clip(CircleShape)
             .scaleClickAnimation()
-            .noRippleClickable { onClick.invoke() }
+            .noRippleClickable { onClick() }
             .padding(4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

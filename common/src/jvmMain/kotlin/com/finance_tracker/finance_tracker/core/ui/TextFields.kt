@@ -75,7 +75,7 @@ internal fun CoinOutlinedTextField(
         trailingIcon = trailingIcon,
         onValueChange = {
             if (it.length <= charsLimit) {
-                onValueChange.invoke(it)
+                onValueChange(it)
             }
         },
         colors = CoinTextFieldDefaults.outlinedTextFieldColors(),
@@ -115,7 +115,7 @@ internal fun CoinOutlinedTextField(
         trailingIcon = trailingIcon,
         onValueChange = {
             if (it.text.length <= charsLimit) {
-                onValueChange.invoke(it)
+                onValueChange(it)
             }
         },
         colors = CoinTextFieldDefaults.outlinedTextFieldColors(),

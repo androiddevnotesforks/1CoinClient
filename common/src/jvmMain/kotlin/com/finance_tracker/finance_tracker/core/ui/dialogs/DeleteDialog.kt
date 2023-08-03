@@ -89,7 +89,7 @@ private fun DeleteDialog(
         ) {
             ActionButton(
                 text = stringResource(MR.strings.btn_cancel),
-                onClick = { onCancelClick.invoke() }
+                onClick = { onCancelClick() }
             )
 
             Spacer(modifier = Modifier.width(24.dp))
@@ -97,7 +97,7 @@ private fun DeleteDialog(
             ActionButton(
                 text = stringResource(MR.strings.btn_delete),
                 textColor = CoinTheme.color.accentRed,
-                onClick = { onDeleteClick.invoke() }
+                onClick = { onDeleteClick() }
             )
         }
     }

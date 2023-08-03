@@ -47,7 +47,7 @@ internal fun CommonTransactionsList(
                 )
             ),
             text = stringResource(MR.strings.add_transaction),
-            onClick = { onAddTransactionClick.invoke() },
+            onClick = { onAddTransactionClick() },
             stubHeightAlignment = stubHeightAlignment,
         )
     } else {
@@ -82,8 +82,8 @@ private fun TransactionsList(
                     TransactionItem(
                         modifier = Modifier.animateItemPlacement(),
                         transactionData = transactionModel,
-                        onClick = { onClick.invoke(transactionModel) },
-                        onLongClick = { onLongClick.invoke(transactionModel) }
+                        onClick = { onClick(transactionModel) },
+                        onLongClick = { onLongClick(transactionModel) }
                     )
                 }
                 is TransactionListModel.DateAndDayTotal -> {

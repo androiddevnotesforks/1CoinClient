@@ -39,7 +39,7 @@ internal fun DashboardItem(
             )
             .background(CoinTheme.color.background)
             .noRippleClickable(enabled = data.type.isEditable) {
-                onClick.invoke()
+                onClick()
             }
             .padding(
                 vertical = 24.dp,

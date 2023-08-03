@@ -57,7 +57,7 @@ internal fun EmptyStub(
                     .padding(top = 16.dp)
                     .clip(CircleShape)
                     .clickable {
-                        onClick.invoke()
+                        onClick()
                     }
                     .padding(4.dp),
                 verticalAlignment = Alignment.CenterVertically

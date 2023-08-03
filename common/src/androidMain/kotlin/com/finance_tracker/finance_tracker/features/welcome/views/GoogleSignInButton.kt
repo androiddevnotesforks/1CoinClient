@@ -33,7 +33,7 @@ internal actual fun GoogleSignInButton(
         contentColor = CoinTheme.color.primary,
         backgroundColor = CoinTheme.color.primaryVariant,
         onClick = {
-            onClick.invoke()
+            onClick()
             signInLauncher.launch(ActivityRequestCodes.GoogleSignIn)
         }
     ) {

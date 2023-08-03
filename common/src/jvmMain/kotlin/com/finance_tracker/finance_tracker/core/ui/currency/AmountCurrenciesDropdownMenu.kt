@@ -30,7 +30,7 @@ fun AmountCurrenciesDropdownMenu(
         items.forEach { item ->
             DropdownMenuItem(
                 onClick = {
-                    onCurrencySelect.invoke(item)
+                    onCurrencySelect(item)
                     expandedState.value = false
                 }
             ) {

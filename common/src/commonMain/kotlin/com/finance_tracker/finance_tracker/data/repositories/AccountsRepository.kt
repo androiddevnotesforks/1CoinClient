@@ -86,13 +86,17 @@ class AccountsRepository(
         }
     }
 
-    fun getAccountByIdFlow(id: Long): Flow<Account> {
+    fun getAccountByIdFlow(id: Long): Flow<Account?> {
         return accountsEntityQueries.getAccountById(id)
             .asFlow()
             .mapToOneOrNull(Dispatchers.IO)
-            .map {
-                it?.accountToDomainModel() ?: Account.EMPTY
-            }
+            .map { it?.accountToDomainModel() }
+    }
+
+    suspend fun isAccountNotExists(id: Long): Boolean {
+        return withContext(Dispatchers.IO) {
+            accountsEntityQueries.getAccountById(id).executeAsOneOrNull() == null
+        }
     }
 
     suspend fun deleteAccountById(id: Long) {

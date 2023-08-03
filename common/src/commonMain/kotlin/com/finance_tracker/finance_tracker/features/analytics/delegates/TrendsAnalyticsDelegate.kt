@@ -252,7 +252,7 @@ class TrendsAnalyticsDelegate(
                 currencyRates = currencyRates
             )
 
-            val dayOfWeek = transformDateToBarOrder.invoke(date)
+            val dayOfWeek = transformDateToBarOrder(date)
             map[dayOfWeek]?.add(amount)
         }
 

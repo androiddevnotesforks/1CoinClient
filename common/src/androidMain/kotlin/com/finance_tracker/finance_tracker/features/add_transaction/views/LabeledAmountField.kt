@@ -35,7 +35,7 @@ internal fun LabeledAmountTextField(
             .padding(horizontal = 16.dp)
             .fillMaxWidth()
             .scaleClickAnimation()
-            .noRippleClickable { onClick.invoke() },
+            .noRippleClickable { onClick() },
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -49,7 +49,8 @@ internal fun LabeledAmountTextField(
                     CoinTheme.color.secondary
                 },
                 fontSize = amountFontSize
-            )
+            ),
+            onClick = onClick
         )
         Text(
             modifier = Modifier.padding(top = 8.dp),

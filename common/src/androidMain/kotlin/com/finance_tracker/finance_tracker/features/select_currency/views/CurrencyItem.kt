@@ -18,12 +18,12 @@ import com.finance_tracker.finance_tracker.domain.models.Currency
 internal fun CurrencyItem(
     currency: Currency,
     modifier: Modifier = Modifier,
-    onCurrencyClick: (Currency) -> Unit = {},
+    onClick: () -> Unit = {},
     isCurrencySelected: Boolean = false
 ) {
     Row(
         modifier = modifier
-            .clickable { onCurrencyClick.invoke(currency) }
+            .clickable { onClick() }
             .padding(
                 vertical = 16.dp,
                 horizontal = 16.dp

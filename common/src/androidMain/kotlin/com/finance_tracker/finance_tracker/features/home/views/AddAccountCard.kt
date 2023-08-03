@@ -47,7 +47,7 @@ internal fun AddAccountCard(
                 shape = RoundedCornerShape(12.dp)
             )
             .background(CoinTheme.color.background)
-            .noRippleClickable { onClick.invoke() },
+            .noRippleClickable { onClick() },
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {

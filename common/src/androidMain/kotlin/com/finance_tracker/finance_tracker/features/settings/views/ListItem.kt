@@ -79,7 +79,7 @@ internal fun ListItem(
                         .padding(start = 1.dp)
                         .size(24.dp)
                         .clip(CircleShape)
-                        .clickable { onInfoClick.invoke() }
+                        .clickable { onInfoClick() }
                         .padding(4.dp),
                     tint = CoinTheme.color.content
                 )

@@ -30,7 +30,7 @@ internal fun AddCell(
 ) {
     BoxWithDividers(
         modifier = modifier
-            .clickable { onClick.invoke() },
+            .clickable { onClick() },
         columnCount = columnCount,
         index = index,
         dividerWidth = dividerWidth,
@@ -38,7 +38,7 @@ internal fun AddCell(
     ) {
         Box(
             modifier = Modifier
-                .onSizeChanged { onCellWidthChange.invoke(it.width) }
+                .onSizeChanged { onCellWidthChange(it.width) }
                 .height(cellHeight)
                 .fillMaxSize()
         ) {

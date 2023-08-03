@@ -39,7 +39,7 @@ actual fun CalendarDialog(
         mutableStateOf(DatePicker(datePickerSettings))
     }
     LaunchedEffect(datePicker) {
-        onControllerCreate.invoke(getCalendarDialogController(datePicker))
+        onControllerCreate(getCalendarDialogController(datePicker))
     }
     SwingPanel(
         modifier = Modifier.size(0.dp),
@@ -50,7 +50,7 @@ actual fun CalendarDialog(
     }
     DisposableEffect(datePicker) {
         val dateChangeListener = DateChangeListener {
-            onDateChangeListener.invoke(it.newDate.toKotlinLocalDate())
+            onDateChangeListener(it.newDate.toKotlinLocalDate())
         }
         datePicker.addDateChangeListener(dateChangeListener)
         onDispose {

@@ -68,7 +68,7 @@ internal fun CategorySelector(
                         }
                     }
                     .clickableSingle {
-                        onCategorySelect.invoke(category)
+                        onCategorySelect(category)
                     },
                 columnCount = columnCount,
                 index = index,

@@ -47,7 +47,7 @@ internal fun AccountsAppBar(
             Row(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .clickable { onAddAccountClick.invoke() }
+                    .clickable { onAddAccountClick() }
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {

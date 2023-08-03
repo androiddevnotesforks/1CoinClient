@@ -31,7 +31,7 @@ internal fun AccountsWidgetContent(
         items(data) { account ->
             AccountCard(
                 data = account,
-                onClick = { onAccountClick.invoke(account) }
+                onClick = { onAccountClick(account) }
             )
         }
         item {

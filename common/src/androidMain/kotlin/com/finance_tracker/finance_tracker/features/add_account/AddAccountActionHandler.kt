@@ -36,18 +36,14 @@ fun handleAction(
             modalNavController.present(DialogConfigurations.bottomSheet) { key ->
                 DeleteBottomDialog(
                     titleEntity = stringResource(MR.strings.deleting_account),
-                    onCancelClick = { onCancelDeletingClick.invoke(action.account, key) },
-                    onDeleteClick = { onConfirmDeletingClick.invoke(action.account, key) }
+                    onCancelClick = { onCancelDeletingClick(action.account, key) },
+                    onDeleteClick = { onConfirmDeletingClick(action.account, key) }
                 )
             }
         }
         is AddAccountAction.DismissDeleteDialog -> {
             val modalNavController = rootController.findModalController()
             modalNavController.popBackStack(action.dialogKey, animate = true)
-        }
-        is AddAccountAction.BackToScreen -> {
-            val navController = rootController.findRootController()
-            navController.backToScreen(action.screenName)
         }
     }
 }

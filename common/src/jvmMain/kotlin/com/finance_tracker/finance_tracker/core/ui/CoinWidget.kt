@@ -105,7 +105,7 @@ internal fun CoinWidget(
                 .clip(shape)
                 .background(CoinTheme.color.background)
         ) {
-            content.invoke()
+            content()
         }
     }
 }

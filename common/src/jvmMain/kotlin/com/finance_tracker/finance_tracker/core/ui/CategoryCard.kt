@@ -30,7 +30,7 @@ internal fun CategoryCard(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onClick.invoke() }
+            .clickable { onClick() }
             .padding(
                 start = 16.dp,
                 top = 8.dp,

@@ -42,7 +42,7 @@ inline fun <Action: Any> BaseViewModel<Action>.watchViewActions(
         viewActionChannel
             .onEach { action ->
                 action ?: return@onEach
-                onExecute.invoke(action, baseLocalsStorage)
+                onExecute(action, baseLocalsStorage)
             }
             .launchIn(this)
     }

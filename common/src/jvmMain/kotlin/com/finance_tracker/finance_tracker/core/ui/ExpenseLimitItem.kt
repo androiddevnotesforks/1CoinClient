@@ -40,7 +40,7 @@ internal fun ExpenseLimitItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { onClick.invoke() }
+            .clickable { onClick() }
             .padding(vertical = 6.dp, horizontal = 16.dp)
     ) {
         Icon(

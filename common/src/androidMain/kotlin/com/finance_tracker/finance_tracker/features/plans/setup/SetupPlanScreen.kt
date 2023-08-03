@@ -182,11 +182,11 @@ fun SetupPlanScreen(
                             enabled = isAddTransactionEnabled,
                             onAddClick = {
                                 val fromButtonClick = true
-                                onUpdateTransaction.invoke(fromButtonClick)
+                                onUpdateTransaction(fromButtonClick)
                             },
                             onEditClick = {
                                 val fromButtonClick = true
-                                onUpdateTransaction.invoke(fromButtonClick)
+                                onUpdateTransaction(fromButtonClick)
                             },
                             isEditMode = viewModel.isEditMode,
                             onDeleteClick = {
@@ -226,7 +226,7 @@ private fun DeletePlanDialog(
         },
         onDeleteClick = {
             plan?.let {
-                onDeleteTransactionClick.invoke(it)
+                onDeleteTransactionClick(it)
             }
         }
     )

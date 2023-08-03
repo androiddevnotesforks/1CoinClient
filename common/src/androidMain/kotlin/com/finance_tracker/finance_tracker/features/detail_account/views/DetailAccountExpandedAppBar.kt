@@ -52,9 +52,7 @@ internal fun DetailAccountExpandedAppBar(
                 .padding(top = 64.dp)
                 .size(48.dp)
                 .clip(CircleShape)
-                .clickable {
-                    onIconClick.invoke()
-                }
+                .clickable { onIconClick() }
                 .background(CoinTheme.color.content.copy(alpha = 0.2f))
                 .padding(12.dp),
             painter = rememberAsyncImagePainter(icon),

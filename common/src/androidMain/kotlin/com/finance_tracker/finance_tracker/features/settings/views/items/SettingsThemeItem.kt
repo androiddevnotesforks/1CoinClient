@@ -53,7 +53,7 @@ internal fun SettingsThemeItem(
                     modifier = Modifier
                         .padding(end = 8.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .clickable { onChooseThemeClick.invoke() },
+                        .clickable { onChooseThemeClick() },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(

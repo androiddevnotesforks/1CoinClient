@@ -40,7 +40,7 @@ internal fun SettingsMyProfileItem(
                     .size(28.dp)
                     .clip(CircleShape)
                     .`if`(isUserAuthorized) {
-                        clickable { onLogOutClick.invoke() }
+                        clickable { onLogOutClick() }
                     }
                     .padding(2.dp),
                 painter = if (isUserAuthorized) {

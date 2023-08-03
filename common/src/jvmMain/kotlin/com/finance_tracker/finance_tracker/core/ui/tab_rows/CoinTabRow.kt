@@ -121,7 +121,7 @@ internal fun CoinTabRow(
                             },
                         text = data[index],
                         selected = selectedTabIndex == index,
-                        onClick = { onTabSelect.invoke(index) }
+                        onClick = { onTabSelect(index) }
                     )
                 }
             }

@@ -64,7 +64,7 @@ internal fun SettingsVersionAndUserIdInfo(
             modifier = Modifier
                 .width(IntrinsicSize.Max)
                 .clip(RoundedCornerShape(16.dp))
-                .clickable { onCopyUserId.invoke() }
+                .clickable { onCopyUserId() }
                 .padding(
                     vertical = 8.dp,
                     horizontal = 4.dp

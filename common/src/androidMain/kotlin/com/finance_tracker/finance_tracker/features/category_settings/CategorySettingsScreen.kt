@@ -124,7 +124,7 @@ private fun CategoryDragColumn(
         listState,
         categories
     ) { fromIndex, toIndex ->
-        onSwap.invoke(fromIndex, toIndex)
+        onSwap(fromIndex, toIndex)
     }
 
     val itemShape by remember(categories.lastIndex) {
@@ -171,7 +171,7 @@ private fun CategoryDragColumn(
             ) { isDragging ->
                 val elevation by animateDpAsState(if (isDragging) 4.dp else 0.dp)
                 val itemShapeLambda by remember(index) {
-                    derivedStateOf { itemShape.invoke(index) }
+                    derivedStateOf { itemShape(index) }
                 }
                 Card(
                     elevation = elevation,
@@ -182,10 +182,10 @@ private fun CategoryDragColumn(
                         isLastItem = index == categories.lastIndex,
                     ) {
                         val onClickLambda = remember(category) {
-                            { onClick.invoke(category) }
+                            { onClick(category) }
                         }
                         val onCrossDeleteClickLambda = remember(category) {
-                            { onCrossDeleteClick.invoke(category) }
+                            { onCrossDeleteClick(category) }
                         }
                         val topPadding by remember(index) {
                             derivedStateOf { if (index == 0) 8.dp else 0.dp }

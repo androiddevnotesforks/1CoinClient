@@ -11,8 +11,7 @@ import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
 import com.finance_tracker.finance_tracker.core.common.keyboard.applyKeyboardAction
 import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
-import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTree
-import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
+import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
@@ -28,7 +27,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class AddAccountViewModel(
-    private val accountsRepository: AccountsRepository,
+    private val accountsInteractor: AccountsInteractor,
     private val currenciesInteractor: CurrenciesInteractor,
     private val _account: Account,
     private val addAccountAnalytics: AddAccountAnalytics,
@@ -98,7 +97,7 @@ class AddAccountViewModel(
 
     private fun loadAccountColors() {
         viewModelScope.launch {
-            _colors.value = accountsRepository.getAllAccountColors()
+            _colors.value = accountsInteractor.getAllAccountColors()
             _selectedColor.value = colors.value.firstOrNull { it == account?.colorModel }
         }
     }
@@ -139,8 +138,8 @@ class AddAccountViewModel(
         addAccountAnalytics.trackConfirmDeletingClick(account)
         viewAction = AddAccountAction.DismissDeleteDialog(dialogKey)
         viewModelScope.launch {
-            accountsRepository.deleteAccountById(account.id)
-            viewAction = AddAccountAction.BackToScreen(MainNavigationTree.Main.name)
+            accountsInteractor.deleteAccountById(account.id)
+            viewAction = AddAccountAction.Close
         }
     }
 
@@ -177,7 +176,7 @@ class AddAccountViewModel(
                 return@launch
             }
             if (account == null) {
-                accountsRepository.insertAccount(
+                accountsInteractor.insertAccount(
                     accountName = accountName,
                     type = type,
                     colorId = selectedColorId,
@@ -185,7 +184,7 @@ class AddAccountViewModel(
                     balance = balance
                 )
             } else {
-                accountsRepository.updateAccount(
+                accountsInteractor.updateAccount(
                     id = account.id,
                     name = accountName,
                     type = type,

@@ -80,7 +80,7 @@ internal fun PeriodBarChart(
                 CoinChip(
                     text = stringResource(chip.textId),
                     selected = chip == selectedPeriodChip,
-                    onClick = { onChipSelect.invoke(chip) }
+                    onClick = { onChipSelect(chip) }
                 )
             }
         }

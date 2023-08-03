@@ -32,7 +32,7 @@ internal fun BoxWithDividers(
             modifier = Modifier.height(IntrinsicSize.Min)
         ) {
             Box(modifier = Modifier.weight(1f)) {
-                content.invoke()
+                content()
             }
 
             if ((index + 1) % columnCount != 0) {

@@ -19,7 +19,7 @@ actual fun BackHandler(enabled: Boolean, onBack: () -> Unit) {
             .receiveAsFlow()
             .onEach {
                 if (enabled) {
-                    onBack.invoke()
+                    onBack()
                 }
             }
             .launchIn(this)

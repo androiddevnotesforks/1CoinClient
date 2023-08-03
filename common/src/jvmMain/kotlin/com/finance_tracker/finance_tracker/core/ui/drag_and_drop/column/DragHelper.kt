@@ -136,10 +136,10 @@ class DragState internal constructor(
             if (scrollToIndex != null) {
                 scope.launch {
                     state.scrollToItem(scrollToIndex, state.firstVisibleItemScrollOffset)
-                    onMove.invoke(draggingItem.index, targetItem.index)
+                    onMove(draggingItem.index, targetItem.index)
                 }
             } else {
-                onMove.invoke(draggingItem.index, targetItem.index)
+                onMove(draggingItem.index, targetItem.index)
             }
             draggingItemIndex = targetItem.index
         } else {

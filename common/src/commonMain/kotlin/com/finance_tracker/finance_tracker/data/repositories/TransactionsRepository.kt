@@ -74,6 +74,12 @@ class TransactionsRepository(
         }
     }
 
+    suspend fun deleteTransactionsByAccountId(accountId: Long) {
+        withContext(Dispatchers.IO) {
+            transactionsEntityQueries.deleteTransactionsByAccountId(accountId)
+        }
+    }
+
     suspend fun deleteCategoryForTransactionsByCategoryId(categoryId: Long) {
         withContext(Dispatchers.IO) {
             transactionsEntityQueries.deleteCategoryForTransactionsByCategoryId(categoryId)

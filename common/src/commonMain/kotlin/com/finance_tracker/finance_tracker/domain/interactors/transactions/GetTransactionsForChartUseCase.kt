@@ -50,7 +50,7 @@ class GetTransactionsForChartUseCase(
                         percentValue = 0f,
                         transactionsCount = transactions.size
                     )
-                }.sortedByDescending { sortRules.invoke(it) }
+                }.sortedByDescending { sortRules(it) }
 
             val categoryPercentValues = calculateCategoryPercentValues(
                 rawCategoryPieces, totalAmount
@@ -63,7 +63,7 @@ class GetTransactionsForChartUseCase(
 
             val otherPieces = (allPieces.drop(OtherCategoryCountThreshold) +
                     allPieces.filter { it.percentValue < OtherMinPercentThreshold }).toSet()
-                .sortedByDescending { sortRules.invoke(it) }
+                .sortedByDescending { sortRules(it) }
                 .takeIf { it.size > 1 }
                 .orEmpty()
 

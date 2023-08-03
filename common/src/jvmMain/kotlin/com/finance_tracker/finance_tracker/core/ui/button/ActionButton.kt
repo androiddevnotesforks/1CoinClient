@@ -23,7 +23,7 @@ fun ActionButton(
     Text(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .clickable { onClick.invoke() }
+            .clickable { onClick() }
             .padding(8.dp),
         text = text,
         style = CoinTheme.typography.body1_medium,

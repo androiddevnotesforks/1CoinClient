@@ -45,7 +45,7 @@ internal fun AmountKeyboard(
                         modifier = Modifier
                             .weight(1f)
                             .fillMaxHeight()
-                            .clickable { onButtonClick.invoke(command) },
+                            .clickable { onButtonClick(command) },
                         contentAlignment = Alignment.Center
                     ) {
                         when (command) {

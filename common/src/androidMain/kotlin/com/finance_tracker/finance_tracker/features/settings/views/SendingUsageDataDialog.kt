@@ -65,7 +65,7 @@ internal fun SendingUsageDataDialog(
 
                 ActionButton(
                     text = stringResource(MR.strings.okey),
-                    onClick = { onOkClick.invoke() }
+                    onClick = { onOkClick() }
                 )
             }
         }

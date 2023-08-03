@@ -21,7 +21,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.features.select_currency.views.CurrencyItem
 import com.finance_tracker.finance_tracker.features.select_currency.views.SelectCurrencyTopBar
-import java.util.*
+import java.util.Currency
 
 @Composable
 internal fun SelectCurrencyScreen() {
@@ -80,7 +80,7 @@ internal fun SelectCurrencyScreen() {
                 { currency ->
                     CurrencyItem(
                         currency = currency,
-                        onCurrencyClick = viewModel::onCurrencySelect,
+                        onClick = { viewModel.onCurrencySelect(currency) },
                         isCurrencySelected = currency == primaryCurrency
                     )
                 }

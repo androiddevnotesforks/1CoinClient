@@ -58,9 +58,9 @@ internal fun ActionButtonsSection(
                 },
                 onClick = {
                     if (isEditMode) {
-                        onEditClick.invoke()
+                        onEditClick()
                     } else {
-                        onAddClick.invoke()
+                        onAddClick()
                     }
                 },
                 enabled = enabled

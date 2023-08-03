@@ -37,7 +37,7 @@ internal fun ItemWrapper(
                 hasBottomBorder = isLastItem
             )
     ) {
-        content.invoke()
+        content()
     }
 }
 

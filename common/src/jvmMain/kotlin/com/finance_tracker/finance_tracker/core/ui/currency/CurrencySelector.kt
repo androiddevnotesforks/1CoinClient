@@ -27,7 +27,6 @@ fun CurrencySelector(
     selectedCurrency: Currency,
     modifier: Modifier = Modifier,
     onCurrencySelect: (Currency) -> Unit = {},
-    onCurrencyClick: (Currency) -> Unit = {},
     xOffset: Dp = 0.dp,
     yOffset: Dp = 0.dp
 ) {
@@ -40,7 +39,6 @@ fun CurrencySelector(
             .clickable {
                 focusManager.clearFocus()
                 currencyMenuExpanded.value = true
-                onCurrencyClick.invoke(selectedCurrency)
             }
             .padding(
                 start = 14.dp,

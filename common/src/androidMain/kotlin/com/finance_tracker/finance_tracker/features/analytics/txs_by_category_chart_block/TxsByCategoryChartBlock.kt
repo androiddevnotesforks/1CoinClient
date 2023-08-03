@@ -184,7 +184,7 @@ private fun ExpandButton(
             .size(24.dp)
             .clip(CircleShape)
             .rotate(rotateDegreesAnimatable)
-            .clickable { onClick.invoke() },
+            .clickable { onClick() },
         painter = rememberAsyncImagePainter(MR.files.ic_expand_more),
         contentDescription = null,
         tint = CoinTheme.color.primary

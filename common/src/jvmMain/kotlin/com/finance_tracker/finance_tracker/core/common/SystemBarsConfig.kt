@@ -26,7 +26,7 @@ internal fun UpdateSystemBarsConfigEffect(action: SystemBarsConfig.() -> Unit) {
     val currentSystemBarsConfig = LocalSystemBarsConfig.current
     val oldSystemBarsConfig = remember { currentSystemBarsConfig.copy() }
     DisposableEffect(Unit) {
-        action.invoke(currentSystemBarsConfig)
+        action(currentSystemBarsConfig)
         onDispose {
             currentSystemBarsConfig.isStatusBarLight = oldSystemBarsConfig.isStatusBarLight
         }

@@ -68,7 +68,7 @@ private fun DashboardWidgetDragColumn(
 
     val listState = rememberLazyListState()
     val dragState = rememberDragDropState(listState, widgets.toImmutableList()) { fromIndex, toIndex ->
-        onSwap.invoke(fromIndex, toIndex)
+        onSwap(fromIndex, toIndex)
     }
 
     LazyColumn(
@@ -94,7 +94,7 @@ private fun DashboardWidgetDragColumn(
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     val onClickLambda = remember(widget) {
-                        {  onClick.invoke(widget) }
+                        {  onClick(widget) }
                     }
                     DashboardItem(
                         data = widget,
