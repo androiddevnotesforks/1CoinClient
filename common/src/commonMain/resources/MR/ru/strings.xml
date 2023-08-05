@@ -289,4 +289,11 @@
     <string name="import_title">Импортируем</string>
     <string name="import_description">Пожалуйста, не\u00A0закрывайте окно до\u00A0окончания операции</string>
 
+    <!-- PresetCurrency screen -->
+    <string name="preset_currency_title">Выберите валюту</string>
+    <string name="preset_currency_search_label">Поиск</string>
+    <string name="preset_currency_other_currency">Другая валюта</string>
+    <string name="preset_currency_nothing_found">Ничего не найдено</string>
+    <string name="preset_currency_continue">Продолжить</string>
+
 </resources>

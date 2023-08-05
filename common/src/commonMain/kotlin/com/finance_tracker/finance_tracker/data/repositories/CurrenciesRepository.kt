@@ -67,6 +67,10 @@ class CurrenciesRepository(
         return mapCodeToCurrency(currencyCode)
     }
 
+    suspend fun isPrimaryCurrencySelected(): Boolean {
+        return accountSettings.getPrimaryCurrencyCode() != null
+    }
+
     private fun mapCodeToCurrency(currencyCode: String?): Currency {
         return currencyCode?.let(Currency::getByCode) ?: Currency.default
     }

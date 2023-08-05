@@ -11,6 +11,6 @@ actual fun StringDesc.localizedString(context: Context): String {
     return localized()
 }
 
-actual fun getLocale(): String {
+actual fun getLocaleLanguage(): String {
     return StringDesc.localeType.currentLocale.language
 }

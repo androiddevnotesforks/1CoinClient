@@ -6,10 +6,7 @@ import com.finance_tracker.finance_tracker.core.common.getRaw
 import com.finance_tracker.finance_tracker.core.common.localizedString
 import com.finance_tracker.finance_tracker.core.common.toCategoryString
 import com.finance_tracker.finance_tracker.data.settings.AccountSettings
-import com.finance_tracker.finance_tracker.domain.models.Account
-import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Category
-import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.financetracker.financetracker.data.AccountsEntityQueries
 import com.financetracker.financetracker.data.CategoriesEntityQueries
 import com.financetracker.financetracker.data.CurrencyRatesEntityQueries
@@ -36,7 +33,6 @@ class DatabaseInitializer(
             initDbVersion()
 
             if (!accountSettings.isInitDefaultData()) {
-                initAccounts(context)
                 initCategories(context)
                 initCurrencyRates(context)
                 accountSettings.setIsInitDefaultData(true)
@@ -51,20 +47,6 @@ class DatabaseInitializer(
 
     private fun initDbVersion() {
         dbVersionEntityQueries.setVersion(CurrentDbVersion)
-    }
-
-    private fun initAccounts(context: Context) {
-        accountsEntityQueries.transaction {
-            accountsEntityQueries.insertAccount(
-                id = 1,
-                type = Account.Type.Cash,
-                name = MR.strings.account_type_cash.localizedString(context),
-                balance = 0.0,
-                colorId = AccountColorModel.EastBay.id,
-                currency = Currency.default.code,
-                position = 0
-            )
-        }
     }
 
     private fun initCategories(context: Context) {

@@ -21,7 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
-import com.finance_tracker.finance_tracker.core.common.getLocale
+import com.finance_tracker.finance_tracker.core.common.getLocaleLanguage
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -40,7 +40,7 @@ internal fun EditButton(
     tint: Color = CoinTheme.color.content,
     onClick: () -> Unit = {}
 ) {
-    val locale = getLocale()
+    val locale = getLocaleLanguage()
     val width by remember(locale) {
         derivedStateOf {
             if (locale == "ru") {

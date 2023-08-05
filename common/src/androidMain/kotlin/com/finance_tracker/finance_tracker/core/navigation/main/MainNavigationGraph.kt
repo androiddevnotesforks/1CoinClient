@@ -16,6 +16,7 @@ import com.finance_tracker.finance_tracker.features.email_auth.enter_email.Enter
 import com.finance_tracker.finance_tracker.features.email_auth.enter_otp.EnterOtpScreen
 import com.finance_tracker.finance_tracker.features.plans.setup.SetupPlanScreen
 import com.finance_tracker.finance_tracker.features.plans.setup.SetupPlanScreenParams
+import com.finance_tracker.finance_tracker.features.preset_currency.PresetCurrencyScreen
 import com.finance_tracker.finance_tracker.features.select_currency.SelectCurrencyScreen
 import com.finance_tracker.finance_tracker.features.settings.SettingsScreen
 import com.finance_tracker.finance_tracker.features.welcome.WelcomeScreen
@@ -82,6 +83,10 @@ fun RootComposeBuilder.navigationGraph() {
 
     screen(MainNavigationTree.Accounts.name) {
         AccountsScreen()
+    }
+
+    screen(MainNavigationTree.PresetCurrency.name) {
+        PresetCurrencyScreen()
     }
 
     tabsNavigationGraph()

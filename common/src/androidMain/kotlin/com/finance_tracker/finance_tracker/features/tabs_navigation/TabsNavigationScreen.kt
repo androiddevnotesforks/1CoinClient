@@ -26,6 +26,7 @@ import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTre
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.NoRippleTheme
 import com.finance_tracker.finance_tracker.core.ui.BottomNavigationBar
+import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.features.tabs_navigation.analytics.TabsNavigationAnalytics
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.AnalyticsTab
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.HomeTab
@@ -36,7 +37,10 @@ import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
 import ru.alexgladkov.odyssey.compose.controllers.TabNavigationModel
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
+import ru.alexgladkov.odyssey.core.LaunchFlag
 import ru.alexgladkov.odyssey.core.toScreenBundle
+
+val currenciesInteractor: CurrenciesInteractor = getKoin().get()
 
 @Composable
 internal fun TabsNavigationScreen() {
@@ -45,6 +49,15 @@ internal fun TabsNavigationScreen() {
     val nullableSelectedTabItem by rootController.stackChangeObserver.collectAsState()
     val selectedTabItem = nullableSelectedTabItem ?: return
     val analytics: TabsNavigationAnalytics = remember { getKoin().get() }
+
+    LaunchedEffect(Unit) {
+        if (!currenciesInteractor.isPrimaryCurrencySelected()) {
+            rootController.findRootController().push(
+                screen = MainNavigationTree.PresetCurrency.name,
+                launchFlag = LaunchFlag.ClearPrevious
+            )
+        }
+    }
 
     Scaffold(
         bottomBar = {

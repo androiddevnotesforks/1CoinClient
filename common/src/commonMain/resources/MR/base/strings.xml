@@ -293,4 +293,11 @@
     <string name="import_title">Importing</string>
     <string name="import_description">Please don’t close the dialog until the end of the operation</string>
 
+    <!-- PresetCurrency screen -->
+    <string name="preset_currency_title">Set currency</string>
+    <string name="preset_currency_search_label">Search</string>
+    <string name="preset_currency_other_currency">Other currency</string>
+    <string name="preset_currency_nothing_found">Nothing found</string>
+    <string name="preset_currency_continue">Continue</string>
+
 </resources>

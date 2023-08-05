@@ -7,4 +7,4 @@ expect fun StringResource.localizedString(context: Context): String
 
 expect fun StringDesc.localizedString(context: Context): String
 
-expect fun getLocale(): String
+expect fun getLocaleLanguage(): String

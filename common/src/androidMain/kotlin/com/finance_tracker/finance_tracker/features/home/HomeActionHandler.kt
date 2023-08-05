@@ -31,7 +31,7 @@ fun handleAction(
         HomeAction.OpenAccountsScreen -> {
             val navController = rootController.findRootController()
             navController.push(
-                screen = MainNavigationTree.Accounts.name,
+                screen = MainNavigationTree.Accounts.name
             )
         }
         HomeAction.OpenAddAccountScreen -> {
