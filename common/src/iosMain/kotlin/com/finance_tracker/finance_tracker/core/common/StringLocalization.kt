@@ -12,8 +12,3 @@ actual fun StringResource.localizedString(context: Context): String {
 actual fun StringDesc.localizedString(context: Context): String {
     TODO()
 }
-
-@Suppress("NotImplementedDeclaration")
-actual fun getLocaleLanguage(): String {
-    TODO()
-}

@@ -10,7 +10,3 @@ actual fun StringResource.localizedString(context: Context): String {
 actual fun StringDesc.localizedString(context: Context): String {
     return localized()
 }
-
-actual fun getLocaleLanguage(): String {
-    return StringDesc.localeType.currentLocale.language
-}

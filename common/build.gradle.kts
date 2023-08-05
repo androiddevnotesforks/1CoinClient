@@ -1,10 +1,6 @@
 
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.BOOLEAN
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
-import org.jetbrains.compose.ComposeCompilerKotlinSupportPlugin
-import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
-import org.jetbrains.kotlin.gradle.plugin.KotlinCompilerPluginSupportPlugin
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 
 plugins {
@@ -116,19 +112,15 @@ kotlin {
 
 android {
     namespace = "com.finance_tracker.finance_tracker.common"
-}
 
-// Exclude native compose compiler
-plugins.removeAll { it is ComposeCompilerKotlinSupportPlugin }
-class ComposeNoNativePlugin : KotlinCompilerPluginSupportPlugin by ComposeCompilerKotlinSupportPlugin() {
-    override fun isApplicable(kotlinCompilation: KotlinCompilation<*>): Boolean {
-        if (kotlinCompilation.target.platformType == KotlinPlatformType.native) {
-            return false
-        }
-        return ComposeCompilerKotlinSupportPlugin().isApplicable(kotlinCompilation)
+    kotlin {
+        jvmToolchain(17)
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
-apply<ComposeNoNativePlugin>()
 
 sqldelight {
     database("AppDatabase") {
