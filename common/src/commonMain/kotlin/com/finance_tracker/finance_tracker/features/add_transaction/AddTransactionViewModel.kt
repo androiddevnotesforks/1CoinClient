@@ -17,7 +17,6 @@ import com.finance_tracker.finance_tracker.core.common.toDateTime
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
 import com.finance_tracker.finance_tracker.core.common.view_models.showPreviousScreenSnackbar
-import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
 import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarActionState
 import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarState
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
@@ -58,7 +57,6 @@ class AddTransactionViewModel(
     private val categoriesEntityQueries: CategoriesEntityQueries,
     params: AddTransactionScreenParams,
     private val addTransactionAnalytics: AddTransactionAnalytics,
-    val featuresManager: FeaturesManager,
     private val evaluator: Evaluator
 ) : BaseViewModel<AddTransactionAction>() {
 

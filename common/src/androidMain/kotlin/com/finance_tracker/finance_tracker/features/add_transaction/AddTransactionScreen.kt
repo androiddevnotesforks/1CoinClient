@@ -82,7 +82,6 @@ internal fun AddTransactionScreen(
             CategoriesAppBar(
                 doneButtonEnabled = isAddTransactionEnabled,
                 selectedTransactionType = selectedTransactionType,
-                featuresManager = viewModel.featuresManager,
                 onTransactionTypeSelect = viewModel::onTransactionTypeSelect,
                 onDoneClick = {
                     viewModel.addOrUpdateTransaction(fromButtonClick = false)

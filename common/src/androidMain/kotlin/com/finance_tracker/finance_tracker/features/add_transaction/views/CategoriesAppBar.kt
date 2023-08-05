@@ -17,8 +17,6 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
-import com.finance_tracker.finance_tracker.core.feature_flags.FeatureFlag
-import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
@@ -30,7 +28,6 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 @Composable
 internal fun CategoriesAppBar(
     doneButtonEnabled: Boolean,
-    featuresManager: FeaturesManager,
     modifier: Modifier = Modifier,
     selectedTransactionType: TransactionTypeTab = TransactionTypeTab.Expense,
     onTransactionTypeSelect: (TransactionTypeTab) -> Unit = {},
@@ -64,11 +61,7 @@ internal fun CategoriesAppBar(
             ) {
                 TransactionTypesTabRow(
                     modifier = Modifier.wrapContentWidth(),
-                    transactionTypesMode = if (featuresManager.isEnabled(FeatureFlag.Transfer)) {
-                        TransactionTypesMode.Full
-                    } else {
-                        TransactionTypesMode.Main
-                    },
+                    transactionTypesMode = TransactionTypesMode.Full,
                     selectedType = selectedTransactionType,
                     hasBottomDivider = false,
                     isHorizontallyCentered = true,

@@ -114,24 +114,20 @@ internal fun SettingsScreen() {
                     primaryCurrency = primaryCurrency
                 )
 
-                if (viewModel.featuresManager.isEnabled(FeatureFlag.ChooseTheme)) {
-                    val themeMode by viewModel.currentTheme.collectAsState()
-                    SettingsThemeItem(
-                        themes = viewModel.themes,
-                        themeMode = themeMode,
-                        onClick = viewModel::onThemeChange
-                    )
-                }
+                val themeMode by viewModel.currentTheme.collectAsState()
+                SettingsThemeItem(
+                    themes = viewModel.themes,
+                    themeMode = themeMode,
+                    onClick = viewModel::onThemeChange
+                )
 
                 SettingsCategoriesItem(
                     onClick = viewModel::onCategorySettingsClick
                 )
 
-                if (featuresManager.isEnabled(FeatureFlag.WidgetsSettings)) {
-                    SettingsDashboardItem(
-                        onClick = viewModel::onDashboardSettingsClick
-                    )
-                }
+                SettingsDashboardItem(
+                    onClick = viewModel::onDashboardSettingsClick
+                )
 
                 ListItemDivider()
 
