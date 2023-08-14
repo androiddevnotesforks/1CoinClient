@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.getKoin
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
 import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -32,6 +31,7 @@ import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.Analyti
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.HomeTab
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.PlansTab
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.TransactionsTab
+import dev.icerock.moko.resources.compose.painterResource
 import ru.alexgladkov.odyssey.compose.base.AnimatedHost
 import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
 import ru.alexgladkov.odyssey.compose.controllers.TabNavigationModel
@@ -93,7 +93,7 @@ internal fun TabsNavigationScreen() {
                 ) {
                     Icon(
                         modifier = Modifier.size(30.dp),
-                        painter = rememberAsyncImagePainter(MR.files.ic_plus),
+                        painter = painterResource(MR.images.ic_plus),
                         contentDescription = null,
                         tint = CoinTheme.color.white
                     )

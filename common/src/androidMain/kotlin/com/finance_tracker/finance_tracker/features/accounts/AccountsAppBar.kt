@@ -14,10 +14,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -30,7 +30,7 @@ internal fun AccountsAppBar(
         modifier = modifier,
         navigationIcon = {
             AppBarIcon(
-                painter = rememberAsyncImagePainter(MR.files.ic_arrow_back),
+                painter = painterResource(MR.images.ic_arrow_back),
                 onClick = onBackClick,
             )
         },
@@ -55,7 +55,7 @@ internal fun AccountsAppBar(
                     modifier = Modifier
                         .padding(end = 2.dp)
                         .size(24.dp),
-                    painter = rememberAsyncImagePainter(MR.files.ic_plus),
+                    painter = painterResource(MR.images.ic_plus),
                     contentDescription = null,
                     tint = CoinTheme.color.primary,
                 )

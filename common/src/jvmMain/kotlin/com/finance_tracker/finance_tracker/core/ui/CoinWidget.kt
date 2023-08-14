@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.`if`
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.painterResource
 import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 private val HorizontalPadding = 16.dp
@@ -74,7 +74,7 @@ internal fun CoinWidget(
             if (onClick != null) {
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
-                    painter = rememberAsyncImagePainter(MR.files.ic_arrow_right_small),
+                    painter = painterResource(MR.images.ic_arrow_right_small),
                     contentDescription = null,
                     modifier = Modifier
                         .size(24.dp)

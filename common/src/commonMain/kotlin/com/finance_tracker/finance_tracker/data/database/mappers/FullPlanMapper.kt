@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.data.database.mappers
 
-import com.finance_tracker.finance_tracker.core.common.toCategoryFileResourceOrDefault
+import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.getCategoryIconByNameOrDefault
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Currency
@@ -37,7 +38,7 @@ val fullPlanMapper: (
         category = Category(
             id = categoryId ?: EmptyCategoryId,
             name = categoryName.orEmpty(),
-            icon = categoryIcon.toCategoryFileResourceOrDefault()
+            icon = MR.images.getCategoryIconByNameOrDefault(categoryIcon)
         ),
         spentAmount = Amount(
             amountValue = 0.0,

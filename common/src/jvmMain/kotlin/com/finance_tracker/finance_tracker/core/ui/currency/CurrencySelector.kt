@@ -17,9 +17,9 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Currency
+import dev.icerock.moko.resources.compose.painterResource
 
 @Composable
 fun CurrencySelector(
@@ -57,7 +57,7 @@ fun CurrencySelector(
         Icon(
             modifier = Modifier
                 .size(24.dp),
-            painter = rememberAsyncImagePainter(MR.files.ic_expand_more_small),
+            painter = painterResource(MR.images.ic_expand_more_small),
             contentDescription = null,
             tint = CoinTheme.color.primary
         )

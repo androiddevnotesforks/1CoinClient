@@ -27,12 +27,12 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.`if`
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.features.plans.setup.SetupPlanStep
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
@@ -112,7 +112,7 @@ internal fun CategoryRow(
     ) {
         Icon(
             modifier = Modifier.size(20.dp),
-            painter = rememberAsyncImagePainter(category.icon),
+            painter = painterResource(category.icon),
             contentDescription = null
         )
         Text(
@@ -132,7 +132,7 @@ internal fun NextIcon(
     Icon(
         modifier = modifier
             .padding(horizontal = 2.dp),
-        painter = rememberAsyncImagePainter(MR.files.ic_arrow_right_small),
+        painter = painterResource(MR.images.ic_arrow_right_small),
         contentDescription = null,
         tint = CoinTheme.color.content
     )

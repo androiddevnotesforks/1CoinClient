@@ -390,7 +390,7 @@ class AddTransactionViewModel(
             viewAction = AddTransactionAction.DismissDialog(dialogKey)
             showPreviousScreenSnackbar(
                 snackbarState = SnackbarState.Information(
-                    iconResId = MR.files.ic_delete,
+                    iconResId = MR.images.ic_delete,
                     textResId = MR.strings.toast_text_transaction_deleted,
                     actionState = SnackbarActionState.Undo(
                         onAction = { restoreTransaction(transaction) }

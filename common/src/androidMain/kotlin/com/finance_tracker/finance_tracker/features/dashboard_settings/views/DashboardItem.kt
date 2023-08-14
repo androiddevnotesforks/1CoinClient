@@ -17,10 +17,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.noRippleClickable
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinRadioButton
 import com.finance_tracker.finance_tracker.domain.models.DashboardWidgetData
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -49,7 +49,7 @@ internal fun DashboardItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
-            painter = rememberAsyncImagePainter(MR.files.ic_three_stripes),
+            painter = painterResource(MR.images.ic_three_stripes),
             contentDescription = null,
             modifier = Modifier
                 .padding(end = 12.dp)

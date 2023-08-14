@@ -5,7 +5,7 @@ import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.features.add_category.analytics.AddCategoryAnalytics
-import dev.icerock.moko.resources.FileResource
+import dev.icerock.moko.resources.ImageResource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -20,11 +20,11 @@ class AddCategoryViewModel(
 
     private val categoriesNamesList = List(63) { "ic_category_${it + 1}" }
 
-    private val _icons = MutableStateFlow<List<FileResource>>(emptyList())
+    private val _icons = MutableStateFlow<List<ImageResource>>(emptyList())
     val icons = _icons.asStateFlow()
 
     private val _chosenIcon = MutableStateFlow(
-        screenParams.category?.icon ?: MR.files.ic_category_1
+        screenParams.category?.icon ?: MR.images.ic_category_1
     )
     val chosenIcon = _chosenIcon.asStateFlow()
 
@@ -51,13 +51,13 @@ class AddCategoryViewModel(
         }
     }
 
-    fun onIconChoose(icon: FileResource) {
+    fun onIconChoose(icon: ImageResource) {
         _chosenIcon.value = icon
     }
 
     private suspend fun addCategory(
         categoryName: String,
-        categoryIcon: FileResource,
+        categoryIcon: ImageResource,
         transactionType: TransactionType
     ) {
         categoriesInteractor.insertCategory(

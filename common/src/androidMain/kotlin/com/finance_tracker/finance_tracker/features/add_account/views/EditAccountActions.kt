@@ -9,10 +9,10 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.`if`
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.IconActionButton
 import com.finance_tracker.finance_tracker.core.ui.button.PrimaryButton
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -35,7 +35,7 @@ internal fun EditAccountActions(
                         start = 16.dp,
                         end = 8.dp
                     ),
-                painter = rememberAsyncImagePainter(MR.files.ic_recycle_bin),
+                painter = painterResource(MR.images.ic_recycle_bin),
                 tint = CoinTheme.color.accentRed,
                 onClick = onDeleteClick
             )

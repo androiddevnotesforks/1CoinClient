@@ -16,9 +16,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Category
+import dev.icerock.moko.resources.compose.painterResource
 
 @Composable
 internal fun CategoryCard(
@@ -39,7 +39,7 @@ internal fun CategoryCard(
             )
     ) {
         Icon(
-            painter = rememberAsyncImagePainter(MR.files.ic_three_stripes),
+            painter = painterResource(MR.images.ic_three_stripes),
             contentDescription = null,
             modifier = Modifier
                 .padding(end = 12.dp)
@@ -48,7 +48,7 @@ internal fun CategoryCard(
             tint = CoinTheme.color.content
         )
         Icon(
-            painter = rememberAsyncImagePainter(data.icon),
+            painter = painterResource(data.icon),
             contentDescription = null,
             Modifier
                 .size(42.dp)
@@ -73,7 +73,7 @@ internal fun CategoryCard(
             color = CoinTheme.color.content
         )
         Icon(
-            painter = rememberAsyncImagePainter(MR.files.ic_close),
+            painter = painterResource(MR.images.ic_close),
             contentDescription = null,
             modifier = Modifier
                 .clip(CircleShape)

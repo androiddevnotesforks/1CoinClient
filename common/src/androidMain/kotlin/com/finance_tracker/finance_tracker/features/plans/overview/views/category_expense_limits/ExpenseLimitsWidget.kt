@@ -16,10 +16,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
 import com.finance_tracker.finance_tracker.domain.models.Plan
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
@@ -81,7 +81,7 @@ private fun AddLimitButton(
     ) {
         Icon(
             modifier = Modifier.size(24.dp),
-            painter = rememberAsyncImagePainter(MR.files.ic_plus),
+            painter = painterResource(MR.images.ic_plus),
             contentDescription = null,
             tint = CoinTheme.color.primary
         )

@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.provideThemeImage
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
@@ -33,6 +32,7 @@ import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
 import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.column.DraggableItem
 import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.column.rememberDragDropState
 import com.finance_tracker.finance_tracker.domain.models.Category
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
 
@@ -86,10 +86,10 @@ internal fun CategorySettingsScreen() {
                 val categories by viewModel.getCategories(page).collectAsState()
                 if (categories.isEmpty()) {
                     EmptyStub(
-                        image = rememberAsyncImagePainter(
+                        image = painterResource(
                             provideThemeImage(
-                                darkFile = MR.files.categories_empty_dark,
-                                lightFile = MR.files.categories_empty_light
+                                darkFile = MR.images.categories_empty_dark,
+                                lightFile = MR.images.categories_empty_light
                             )
                         ),
                         text = stringResource(MR.strings.add_category),

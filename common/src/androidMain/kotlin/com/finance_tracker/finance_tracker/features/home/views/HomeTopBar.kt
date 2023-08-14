@@ -15,10 +15,10 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.core.common.formatters.format
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
 import com.finance_tracker.finance_tracker.domain.models.Amount
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -50,7 +50,7 @@ internal fun HomeTopBar(
         },
         actions = {
             Icon(
-                painter = rememberAsyncImagePainter(MR.files.ic_settings),
+                painter = painterResource(MR.images.ic_settings),
                 contentDescription = null,
                 Modifier
                     .padding(end = 2.dp)

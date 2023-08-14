@@ -31,7 +31,7 @@ import com.finance_tracker.finance_tracker.core.common.updateSystemBarsConfig
 import com.finance_tracker.finance_tracker.core.ui.snackbar.CoinSnackbarHostState
 import com.finance_tracker.finance_tracker.domain.interactors.ThemeInteractor
 import com.finance_tracker.finance_tracker.domain.models.ThemeMode
-import dev.icerock.moko.resources.FileResource
+import dev.icerock.moko.resources.ImageResource
 import com.finance_tracker.finance_tracker.core.theme.toJvmColorPalette as toJvmColorPalette1
 
 private val themeInteractor: ThemeInteractor by lazy { getKoin().get() }
@@ -92,9 +92,9 @@ internal fun TextStyle.staticTextSize(isStaticContentSize: Boolean = true): Text
 
 @Composable
 fun provideThemeImage(
-    darkFile: FileResource,
-    lightFile: FileResource
-): FileResource {
+    darkFile: ImageResource,
+    lightFile: ImageResource
+): ImageResource {
     return if (LocalDarkTheme.current) {
         darkFile
     } else {

@@ -22,10 +22,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.ExpenseLimitItem
 import com.finance_tracker.finance_tracker.domain.models.Plan
+import dev.icerock.moko.resources.compose.painterResource
 
 private const val MaxBudgetsBeforeUncoverWidget = 5
 private const val ArrowRotationDurationMillis = 250
@@ -84,7 +84,7 @@ internal fun ExpenseLimitsList(
                     .padding(4.dp)
                     .align(Alignment.CenterHorizontally)
                     .rotate(rotationAngle),
-                painter = rememberAsyncImagePainter(MR.files.ic_arrow_down_plans),
+                painter = painterResource(MR.images.ic_arrow_down_plans),
                 contentDescription = null,
                 tint = CoinTheme.color.primary
             )

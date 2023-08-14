@@ -2,14 +2,14 @@ package com.finance_tracker.finance_tracker.data.repositories
 
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.Context
-import com.finance_tracker.finance_tracker.core.common.getCategoryIconFile
 import com.finance_tracker.finance_tracker.core.common.toCategoryString
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.financetracker.financetracker.data.CategoriesEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToOneOrNull
-import dev.icerock.moko.resources.FileResource
+import dev.icerock.moko.resources.ImageResource
+import dev.icerock.moko.resources.getImageByFileName
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
@@ -22,7 +22,7 @@ class CategoriesRepository(
 ) {
     suspend fun insertCategory(
         categoryName: String,
-        categoryIcon: FileResource,
+        categoryIcon: ImageResource,
         isExpense: Boolean,
         isIncome: Boolean,
     ) {
@@ -80,15 +80,15 @@ class CategoriesRepository(
             .map { it?.toInt() ?: 0 }
     }
 
-    suspend fun updateCategory(id: Long, name: String, iconId: FileResource) {
+    suspend fun updateCategory(id: Long, name: String, iconId: ImageResource) {
         withContext(Dispatchers.IO) {
             categoriesEntityQueries.updateAccountById(name = name, icon = iconId.toCategoryString(), id = id)
         }
     }
 
-    suspend fun getCategoryIcon(iconName: String): FileResource? {
+    suspend fun getCategoryIcon(iconName: String): ImageResource? {
         return withContext(Dispatchers.IO) {
-            MR.files.getCategoryIconFile(context = context, iconName)
+            MR.images.getImageByFileName(iconName)
         }
     }
 }

@@ -6,7 +6,7 @@ import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepositor
 import com.finance_tracker.finance_tracker.data.repositories.PlansRepository
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
 import com.finance_tracker.finance_tracker.domain.models.Category
-import dev.icerock.moko.resources.FileResource
+import dev.icerock.moko.resources.ImageResource
 import kotlinx.coroutines.flow.Flow
 
 class CategoriesInteractor(
@@ -18,7 +18,7 @@ class CategoriesInteractor(
 
     suspend fun insertCategory(
         categoryName: String,
-        categoryIcon: FileResource,
+        categoryIcon: ImageResource,
         isExpense: Boolean,
         isIncome: Boolean,
     ) {
@@ -29,7 +29,7 @@ class CategoriesInteractor(
         return categoriesRepository.getCategoriesCountFlow()
     }
 
-    suspend fun getCategoryIcon(iconName: String): FileResource? {
+    suspend fun getCategoryIcon(iconName: String): ImageResource? {
         return categoriesRepository.getCategoryIcon(iconName)
     }
 
@@ -60,7 +60,7 @@ class CategoriesInteractor(
     }
 
 
-    suspend fun updateCategory(id: Long, name: String, iconId: FileResource) {
+    suspend fun updateCategory(id: Long, name: String, iconId: ImageResource) {
         categoriesRepository.updateCategory(id, name, iconId)
     }
 }

@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.getLocaleLanguage
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
@@ -30,6 +29,7 @@ import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.Collapsing
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.CollapsingToolbarScopeInstance.road
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.animate
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.rememberCollapsingToolbarScaffoldState
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
@@ -73,7 +73,7 @@ internal fun EditButton(
     ) {
         Icon(
             modifier = Modifier.size(18.dp),
-            painter = rememberAsyncImagePainter(MR.files.ic_edit),
+            painter = painterResource(MR.images.ic_edit),
             tint = tint,
             contentDescription = null
         )

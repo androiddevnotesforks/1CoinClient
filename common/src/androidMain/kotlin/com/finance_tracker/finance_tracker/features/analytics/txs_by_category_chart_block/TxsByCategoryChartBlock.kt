@@ -27,12 +27,12 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.MonthsList
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
 import com.finance_tracker.finance_tracker.features.analytics.views.NoTransactionsStub
+import dev.icerock.moko.resources.compose.painterResource
 
 private const val ExpandAnimationDuration = 500
 
@@ -185,7 +185,7 @@ private fun ExpandButton(
             .clip(CircleShape)
             .rotate(rotateDegreesAnimatable)
             .clickable { onClick() },
-        painter = rememberAsyncImagePainter(MR.files.ic_expand_more),
+        painter = painterResource(MR.images.ic_expand_more),
         contentDescription = null,
         tint = CoinTheme.color.primary
     )

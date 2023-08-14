@@ -21,16 +21,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.date.localizedName
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.features.plans.overview.views.plan_period.PlanPeriodCallback
 import com.finance_tracker.finance_tracker.features.plans.overview.views.plan_period.PlanPeriodState
-import com.seiko.imageloader.AsyncImagePainter
+import dev.icerock.moko.resources.compose.painterResource
 
 private const val AnimationDuration = 350
 private const val AnimationDelay = 50
@@ -52,7 +52,7 @@ internal fun PlanPeriodView(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(
-                painter = rememberAsyncImagePainter(MR.files.ic_arrow_left_small),
+                painter = painterResource(MR.images.ic_arrow_left_small),
                 enabled = state.isPreviousPeriodEnabled,
                 onClick = callback::onPreviousPeriodClick
             )
@@ -81,7 +81,7 @@ internal fun PlanPeriodView(
             }
 
             IconButton(
-                painter = rememberAsyncImagePainter(MR.files.ic_arrow_right_small),
+                painter = painterResource(MR.images.ic_arrow_right_small),
                 enabled = state.isNextPeriodEnabled,
                 onClick = callback::onNextPeriodClick
             )
@@ -94,7 +94,7 @@ internal fun PlanPeriodView(
 
 @Composable
 private fun IconButton(
-    painter: AsyncImagePainter,
+    painter: Painter,
     enabled: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier

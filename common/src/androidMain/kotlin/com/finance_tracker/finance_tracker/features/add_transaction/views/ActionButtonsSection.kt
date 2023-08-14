@@ -11,10 +11,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.IconActionButton
 import com.finance_tracker.finance_tracker.core.ui.button.PrimaryButton
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -44,12 +44,12 @@ internal fun ActionButtonsSection(
         ) {
             if (isEditMode) {
                 IconActionButton(
-                    painter = rememberAsyncImagePainter(MR.files.ic_delete),
+                    painter = painterResource(MR.images.ic_delete),
                     tint = CoinTheme.color.accentRed,
                     onClick = onDeleteClick
                 )
                 IconActionButton(
-                    painter = rememberAsyncImagePainter(MR.files.ic_duplicate),
+                    painter = painterResource(MR.images.ic_duplicate),
                     tint = CoinTheme.color.content,
                     onClick = onDuplicateClick
                 )

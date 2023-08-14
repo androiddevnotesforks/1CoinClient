@@ -22,8 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -62,7 +62,7 @@ fun CoinSnackbar(
                     .padding(start = 2.dp)
                     .padding(vertical = 2.dp)
                     .size(24.dp),
-                painter = rememberAsyncImagePainter(snackbarState.iconResId),
+                painter = painterResource(snackbarState.iconResId),
                 contentDescription = null,
                 tint = accentColor
             )
@@ -99,7 +99,7 @@ private fun SnackbarAction(
                         .clickable { actionState.onAction() }
                         .size(32.dp)
                         .padding(6.dp),
-                    painter = rememberAsyncImagePainter(MR.files.ic_close),
+                    painter = painterResource(MR.images.ic_close),
                     contentDescription = null,
                     tint = CoinTheme.color.content
                 )
@@ -117,7 +117,7 @@ private fun SnackbarAction(
                 ) {
                     Icon(
                         modifier = Modifier.size(20.dp),
-                        painter = rememberAsyncImagePainter(MR.files.ic_undo),
+                        painter = painterResource(MR.images.ic_undo),
                         contentDescription = null,
                         tint = CoinTheme.color.content
                     )

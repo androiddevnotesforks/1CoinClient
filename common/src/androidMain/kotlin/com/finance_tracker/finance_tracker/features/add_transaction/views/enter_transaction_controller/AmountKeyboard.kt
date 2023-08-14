@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.features.add_transaction.KeyboardCommand
+import dev.icerock.moko.resources.compose.painterResource
 
 private val commands = listOf(
     KeyboardCommand.Digit(1), KeyboardCommand.Digit(2), KeyboardCommand.Digit(3),
@@ -52,7 +52,7 @@ internal fun AmountKeyboard(
                             KeyboardCommand.Delete -> {
                                 Icon(
                                     modifier = Modifier.size(24.dp),
-                                    painter = rememberAsyncImagePainter(MR.files.ic_backspace),
+                                    painter = painterResource(MR.images.ic_backspace),
                                     contentDescription = null
                                 )
                             }

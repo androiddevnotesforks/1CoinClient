@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.painterResource
 
 private const val CheckAnimDurationMillis = 150
 
@@ -31,7 +31,7 @@ internal fun CoinRadioButton(
             .size(24.dp),
     ) {
         Icon(
-            painter = rememberAsyncImagePainter(MR.files.ic_radio_inactive),
+            painter = painterResource(MR.images.ic_radio_inactive),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             tint = CoinTheme.color.secondary
@@ -46,7 +46,7 @@ internal fun CoinRadioButton(
             )
         ) {
             Icon(
-                painter = rememberAsyncImagePainter(MR.files.ic_radio_active),
+                painter = painterResource(MR.images.ic_radio_active),
                 contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
                 tint = CoinTheme.color.primary

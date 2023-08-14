@@ -41,9 +41,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTextFieldDefaults
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 private const val TextFieldReadOnlyAlpha = 0.6f
@@ -165,7 +165,7 @@ internal fun CoinOutlinedSelectTextField(
             Icon(
                 modifier = Modifier
                     .size(24.dp),
-                painter = rememberAsyncImagePainter(MR.files.ic_expand_more_small),
+                painter = painterResource(MR.images.ic_expand_more_small),
                 contentDescription = null,
                 tint = CoinTheme.color.content
             )

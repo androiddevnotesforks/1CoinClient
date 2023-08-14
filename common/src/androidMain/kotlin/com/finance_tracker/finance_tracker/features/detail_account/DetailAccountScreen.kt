@@ -22,7 +22,6 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.UpdateSystemBarsConfigEffect
 import com.finance_tracker.finance_tracker.core.common.pagination.collectAsLazyPagingItems
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.toDp
 import com.finance_tracker.finance_tracker.core.common.toUIColor
@@ -40,6 +39,7 @@ import com.finance_tracker.finance_tracker.features.detail_account.views.Account
 import com.finance_tracker.finance_tracker.features.detail_account.views.DetailAccountAppBar
 import com.finance_tracker.finance_tracker.features.detail_account.views.DetailAccountExpandedAppBar
 import com.finance_tracker.finance_tracker.features.detail_account.views.EditButton
+import dev.icerock.moko.resources.compose.painterResource
 import org.koin.core.parameter.parametersOf
 
 @Composable
@@ -97,7 +97,7 @@ internal fun DetailAccountScreen(
                         )
                         .statusBarsPadding()
                         .align(Alignment.TopStart),
-                    painter = rememberAsyncImagePainter(MR.files.ic_arrow_back),
+                    painter = painterResource(MR.images.ic_arrow_back),
                     onClick = viewModel::onBackClick,
                     tint = CoinTheme.color.white
                 )

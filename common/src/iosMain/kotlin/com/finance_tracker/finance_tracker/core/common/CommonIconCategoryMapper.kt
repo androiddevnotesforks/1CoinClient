@@ -1,17 +1,14 @@
 package com.finance_tracker.finance_tracker.core.common
 
 import com.finance_tracker.finance_tracker.MR
-import dev.icerock.moko.resources.FileResource
-
-private val appContext: Context by lazy { getKoin().get() }
+import dev.icerock.moko.resources.ImageResource
+import dev.icerock.moko.resources.getImageByFileName
 
 private val categories by lazy {
     List(63) {
         val index = it + 1
         val categoryId = "ic_category_$index"
-        categoryId to MR.files.getCategoryIconFile(
-            context = appContext, categoryId
-        )
+        categoryId to MR.images.getImageByFileName(categoryId)
     }
 }
 private val categoriesToFileResources = categories.associate { it }
@@ -19,14 +16,14 @@ private val fileResourcesToCategories = categories.associate { (categoryId, file
     fileResource to categoryId
 }
 
-actual fun String.toCategoryFileResource(): FileResource {
+actual fun String.toCategoryFileResource(): ImageResource {
     return categoriesToFileResources[this] ?: error(
         "No category file resource for string '$this' in map $categoriesToFileResources"
     )
 }
 
-actual fun FileResource.toCategoryString(): String {
-    return fileResourcesToCategories.mapKeys { it.key?.fileName }[fileName] ?: error(
-        "No string for category FileResource's fileName: '$fileName' in map $fileResourcesToCategories"
+actual fun ImageResource.toCategoryString(): String {
+    return fileResourcesToCategories.mapKeys { it.key?.assetImageName }[assetImageName] ?: error(
+        "No string for category FileResource's fileName: '$assetImageName' in map $fileResourcesToCategories"
     )
 }

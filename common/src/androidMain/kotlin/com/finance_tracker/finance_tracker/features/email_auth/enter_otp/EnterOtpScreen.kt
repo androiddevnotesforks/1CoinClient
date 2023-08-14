@@ -29,13 +29,13 @@ import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.imePadding
 import com.finance_tracker.finance_tracker.core.common.noRippleClickable
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinCodeTextField
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 import org.koin.core.parameter.parametersOf
 
@@ -156,7 +156,7 @@ private fun EnterOtpAppBar(
             modifier = Modifier
                 .padding(start = 8.dp)
                 .align(Alignment.CenterStart),
-            painter = rememberAsyncImagePainter(MR.files.ic_arrow_back),
+            painter = painterResource(MR.images.ic_arrow_back),
             onClick = onBackClick,
         )
     }

@@ -9,11 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.BaseButton
 import com.finance_tracker.finance_tracker.features.ActivityRequestCodes
 import com.finance_tracker.finance_tracker.features.welcome.rememberGoogleSignInResultLauncher
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Suppress("MissingModifierDefaultValue")
@@ -39,7 +39,7 @@ internal actual fun GoogleSignInButton(
     ) {
         Icon(
             modifier = Modifier.size(20.dp),
-            painter = rememberAsyncImagePainter(MR.files.ic_google),
+            painter = painterResource(MR.images.ic_google),
             contentDescription = null,
             tint = LocalContentColor.current
         )

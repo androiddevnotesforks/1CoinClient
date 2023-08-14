@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.domain.models
 
 import com.finance_tracker.finance_tracker.MR
-import dev.icerock.moko.resources.FileResource
+import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.StringResource
 
 data class Account(
@@ -55,11 +55,11 @@ data class Account(
         }
     }
 
-    val icon: FileResource
+    val icon: ImageResource
         get() = if (type == Type.Cash) {
-            MR.files.ic_wallet_active
+            MR.images.ic_wallet_active
         } else {
-            MR.files.ic_card
+            MR.images.ic_card
         }
 
     companion object {

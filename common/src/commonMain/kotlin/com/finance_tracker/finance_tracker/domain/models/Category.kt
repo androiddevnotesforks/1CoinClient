@@ -3,12 +3,12 @@ package com.finance_tracker.finance_tracker.domain.models
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.core.common.localizedString
-import dev.icerock.moko.resources.FileResource
+import dev.icerock.moko.resources.ImageResource
 
 data class Category(
     val id: Long,
     val name: String,
-    val icon: FileResource
+    val icon: ImageResource
 ) {
     companion object {
 
@@ -16,7 +16,7 @@ data class Category(
             return Category(
                 id = -1,
                 name = MR.strings.category_uncategorized.localizedString(context),
-                icon = MR.files.ic_category_uncategorized
+                icon = MR.images.ic_category_uncategorized
             )
         }
     }

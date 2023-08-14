@@ -21,8 +21,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.painterResource
 
 @Suppress("MagicNumber")
 @Composable
@@ -66,7 +66,7 @@ internal fun EmptyStub(
                     modifier = Modifier
                         .padding(end = 2.dp)
                         .size(24.dp),
-                    painter = rememberAsyncImagePainter(MR.files.ic_plus),
+                    painter = painterResource(MR.images.ic_plus),
                     contentDescription = null,
                     tint = CoinTheme.color.primary,
                 )

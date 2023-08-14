@@ -20,10 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.domain.models.getDisplayName
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Currency
+import dev.icerock.moko.resources.compose.painterResource
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -70,7 +70,7 @@ internal fun SelectedCurrency(
                 .padding(end = 12.dp)
                 .padding(vertical = 10.dp)
                 .size(20.dp),
-            painter = rememberAsyncImagePainter(MR.files.ic_done),
+            painter = painterResource(MR.images.ic_done),
             contentDescription = null,
             tint = CoinTheme.color.primary,
         )

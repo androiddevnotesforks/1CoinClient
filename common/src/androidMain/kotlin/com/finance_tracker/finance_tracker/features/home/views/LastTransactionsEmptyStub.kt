@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -42,7 +42,7 @@ internal fun LastTransactionsEmptyStub(
         Icon(
             modifier = Modifier
                 .size(18.dp),
-            painter = rememberAsyncImagePainter(MR.files.ic_error),
+            painter = painterResource(MR.images.ic_error),
             contentDescription = null,
             tint = CoinTheme.color.content.copy(alpha = 0.5f)
         )

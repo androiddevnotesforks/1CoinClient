@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.theme.provideThemeImage
@@ -28,6 +27,7 @@ import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.grid.detectReor
 import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.grid.rememberReorderableLazyGridState
 import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.grid.reorderable
 import com.finance_tracker.finance_tracker.domain.models.Account
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -55,10 +55,10 @@ internal fun AccountsScreen() {
 
             if (accounts.isEmpty()) {
                 EmptyStub(
-                    image = rememberAsyncImagePainter(
+                    image = painterResource(
                         provideThemeImage(
-                            darkFile = MR.files.accounts_empty_dark,
-                            lightFile = MR.files.accounts_empty_light
+                            darkFile = MR.images.accounts_empty_dark,
+                            lightFile = MR.images.accounts_empty_light
                         )
                     ),
                     text = stringResource(MR.strings.add_account),

@@ -5,9 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.ui.CoinSwitch
 import com.finance_tracker.finance_tracker.features.settings.views.ListItem
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Suppress("UnusedPrivateMember")
@@ -20,7 +20,7 @@ internal fun SettingsSendingUsageDataItem(
 ) {
     ListItem(
         modifier = modifier,
-        iconLeftPainter = rememberAsyncImagePainter(MR.files.ic_data_sending),
+        iconLeftPainter = painterResource(MR.images.ic_data_sending),
         text = stringResource(MR.strings.settings_sending_usage_data),
         onInfoClick = onInfoClick,
         iconRight = {

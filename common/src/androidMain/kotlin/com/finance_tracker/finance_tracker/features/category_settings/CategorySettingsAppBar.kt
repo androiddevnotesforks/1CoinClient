@@ -7,11 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTxTypeTopAppBar
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -29,7 +29,7 @@ internal fun CategorySettingsAppBar(
         modifier = modifier,
         navigationIcon = {
             AppBarIcon(
-                painter = rememberAsyncImagePainter(MR.files.ic_arrow_back),
+                painter = painterResource(MR.images.ic_arrow_back),
                 onClick = onBackClick,
             )
         },
@@ -44,7 +44,7 @@ internal fun CategorySettingsAppBar(
         },
         actions = {
             AppBarIcon(
-                rememberAsyncImagePainter(MR.files.ic_plus),
+                painterResource(MR.images.ic_plus),
                 onClick = onAddCategoryClick,
                 tint = CoinTheme.color.primary,
             )

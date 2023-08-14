@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.features.settings.views.ListItem
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -20,7 +20,7 @@ internal fun SettingsMainCurrencyItem(
 ) {
     ListItem(
         modifier = modifier,
-        iconLeftPainter = rememberAsyncImagePainter(MR.files.ic_currency),
+        iconLeftPainter = painterResource(MR.images.ic_currency),
         text = stringResource(MR.strings.settings_main_currency),
         onClick = onClick,
         iconRight = {

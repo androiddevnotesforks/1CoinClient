@@ -37,10 +37,10 @@ import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
 import com.finance_tracker.finance_tracker.core.common.keyboard.arithmeticActions
 import com.finance_tracker.finance_tracker.core.common.keyboard.numPadActions
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.DefaultRippleTheme
-import dev.icerock.moko.resources.FileResource
+import dev.icerock.moko.resources.ImageResource
+import dev.icerock.moko.resources.compose.painterResource
 
 private const val KeyboardRowSize = 3
 private const val OperationsWeight = 0.8F
@@ -156,7 +156,7 @@ private fun RowScope.KeyboardGridElement(
             is KeyboardAction.Operation -> KeyboardGridChar(keyboardAction.operation)
             is KeyboardAction.Digit -> KeyboardGridChar(keyboardAction.digit)
             is KeyboardAction.NumberSeparator -> KeyboardGridChar(keyboardAction.char)
-            KeyboardAction.Delete -> KeyboardGridIcon(MR.files.ic_backspace)
+            KeyboardAction.Delete -> KeyboardGridIcon(MR.images.ic_backspace)
         }
     }
 }
@@ -174,10 +174,10 @@ private fun KeyboardGridChar(
 
 @Composable
 private fun KeyboardGridIcon(
-    iconFileRes: FileResource
+    iconRes: ImageResource
 ) {
     Icon(
-        painter = rememberAsyncImagePainter(iconFileRes),
+        painter = painterResource(iconRes),
         contentDescription = "Icon",
         tint = CoinTheme.color.content,
         modifier = Modifier.size(24.dp)
@@ -197,7 +197,7 @@ private fun RowScope.KeyboardCloseIcon(
             .clickable { onClick() }
     ) {
         Icon(
-            painter = rememberAsyncImagePainter(MR.files.ic_close_keyboard),
+            painter = painterResource(MR.images.ic_close_keyboard),
             contentDescription = "Icon",
             tint = CoinTheme.color.primary,
             modifier = Modifier.size(38.dp)

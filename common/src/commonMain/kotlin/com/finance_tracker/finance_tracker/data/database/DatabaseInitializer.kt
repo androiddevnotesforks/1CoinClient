@@ -14,7 +14,6 @@ import com.financetracker.financetracker.data.DbVersionEntityQueries
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.double
@@ -83,67 +82,67 @@ class DatabaseInitializer(
             Category(
                 id = 0,
                 name = MR.strings.category_restoraunt.localizedString(context),
-                icon = MR.files.ic_category_1
+                icon = MR.images.ic_category_1
             ),
             Category(
                 id = 1,
                 name = MR.strings.category_health.localizedString(context),
-                icon = MR.files.ic_category_2
+                icon = MR.images.ic_category_2
             ),
             Category(
                 id = 2,
                 name = MR.strings.category_child.localizedString(context),
-                icon = MR.files.ic_category_3
+                icon = MR.images.ic_category_3
             ),
             Category(
                 id = 3,
                 name = MR.strings.category_car.localizedString(context),
-                icon = MR.files.ic_category_4
+                icon = MR.images.ic_category_4
             ),
             Category(
                 id = 4,
                 name = MR.strings.category_education.localizedString(context),
-                icon = MR.files.ic_category_5
+                icon = MR.images.ic_category_5
             ),
             Category(
                 id = 5,
                 name = MR.strings.category_entertainment.localizedString(context),
-                icon = MR.files.ic_category_6
+                icon = MR.images.ic_category_6
             ),
             Category(
                 id = 6,
                 name = MR.strings.category_sport.localizedString(context),
-                icon = MR.files.ic_category_7
+                icon = MR.images.ic_category_7
             ),
             Category(
                 id = 7,
                 name = MR.strings.category_public_transport.localizedString(context),
-                icon = MR.files.ic_category_8
+                icon = MR.images.ic_category_8
             ),
             Category(
                 id = 8,
                 name = MR.strings.category_shop.localizedString(context),
-                icon = MR.files.ic_category_9
+                icon = MR.images.ic_category_9
             ),
             Category(
                 id = 9,
                 name = MR.strings.category_utilities.localizedString(context),
-                icon = MR.files.ic_category_10
+                icon = MR.images.ic_category_10
             ),
             Category(
                 id = 10,
                 name = MR.strings.category_clothes.localizedString(context),
-                icon = MR.files.ic_category_11
+                icon = MR.images.ic_category_11
             ),
             Category(
                 id = 11,
                 name = MR.strings.category_electronics.localizedString(context),
-                icon = MR.files.ic_category_12
+                icon = MR.images.ic_category_12
             ),
             Category(
                 id = 12,
                 name = MR.strings.category_correct.localizedString(context),
-                icon = MR.files.ic_category_13
+                icon = MR.images.ic_category_13
             )
         )
     }
@@ -153,17 +152,17 @@ class DatabaseInitializer(
             Category(
                 id = 13,
                 name = MR.strings.category_salary.localizedString(context),
-                icon = MR.files.ic_category_14
+                icon = MR.images.ic_category_14
             ),
             Category(
                 id = 14,
                 name = MR.strings.category_allowance.localizedString(context),
-                icon = MR.files.ic_category_15
+                icon = MR.images.ic_category_15
             ),
             Category(
                 id = 15,
                 name = MR.strings.category_gift.localizedString(context),
-                icon = MR.files.ic_category_16
+                icon = MR.images.ic_category_16
             )
         )
     }
