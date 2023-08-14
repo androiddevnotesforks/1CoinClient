@@ -45,11 +45,19 @@
 </div>
 
 ## Table of Contents
+- [Support Team](#support-team)
 - [Features](#features)
 - [Tech stack](#tech-stack)
 - [How to build](#how-to-build)
 - [Find out more](#find-out-more)
 - [Download](#download)
+
+## Support Team
+- [Buy me a coffee](https://www.buymeacoffee.com/1coin)
+- [Boosty](https://boosty.to/1coin)
+- [Patreon](https://patreon.com/1Coin)
+- [BTC address](https://explorer.btc.com/btc/address/bc1qjszqdrj3rag97qz9cayac7hrz5l3t4gppk2q7h)
+- [ETH address](https://etherscan.io/address/0x1a7D0B4758355469c9026F067FCBeF7eeC79BC17)
 
 ## Features
 
