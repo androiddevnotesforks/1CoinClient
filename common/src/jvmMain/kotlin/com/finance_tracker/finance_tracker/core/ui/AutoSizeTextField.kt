@@ -1,10 +1,12 @@
 package com.finance_tracker.finance_tracker.core.ui
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.LocalTextStyle
@@ -64,9 +66,11 @@ internal fun AutoSizeTextField(
             onClick()
         }
 
+        val scroll = rememberScrollState()
         BasicTextField(
             modifier = Modifier
-                .width(IntrinsicSize.Min),
+                .width(IntrinsicSize.Min)
+                .horizontalScroll(scroll, false), // Remove horizontal scroll for TextField
             value = value,
             interactionSource = source,
             onValueChange = onValueChange,

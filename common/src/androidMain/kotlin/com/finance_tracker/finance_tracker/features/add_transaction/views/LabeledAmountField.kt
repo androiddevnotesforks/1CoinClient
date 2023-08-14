@@ -3,7 +3,6 @@ package com.finance_tracker.finance_tracker.features.add_transaction.views
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
@@ -33,7 +32,6 @@ internal fun LabeledAmountTextField(
         modifier = modifier
             .background(CoinTheme.color.background)
             .padding(horizontal = 16.dp)
-            .fillMaxWidth()
             .scaleClickAnimation()
             .noRippleClickable { onClick() },
         verticalArrangement = Arrangement.Center,
