@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.data.repositories.export_import
 
 import com.finance_tracker.finance_tracker.AppDatabase
-import com.finance_tracker.finance_tracker.core.common.csv.fromCsv
+import com.finance_tracker.finance_tracker.core.common.csv.fromCsvFile
 import com.finance_tracker.finance_tracker.core.common.csv.toCsv
 import com.finance_tracker.finance_tracker.core.common.date.toShortFormatWithMilliseconds
 import com.finance_tracker.finance_tracker.data.database.helpers.AccountsEntityRetriever
@@ -65,9 +65,7 @@ class ExportImportRepository(
     }
 
     private suspend fun getColumnFieldValues(filePath: String?): List<List<String?>> {
-        return fileReader
-            .readLines(filePath!!)
-            .fromCsv()
+        return fromCsvFile(fileReader, filePath!!)
     }
 
     suspend fun readContent(filePath: String?): String {

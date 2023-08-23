@@ -1,5 +1,7 @@
 package com.finance_tracker.finance_tracker.core.common.csv
 
+import com.finance_tracker.finance_tracker.data.repositories.export_import.FileReader
+
 fun List<List<String?>>.toCsv(): String {
     return joinToString("\n") { row ->
         row.duplicateQuotas()
@@ -30,6 +32,12 @@ private fun List<String?>.quoteItemsWithComma(): List<String?> {
 
 private fun List<String?>.joinToStringByComma(): String {
     return joinToString(",")
+}
+
+suspend fun fromCsvFile(fileReader: FileReader, filePath: String): List<List<String?>> {
+    return fileReader
+        .readLines(filePath)
+        .fromCsv()
 }
 
 fun List<String>.fromCsv(): List<List<String?>> {
