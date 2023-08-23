@@ -8,7 +8,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,7 +19,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -43,7 +41,6 @@ import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.compose.painterResource
 
 private const val KeyboardRowSize = 3
-private const val OperationsWeight = 0.8F
 
 @Composable
 internal fun ArithmeticKeyboard(
@@ -91,7 +88,7 @@ internal fun ArithmeticKeyboard(
             ) {
                 CompositionLocalProvider(LocalRippleTheme provides DefaultRippleTheme) {
                     if (isArithmeticOperationsVisible) {
-                        KeyboardGridRow(Modifier.weight(OperationsWeight)) {
+                        KeyboardGridRow(Modifier.height(44.dp)) {
                             arithmeticActions.forEach {
                                 KeyboardGridElement(
                                     keyboardAction = it,
@@ -102,11 +99,10 @@ internal fun ArithmeticKeyboard(
                                 KeyboardCloseIcon(onClick = onKeyboardClose)
                             }
                         }
-                        Divider(modifier = Modifier.background(CoinTheme.color.dividers))
                     }
 
                     keyboardBodyRows.forEach {
-                        KeyboardGridRow(Modifier.weight(1F)) {
+                        KeyboardGridRow(Modifier.weight(1f)) {
                             it.forEach {
                                 KeyboardGridElement(
                                     keyboardAction = it,
@@ -200,7 +196,7 @@ private fun RowScope.KeyboardCloseIcon(
             painter = painterResource(MR.images.ic_close_keyboard),
             contentDescription = "Icon",
             tint = CoinTheme.color.primary,
-            modifier = Modifier.size(38.dp)
+            modifier = Modifier.size(34.dp)
         )
     }
 }

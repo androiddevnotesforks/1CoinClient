@@ -1,6 +1,8 @@
 package com.finance_tracker.finance_tracker.features.add_account
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,13 +30,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.BackHandler
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.toTextFieldValue
@@ -78,6 +80,10 @@ internal fun AddAccountScreen(
         val screenDensity = LocalDensity.current
         var keyboardHeight by remember { mutableStateOf(0.dp) }
         val focusManager = LocalFocusManager.current
+
+        BackHandler(enabled = shouldShowAmountKeyboard) {
+            shouldShowAmountKeyboard = false
+        }
 
         LaunchedEffect(Unit) {
             if (account == Account.EMPTY) {
@@ -124,6 +130,7 @@ internal fun AddAccountScreen(
                     .verticalScroll(scrollState)
                     .align(Alignment.TopCenter)
                     .imePadding()
+                    .padding(bottom = 16.dp)
                     .`if`(shouldShowAmountKeyboard) { padding(bottom = keyboardHeight) }) {
                     AccountNameTextField(
                         modifier = Modifier.focusRequester(focusRequester),
@@ -152,6 +159,11 @@ internal fun AddAccountScreen(
                         )
                     }
 
+                    val source = remember { MutableInteractionSource() }
+                    if (source.collectIsPressedAsState().value) {
+                        shouldShowAmountKeyboard = true
+                    }
+
                     AmountTextField(
                         enteredBalance = enteredBalance.toUiTextFieldValue(),
                         amountCurrencies = amountCurrencies,
@@ -160,7 +172,7 @@ internal fun AddAccountScreen(
                             viewModel.onAmountChange(uiTextFieldValue.toTextFieldValue())
                         },
                         onCurrencySelect = viewModel::onCurrencySelect,
-                        modifier = Modifier.onFocusChanged { shouldShowAmountKeyboard = it.isFocused },
+                        interactionSource = source,
                         isError = balanceCalculationResult.isError
                     )
 
@@ -171,6 +183,7 @@ internal fun AddAccountScreen(
                         addEnabled = isAddButtonEnabled,
                         onDeleteClick = {
                             focusManager.clearFocus()
+                            shouldShowAmountKeyboard = false
                             viewModel.onDeleteClick()
                         },
                         onAddAccountClick = viewModel::onAddAccountClick,
@@ -180,9 +193,11 @@ internal fun AddAccountScreen(
                 ArithmeticKeyboard(
                     shouldShowAmountKeyboard = shouldShowAmountKeyboard,
                     onKeyboardClick = viewModel::onKeyboardButtonClick,
-                    onKeyboardClose = focusManager::clearFocus,
+                    onKeyboardClose = {
+                        shouldShowAmountKeyboard = false
+                    },
                     modifier = Modifier
-                        .heightIn(max = 290.dp)
+                        .heightIn(max = 348.dp)
                         .align(Alignment.BottomCenter)
                         .onGloballyPositioned {
                             with(screenDensity) {

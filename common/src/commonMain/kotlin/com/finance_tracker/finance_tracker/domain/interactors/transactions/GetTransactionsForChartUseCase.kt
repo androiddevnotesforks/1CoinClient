@@ -80,7 +80,9 @@ class GetTransactionsForChartUseCase(
                     category = Category(
                         id = -2,
                         name = "Other",
-                        icon = MR.images.ic_more_horiz
+                        icon = MR.images.ic_more_horiz,
+                        isExpense = true,
+                        isIncome = true
                     ),
                     amount = Amount(
                         currency = primaryCurrency,

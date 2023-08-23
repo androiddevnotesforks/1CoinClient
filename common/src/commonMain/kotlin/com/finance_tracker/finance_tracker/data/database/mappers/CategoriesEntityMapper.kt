@@ -9,6 +9,8 @@ fun CategoriesEntity.categoryToDomainModel(): Category {
     return Category(
         id = id,
         name = name,
-        icon = MR.images.getImageByFileName(icon) ?: error("No icon by name $icon")
+        icon = MR.images.getImageByFileName(icon) ?: error("No icon by name $icon"),
+        isExpense = isExpense,
+        isIncome = isIncome
     )
 }

@@ -41,6 +41,9 @@ import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.core.parameter.parametersOf
 
+private const val TextFieldWeight = 1f
+private const val KeyboardWeight = 3f
+
 @Suppress("CyclomaticComplexMethod")
 @Composable
 internal fun AddTransactionScreen(
@@ -62,9 +65,7 @@ internal fun AddTransactionScreen(
         val selectedTransactionType by viewModel.selectedTransactionType.collectAsState()
         val currentStep by viewModel.currentStep.collectAsState()
         val primaryAmountFormula by viewModel.primaryAmountFormula.collectAsState()
-//        val primaryAmountData = primaryAmountFormula.text.takeIf { it.isNotEmpty() } ?: "0"
         val secondaryAmountFormula by viewModel.secondaryAmountFormula.collectAsState()
-//        val secondaryAmountData = secondaryAmountFormula.text.takeIf { it.isNotEmpty() } ?: "0"
         val primaryAccountData by viewModel.selectedPrimaryAccount.collectAsState()
         val secondaryAccountData by viewModel.selectedSecondaryAccount.collectAsState()
         val categoryData by viewModel.selectedCategory.collectAsState()
@@ -92,7 +93,7 @@ internal fun AddTransactionScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f),
+                    .weight(TextFieldWeight),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -142,7 +143,7 @@ internal fun AddTransactionScreen(
             Surface(
                 modifier = Modifier
                     .`if`(currentStep != null) {
-                        weight(2f)
+                        weight(KeyboardWeight)
                     },
                 elevation = 8.dp
             ) {

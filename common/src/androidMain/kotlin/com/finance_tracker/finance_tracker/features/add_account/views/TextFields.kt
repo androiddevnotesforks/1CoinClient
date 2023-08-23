@@ -80,6 +80,7 @@ internal fun AccountNameTextField(
 internal fun AmountTextField(
     enteredBalance: TextFieldValue,
     isError: Boolean,
+    interactionSource: MutableInteractionSource,
     amountCurrencies: List<Currency>,
     selectedCurrency: Currency,
     onAmountChange: (TextFieldValue) -> Unit,
@@ -92,6 +93,7 @@ internal fun AmountTextField(
                 .fillMaxWidth()
                 .padding(top = 16.dp, start = 16.dp, end = 16.dp),
             value = enteredBalance,
+            interactionSource = interactionSource,
             onValueChange = onAmountChange,
             label = {
                 Text(

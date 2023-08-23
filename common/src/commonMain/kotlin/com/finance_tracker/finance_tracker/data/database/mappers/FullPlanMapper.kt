@@ -30,7 +30,7 @@ val fullPlanMapper: (
     // Plan
     id, planCategoryId, limitAmount, currencyCode, _, _,
     // Category
-    categoryId, categoryName, categoryIcon, _, _, _ ->
+    categoryId, categoryName, categoryIcon, _, isExpense, isIncome ->
 
     val currency = Currency.getByCode(currencyCode)
     Plan(
@@ -38,7 +38,9 @@ val fullPlanMapper: (
         category = Category(
             id = categoryId ?: EmptyCategoryId,
             name = categoryName.orEmpty(),
-            icon = MR.images.getCategoryIconByNameOrDefault(categoryIcon)
+            icon = MR.images.getCategoryIconByNameOrDefault(categoryIcon),
+            isExpense = isExpense ?: false,
+            isIncome = isIncome ?: false
         ),
         spentAmount = Amount(
             amountValue = 0.0,

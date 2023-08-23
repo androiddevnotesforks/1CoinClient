@@ -6,6 +6,8 @@ fun AddTransactionFlowState.setCurrentStepForFlowState(
     isExpenseCategoryEmpty: Boolean,
     isIncomeCategoryEmpty: Boolean
 ) {
+    if (currentStepIndex >= 0) return
+
     when (flow) {
         AddTransactionFlow.Expense -> {
             when {

@@ -62,7 +62,7 @@ val fullTransactionMapper: (
         _, secondaryAccountType, secondaryAccountName, secondaryBalance, secondaryAccountColorId, _, _,
 
         // Category
-        _, categoryName, categoryIcon, _, _, _ ->
+        _, categoryName, categoryIcon, _, isExpense, isIncome ->
 
     val currency = Currency.getByCode(amountCurrency)
     val secondaryCurrency = secondaryAmountCurrency?.let(Currency::getByCode)
@@ -98,7 +98,9 @@ val fullTransactionMapper: (
             Category(
                 id = categoryId,
                 name = categoryName.orEmpty(),
-                icon = MR.images.getCategoryIconByNameOrDefault(categoryIcon)
+                icon = MR.images.getCategoryIconByNameOrDefault(categoryIcon),
+                isExpense = isExpense ?: false,
+                isIncome = isIncome ?: false
             )
         } else {
             null

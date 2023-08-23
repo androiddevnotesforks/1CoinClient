@@ -91,6 +91,7 @@ internal fun CoinOutlinedTextField(
 internal fun CoinOutlinedTextField(
     modifier: Modifier = Modifier,
     value: TextFieldValue = TextFieldValue(),
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onValueChange: (TextFieldValue) -> Unit = {},
     readOnly: Boolean = false,
     label: @Composable (() -> Unit)? = null,
@@ -108,6 +109,7 @@ internal fun CoinOutlinedTextField(
         modifier = modifier
             .alpha(alpha = if (readOnly) TextFieldReadOnlyAlpha else 1f),
         value = value,
+        interactionSource = interactionSource,
         label = label,
         readOnly = readOnly,
         placeholder = placeholder,

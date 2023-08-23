@@ -33,12 +33,11 @@ import com.finance_tracker.finance_tracker.features.add_transaction.analytics.Ad
 import com.financetracker.financetracker.data.AccountsEntityQueries
 import com.financetracker.financetracker.data.CategoriesEntityQueries
 import com.github.murzagalin.evaluator.Evaluator
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -87,8 +86,12 @@ class AddTransactionViewModel(
         .map { it?.balance?.currency }
         .stateIn(viewModelScope, initialValue = null)
 
-    private val selectedIncomeCategory = MutableStateFlow(transaction?._category)
-    private val selectedExpenseCategory = MutableStateFlow(transaction?._category)
+    private val selectedIncomeCategory = MutableStateFlow(
+        transaction?._category?.takeIf { it.isIncome }
+    )
+    private val selectedExpenseCategory = MutableStateFlow(
+        transaction?._category?.takeIf { it.isExpense }
+    )
 
     private val initialSelectedDate = transaction?.dateTime?.date ?: Clock.System.currentLocalDate()
     private val _selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(initialSelectedDate)
@@ -163,12 +166,8 @@ class AddTransactionViewModel(
         }
     }.stateIn(viewModelScope, initialValue = null)
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val currentStep = currentFlowState
-        .flatMapLatest { it.currentStepFlow }
-        .stateIn(viewModelScope, initialValue = null)
-
-    private val hasPreviousStep = currentFlowState.value.hasPreviousStep
+    val currentStep = MutableStateFlow<EnterTransactionStep?>(null)
+    private val hasPreviousStep = MutableStateFlow(false)
 
     @Suppress("UnnecessaryParentheses")
     val isAddTransactionEnabled = combineExtended(
@@ -224,6 +223,11 @@ class AddTransactionViewModel(
         viewModelScope.launch {
             currentFlowState
                 .onEach { currentFlowState ->
+                    observeHasPreviousStepFlow(currentFlowState, this)
+                    observeCurrentStepFlow(currentFlowState, this)
+
+                    if (isEditMode && currentStep.value == null) return@onEach
+
                     currentFlowState.setCurrentStepForFlowState(
                         isPrimaryAccountEmpty = selectedPrimaryAccount.value == null,
                         isSecondaryAccountEmpty = selectedSecondaryAccount.value == null,
@@ -233,6 +237,26 @@ class AddTransactionViewModel(
                 }
                 .launchIn(this)
         }
+    }
+
+    private fun observeHasPreviousStepFlow(
+        currentFlowState: AddTransactionFlowState,
+        scope: CoroutineScope
+    ) {
+        currentFlowState.hasPreviousStepFlow
+            .onEach { hasPreviousStep.value = it }
+            .launchIn(scope)
+    }
+
+    private fun observeCurrentStepFlow(
+        currentFlowState: AddTransactionFlowState,
+        scope: CoroutineScope
+    ) {
+        currentFlowState.currentStepFlow
+            .onEach {
+                currentStep.value = it
+            }
+            .launchIn(scope)
     }
 
     private fun initCurrentStep() {
