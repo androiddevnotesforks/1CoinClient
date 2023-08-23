@@ -55,6 +55,11 @@ class AnalyticsViewModel(
             ?: error("No MonthTxsByCategoryDelegate for page $page")
     }
 
+    fun getTransactionTypeTab(page: Int): TransactionTypeTab {
+        return TransactionTypesMode.Main.types.getOrNull(page)
+            ?: error("No TransactionTypeTab for page $page")
+    }
+
     fun getTrendsAnalyticsDelegate(page: Int): TrendsAnalyticsDelegate {
         return typesToAnalyticsDelegates[getTransactionTypeByPage(page)]?.trendsAnalyticsDelegate
             ?: error("No TrendsAnalyticsDelegate for page $page")
