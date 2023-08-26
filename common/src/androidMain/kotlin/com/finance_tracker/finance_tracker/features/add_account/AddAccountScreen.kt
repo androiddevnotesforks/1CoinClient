@@ -14,11 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.SnackbarHostState
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -37,12 +32,11 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.BackHandler
-import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.toTextFieldValue
 import com.finance_tracker.finance_tracker.core.common.toUiTextFieldValue
+import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
-import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.core.ui.keyboard.ArithmeticKeyboard
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -62,8 +56,7 @@ internal fun AddAccountScreen(
 ) {
     ComposeScreen<AddAccountViewModel>(
         parameters = { parametersOf(account) }
-    ) { viewModel ->
-        val scaffoldState = rememberScaffoldState()
+    ) { screenState, viewModel ->
         val focusRequester = remember { FocusRequester() }
         val titleAccount by viewModel.enteredAccountName.collectAsState()
         val selectedType by viewModel.selectedType.collectAsState()
@@ -85,6 +78,12 @@ internal fun AddAccountScreen(
             shouldShowAmountKeyboard = false
         }
 
+        LaunchedEffect(shouldShowAmountKeyboard) {
+            if (shouldShowAmountKeyboard) {
+                viewModel.hideSnackbar()
+            }
+        }
+
         LaunchedEffect(Unit) {
             if (account == Account.EMPTY) {
                 focusRequester.requestFocus()
@@ -95,36 +94,21 @@ internal fun AddAccountScreen(
             handleAction(
                 action = action,
                 baseLocalsStorage = baseLocalsStorage,
-                scaffoldState = scaffoldState,
+                onHideKeyboard = { shouldShowAmountKeyboard = false },
                 onCancelDeletingClick = viewModel::onCancelDeletingClick,
                 onConfirmDeletingClick = viewModel::onConfirmDeletingClick
             )
         }
 
-        Scaffold(
-            scaffoldState = scaffoldState,
-            snackbarHost = { snackbarHostState: SnackbarHostState ->
-                SnackbarHost(snackbarHostState) {
-                    Snackbar(
-                        snackbarData = it,
-                        contentColor = CoinTheme.color.white,
-                        actionColor = CoinTheme.color.primary,
-                        modifier = Modifier.padding(bottom = LocalFixedInsets.current.navigationBarsHeight),
-                        elevation = 0.dp
-                    )
-                }
-            },
-            topBar = {
-                AddAccountTopBar(
-                    topBarTextId = if (account == Account.EMPTY) {
-                        MR.strings.new_account_title
-                    } else {
-                        MR.strings.accounts_screen_top_bar
-                    },
-                    onBackClick = viewModel::onBackClick
-                )
-            }
-        ) {
+        Column {
+            AddAccountTopBar(
+                topBarTextId = if (account == Account.EMPTY) {
+                    MR.strings.new_account_title
+                } else {
+                    MR.strings.accounts_screen_top_bar
+                },
+                onBackClick = viewModel::onBackClick
+            )
             Box(modifier = Modifier.fillMaxSize()) {
                 Column(modifier = Modifier
                     .verticalScroll(scrollState)

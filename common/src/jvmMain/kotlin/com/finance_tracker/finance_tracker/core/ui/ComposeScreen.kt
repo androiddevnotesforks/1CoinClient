@@ -24,11 +24,13 @@ import kotlinx.coroutines.flow.onEach
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.java.KoinJavaComponent.get
 
+object ScreenState
+
 @Composable
 inline fun <reified T : BaseViewModel<*>> ComposeScreen(
     withBottomNavigation: Boolean = false,
     noinline parameters: ParametersDefinition? = null,
-    crossinline block: @Composable (s: Boolean, viewModel: T) -> Unit
+    crossinline block: @Composable (screenState: ScreenState, viewModel: T) -> Unit
 ) {
     CoinTheme {
         StoredViewModel<T>(parameters = parameters) { viewModel ->
@@ -40,7 +42,7 @@ inline fun <reified T : BaseViewModel<*>> ComposeScreen(
                 Box(
                     modifier = Modifier.background(CoinTheme.color.background)
                 ) {
-                    block(true, viewModel)
+                    block(ScreenState, viewModel)
 
                     CoinSnackbarHost(
                         modifier = Modifier

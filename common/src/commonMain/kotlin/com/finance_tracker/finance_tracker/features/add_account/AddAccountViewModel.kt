@@ -11,6 +11,10 @@ import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
 import com.finance_tracker.finance_tracker.core.common.keyboard.applyKeyboardAction
 import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
+import com.finance_tracker.finance_tracker.core.common.view_models.showCurrentScreenSnackbar
+import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarActionState
+import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarState
 import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -18,6 +22,7 @@ import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.features.add_account.analytics.AddAccountAnalytics
 import com.github.murzagalin.evaluator.Evaluator
+import dev.icerock.moko.resources.StringResource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
@@ -148,21 +153,15 @@ class AddAccountViewModel(
 
         viewModelScope.launch {
             val accountName = enteredAccountName.value.takeIf { it.isNotBlank() } ?: run {
-                viewAction = AddAccountAction.ShowToast(
-                    textId = MR.strings.new_account_error_enter_account_name
-                )
+                showSnackbar(MR.strings.new_account_error_enter_account_name)
                 return@launch
             }
             val selectedColorId = selectedColor.value?.id ?: run {
-                viewAction = AddAccountAction.ShowToast(
-                    textId = MR.strings.new_account_error_select_account_color
-                )
+                showSnackbar(MR.strings.new_account_error_select_account_color)
                 return@launch
             }
             val type = selectedType.value ?: run {
-                viewAction = AddAccountAction.ShowToast(
-                    textId = MR.strings.new_account_error_select_account_type
-                )
+                showSnackbar(MR.strings.new_account_error_select_account_type)
                 return@launch
             }
             val balance = balanceCalculationResult
@@ -170,9 +169,7 @@ class AddAccountViewModel(
                 .takeIf { !it.isError }
                 ?.calculationResult
                 ?.parseToDouble() ?: run {
-                viewAction = AddAccountAction.ShowToast(
-                    textId = MR.strings.new_account_error_enter_account_balance
-                )
+                showSnackbar(MR.strings.new_account_error_enter_account_balance)
                 return@launch
             }
             if (account == null) {
@@ -195,6 +192,16 @@ class AddAccountViewModel(
             }
             viewAction = AddAccountAction.Close
         }
+    }
+
+    private fun showSnackbar(textResId: StringResource) {
+        viewAction = AddAccountAction.HideKeyboard
+        showCurrentScreenSnackbar(
+            snackbarState = SnackbarState.Error(
+                textResId = textResId,
+                actionState = SnackbarActionState.Close(onAction = ::hideSnackbar)
+            )
+        )
     }
 
     private fun trackAddAccountClick() {
