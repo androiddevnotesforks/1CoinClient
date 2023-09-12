@@ -5,28 +5,18 @@ data class Amount(
     val amountValue: Double
 ) {
 
-    @Throws(IllegalStateException::class)
-    fun convertToCurrency(
-        currencyRates: CurrencyRates,
-        toCurrency: Currency
-    ): Double {
-        return if (currency == toCurrency) {
-            amountValue
-        } else {
-            val fromCurrencyRates = currencyRates[currency.code]
-                ?: return 0.0
-            val toCurrencyRates = currencyRates[toCurrency.code]
-                ?: return 0.0
-
-            return amountValue / fromCurrencyRates.rate * toCurrencyRates.rate
-        }
-    }
-
     companion object {
 
         val default = Amount(
             currency = Currency.default,
             amountValue = 0.0
         )
+
+        fun default(currency: Currency): Amount {
+            return Amount(
+                currency = currency,
+                amountValue = 0.0
+            )
+        }
     }
 }

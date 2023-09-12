@@ -9,10 +9,8 @@ import SwiftUI
 import OneCoinShared
 
 struct HomeTopBar: View {
+    private let theme = CoinTheme.shared
     
-    @EnvironmentObject private var theme: CoinTheme
-    
-    //let totalBalance: Amount
     let onSettingsClick: () -> ()
     
     var body: some View {

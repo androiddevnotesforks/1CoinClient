@@ -6,5 +6,3 @@ import dev.icerock.moko.resources.desc.StringDesc
 expect fun StringResource.localizedString(context: Context): String
 
 expect fun StringDesc.localizedString(context: Context): String
-
-expect fun getLocale(): String

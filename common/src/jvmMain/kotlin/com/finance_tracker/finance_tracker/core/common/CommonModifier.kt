@@ -39,7 +39,7 @@ class MultipleEventsCutter {
 
     operator fun invoke(event: () -> Unit) {
         if (now - lastEventTimeMs >= ModifierConstants.PreventMultipleClicksDuration) {
-            event.invoke()
+            event()
         }
         lastEventTimeMs = now
     }

@@ -19,8 +19,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 private const val MaxUserIdCharCount = 10
@@ -64,7 +64,7 @@ internal fun SettingsVersionAndUserIdInfo(
             modifier = Modifier
                 .width(IntrinsicSize.Max)
                 .clip(RoundedCornerShape(16.dp))
-                .clickable { onCopyUserId.invoke() }
+                .clickable { onCopyUserId() }
                 .padding(
                     vertical = 8.dp,
                     horizontal = 4.dp
@@ -81,7 +81,7 @@ internal fun SettingsVersionAndUserIdInfo(
                 overflow = TextOverflow.Ellipsis,
             )
             Icon(
-                painter = rememberAsyncImagePainter(MR.files.ic_duplicate),
+                painter = painterResource(MR.images.ic_duplicate),
                 contentDescription = null,
                 modifier = Modifier
                     .clip(CircleShape)

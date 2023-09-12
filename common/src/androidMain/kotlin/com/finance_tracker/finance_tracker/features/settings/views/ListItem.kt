@@ -19,8 +19,8 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.painterResource
 
 @Composable
 internal fun ListItem(
@@ -73,13 +73,13 @@ internal fun ListItem(
             )
             if (onInfoClick != null) {
                 Icon(
-                    painter = rememberAsyncImagePainter(MR.files.ic_more_info),
+                    painter = painterResource(MR.images.ic_more_info),
                     contentDescription = null,
                     modifier = Modifier
                         .padding(start = 1.dp)
                         .size(24.dp)
                         .clip(CircleShape)
-                        .clickable { onInfoClick.invoke() }
+                        .clickable { onInfoClick() }
                         .padding(4.dp),
                     tint = CoinTheme.color.content
                 )

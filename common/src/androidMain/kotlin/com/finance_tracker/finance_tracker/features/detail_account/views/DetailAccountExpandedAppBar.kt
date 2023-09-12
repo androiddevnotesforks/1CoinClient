@@ -21,19 +21,19 @@ import androidx.compose.ui.unit.sp
 import com.finance_tracker.finance_tracker.core.common.asDp
 import com.finance_tracker.finance_tracker.core.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.core.common.formatters.format
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.toDp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.domain.models.Amount
-import dev.icerock.moko.resources.FileResource
+import dev.icerock.moko.resources.ImageResource
+import dev.icerock.moko.resources.compose.painterResource
 
 @Composable
 internal fun DetailAccountExpandedAppBar(
     color: Color,
     amount: Amount,
-    icon: FileResource,
+    icon: ImageResource,
     contentAlpha: Float,
     editButtonPositionX: Int,
     modifier: Modifier = Modifier,
@@ -52,12 +52,10 @@ internal fun DetailAccountExpandedAppBar(
                 .padding(top = 64.dp)
                 .size(48.dp)
                 .clip(CircleShape)
-                .clickable {
-                    onIconClick.invoke()
-                }
+                .clickable { onIconClick() }
                 .background(CoinTheme.color.content.copy(alpha = 0.2f))
                 .padding(12.dp),
-            painter = rememberAsyncImagePainter(icon),
+            painter = painterResource(icon),
             contentDescription = null,
             tint = CoinTheme.color.white
         )

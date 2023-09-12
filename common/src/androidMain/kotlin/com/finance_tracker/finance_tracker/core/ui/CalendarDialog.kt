@@ -25,7 +25,7 @@ actual fun CalendarDialog(
     val datePickerDialog = DatePickerDialog(
         context, R.style.CalendarDialogTheme,
         { _, year, month, dayOfMonth ->
-            onDateChangeListener.invoke(
+            onDateChangeListener(
                 LocalDate(year, month + 1, dayOfMonth)
             )
         }, todayDate.year, todayDate.monthNumber, todayDate.dayOfMonth
@@ -36,7 +36,7 @@ actual fun CalendarDialog(
         datePicker.maxDate = maxDate
     }
     LaunchedEffect(datePickerDialog) {
-        onControllerCreate.invoke(getCalendarDialogController(datePickerDialog))
+        onControllerCreate(getCalendarDialogController(datePickerDialog))
     }
 }
 

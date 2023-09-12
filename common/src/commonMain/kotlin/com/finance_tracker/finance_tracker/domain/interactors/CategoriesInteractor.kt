@@ -3,20 +3,22 @@ package com.finance_tracker.finance_tracker.domain.interactors
 import com.finance_tracker.finance_tracker.AppDatabase
 import com.finance_tracker.finance_tracker.core.common.suspendTransaction
 import com.finance_tracker.finance_tracker.data.repositories.CategoriesRepository
+import com.finance_tracker.finance_tracker.data.repositories.PlansRepository
 import com.finance_tracker.finance_tracker.data.repositories.TransactionsRepository
 import com.finance_tracker.finance_tracker.domain.models.Category
-import dev.icerock.moko.resources.FileResource
+import dev.icerock.moko.resources.ImageResource
 import kotlinx.coroutines.flow.Flow
 
 class CategoriesInteractor(
     private val categoriesRepository: CategoriesRepository,
     private val transactionsRepository: TransactionsRepository,
+    private val plansRepository: PlansRepository,
     private val appDatabase: AppDatabase
 ) {
 
     suspend fun insertCategory(
         categoryName: String,
-        categoryIcon: FileResource,
+        categoryIcon: ImageResource,
         isExpense: Boolean,
         isIncome: Boolean,
     ) {
@@ -27,7 +29,7 @@ class CategoriesInteractor(
         return categoriesRepository.getCategoriesCountFlow()
     }
 
-    suspend fun getCategoryIcon(iconName: String): FileResource? {
+    suspend fun getCategoryIcon(iconName: String): ImageResource? {
         return categoriesRepository.getCategoryIcon(iconName)
     }
 
@@ -35,6 +37,7 @@ class CategoriesInteractor(
         appDatabase.suspendTransaction {
             transactionsRepository.deleteCategoryForTransactionsByCategoryId(id)
             categoriesRepository.deleteCategoryById(id)
+            plansRepository.deletePlansByCategoryId(id)
         }
     }
 
@@ -57,7 +60,7 @@ class CategoriesInteractor(
     }
 
 
-    suspend fun updateCategory(id: Long, name: String, iconId: FileResource) {
+    suspend fun updateCategory(id: Long, name: String, iconId: ImageResource) {
         categoriesRepository.updateCategory(id, name, iconId)
     }
 }

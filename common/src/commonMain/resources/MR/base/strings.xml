@@ -15,6 +15,7 @@
     <string name="tab_transfer">Transfer</string>
     <string name="total">Total</string>
     <string name="deleting_transaction">Deleting transaction</string>
+    <string name="deleting_plan">Deleting limit</string>
     <string name="deleting_category">Deleting category</string>
     <string name="deleting_transactions">Deleting transactions</string>
     <string name="deleting_account">Deleting account</string>
@@ -43,6 +44,14 @@
     <string name="month_oct">Oct</string>
     <string name="month_nov">Nov</string>
     <string name="month_dec">Dec</string>
+
+    <string name="toast_action">Undo</string>
+    <string name="toast_text_transaction_deleted">Transaction has been deleted</string>
+    <string name="toast_text_limit_deleted">Expense limit has been deleted</string>
+    <string name="toast_import_completed">Import has been completed</string>
+    <string name="toast_import_not_completed">Import has not been completed</string>
+    <string name="toast_export_not_completed">Export has not been completed</string>
+    <string name="toast_backup_not_supported">Backup is not supported. Update the app or choose another backup.</string>
 
     <!-- Widget settings -->
     <string name="widget_settings_title">Widgets Settings</string>
@@ -74,7 +83,7 @@
 
     <!-- Colors -->
     <string name="color_purple">Purple</string>
-    <string name="color_blue">Blue</string>
+    <string name="color_turquoise">Turquoise</string>
     <string name="color_red">Red</string>
     <string name="color_brown">Brown</string>
     <string name="color_lavender">Lavender</string>
@@ -134,6 +143,7 @@
     <string name="tab_transactions">Transactions</string>
     <string name="tab_accounts">Accounts</string>
     <string name="tab_analytics">Analytics</string>
+    <string name="tab_plans">Plans</string>
 
     <!-- Add transaction -->
     <string name="add_transaction_amount">Amount</string>
@@ -145,6 +155,8 @@
     <string name="add_transaction_yesterday">Yesterday</string>
     <string name="add_transaction_btn_add">Add</string>
     <string name="add_transaction_btn_edit">Edit</string>
+    <string name="add_transaction_negative_balance">Incorrect negative transaction amount.</string>
+    <string name="add_transaction_incorrect_calculation">Incorrect transaction amount entered.</string>
 
     <!-- Home -->
     <string name="home_topbar_text">Total Balance</string>
@@ -220,6 +232,9 @@
     <string name="settings_telegram_community">Telegram community</string>
     <string name="settings_categories">Category settings</string>
     <string name="settings_sending_usage_data">Sending usage data</string>
+    <string name="settings_export_import_data">Export/Import Transactions</string>
+    <string name="settings_export">Export</string>
+    <string name="settings_import">Import</string>
     <string name="sending_usage_data_description_1">Help improve your experience by\u00A0automatically sending app usage data.</string>
     <string name="sending_usage_data_description_2">We don\'t collect Personally\u00A0Identifiable\u00A0Information or Information about\u00A0the\u00A0quantitative value of\u00A0cash spending.\n\nThe security of\u00A0your personal data is one of\u00A0our top priorities!</string>
     <string name="version">Version:</string>
@@ -247,5 +262,42 @@
     <!-- Currency screen -->
     <string name="currency_screen_topbar_text">Currency</string>
     <string name="currency_screen_search">Search</string>
+
+    <!-- Plans screen -->
+    <string name="plans_title">Plans</string>
+    <string name="plans_budget_empty_stub">No limits yet</string>
+    <string name="plans_expense_limits">Expense Limits</string>
+    <string name="plans_btn_add_limit">Add limit</string>
+    <string name="plans_btn_set_limit">Set limit</string>
+    <string name="plans_amount_btn_set_limit">Set limit</string>
+    <string name="plans_amount_subtitle">Month Limit</string>
+
+    <!-- Setup plans screen -->
+    <string name="setup_plans_title">Expense Limit</string>
+    <string name="setup_plans_amount_hint">Expense Limit</string>
+    <string name="setup_plans_btn_add_limit">Add Limit</string>
+    <string name="setup_plans_btn_edit_limit">Edit Limit</string>
+
+    <!-- Month budget widget -->
+    <string name="month_budget_widget_title">Month Budget</string>
+    <string name="month_budget_widget_money_spent">Money spent</string>
+    <string name="month_budget_widget_remain_money">Remaining money</string>
+    <string name="month_budget_widget_exceeding_limit">Exceeding the\u00A0limit</string>
+    <string name="month_budget_amount_from">from %s</string>
+
+    <!-- Export -->
+    <string name="export_title">Exporting</string>
+    <string name="export_description">Please don’t close the dialog until the end of the operation</string>
+
+    <!-- Import -->
+    <string name="import_title">Importing</string>
+    <string name="import_description">Please don’t close the dialog until the end of the operation</string>
+
+    <!-- PresetCurrency screen -->
+    <string name="preset_currency_title">Set currency</string>
+    <string name="preset_currency_search_label">Search</string>
+    <string name="preset_currency_other_currency">Other currency</string>
+    <string name="preset_currency_nothing_found">Nothing found</string>
+    <string name="preset_currency_continue">Continue</string>
 
 </resources>

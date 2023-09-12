@@ -35,7 +35,7 @@ actual fun VectorAnimation(
     val invalidationController = remember { InvalidationController() }
     val animationState: MutableState<Animation?> = remember { mutableStateOf(null) }
     LaunchedEffect(Unit) {
-        animationState.value = withContext(Dispatchers.Default) {
+        animationState.value = withContext(Dispatchers.IO) {
             val animationBytes = fileResource.readText().encodeToByteArray()
             Animation.makeFromData(Data.makeFromBytes(animationBytes))
         }

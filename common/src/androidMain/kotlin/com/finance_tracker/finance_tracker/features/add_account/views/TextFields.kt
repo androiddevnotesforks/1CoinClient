@@ -31,6 +31,7 @@ import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedSelectTextField
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
+import com.finance_tracker.finance_tracker.core.ui.currency.CurrencySelector
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Currency
@@ -79,6 +80,7 @@ internal fun AccountNameTextField(
 internal fun AmountTextField(
     enteredBalance: TextFieldValue,
     isError: Boolean,
+    interactionSource: MutableInteractionSource,
     amountCurrencies: List<Currency>,
     selectedCurrency: Currency,
     onAmountChange: (TextFieldValue) -> Unit,
@@ -91,6 +93,7 @@ internal fun AmountTextField(
                 .fillMaxWidth()
                 .padding(top = 16.dp, start = 16.dp, end = 16.dp),
             value = enteredBalance,
+            interactionSource = interactionSource,
             onValueChange = onAmountChange,
             label = {
                 Text(

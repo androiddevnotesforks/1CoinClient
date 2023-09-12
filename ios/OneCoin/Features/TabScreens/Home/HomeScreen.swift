@@ -9,7 +9,8 @@ import SwiftUI
 import OneCoinShared
 
 struct HomeScreen: View {
-
+    @EnvironmentObject var router: Router
+    
     var body: some View {
         VStack {
             HomeTopBar(
@@ -17,21 +18,25 @@ struct HomeScreen: View {
                 onSettingsClick: {}
             )
             ScrollView(.vertical, showsIndicators: false) {
-                VStack {
+                VStack(spacing: 16) {
                     CoinWidget(
-                        title: "My Accounts",
-                        withBorder: false
+                        // My accounts
+                        title: MR.strings().widget_settings_item_my_accounts.desc().localized(),
+                        withBorder: false,
+                        onClick: { print("ahah") }
                     ) {
                         CardAccountsScreen()
                     }
                     
-                    CoinWidget(
-                        title: "Last Transactions",
-                        withBorder: true
-                    ) {
-                        Text("Transactions' list")
-                    }
+                    TotalExpenseChartWidget()
+                    
+                    LastTransactionsWidget(
+                        lastTransactions: [], 
+                        widgetClick: { router.navigate(to: OneCoinTabs.transactions) }, 
+                        onTransactionClick: { _ in }
+                    )
                 }
+                .padding(.bottom, UI.Padding.Scroll.bottom)
             }
         }
     }
@@ -40,6 +45,5 @@ struct HomeScreen: View {
 struct HomeScreen_Previews: PreviewProvider {
     static var previews: some View {
         HomeScreen()
-            .environmentObject(CoinTheme.light)
     }
 }

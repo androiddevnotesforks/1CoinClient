@@ -6,7 +6,7 @@ actual fun Double.format(): String {
 }
 
 @Suppress("NotImplementedDeclaration")
-actual fun String.parse(): Double? {
+actual fun String.parseToDouble(): Double? {
     TODO()
 }
 

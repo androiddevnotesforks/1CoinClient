@@ -5,18 +5,24 @@ import com.finance_tracker.finance_tracker.core.common.TextFieldValue
 import com.finance_tracker.finance_tracker.core.common.TextRange
 import com.finance_tracker.finance_tracker.core.common.formatters.evaluateDoubleWithReplace
 import com.finance_tracker.finance_tracker.core.common.formatters.format
-import com.finance_tracker.finance_tracker.core.common.formatters.parse
+import com.finance_tracker.finance_tracker.core.common.formatters.parseToDouble
+import com.finance_tracker.finance_tracker.core.common.keyboard.CalculationState
+import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
+import com.finance_tracker.finance_tracker.core.common.keyboard.applyKeyboardAction
 import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
-import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTree
-import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
+import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
+import com.finance_tracker.finance_tracker.core.common.view_models.showCurrentScreenSnackbar
+import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarActionState
+import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarState
+import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.features.add_account.analytics.AddAccountAnalytics
-import com.finance_tracker.finance_tracker.features.add_account.models.BalanceCalculationState
 import com.github.murzagalin.evaluator.Evaluator
+import dev.icerock.moko.resources.StringResource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,7 +32,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class AddAccountViewModel(
-    private val accountsRepository: AccountsRepository,
+    private val accountsInteractor: AccountsInteractor,
     private val currenciesInteractor: CurrenciesInteractor,
     private val _account: Account,
     private val addAccountAnalytics: AddAccountAnalytics,
@@ -74,11 +80,11 @@ class AddAccountViewModel(
                 "0" to enteredBalance.value.text.isNotEmpty()
             }
 
-            BalanceCalculationState(
+            CalculationState(
                 calculationResult = calculation,
                 isError = isError
             )
-        }.stateIn(viewModelScope, initialValue = BalanceCalculationState("0", false))
+        }.stateIn(viewModelScope, initialValue = CalculationState("0", false))
 
     val isAddButtonEnabled = combine(
         enteredAccountName,
@@ -96,7 +102,7 @@ class AddAccountViewModel(
 
     private fun loadAccountColors() {
         viewModelScope.launch {
-            _colors.value = accountsRepository.getAllAccountColors()
+            _colors.value = accountsInteractor.getAllAccountColors()
             _selectedColor.value = colors.value.firstOrNull { it == account?.colorModel }
         }
     }
@@ -137,8 +143,8 @@ class AddAccountViewModel(
         addAccountAnalytics.trackConfirmDeletingClick(account)
         viewAction = AddAccountAction.DismissDeleteDialog(dialogKey)
         viewModelScope.launch {
-            accountsRepository.deleteAccountById(account.id)
-            viewAction = AddAccountAction.BackToScreen(MainNavigationTree.Main.name)
+            accountsInteractor.deleteAccountById(account.id)
+            viewAction = AddAccountAction.Close
         }
     }
 
@@ -147,35 +153,27 @@ class AddAccountViewModel(
 
         viewModelScope.launch {
             val accountName = enteredAccountName.value.takeIf { it.isNotBlank() } ?: run {
-                viewAction = AddAccountAction.ShowToast(
-                    textId = MR.strings.new_account_error_enter_account_name
-                )
+                showSnackbar(MR.strings.new_account_error_enter_account_name)
                 return@launch
             }
             val selectedColorId = selectedColor.value?.id ?: run {
-                viewAction = AddAccountAction.ShowToast(
-                    textId = MR.strings.new_account_error_select_account_color
-                )
+                showSnackbar(MR.strings.new_account_error_select_account_color)
                 return@launch
             }
             val type = selectedType.value ?: run {
-                viewAction = AddAccountAction.ShowToast(
-                    textId = MR.strings.new_account_error_select_account_type
-                )
+                showSnackbar(MR.strings.new_account_error_select_account_type)
                 return@launch
             }
             val balance = balanceCalculationResult
                 .value
                 .takeIf { !it.isError }
                 ?.calculationResult
-                ?.parse() ?: run {
-                viewAction = AddAccountAction.ShowToast(
-                    textId = MR.strings.new_account_error_enter_account_balance
-                )
+                ?.parseToDouble() ?: run {
+                showSnackbar(MR.strings.new_account_error_enter_account_balance)
                 return@launch
             }
             if (account == null) {
-                accountsRepository.insertAccount(
+                accountsInteractor.insertAccount(
                     accountName = accountName,
                     type = type,
                     colorId = selectedColorId,
@@ -183,7 +181,7 @@ class AddAccountViewModel(
                     balance = balance
                 )
             } else {
-                accountsRepository.updateAccount(
+                accountsInteractor.updateAccount(
                     id = account.id,
                     name = accountName,
                     type = type,
@@ -194,6 +192,16 @@ class AddAccountViewModel(
             }
             viewAction = AddAccountAction.Close
         }
+    }
+
+    private fun showSnackbar(textResId: StringResource) {
+        viewAction = AddAccountAction.HideKeyboard
+        showCurrentScreenSnackbar(
+            snackbarState = SnackbarState.Error(
+                textResId = textResId,
+                actionState = SnackbarActionState.Close(onAction = ::hideSnackbar)
+            )
+        )
     }
 
     private fun trackAddAccountClick() {

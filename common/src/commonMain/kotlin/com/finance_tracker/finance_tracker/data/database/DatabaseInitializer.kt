@@ -5,14 +5,17 @@ import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.core.common.getRaw
 import com.finance_tracker.finance_tracker.core.common.localizedString
 import com.finance_tracker.finance_tracker.core.common.toCategoryString
-import com.finance_tracker.finance_tracker.domain.models.Account
-import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
+import com.finance_tracker.finance_tracker.data.settings.AccountSettings
 import com.finance_tracker.finance_tracker.domain.models.Category
-import com.finance_tracker.finance_tracker.domain.models.Currency
+import com.finance_tracker.finance_tracker.domain.models.ExpenseCategory
+import com.finance_tracker.finance_tracker.domain.models.IncomeCategory
 import com.financetracker.financetracker.data.AccountsEntityQueries
 import com.financetracker.financetracker.data.CategoriesEntityQueries
 import com.financetracker.financetracker.data.CurrencyRatesEntityQueries
-import kotlinx.serialization.decodeFromString
+import com.financetracker.financetracker.data.DbVersionEntityQueries
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.double
@@ -20,29 +23,31 @@ import kotlinx.serialization.json.jsonPrimitive
 
 class DatabaseInitializer(
     private val jsonFactory: Json,
+    private val accountSettings: AccountSettings,
     private val categoriesEntityQueries: CategoriesEntityQueries,
     private val accountsEntityQueries: AccountsEntityQueries,
-    private val currencyRatesEntityQueries: CurrencyRatesEntityQueries
+    private val currencyRatesEntityQueries: CurrencyRatesEntityQueries,
+    private val dbVersionEntityQueries: DbVersionEntityQueries
 ) {
+    suspend fun init(context: Context) {
+        withContext(Dispatchers.IO) {
+            initDbVersion()
 
+            if (!accountSettings.isInitDefaultData()) {
+                initCategories(context)
+                initCurrencyRates(context)
+                accountSettings.setIsInitDefaultData(true)
+            }
 
-    fun init(context: Context) {
-        initAccounts(context)
-        initCategories(context)
-        initCurrencyRates(context)
+            if (!accountSettings.isInitAccountPositions()) {
+                initAccountPositions()
+                accountSettings.setIsInitAccountPositions(true)
+            }
+        }
     }
 
-    private fun initAccounts(context: Context) {
-        accountsEntityQueries.transaction {
-            accountsEntityQueries.insertAccount(
-                id = 1,
-                type = Account.Type.Cash,
-                name = MR.strings.account_type_cash.localizedString(context),
-                balance = 0.0,
-                colorId = AccountColorModel.EastBay.id,
-                currency = Currency.default.code
-            )
-        }
+    private fun initDbVersion() {
+        dbVersionEntityQueries.setVersion(CurrentDbVersion)
     }
 
     private fun initCategories(context: Context) {
@@ -76,90 +81,90 @@ class DatabaseInitializer(
 
     private fun createDefaultExpenseCategories(context: Context): List<Category> {
         return listOf(
-            Category(
+            ExpenseCategory(
                 id = 0,
                 name = MR.strings.category_restoraunt.localizedString(context),
-                icon = MR.files.ic_category_1
+                icon = MR.images.ic_category_1
             ),
-            Category(
+            ExpenseCategory(
                 id = 1,
                 name = MR.strings.category_health.localizedString(context),
-                icon = MR.files.ic_category_2
+                icon = MR.images.ic_category_2
             ),
-            Category(
+            ExpenseCategory(
                 id = 2,
                 name = MR.strings.category_child.localizedString(context),
-                icon = MR.files.ic_category_3
+                icon = MR.images.ic_category_3
             ),
-            Category(
+            ExpenseCategory(
                 id = 3,
                 name = MR.strings.category_car.localizedString(context),
-                icon = MR.files.ic_category_4
+                icon = MR.images.ic_category_4
             ),
-            Category(
+            ExpenseCategory(
                 id = 4,
                 name = MR.strings.category_education.localizedString(context),
-                icon = MR.files.ic_category_5
+                icon = MR.images.ic_category_5
             ),
-            Category(
+            ExpenseCategory(
                 id = 5,
                 name = MR.strings.category_entertainment.localizedString(context),
-                icon = MR.files.ic_category_6
+                icon = MR.images.ic_category_6
             ),
-            Category(
+            ExpenseCategory(
                 id = 6,
                 name = MR.strings.category_sport.localizedString(context),
-                icon = MR.files.ic_category_7
+                icon = MR.images.ic_category_7
             ),
-            Category(
+            ExpenseCategory(
                 id = 7,
                 name = MR.strings.category_public_transport.localizedString(context),
-                icon = MR.files.ic_category_8
+                icon = MR.images.ic_category_8
             ),
-            Category(
+            ExpenseCategory(
                 id = 8,
                 name = MR.strings.category_shop.localizedString(context),
-                icon = MR.files.ic_category_9
+                icon = MR.images.ic_category_9
             ),
-            Category(
+            ExpenseCategory(
                 id = 9,
                 name = MR.strings.category_utilities.localizedString(context),
-                icon = MR.files.ic_category_10
+                icon = MR.images.ic_category_10
             ),
-            Category(
+            ExpenseCategory(
                 id = 10,
                 name = MR.strings.category_clothes.localizedString(context),
-                icon = MR.files.ic_category_11
+                icon = MR.images.ic_category_11
             ),
-            Category(
+            ExpenseCategory(
                 id = 11,
                 name = MR.strings.category_electronics.localizedString(context),
-                icon = MR.files.ic_category_12
+                icon = MR.images.ic_category_12
             ),
-            Category(
+            ExpenseCategory(
                 id = 12,
                 name = MR.strings.category_correct.localizedString(context),
-                icon = MR.files.ic_category_13
+                icon = MR.images.ic_category_13
             )
         )
     }
 
     private fun createDefaultIncomeCategories(context: Context): List<Category> {
         return listOf(
-            Category(
+            IncomeCategory(
                 id = 13,
                 name = MR.strings.category_salary.localizedString(context),
-                icon = MR.files.ic_category_14
+                icon = MR.images.ic_category_14
             ),
-            Category(
+            IncomeCategory(
                 id = 14,
                 name = MR.strings.category_allowance.localizedString(context),
-                icon = MR.files.ic_category_15
+                icon = MR.images.ic_category_15
             ),
-            Category(
+            IncomeCategory(
                 id = 15,
                 name = MR.strings.category_gift.localizedString(context),
-                icon = MR.files.ic_category_16
+                icon = MR.images.ic_category_16
             )
         )
     }
@@ -179,5 +184,17 @@ class DatabaseInitializer(
                 }
             }
         }
+    }
+
+    private fun initAccountPositions() {
+        val allAccounts = accountsEntityQueries.getAllAccounts().executeAsList()
+
+        allAccounts.forEachIndexed { index, accountsEntity ->
+            accountsEntityQueries.updateAccountPositionById(index, accountsEntity.id)
+        }
+    }
+
+    companion object {
+        private const val CurrentDbVersion = 9L
     }
 }

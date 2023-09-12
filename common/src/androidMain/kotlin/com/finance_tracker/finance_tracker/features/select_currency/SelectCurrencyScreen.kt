@@ -9,19 +9,21 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
+import com.finance_tracker.finance_tracker.core.common.filterByQuery
+import com.finance_tracker.finance_tracker.core.common.getLocaleLanguage
 import com.finance_tracker.finance_tracker.core.common.imePadding
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.features.select_currency.views.CurrencyItem
 import com.finance_tracker.finance_tracker.features.select_currency.views.SelectCurrencyTopBar
-import java.util.*
 
 @Composable
 internal fun SelectCurrencyScreen() {
@@ -65,6 +67,10 @@ internal fun SelectCurrencyScreen() {
 
             val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
 
+            val localeLanguage = getLocaleLanguage()
+            val filteredCurrencies by remember(currencies, searchText, localeLanguage) {
+                derivedStateOf { currencies.filterByQuery(searchText, localeLanguage) }
+            }
             LazyColumn(
                 modifier = Modifier
                     .imePadding()
@@ -74,13 +80,10 @@ internal fun SelectCurrencyScreen() {
                     bottom = 12.dp + navigationBarsHeight
                 )
             ) {
-                items(currencies.filter { it.code.contains(searchText, ignoreCase = true)
-                        || it.symbol.contains(searchText, ignoreCase = true)
-                        || Currency.getInstance(it.code).displayName.contains(searchText, ignoreCase = true) })
-                { currency ->
+                items(filteredCurrencies) { currency ->
                     CurrencyItem(
                         currency = currency,
-                        onCurrencyClick = viewModel::onCurrencySelect,
+                        onClick = { viewModel.onCurrencySelect(currency) },
                         isCurrencySelected = currency == primaryCurrency
                     )
                 }

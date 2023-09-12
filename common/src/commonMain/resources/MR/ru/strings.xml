@@ -6,6 +6,7 @@
     <string name="btn_delete">Удалить</string>
     <string name="dialog_body_delete">Вы уверены, что хотите удалить?</string>
     <string name="deleting_transaction">Удаление транзакции</string>
+    <string name="deleting_plan">Удаление лимита</string>
     <string name="deleting_category">Удаление категории</string>
     <string name="deleting_transactions">Удаление транзакций</string>
     <string name="deleting_account">Удаление счета</string>
@@ -39,6 +40,14 @@
     <string name="month_nov">Ноя</string>
     <string name="month_dec">Дек</string>
 
+    <string name="toast_action">Отменить</string>
+    <string name="toast_text_transaction_deleted">Транзакция удалена</string>
+    <string name="toast_text_limit_deleted">Лимит трат удален</string>
+    <string name="toast_import_completed">Импорт успешно завершен</string>
+    <string name="toast_import_not_completed">Импорт не был завершен</string>
+    <string name="toast_export_not_completed">Экспорт не был завершен</string>
+    <string name="toast_backup_not_supported">Резервное копия не поддерживается. Обновите приложение или выберите другой файл.</string>
+
     <!-- Categories -->
     <string name="category_restoraunt">Рестораны</string>
     <string name="category_health">Здоровье</string>
@@ -60,7 +69,7 @@
 
     <!-- Colors -->
     <string name="color_purple">Фиолетовый</string>
-    <string name="color_blue">Синий</string>
+    <string name="color_turquoise">Бирюзовый</string>
     <string name="color_red">Красный</string>
     <string name="color_brown">Коричневый</string>
     <string name="color_lavender">Лаванда</string>
@@ -120,6 +129,7 @@
     <string name="tab_transactions">Операции</string>
     <string name="tab_accounts">Счета</string>
     <string name="tab_analytics">Аналитика</string>
+    <string name="tab_plans">Планы</string>
 
     <!-- Add transaction -->
     <string name="add_transaction_amount">Сумма</string>
@@ -131,6 +141,9 @@
     <string name="add_transaction_yesterday">Вчера</string>
     <string name="add_transaction_btn_add">Добавить</string>
     <string name="add_transaction_btn_edit">Редактировать</string>
+    <string name="add_transaction_negative_balance">Некорректная отрицательная сумма транзакции.</string>
+    <string name="add_transaction_incorrect_calculation">Введена некорректная сумма транзакции.</string>
+
 
     <!-- Home -->
     <string name="home_topbar_text">Общий баланс</string>
@@ -215,6 +228,9 @@
     <string name="settings_categories">Настройки категорий</string>
     <string name="settings_telegram_community">Telegram сообщество</string>
     <string name="settings_sending_usage_data">Отправка аналитики</string>
+    <string name="settings_export_import_data">Экспорт/Импорт транзакций</string>
+    <string name="settings_export">Экспорт</string>
+    <string name="settings_import">Импорт</string>
     <string name="sending_usage_data_description_1">Помогите улучшить пользовательский опыт с\u00A0помощью автоматической отправки данных использования приложения.</string>
     <string name="sending_usage_data_description_2">Мы не\u00A0собираем Личную\u00A0информацию или\u00A0информацию о\u00A0количественном значении денежных расходов.\n\nБезопасность ваших личных данных — один из\u00A0наших главных приоритетов!</string>
     <string name="version">Версия:</string>
@@ -242,5 +258,42 @@
     <!-- Currency screen -->
     <string name="currency_screen_topbar_text">Валюта</string>
     <string name="currency_screen_search">Искать</string>
+
+    <!-- Plans screen -->
+    <string name="plans_title">Планы</string>
+    <string name="plans_budget_empty_stub">Еще нет бюджетов</string>
+    <string name="plans_expense_limits">Лимиты трат</string>
+    <string name="plans_btn_add_limit">Добавить лимит</string>
+    <string name="plans_btn_set_limit">Установить лимит</string>
+    <string name="plans_amount_btn_set_limit">Установить лимит</string>
+    <string name="plans_amount_subtitle">Месячный лимит</string>
+
+    <!-- Setup plans screen -->
+    <string name="setup_plans_title">Лимит трат</string>
+    <string name="setup_plans_amount_hint">Лимит трат</string>
+    <string name="setup_plans_btn_add_limit">Добавить лимит</string>
+    <string name="setup_plans_btn_edit_limit">Редактировать лимит</string>
+
+    <!-- Month budget widget -->
+    <string name="month_budget_widget_title">Месячный бюджет</string>
+    <string name="month_budget_widget_money_spent">Потрачено</string>
+    <string name="month_budget_widget_remain_money">Осталось</string>
+    <string name="month_budget_widget_exceeding_limit">Превышение лимита</string>
+    <string name="month_budget_amount_from">из %s</string>
+
+    <!-- Export -->
+    <string name="export_title">Экспортируем</string>
+    <string name="export_description">Пожалуйста, не\u00A0закрывайте окно до\u00A0окончания операции</string>
+
+    <!-- Import -->
+    <string name="import_title">Импортируем</string>
+    <string name="import_description">Пожалуйста, не\u00A0закрывайте окно до\u00A0окончания операции</string>
+
+    <!-- PresetCurrency screen -->
+    <string name="preset_currency_title">Выберите валюту</string>
+    <string name="preset_currency_search_label">Поиск</string>
+    <string name="preset_currency_other_currency">Другая валюта</string>
+    <string name="preset_currency_nothing_found">Ничего не найдено</string>
+    <string name="preset_currency_continue">Продолжить</string>
 
 </resources>

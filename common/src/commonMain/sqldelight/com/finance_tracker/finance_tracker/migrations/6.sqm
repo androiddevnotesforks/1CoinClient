@@ -1,0 +1,6 @@
+-- Warning!!!
+-- If you create a new *.sqm, update:
+-- DatabaseInitializer.CurrentDbVersion and ExportImportRepository.LastSupportedDbVersion.
+-- Update MIGRATION logic in ExportImportRepository!
+
+ALTER TABLE AccountsEntity ADD COLUMN position INTEGER AS Int NOT NULL DEFAULT 0;

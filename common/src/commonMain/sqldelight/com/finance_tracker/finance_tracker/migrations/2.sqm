@@ -1,3 +1,8 @@
+-- Warning!!!
+-- If you create a new *.sqm, update:
+-- DatabaseInitializer.CurrentDbVersion and ExportImportRepository.LastSupportedDbVersion.
+-- Update MIGRATION logic in ExportImportRepository!
+
 CREATE TABLE IF NOT EXISTS DashboardItemsEntity (
     id INTEGER NOT NULL PRIMARY KEY,
     isEnabled INTEGER AS Boolean DEFAULT 0 NOT NULL

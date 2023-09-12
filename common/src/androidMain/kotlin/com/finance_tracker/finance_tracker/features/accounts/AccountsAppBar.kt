@@ -14,18 +14,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinTopAppBar
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun AccountsAppBar(
     onAddAccountClick: () -> Unit,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     CoinTopAppBar(
         modifier = modifier,
+        navigationIcon = {
+            AppBarIcon(
+                painter = painterResource(MR.images.ic_arrow_back),
+                onClick = onBackClick,
+            )
+        },
         title = {
             Text(
                 text = stringResource(MR.strings.accounts_screen_header),
@@ -39,7 +47,7 @@ internal fun AccountsAppBar(
             Row(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .clickable { onAddAccountClick.invoke() }
+                    .clickable { onAddAccountClick() }
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -47,7 +55,7 @@ internal fun AccountsAppBar(
                     modifier = Modifier
                         .padding(end = 2.dp)
                         .size(24.dp),
-                    painter = rememberAsyncImagePainter(MR.files.ic_plus),
+                    painter = painterResource(MR.images.ic_plus),
                     contentDescription = null,
                     tint = CoinTheme.color.primary,
                 )

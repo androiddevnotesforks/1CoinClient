@@ -1,10 +1,8 @@
 package com.finance_tracker.finance_tracker.core.common
 
 actual object BuildInfo {
-
-    @Suppress("NotImplementedDeclaration")
     actual val isDebug: Boolean
-        get() = true // TODO
+        get() = Platform.isDebugBinary
 
     @Suppress("NotImplementedDeclaration")
     actual val buildType: BuildType

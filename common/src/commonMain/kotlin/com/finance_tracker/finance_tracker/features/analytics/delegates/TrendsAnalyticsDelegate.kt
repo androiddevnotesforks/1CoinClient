@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.features.analytics.delegates
 
 import com.finance_tracker.finance_tracker.core.common.Context
+import com.finance_tracker.finance_tracker.core.common.convertToCurrencyValue
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDate
 import com.finance_tracker.finance_tracker.core.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.core.common.localizedString
@@ -24,6 +25,7 @@ import dev.icerock.moko.resources.desc.ResourceFormatted
 import dev.icerock.moko.resources.desc.StringDesc
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -182,7 +184,7 @@ class TrendsAnalyticsDelegate(
             PeriodChip.Year -> expenseYearTrend
         }
     }
-        .flowOn(Dispatchers.Default)
+        .flowOn(Dispatchers.IO)
         .stateIn(this@TrendsAnalyticsDelegate, started = SharingStarted.Lazily, initialValue = listOf())
 
     private val incomeFlow = combine(
@@ -194,7 +196,7 @@ class TrendsAnalyticsDelegate(
             PeriodChip.Year -> incomeYearTrend
         }
     }
-        .flowOn(Dispatchers.Default)
+        .flowOn(Dispatchers.IO)
         .stateIn(this@TrendsAnalyticsDelegate, started = SharingStarted.Lazily, initialValue = listOf())
 
     val trendFlow = combine(selectedTransactionTypeFlow, expenseFlow, incomeFlow) {
@@ -206,7 +208,7 @@ class TrendsAnalyticsDelegate(
             else -> emptyList()
         }
     }
-        .flowOn(Dispatchers.Default)
+        .flowOn(Dispatchers.IO)
         .stateIn(this@TrendsAnalyticsDelegate, started = SharingStarted.Lazily, initialValue = listOf())
 
     val totalFlow = combine(trendFlow, primaryCurrencyFlow) {
@@ -216,7 +218,7 @@ class TrendsAnalyticsDelegate(
             currency = primaryCurrency
         )
     }
-        .flowOn(Dispatchers.Default)
+        .flowOn(Dispatchers.IO)
         .stateIn(this@TrendsAnalyticsDelegate, started = SharingStarted.Lazily, initialValue = Amount.default)
 
     init {
@@ -245,12 +247,12 @@ class TrendsAnalyticsDelegate(
             val amount = Amount(
                 currency = Currency.getByCode(transaction.amountCurrency),
                 amountValue = transaction.amount
-            ).convertToCurrency(
-                currencyRates = currencyRates,
-                toCurrency = primaryCurrency
+            ).convertToCurrencyValue(
+                toCurrency = primaryCurrency,
+                currencyRates = currencyRates
             )
 
-            val dayOfWeek = transformDateToBarOrder.invoke(date)
+            val dayOfWeek = transformDateToBarOrder(date)
             map[dayOfWeek]?.add(amount)
         }
 
@@ -286,7 +288,7 @@ class TrendsAnalyticsDelegate(
             fromDate = fromDate.toDateTime(),
             toDate = toDate.toDateTime()
         ).asFlow().mapToList(), databaseCurrencyRatesFlow, primaryCurrencyFlow, transform = transform)
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.IO)
             .stateIn(this@TrendsAnalyticsDelegate, started = SharingStarted.Lazily, initialValue = listOf())
     }
 

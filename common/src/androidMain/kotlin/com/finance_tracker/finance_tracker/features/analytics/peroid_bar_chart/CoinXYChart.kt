@@ -68,7 +68,7 @@ internal fun CoinXYChart(
     LaunchedEffect(activeBarIndex) {
         val barChartEntryIndex = activeBarIndex ?: -1
         val entry = barChartEntries.getOrNull(barChartEntryIndex)
-        onBarChartSelect.invoke(entry)
+        onBarChartSelect(entry)
     }
     XYChart(
         modifier = modifier
@@ -166,10 +166,10 @@ private fun VerticalBar(
             .onGloballyPositioned { coordinates ->
                 val offset = coordinates.parentCoordinates?.parentCoordinates?.parentCoordinates?.positionInParent()
                 if (offset != null) {
-                    onGloballyPosition.invoke(offset)
+                    onGloballyPosition(offset)
                 }
             }
-            .onSizeChanged { onSizeChange.invoke(it.width) }
+            .onSizeChanged { onSizeChange(it.width) }
             .padding(horizontal = 2.dp)
             .background(
                 brush = SolidColor(

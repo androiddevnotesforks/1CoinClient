@@ -38,7 +38,7 @@ android {
         applicationId = "com.finance_tracker.finance_tracker"
         minSdk = 26
         targetSdk = 33
-        versionCode = 10
+        versionCode = 11
         versionName = rootProject.extra["appVersion"] as String
         signingConfig = signingConfigs.getByName("debug")
         val appName = rootProject.extra["appName"] as String
@@ -67,15 +67,15 @@ android {
         }
     }
     java {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true

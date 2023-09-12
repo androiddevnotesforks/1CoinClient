@@ -1,0 +1,38 @@
+CREATE TABLE IF NOT EXISTS LimitsEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    categoryId INTEGER,
+    limitAmount REAL NOT NULL,
+    currency TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    month INTEGER NOT NULL
+);
+
+getAllFullLimits:
+SELECT *
+FROM LimitsEntity
+LEFT JOIN CategoriesEntity AS categories ON LimitsEntity.categoryId = categories.id
+WHERE year = :year AND month = :month;
+
+getFullLimitByCategoryId:
+SELECT * FROM LimitsEntity
+LEFT JOIN CategoriesEntity AS categories ON LimitsEntity.categoryId = categories.id
+WHERE categoryId = :categoryId AND year = :year AND month = :month
+LIMIT 1;
+
+insertLimit:
+INSERT OR REPLACE
+INTO LimitsEntity
+VALUES (?,?,?,?,?,?);
+
+updateLimitByCategoryId:
+UPDATE LimitsEntity
+SET limitAmount = :limitAmount, currency = :currency
+WHERE categoryId = :categoryId AND year = :year AND month = :month;
+
+deleteLimitById:
+DELETE FROM LimitsEntity
+WHERE id = :id;
+
+deleteLimitsByCategoryId:
+DELETE FROM LimitsEntity
+WHERE categoryId = :categoryId;

@@ -1,3 +1,8 @@
+-- Warning!!!
+-- If you create a new *.sqm, update:
+-- DatabaseInitializer.CurrentDbVersion and ExportImportRepository.LastSupportedDbVersion.
+-- Update MIGRATION logic in ExportImportRepository!
+
 ALTER TABLE TransactionsEntity ADD COLUMN secondaryAmount REAL;
 ALTER TABLE TransactionsEntity ADD COLUMN secondaryAmountCurrency TEXT;
 ALTER TABLE TransactionsEntity ADD COLUMN secondaryAccountId INTEGER;

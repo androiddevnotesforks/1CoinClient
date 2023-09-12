@@ -1,10 +1,6 @@
 
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.BOOLEAN
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
-import org.jetbrains.compose.ComposeCompilerKotlinSupportPlugin
-import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
-import org.jetbrains.kotlin.gradle.plugin.KotlinCompilerPluginSupportPlugin
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 
 plugins {
@@ -22,6 +18,8 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.codingfeline.buildkonfig")
     id("dev.icerock.mobile.multiplatform-resources")
+    id("com.rickclephas.kmp.nativecoroutines")
+    id("dev.icerock.moko.kswift")
 }
 
 kotlin {
@@ -38,7 +36,8 @@ kotlin {
                 implementation(libs.bundles.ktor)
                 implementation(libs.bundles.settings)
                 implementation(libs.uuid)
-                implementation(libs.datetime)
+                implementation(libs.kotlin.datetime)
+                implementation(libs.kotlin.coroutines)
                 implementation(libs.immutableCollections)
                 implementation(libs.paging)
                 implementation(libs.arithmeticEvaluator)
@@ -68,6 +67,7 @@ kotlin {
                 implementation(libs.firebase.crashlytics)
                 implementation(libs.lottie)
                 implementation(libs.googleServicesAuth)
+                implementation(libs.documentfile)
             }
         }
 
@@ -85,6 +85,7 @@ kotlin {
         iosMain {
             dependencies {
                 implementation(libs.sqldelight.ios)
+                implementation(libs.ktor.ios)
             }
         }
     }
@@ -111,19 +112,15 @@ kotlin {
 
 android {
     namespace = "com.finance_tracker.finance_tracker.common"
-}
 
-// Exclude native compose compiler
-plugins.removeAll { it is ComposeCompilerKotlinSupportPlugin }
-class ComposeNoNativePlugin : KotlinCompilerPluginSupportPlugin by ComposeCompilerKotlinSupportPlugin() {
-    override fun isApplicable(kotlinCompilation: KotlinCompilation<*>): Boolean {
-        if (kotlinCompilation.target.platformType == KotlinPlatformType.native) {
-            return false
-        }
-        return ComposeCompilerKotlinSupportPlugin().isApplicable(kotlinCompilation)
+    kotlin {
+        jvmToolchain(17)
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
-apply<ComposeNoNativePlugin>()
 
 sqldelight {
     database("AppDatabase") {
@@ -156,4 +153,14 @@ buildkonfig {
 multiplatformResources {
     multiplatformResourcesPackage = "com.finance_tracker.finance_tracker"
     multiplatformResourcesClassName = "MR"
+}
+
+kswift {
+    projectPodspecName.set("OneCoinShared")
+
+    // https://github.com/icerockdev/moko-kswift#how-to-exclude-generation-of-entries-from-some-libraries
+    // https://github.com/icerockdev/moko-kswift/blob/master/sample/mpp-library/build.gradle.kts
+    includeLibrary("common")
+
+    install(dev.icerock.moko.kswift.plugin.feature.SealedToSwiftEnumFeature)
 }

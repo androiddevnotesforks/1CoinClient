@@ -41,9 +41,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTextFieldDefaults
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 private const val TextFieldReadOnlyAlpha = 0.6f
@@ -75,7 +75,7 @@ internal fun CoinOutlinedTextField(
         trailingIcon = trailingIcon,
         onValueChange = {
             if (it.length <= charsLimit) {
-                onValueChange.invoke(it)
+                onValueChange(it)
             }
         },
         colors = CoinTextFieldDefaults.outlinedTextFieldColors(),
@@ -91,6 +91,7 @@ internal fun CoinOutlinedTextField(
 internal fun CoinOutlinedTextField(
     modifier: Modifier = Modifier,
     value: TextFieldValue = TextFieldValue(),
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onValueChange: (TextFieldValue) -> Unit = {},
     readOnly: Boolean = false,
     label: @Composable (() -> Unit)? = null,
@@ -108,6 +109,7 @@ internal fun CoinOutlinedTextField(
         modifier = modifier
             .alpha(alpha = if (readOnly) TextFieldReadOnlyAlpha else 1f),
         value = value,
+        interactionSource = interactionSource,
         label = label,
         readOnly = readOnly,
         placeholder = placeholder,
@@ -115,7 +117,7 @@ internal fun CoinOutlinedTextField(
         trailingIcon = trailingIcon,
         onValueChange = {
             if (it.text.length <= charsLimit) {
-                onValueChange.invoke(it)
+                onValueChange(it)
             }
         },
         colors = CoinTextFieldDefaults.outlinedTextFieldColors(),
@@ -165,7 +167,7 @@ internal fun CoinOutlinedSelectTextField(
             Icon(
                 modifier = Modifier
                     .size(24.dp),
-                painter = rememberAsyncImagePainter(MR.files.ic_expand_more_small),
+                painter = painterResource(MR.images.ic_expand_more_small),
                 contentDescription = null,
                 tint = CoinTheme.color.content
             )

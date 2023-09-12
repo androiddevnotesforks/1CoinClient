@@ -1,8 +1,7 @@
 package com.finance_tracker.finance_tracker.core.common
 
+import com.finance_tracker.finance_tracker.MR
+
 actual fun getRaw(context: Context, name: String, ext: String): String {
-    val identifier = context.resources.getIdentifier(name, "raw", context.packageName)
-    return context.resources.openRawResource(identifier)
-        .bufferedReader()
-        .readText()
+    return MR.files.base_rates.readText(context)
 }

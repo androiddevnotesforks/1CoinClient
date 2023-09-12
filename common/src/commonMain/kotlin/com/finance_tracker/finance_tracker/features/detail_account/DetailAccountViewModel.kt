@@ -2,30 +2,56 @@ package com.finance_tracker.finance_tracker.features.detail_account
 
 import app.cash.paging.cachedIn
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
-import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
-import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.transactions.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.features.detail_account.analytics.DetailAccountAnalytics
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 @Suppress("ConstructorParameterNaming")
 class DetailAccountViewModel(
-    _account: Account,
-    transactionsInteractor: TransactionsInteractor,
-    accountsRepository: AccountsRepository,
+    private val _account: Account,
+    private val transactionsInteractor: TransactionsInteractor,
+    private val accountsInteractor: AccountsInteractor,
     private val detailAccountAnalytics: DetailAccountAnalytics
 ): BaseViewModel<DetailAccountAction>() {
 
     val paginatedTransactions = transactionsInteractor.getPaginatedTransactionsByAccountId(_account.id)
         .cachedIn(viewModelScope)
 
-    val accountData = accountsRepository.getAccountByIdFlow(_account.id)
+    val accountData = accountsInteractor.getAccountByIdFlow(_account.id)
+        .map { it ?: _account }
         .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = _account)
 
     init {
         detailAccountAnalytics.trackScreenOpen()
+        observeTransactionsSizeUpdates()
+    }
+
+    fun onScreenViewed() {
+        closeScreenIfAccountNotExists()
+    }
+
+    private fun closeScreenIfAccountNotExists() {
+        viewModelScope.launch {
+            if (accountsInteractor.isAccountNotExists(_account.id)) {
+                viewAction = DetailAccountAction.CloseScreen
+            }
+        }
+    }
+
+    private fun observeTransactionsSizeUpdates() {
+        transactionsInteractor.getTransactionsByAccountIdSizeUpdates(
+            id = accountData.value.id
+        )
+            .onEach { viewAction = DetailAccountAction.RefreshTransactions }
+            .launchIn(viewModelScope)
     }
 
     fun onBackClick() {

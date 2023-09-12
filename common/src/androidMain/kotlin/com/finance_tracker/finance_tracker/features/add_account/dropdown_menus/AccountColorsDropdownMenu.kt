@@ -40,7 +40,7 @@ internal fun AccountColorsDropdownMenu(
             AccountColorItem(
                 data = item,
                 onClick = {
-                    onSelect.invoke(item)
+                    onSelect(item)
                     expandedState.value = false
                 }
             )

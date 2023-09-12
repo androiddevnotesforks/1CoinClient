@@ -31,7 +31,7 @@ internal fun ThemesDropdownMenu(
         items.forEach { item ->
             DropdownMenuItem(
                 onClick = {
-                    onThemeSelect.invoke(item)
+                    onThemeSelect(item)
                     expandedState.value = false
                 }
             ) {

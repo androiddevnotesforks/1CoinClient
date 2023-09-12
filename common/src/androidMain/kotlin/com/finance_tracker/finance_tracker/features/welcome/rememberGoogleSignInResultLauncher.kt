@@ -16,20 +16,20 @@ internal fun rememberGoogleSignInResultLauncher(
         try {
             val googleSignInAccount = task?.getResult(ApiException::class.java)
             if (googleSignInAccount == null) {
-                onError.invoke(NullPointerException("GoogleSignInAccount isn't selected"))
+                onError(NullPointerException("GoogleSignInAccount isn't selected"))
                 return@rememberLauncherForActivityResult
             }
 
             val token = googleSignInAccount.idToken
             if (token == null) {
-                onError.invoke(NullPointerException("GoogleSignInAccount\'s token is null"))
+                onError(NullPointerException("GoogleSignInAccount\'s token is null"))
                 return@rememberLauncherForActivityResult
             }
 
-            onSuccess.invoke(token)
+            onSuccess(token)
 
         } catch (e: Exception) {
-            onError.invoke(e)
+            onError(e)
         }
     }
 }

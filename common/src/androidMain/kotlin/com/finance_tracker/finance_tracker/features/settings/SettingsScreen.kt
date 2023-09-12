@@ -1,5 +1,7 @@
 package com.finance_tracker.finance_tracker.features.settings
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +27,7 @@ import com.finance_tracker.finance_tracker.features.settings.views.ListGroupHead
 import com.finance_tracker.finance_tracker.features.settings.views.ListItemDivider
 import com.finance_tracker.finance_tracker.features.settings.views.SettingsScreenTopBar
 import com.finance_tracker.finance_tracker.features.settings.views.SettingsVersionAndUserIdInfo
+import com.finance_tracker.finance_tracker.features.settings.views.items.ExportImportDataItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsCategoriesItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsDashboardItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsMainCurrencyItem
@@ -40,6 +43,20 @@ internal fun SettingsScreen() {
 
         val uriHandler = LocalUriHandler.current
         val clipboardManager = LocalClipboardManager.current
+        val pickFileLauncher = rememberLauncherForActivityResult(
+            ActivityResultContracts.GetContent()
+        ) { imageUri ->
+            if (imageUri != null) {
+                viewModel.onFileChosen(imageUri.toString())
+            }
+        }
+        val pickDirectoryLauncher = rememberLauncherForActivityResult(
+            ActivityResultContracts.OpenDocumentTree()
+        ) { imageUri ->
+            if (imageUri != null) {
+                viewModel.onDirectoryChosen(imageUri.toString())
+            }
+        }
 
         viewModel.watchViewActions { action, baseLocalsStorage ->
             handleAction(
@@ -47,6 +64,9 @@ internal fun SettingsScreen() {
                 baseLocalsStorage = baseLocalsStorage,
                 uriHandler = uriHandler,
                 clipboardManager = clipboardManager,
+                viewModel = viewModel,
+                pickFileLauncher = pickFileLauncher,
+                pickDirectoryLauncher = pickDirectoryLauncher
             )
         }
 
@@ -94,15 +114,20 @@ internal fun SettingsScreen() {
                     primaryCurrency = primaryCurrency
                 )
 
+                val themeMode by viewModel.currentTheme.collectAsState()
+                SettingsThemeItem(
+                    themes = viewModel.themes,
+                    themeMode = themeMode,
+                    onClick = viewModel::onThemeChange
+                )
+
                 SettingsCategoriesItem(
                     onClick = viewModel::onCategorySettingsClick
                 )
 
-                if (featuresManager.isEnabled(FeatureFlag.WidgetsSettings)) {
-                    SettingsDashboardItem(
-                        onClick = viewModel::onDashboardSettingsClick
-                    )
-                }
+                SettingsDashboardItem(
+                    onClick = viewModel::onDashboardSettingsClick
+                )
 
                 ListItemDivider()
 
@@ -122,14 +147,9 @@ internal fun SettingsScreen() {
                     onClick = viewModel::onPrivacyClick
                 )*/
 
-                if (viewModel.featuresManager.isEnabled(FeatureFlag.ChooseTheme)) {
-                    val themeMode by viewModel.currentTheme.collectAsState()
-                    SettingsThemeItem(
-                        themes = viewModel.themes,
-                        themeMode = themeMode,
-                        onClick = viewModel::onThemeChange
-                    )
-                }
+                ExportImportDataItem(
+                    onClick = viewModel::onExportImportClick
+                )
 
                 SettingsTelegramChatItem(
                     onClick = viewModel::onTelegramCommunityClick

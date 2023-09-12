@@ -60,7 +60,7 @@ internal fun MonthsList(
                 modifier = Modifier
                     .padding(),
                 enabled = selectedMonth != yearMonth,
-                onClick = { onYearMonthSelect.invoke(yearMonth) },
+                onClick = { onYearMonthSelect(yearMonth) },
                 elevation = ButtonDefaults.elevation(
                     defaultElevation = 0.dp,
                     pressedElevation = 0.dp,

@@ -6,7 +6,7 @@ import com.finance_tracker.finance_tracker.core.feature_flags.FeatureFlag
 import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
 import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.data.database.DatabaseInitializer
-import com.finance_tracker.finance_tracker.data.settings.AccountSettings
+import com.finance_tracker.finance_tracker.data.repositories.export_import.ExportImportRepository
 import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.DashboardSettingsInteractor
@@ -15,13 +15,11 @@ import com.finance_tracker.finance_tracker.domain.models.getAnalyticsName
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
 class AppInitializer(
@@ -29,10 +27,10 @@ class AppInitializer(
     private val categoriesInteractor: CategoriesInteractor,
     private val dashboardSettingsInteractor: DashboardSettingsInteractor,
     private val accountsInteractor: AccountsInteractor,
-    private val accountSettings: AccountSettings,
     private val analyticsTracker: AnalyticsTracker,
     private val databaseInitializer: DatabaseInitializer,
     private val loggerInitializer: LoggerInitializer,
+    private val exportImportRepository: ExportImportRepository,
     private val context: Context,
     featuresManager: FeaturesManager
 ): CoroutineScope {
@@ -53,10 +51,22 @@ class AppInitializer(
         initDatabase()
         initAnalytics()
         updateDashboardItems()
+        checkDbVersion()
     }
 
     private fun initLogger() {
         loggerInitializer.init()
+    }
+
+    private fun checkDbVersion() {
+        launch(
+            CoroutineExceptionHandler { _, throwable ->
+                Napier.e("AppInitializer", throwable)
+                throw throwable
+            }
+        ) {
+            exportImportRepository.checkDbVersion()
+        }
     }
 
     private fun initAnalytics() {
@@ -94,12 +104,7 @@ class AppInitializer(
 
     private fun initDatabase() {
         launch {
-            if (!accountSettings.isInitDefaultData()) {
-                databaseInitializer.init(context)
-                withContext(Dispatchers.Default) {
-                    accountSettings.setIsInitDefaultData(true)
-                }
-            }
+            databaseInitializer.init(context)
         }
     }
 

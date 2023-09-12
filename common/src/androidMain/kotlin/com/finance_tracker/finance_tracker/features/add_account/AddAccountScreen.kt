@@ -1,21 +1,19 @@
 package com.finance_tracker.finance_tracker.features.add_account
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Snackbar
-import androidx.compose.material.SnackbarHost
-import androidx.compose.material.SnackbarHostState
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -27,20 +25,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
+import com.finance_tracker.finance_tracker.core.common.BackHandler
 import com.finance_tracker.finance_tracker.core.common.`if`
 import com.finance_tracker.finance_tracker.core.common.toTextFieldValue
 import com.finance_tracker.finance_tracker.core.common.toUiTextFieldValue
+import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
-import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
+import com.finance_tracker.finance_tracker.core.ui.keyboard.ArithmeticKeyboard
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.features.add_account.views.AccountColorTextField
 import com.finance_tracker.finance_tracker.features.add_account.views.AccountNameTextField
@@ -48,7 +46,6 @@ import com.finance_tracker.finance_tracker.features.add_account.views.AccountTyp
 import com.finance_tracker.finance_tracker.features.add_account.views.AddAccountTopBar
 import com.finance_tracker.finance_tracker.features.add_account.views.AmountTextField
 import com.finance_tracker.finance_tracker.features.add_account.views.BalanceCalculationResult
-import com.finance_tracker.finance_tracker.features.add_account.views.BalanceKeyboard
 import com.finance_tracker.finance_tracker.features.add_account.views.EditAccountActions
 import org.koin.core.parameter.parametersOf
 
@@ -59,8 +56,7 @@ internal fun AddAccountScreen(
 ) {
     ComposeScreen<AddAccountViewModel>(
         parameters = { parametersOf(account) }
-    ) { viewModel ->
-        val scaffoldState = rememberScaffoldState()
+    ) { screenState, viewModel ->
         val focusRequester = remember { FocusRequester() }
         val titleAccount by viewModel.enteredAccountName.collectAsState()
         val selectedType by viewModel.selectedType.collectAsState()
@@ -78,6 +74,16 @@ internal fun AddAccountScreen(
         var keyboardHeight by remember { mutableStateOf(0.dp) }
         val focusManager = LocalFocusManager.current
 
+        BackHandler(enabled = shouldShowAmountKeyboard) {
+            shouldShowAmountKeyboard = false
+        }
+
+        LaunchedEffect(shouldShowAmountKeyboard) {
+            if (shouldShowAmountKeyboard) {
+                viewModel.hideSnackbar()
+            }
+        }
+
         LaunchedEffect(Unit) {
             if (account == Account.EMPTY) {
                 focusRequester.requestFocus()
@@ -88,41 +94,27 @@ internal fun AddAccountScreen(
             handleAction(
                 action = action,
                 baseLocalsStorage = baseLocalsStorage,
-                scaffoldState = scaffoldState,
+                onHideKeyboard = { shouldShowAmountKeyboard = false },
                 onCancelDeletingClick = viewModel::onCancelDeletingClick,
                 onConfirmDeletingClick = viewModel::onConfirmDeletingClick
             )
         }
 
-        Scaffold(
-            scaffoldState = scaffoldState,
-            snackbarHost = { snackbarHostState: SnackbarHostState ->
-                SnackbarHost(snackbarHostState) {
-                    Snackbar(
-                        snackbarData = it,
-                        contentColor = CoinTheme.color.white,
-                        actionColor = CoinTheme.color.primary,
-                        modifier = Modifier.padding(bottom = LocalFixedInsets.current.navigationBarsHeight),
-                        elevation = 0.dp
-                    )
-                }
-            },
-            topBar = {
-                AddAccountTopBar(
-                    topBarTextId = if (account == Account.EMPTY) {
-                        MR.strings.new_account_title
-                    } else {
-                        MR.strings.accounts_screen_top_bar
-                    },
-                    onBackClick = viewModel::onBackClick
-                )
-            }
-        ) {
+        Column {
+            AddAccountTopBar(
+                topBarTextId = if (account == Account.EMPTY) {
+                    MR.strings.new_account_title
+                } else {
+                    MR.strings.accounts_screen_top_bar
+                },
+                onBackClick = viewModel::onBackClick
+            )
             Box(modifier = Modifier.fillMaxSize()) {
                 Column(modifier = Modifier
                     .verticalScroll(scrollState)
                     .align(Alignment.TopCenter)
                     .imePadding()
+                    .padding(bottom = 16.dp)
                     .`if`(shouldShowAmountKeyboard) { padding(bottom = keyboardHeight) }) {
                     AccountNameTextField(
                         modifier = Modifier.focusRequester(focusRequester),
@@ -151,6 +143,11 @@ internal fun AddAccountScreen(
                         )
                     }
 
+                    val source = remember { MutableInteractionSource() }
+                    if (source.collectIsPressedAsState().value) {
+                        shouldShowAmountKeyboard = true
+                    }
+
                     AmountTextField(
                         enteredBalance = enteredBalance.toUiTextFieldValue(),
                         amountCurrencies = amountCurrencies,
@@ -159,7 +156,7 @@ internal fun AddAccountScreen(
                             viewModel.onAmountChange(uiTextFieldValue.toTextFieldValue())
                         },
                         onCurrencySelect = viewModel::onCurrencySelect,
-                        modifier = Modifier.onFocusChanged { shouldShowAmountKeyboard = it.isFocused },
+                        interactionSource = source,
                         isError = balanceCalculationResult.isError
                     )
 
@@ -170,17 +167,21 @@ internal fun AddAccountScreen(
                         addEnabled = isAddButtonEnabled,
                         onDeleteClick = {
                             focusManager.clearFocus()
+                            shouldShowAmountKeyboard = false
                             viewModel.onDeleteClick()
                         },
                         onAddAccountClick = viewModel::onAddAccountClick,
                     )
                 }
 
-                BalanceKeyboard(
+                ArithmeticKeyboard(
                     shouldShowAmountKeyboard = shouldShowAmountKeyboard,
                     onKeyboardClick = viewModel::onKeyboardButtonClick,
-                    onKeyboardClose = focusManager::clearFocus,
+                    onKeyboardClose = {
+                        shouldShowAmountKeyboard = false
+                    },
                     modifier = Modifier
+                        .heightIn(max = 348.dp)
                         .align(Alignment.BottomCenter)
                         .onGloballyPositioned {
                             with(screenDensity) {

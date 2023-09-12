@@ -15,22 +15,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
-import com.finance_tracker.finance_tracker.core.feature_flags.FeatureFlag
-import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesMode
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabRow
+import dev.icerock.moko.resources.compose.painterResource
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun CategoriesAppBar(
     doneButtonEnabled: Boolean,
-    featuresManager: FeaturesManager,
     modifier: Modifier = Modifier,
     selectedTransactionType: TransactionTypeTab = TransactionTypeTab.Expense,
     onTransactionTypeSelect: (TransactionTypeTab) -> Unit = {},
@@ -50,7 +47,7 @@ internal fun CategoriesAppBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             AppBarIcon(
-                painter = rememberAsyncImagePainter(MR.files.ic_arrow_back),
+                painter = painterResource(MR.images.ic_arrow_back),
                 onClick = { rootController.popBackStack() }
             )
 
@@ -64,11 +61,7 @@ internal fun CategoriesAppBar(
             ) {
                 TransactionTypesTabRow(
                     modifier = Modifier.wrapContentWidth(),
-                    transactionTypesMode = if (featuresManager.isEnabled(FeatureFlag.Transfer)) {
-                        TransactionTypesMode.Full
-                    } else {
-                        TransactionTypesMode.Main
-                    },
+                    transactionTypesMode = TransactionTypesMode.Full,
                     selectedType = selectedTransactionType,
                     hasBottomDivider = false,
                     isHorizontallyCentered = true,
@@ -77,7 +70,7 @@ internal fun CategoriesAppBar(
             }
 
             AppBarIcon(
-                painter = rememberAsyncImagePainter(MR.files.ic_done),
+                painter = painterResource(MR.images.ic_done),
                 onClick = onDoneClick,
                 enabled = doneButtonEnabled
             )

@@ -28,7 +28,7 @@ actual fun Double.format(): String {
     return DoubleFormatter().format(this)
 }
 
-actual fun String.parse(): Double? {
+actual fun String.parseToDouble(): Double? {
     return DoubleFormatter().parse(this)
 }
 

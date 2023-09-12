@@ -1,0 +1,14 @@
+-- Warning!!!
+-- If you create a new *.sqm, update:
+-- DatabaseInitializer.CurrentDbVersion and ExportImportRepository.LastSupportedDbVersion.
+-- Update MIGRATION logic in ExportImportRepository!
+
+DROP TABLE IF EXISTS LimitsEntity;
+CREATE TABLE IF NOT EXISTS LimitsEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    categoryId INTEGER,
+    limitAmount REAL NOT NULL,
+    currency TEXT NOT NULL,
+    year INTEGER NOT NULL,
+    month INTEGER NOT NULL
+);

@@ -21,5 +21,9 @@ fun handleAction(
             val navController = rootController.findRootController()
             navController.push(MainNavigationTree.AddAccount.name)
         }
+        is AccountsAction.CloseScreen -> {
+            val navController = rootController.findRootController()
+            navController.popBackStack()
+        }
     }
 }

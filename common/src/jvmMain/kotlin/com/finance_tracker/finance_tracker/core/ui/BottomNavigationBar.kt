@@ -49,7 +49,7 @@ internal fun BottomNavigationBar(
                 BottomNavigationItem(
                     item = item,
                     selected = selectedTabItem == item,
-                    onClick = { onItemSelect.invoke(item) }
+                    onClick = { onItemSelect(item) }
                 )
             } else {
                 EmptyBottomNavigationItem()
@@ -93,7 +93,7 @@ private fun RowScope.BottomNavigationItem(
             alwaysShowLabel = true,
             selected = selected,
             onClick = {
-                onClick.invoke()
+                onClick()
             }
         )
     }

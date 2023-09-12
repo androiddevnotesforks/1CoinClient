@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.data.database.mappers
 
-import com.finance_tracker.finance_tracker.core.common.toCategoryFileResource
+import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.getCategoryIconByNameOrDefault
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.AccountColorModel
 import com.finance_tracker.finance_tracker.domain.models.Amount
@@ -11,7 +12,6 @@ import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import kotlinx.datetime.LocalDateTime
 
 val fullTransactionMapper: (
-
     // Transaction
     id: Long,
     type: TransactionType,
@@ -32,6 +32,7 @@ val fullTransactionMapper: (
     balance: Double,
     colorId: Int,
     currency: String,
+    position: Int,
 
     // Secondary Account
     id__: Long?,
@@ -40,24 +41,28 @@ val fullTransactionMapper: (
     balance_: Double?,
     colorId_: Int?,
     currency_: String?,
+    position_: Int?,
 
     // Category
     id___: Long?,
     name__: String?,
     icon: String?,
-    position: Long?,
+    position__: Long?,
     isExpense: Boolean?,
     isIncome: Boolean?
 ) -> Transaction = {
-        // Transaction
+    // Transaction
         id, type, amount, amountCurrency, categoryId, accountId, insertionDate, date,
         secondaryAmount, secondaryAmountCurrency, secondaryAccountId,
+
         // Primary Account
-        _, accountType, accountName, balance, accountColorId, _,
+        _, accountType, accountName, balance, accountColorId, _, _,
+
         // Secondary Account
-        _, secondaryAccountType, secondaryAccountName, secondaryBalance, secondaryAccountColorId, _,
+        _, secondaryAccountType, secondaryAccountName, secondaryBalance, secondaryAccountColorId, _, _,
+
         // Category
-        _, categoryName, categoryIcon, _, _, _ ->
+        _, categoryName, categoryIcon, _, isExpense, isIncome ->
 
     val currency = Currency.getByCode(amountCurrency)
     val secondaryCurrency = secondaryAmountCurrency?.let(Currency::getByCode)
@@ -93,7 +98,9 @@ val fullTransactionMapper: (
             Category(
                 id = categoryId,
                 name = categoryName.orEmpty(),
-                icon = categoryIcon.toCategoryFileResource()
+                icon = MR.images.getCategoryIconByNameOrDefault(categoryIcon),
+                isExpense = isExpense ?: false,
+                isIncome = isIncome ?: false
             )
         } else {
             null

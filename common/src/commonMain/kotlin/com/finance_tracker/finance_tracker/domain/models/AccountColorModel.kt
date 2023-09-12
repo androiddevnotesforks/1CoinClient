@@ -18,7 +18,7 @@ enum class AccountColorModel(
     RobinsEggBlue(
         id = 1,
         color = Color(0x07BEB8FF),
-        colorName = MR.strings.color_blue
+        colorName = MR.strings.color_turquoise
     ),
     GoldenTainoi(
         id = 2,

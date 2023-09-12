@@ -45,10 +45,19 @@
 </div>
 
 ## Table of Contents
+- [Support Team](#support-team)
 - [Features](#features)
 - [Tech stack](#tech-stack)
 - [How to build](#how-to-build)
+- [Find out more](#find-out-more)
 - [Download](#download)
+
+## Support Team
+- [Buy me a coffee](https://www.buymeacoffee.com/1coin)
+- [Boosty](https://boosty.to/1coin)
+- [Patreon](https://patreon.com/1Coin)
+- [BTC address](https://explorer.btc.com/btc/address/bc1qjszqdrj3rag97qz9cayac7hrz5l3t4gppk2q7h)
+- [ETH address](https://etherscan.io/address/0x1a7D0B4758355469c9026F067FCBeF7eeC79BC17)
 
 ## Features
 
@@ -66,11 +75,18 @@
   - [LGoodDatePicker](https://github.com/LGoodDatePicker/LGoodDatePicker) - DatePicker on Swing (Desktop)
   - [Odyssey](https://github.com/AlexGladkov/Odyssey) - Navigation
   - [Koalaplot](https://github.com/KoalaPlot/koalaplot-core) - Charts
+  - [MokoResources](https://github.com/icerockdev/moko-resources) - Resources: strings, colors, images, etc
+  - [Lottie](https://airbnb.io/lottie/#/) - Vector animations
 - Common
   - [KViewModel](https://github.com/adeo-opensource/kviewmodel--mpp) - Shared ViewModel
   - [Firebase](https://firebase.google.com) - Crashlytics
+  - [GoogleServices](https://developers.google.com/android/guides/setup) - Google Authorization
   - [UUID](https://github.com/benasher44/uuid) - UUID generation
   - [Kotlinx DateTime](https://github.com/Kotlin/kotlinx-datetime) - Date and Time
+  - [ImmutableCollections](https://github.com/Kotlin/kotlinx.collections.immutable) - Immutable collections by JetBrains
+  - [ComposeImageLoader](https://github.com/qdsfdhvh/compose-imageloader) - Image loader for Compose (Android + Desktop)
+  - [ArithmeticEvaluator](https://github.com/murzagalin/multiplatform-expressions-evaluator) - Calculates mathematical expressions
+  - [BigNum](https://github.com/ionspin/kotlin-multiplatform-bignum) - Processing large numbers
 - Data
   - [Ktor](https://ktor.io/docs/welcome.html) - Network communication
   - [SqlDelight](https://github.com/cashapp/sqldelight) - SQLite database
@@ -97,6 +113,12 @@
 - Desktop
     - Sync gradle
     - Launch <i>'main()'</i> function in <i>'desktop/src/jvmMain/kotlin/com/finance_tracker/finance_tracker/main.kt'</i>
+
+## Find out more
+- In our public [Notion page](https://1coin.notion.site/Home-702321932efa49ffa9571c8a54757dd1) you can find:
+  - Project roadmap 🛤️
+  - How to become a contributor to a project 🤝🏻
+  - How to financially thank the project 🙏🏻
 
 ## Download
 - Windows: -

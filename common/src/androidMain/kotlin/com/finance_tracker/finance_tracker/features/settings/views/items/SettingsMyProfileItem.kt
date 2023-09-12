@@ -11,9 +11,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.`if`
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.features.settings.views.ListItem
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -26,7 +26,7 @@ internal fun SettingsMyProfileItem(
 ) {
     ListItem(
         modifier = modifier,
-        iconLeftPainter = rememberAsyncImagePainter(MR.files.ic_user),
+        iconLeftPainter = painterResource(MR.images.ic_user),
         text = if (isUserAuthorized) {
             userEmail
         } else {
@@ -40,13 +40,13 @@ internal fun SettingsMyProfileItem(
                     .size(28.dp)
                     .clip(CircleShape)
                     .`if`(isUserAuthorized) {
-                        clickable { onLogOutClick.invoke() }
+                        clickable { onLogOutClick() }
                     }
                     .padding(2.dp),
                 painter = if (isUserAuthorized) {
-                    rememberAsyncImagePainter(MR.files.ic_logout)
+                    painterResource(MR.images.ic_logout)
                 } else {
-                    rememberAsyncImagePainter(MR.files.ic_arrow_authorize)
+                    painterResource(MR.images.ic_arrow_authorize)
                 },
                 contentDescription = null,
                 tint = CoinTheme.color.content

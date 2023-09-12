@@ -53,7 +53,7 @@ internal fun AccountSelector(
         itemsIndexed(accounts) { index, account ->
             BoxWithDividers(
                 modifier = Modifier.clickableSingle {
-                    onAccountSelect.invoke(account)
+                    onAccountSelect(account)
                 },
                 columnCount = columnCount,
                 index = index,

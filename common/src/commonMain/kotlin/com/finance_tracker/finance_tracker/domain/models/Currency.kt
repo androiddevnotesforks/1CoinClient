@@ -14,6 +14,7 @@ data class Currency(
         private val TRY = Currency(code = "TRY", symbol = "₺")
         private val GBP = Currency(code = "GBP", symbol = "£")
         private val KZT = Currency(code = "KZT", symbol = "₸")
+        private val INR = Currency(code = "INR", symbol = "₹")
         private val AMD = Currency(code = "AMD", symbol = "֏")
         private val GEL = Currency(code = "GEL", symbol = "₾")
         private val RSD = Currency(code = "RSD", symbol = "din")
@@ -24,7 +25,7 @@ data class Currency(
         private val MXN = Currency(code = "MXN", symbol = "$")
 
         val list = listOf(
-            USD, EUR, UAH, RUB, BYN, TRY, GBP, KZT,
+            USD, EUR, UAH, RUB, BYN, TRY, GBP, KZT, INR,
             AMD, GEL, RSD, UZS, HUF, AED, COP, MXN
         )
         val default = USD

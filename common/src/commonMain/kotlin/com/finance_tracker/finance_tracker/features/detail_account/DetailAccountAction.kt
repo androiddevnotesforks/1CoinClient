@@ -14,4 +14,5 @@ sealed interface DetailAccountAction {
     data class OpenAddTransactionScreen(
         val account: Account
     ): DetailAccountAction
+    object RefreshTransactions: DetailAccountAction
 }

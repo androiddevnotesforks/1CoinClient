@@ -28,7 +28,7 @@ internal fun AccountTypesDropdownMenu(
         items.forEach { item ->
             DropdownMenuItem(
                 onClick = {
-                    onSelect.invoke(item)
+                    onSelect(item)
                     expandedState.value = false
                 }
             ) {

@@ -28,9 +28,11 @@ import com.finance_tracker.finance_tracker.core.common.getContext
 import com.finance_tracker.finance_tracker.core.common.getFixedInsets
 import com.finance_tracker.finance_tracker.core.common.getKoin
 import com.finance_tracker.finance_tracker.core.common.updateSystemBarsConfig
+import com.finance_tracker.finance_tracker.core.ui.snackbar.CoinSnackbarHostState
 import com.finance_tracker.finance_tracker.domain.interactors.ThemeInteractor
 import com.finance_tracker.finance_tracker.domain.models.ThemeMode
-import dev.icerock.moko.resources.FileResource
+import dev.icerock.moko.resources.ImageResource
+import com.finance_tracker.finance_tracker.core.theme.toJvmColorPalette as toJvmColorPalette1
 
 private val themeInteractor: ThemeInteractor by lazy { getKoin().get() }
 
@@ -38,7 +40,10 @@ val LocalDarkTheme = staticCompositionLocalOf {
     false
 }
 
-val LocalCoinColors = staticCompositionLocalOf { ColorPalette.Undefined.toJvmColorPalette() }
+val LocalCoinColors = staticCompositionLocalOf { val toJvmColorPalette =
+    ColorPalette.Undefined.toJvmColorPalette1()
+    toJvmColorPalette
+}
 val LocalCoinTypography = staticCompositionLocalOf {
     CoinTypography()
 }
@@ -51,6 +56,8 @@ val LocalCoinElevation = staticCompositionLocalOf {
 val LocalCoinShapes = staticCompositionLocalOf {
     CoinShapes()
 }
+
+val LocalCoinSnackbarHostState = staticCompositionLocalOf<CoinSnackbarHostState?> { null }
 
 // Ripple
 
@@ -85,9 +92,9 @@ internal fun TextStyle.staticTextSize(isStaticContentSize: Boolean = true): Text
 
 @Composable
 fun provideThemeImage(
-    darkFile: FileResource,
-    lightFile: FileResource
-): FileResource {
+    darkFile: ImageResource,
+    lightFile: ImageResource
+): ImageResource {
     return if (LocalDarkTheme.current) {
         darkFile
     } else {
@@ -113,7 +120,7 @@ fun CoinTheme(
     }
 
     val coinColors by remember(isDarkTheme) {
-        derivedStateOf { ColorPalette.provideColorPalette(isDarkTheme).toJvmColorPalette() }
+        derivedStateOf { ColorPalette.provideColorPalette(isDarkTheme).toJvmColorPalette1() }
     }
 
     val context = getContext()

@@ -1,0 +1,9 @@
+-- Warning!!!
+-- If you create a new *.sqm, update:
+-- DatabaseInitializer.CurrentDbVersion and ExportImportRepository.LastSupportedDbVersion.
+-- Update MIGRATION logic in ExportImportRepository!
+
+CREATE TABLE IF NOT EXISTS DbVersionEntity (
+    id INTEGER NOT NULL PRIMARY KEY,
+    version INTEGER NOT NULL
+);

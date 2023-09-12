@@ -20,23 +20,27 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.getKoin
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
 import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.NoRippleTheme
 import com.finance_tracker.finance_tracker.core.ui.BottomNavigationBar
+import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.features.tabs_navigation.analytics.TabsNavigationAnalytics
-import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.AccountsTab
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.AnalyticsTab
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.HomeTab
+import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.PlansTab
 import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.TransactionsTab
+import dev.icerock.moko.resources.compose.painterResource
 import ru.alexgladkov.odyssey.compose.base.AnimatedHost
 import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
 import ru.alexgladkov.odyssey.compose.controllers.TabNavigationModel
 import ru.alexgladkov.odyssey.compose.extensions.push
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
+import ru.alexgladkov.odyssey.core.LaunchFlag
 import ru.alexgladkov.odyssey.core.toScreenBundle
+
+val currenciesInteractor: CurrenciesInteractor = getKoin().get()
 
 @Composable
 internal fun TabsNavigationScreen() {
@@ -46,6 +50,15 @@ internal fun TabsNavigationScreen() {
     val selectedTabItem = nullableSelectedTabItem ?: return
     val analytics: TabsNavigationAnalytics = remember { getKoin().get() }
 
+    LaunchedEffect(Unit) {
+        if (!currenciesInteractor.isPrimaryCurrencySelected()) {
+            rootController.findRootController().push(
+                screen = MainNavigationTree.PresetCurrency.name,
+                launchFlag = LaunchFlag.ClearPrevious
+            )
+        }
+    }
+
     Scaffold(
         bottomBar = {
             BottomNavigationBar(
@@ -54,7 +67,7 @@ internal fun TabsNavigationScreen() {
                     val eventName = when (tab.tabInfo.tabItem) {
                         is HomeTab -> "TabHome"
                         is TransactionsTab -> "TabTransactions"
-                        is AccountsTab -> "TabAccounts"
+                        is PlansTab -> "TabPlans"
                         is AnalyticsTab -> "TabAnalytics"
                         else -> "Undefined"
                     }
@@ -80,7 +93,7 @@ internal fun TabsNavigationScreen() {
                 ) {
                     Icon(
                         modifier = Modifier.size(30.dp),
-                        painter = rememberAsyncImagePainter(MR.files.ic_plus),
+                        painter = painterResource(MR.images.ic_plus),
                         contentDescription = null,
                         tint = CoinTheme.color.white
                     )

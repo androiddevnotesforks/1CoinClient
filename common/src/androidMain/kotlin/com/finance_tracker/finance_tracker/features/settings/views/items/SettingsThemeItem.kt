@@ -17,12 +17,12 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.toDp
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.ThemeMode
 import com.finance_tracker.finance_tracker.features.settings.views.ListItem
 import com.finance_tracker.finance_tracker.features.settings.views.dropdown_menus.ThemesDropdownMenu
+import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
@@ -46,14 +46,14 @@ internal fun SettingsThemeItem(
                     menuOffsetX.value = it.positionInParent().x.toInt() + it.size.width
                     menuOffsetY.value = it.positionInParent().y.toInt() - it.size.height
                 },
-            iconLeftPainter = rememberAsyncImagePainter(MR.files.ic_theme),
+            iconLeftPainter = painterResource(MR.images.ic_theme),
             text = stringResource(MR.strings.settings_theme),
             iconRight = {
                 Row(
                     modifier = Modifier
                         .padding(end = 8.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .clickable { onChooseThemeClick.invoke() },
+                        .clickable { onChooseThemeClick() },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
@@ -63,7 +63,7 @@ internal fun SettingsThemeItem(
                         style = CoinTheme.typography.body1_medium
                     )
                     Icon(
-                        painter = rememberAsyncImagePainter(MR.files.ic_arrow_down),
+                        painter = painterResource(MR.images.ic_arrow_down),
                         contentDescription = null,
                         tint = CoinTheme.color.primary
                     )

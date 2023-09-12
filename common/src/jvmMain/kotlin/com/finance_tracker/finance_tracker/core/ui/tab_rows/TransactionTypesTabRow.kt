@@ -30,6 +30,6 @@ internal fun TransactionTypesTabRow(
         hasBottomDivider = hasBottomDivider,
         isHorizontallyCentered = isHorizontallyCentered,
         pagerState = pagerState,
-        onTabSelect = { index -> onSelect.invoke(tabs[index]) }
+        onTabSelect = { index -> onSelect(tabs[index]) }
     )
 }

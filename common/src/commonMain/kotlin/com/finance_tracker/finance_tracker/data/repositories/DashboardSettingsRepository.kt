@@ -6,6 +6,7 @@ import com.financetracker.financetracker.data.DashboardWidgetEntityQueries
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -16,7 +17,7 @@ class DashboardSettingsRepository(
 ) {
 
     suspend fun updateDashboardItems() {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             dashboardWidgetEntityQueries.transaction {
                 val savedItemsIds = dashboardWidgetEntityQueries.getDashboardWidgets()
                     .executeAsList()
@@ -52,7 +53,7 @@ class DashboardSettingsRepository(
     fun getDashboardWidgetsFlow(): Flow<List<DashboardWidgetData>> {
         return dashboardWidgetEntityQueries.getDashboardWidgets()
             .asFlow()
-            .mapToList(Dispatchers.Default)
+            .mapToList(Dispatchers.IO)
             .map { items ->
                 getDashboardWidgets(
                     dashboardItemsEntityMap = items.associateBy { it.id.toInt() }
@@ -81,7 +82,7 @@ class DashboardSettingsRepository(
         itemId1: Int, newPosition1: Int,
         itemId2: Int, newPosition2: Int
     ) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             dashboardWidgetEntityQueries.transaction {
                 dashboardWidgetEntityQueries.updateDashboardWidgetPosition(
                     position = newPosition1,

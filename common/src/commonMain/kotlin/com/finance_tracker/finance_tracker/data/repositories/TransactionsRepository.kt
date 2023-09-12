@@ -12,10 +12,14 @@ import com.finance_tracker.finance_tracker.data.database.mappers.fullTransaction
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.financetracker.financetracker.data.TransactionsEntityQueries
+import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
+import com.squareup.sqldelight.runtime.coroutines.mapToOneOrDefault
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
@@ -32,34 +36,58 @@ class TransactionsRepository(
         Pager(PagingConfig(pageSize = PageSize)) {
             TransactionsPagingSource(transactionsEntityQueries)
         }.flow
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.IO)
+
+    fun getTransactionsFlow(
+        transactionType: TransactionType,
+        yearMonth: YearMonth
+    ): Flow<List<Transaction>> {
+        return getTransactionsQuery(transactionType, yearMonth)
+            .asFlow()
+            .mapToList(Dispatchers.IO)
+            .flowOn(Dispatchers.IO)
+    }
 
     suspend fun getTransactions(transactionType: TransactionType, yearMonth: YearMonth): List<Transaction> {
-        return withContext(Dispatchers.Default) {
-            transactionsEntityQueries.getFullTransactions(
-                transactionType = transactionType,
-                monthNumber = yearMonth.month.number.zeroPrefixed(2),
-                year = yearMonth.year.toString(),
-                mapper = fullTransactionMapper
-            ).executeAsList()
+        return withContext(Dispatchers.IO) {
+            getTransactionsQuery(transactionType, yearMonth)
+                .executeAsList()
         }
     }
 
+    private fun getTransactionsQuery(
+        transactionType: TransactionType,
+        yearMonth: YearMonth
+    ): Query<Transaction> {
+        return transactionsEntityQueries.getFullTransactions(
+            transactionType = transactionType,
+            monthNumber = yearMonth.month.number.zeroPrefixed(2),
+            year = yearMonth.year.toString(),
+            mapper = fullTransactionMapper
+        )
+    }
+
     suspend fun deleteTransaction(transaction: Transaction) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             val transactionId = transaction.id ?: return@withContext
             transactionsEntityQueries.deleteTransactionById(transactionId)
         }
     }
 
+    suspend fun deleteTransactionsByAccountId(accountId: Long) {
+        withContext(Dispatchers.IO) {
+            transactionsEntityQueries.deleteTransactionsByAccountId(accountId)
+        }
+    }
+
     suspend fun deleteCategoryForTransactionsByCategoryId(categoryId: Long) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             transactionsEntityQueries.deleteCategoryForTransactionsByCategoryId(categoryId)
         }
     }
 
     suspend fun addOrUpdateTransaction(transaction: Transaction) {
-        withContext(Dispatchers.Default) {
+        withContext(Dispatchers.IO) {
             transactionsEntityQueries.insertTransaction(
                 id = transaction.id,
                 type = transaction.type,
@@ -80,11 +108,27 @@ class TransactionsRepository(
         return paginatedTransactions
     }
 
+    fun getTransactionsSizeUpdates(): Flow<Long> {
+        return transactionsEntityQueries.getAllTransactionsCount()
+            .asFlow()
+            .mapToOneOrDefault(0L)
+            .flowOn(Dispatchers.IO)
+            .distinctUntilChanged()
+    }
+
     fun getPaginatedTransactionsByAccountId(id: Long): Flow<PagingData<Transaction>> {
         return Pager(PagingConfig(pageSize = PageSize)) {
             transactionsPagingSourceFactory.create(id)
         }.flow
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.IO)
+    }
+
+    fun getTransactionsByAccountSizeUpdates(id: Long): Flow<Long> {
+        return transactionsEntityQueries.getAllTransactionsByAccountIdCount(id)
+            .asFlow()
+            .mapToOneOrDefault(0L)
+            .flowOn(Dispatchers.IO)
+            .distinctUntilChanged()
     }
 
     fun getLastTransactions(limit: Long) : Flow<List<Transaction>> {
@@ -94,6 +138,6 @@ class TransactionsRepository(
         )
             .asFlow()
             .mapToList()
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.IO)
     }
 }

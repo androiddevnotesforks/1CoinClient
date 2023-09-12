@@ -8,39 +8,43 @@
 import SwiftUI
 
 struct AppScreen: View {
+    @StateObject var router = Router()
     
-    @StateObject var themeManeger = ThemeManager()
-    @Environment(\.colorScheme) var colorScheme
-    
-    @State private var safeAreaInsets: (top: CGFloat, bottom: CGFloat) = (0, 0)
-    
-    var body: some View {
-        GeometryReader { proxy in
-            ZStack {
-                TabsNavigationScreen()
-                    .ignoresSafeArea()
-                    .environmentObject(themeManeger)
-                    .environmentObject(themeManeger.current)
-                    .environment(\.safeAreaInsets, safeAreaInsets)
-                    .onAppear {
-                        applyActualTheme(newColorScheme: colorScheme)
-                    }
-                    .onAppear {
-                        safeAreaInsets = (proxy.safeAreaInsets.top, proxy.safeAreaInsets.bottom)
-                    }
-                    .onChange(of: colorScheme) { newColorScheme in
-                        applyActualTheme(newColorScheme: newColorScheme)
-                    }
-            }
-        }
+    init() {
+        UINavigationBar.setAnimationsEnabled(false)
     }
     
-    private func applyActualTheme(newColorScheme: ColorScheme) {
-        if newColorScheme == .light {
-            themeManeger.current = .light
-        } else {
-            themeManeger.current = .dark
-        }
+    var body: some View {
+        NavigationStack(path: $router.navPath) {
+                VStack {
+                    HomeScreen()
+                    CoinTabsView(selectedTab: OneCoinTabs.home)
+                }
+                .navigationDestination(for: Router.Destination.self) { selectedTab in
+                    VStack {
+                        switch selectedTab {
+                        case .home:
+                            HomeScreen()
+                                .navigationBarBackButtonHidden()
+                        case .transactions:
+                            TransactionsScreen()
+                                .navigationBarBackButtonHidden()
+                        case .add:
+                            AddTransactionScreen()
+                                .navigationBarBackButtonHidden()
+                        case .plans:
+                            PlansScreen()
+                                .navigationBarBackButtonHidden()
+                        case .analytics:
+                            AnalyticsScreen()
+                                .navigationBarBackButtonHidden()
+                        }
+                        
+                        CoinTabsView(selectedTab: selectedTab)
+                    }
+                }
+            }
+            .environmentObject(router)
     }
 }
 

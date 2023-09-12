@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.domain.models
 
 import com.finance_tracker.finance_tracker.MR
-import dev.icerock.moko.resources.FileResource
+import dev.icerock.moko.resources.ImageResource
 import dev.icerock.moko.resources.StringResource
 
 data class Account(
@@ -38,14 +38,28 @@ data class Account(
         Investment(
             textId = MR.strings.account_type_investment_account,
             analyticsName = "Investment"
-        )
+        );
+
+        companion object {
+            fun fromName(name: String): Type {
+                return when (name) {
+                    "Cash" -> Cash
+                    "Card" -> Card
+                    "BankAccount" -> BankAccount
+                    "Credit" -> Credit
+                    "Deposit" -> Deposit
+                    "Investment" -> Investment
+                    else -> error("No account type for name: $name")
+                }
+            }
+        }
     }
 
-    val icon: FileResource
+    val icon: ImageResource
         get() = if (type == Type.Cash) {
-            MR.files.ic_wallet_active
+            MR.images.ic_wallet_active
         } else {
-            MR.files.ic_card
+            MR.images.ic_card
         }
 
     companion object {

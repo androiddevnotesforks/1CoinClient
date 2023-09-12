@@ -1,14 +1,15 @@
 package com.finance_tracker.finance_tracker.features.home
 
+import com.finance_tracker.finance_tracker.core.common.convertToCurrencyValue
 import com.finance_tracker.finance_tracker.core.common.getKoin
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesMode
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
-import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
+import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.DashboardSettingsInteractor
-import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.transactions.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Currency
@@ -31,13 +32,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 
 class HomeViewModel(
-    private val accountsRepository: AccountsRepository,
+    private val accountsInteractor: AccountsInteractor,
     private val currenciesInteractor: CurrenciesInteractor,
-    transactionsInteractor: TransactionsInteractor,
+    private val transactionsInteractor: TransactionsInteractor,
     private val homeAnalytics: HomeAnalytics,
     dashboardSettingsInteractor: DashboardSettingsInteractor
 ): BaseViewModel<HomeAction>() {
-
     private val transactionTypes = TransactionTypesMode.Main.types
     private val typesToAnalyticsDelegates = transactionTypes.associateWith {
         getKoin().get<AnalyticsDelegates>().apply {
@@ -109,7 +109,7 @@ class HomeViewModel(
     private fun loadAccounts() {
         val oldAccountsCount = _accounts.value.size
         viewModelScope.launch {
-            _accounts.value  = accountsRepository.getAllAccountsFromDatabase()
+            _accounts.value  = accountsInteractor.getAllAccountsFromDatabase()
             val newAccountsCount = _accounts.value.size
             if (oldAccountsCount in 1 until newAccountsCount) {
                 viewAction = HomeAction.ScrollToItemAccounts(newAccountsCount - 1)
@@ -137,11 +137,11 @@ class HomeViewModel(
         currencyRates: CurrencyRates,
         currency: Currency
     ): Double {
-        return accountsRepository.getAllAccountsFromDatabase()
+        return accountsInteractor.getAllAccountsFromDatabase()
             .sumOf { account ->
-                account.balance.convertToCurrency(
-                    currencyRates = currencyRates,
-                    toCurrency = currency
+                account.balance.convertToCurrencyValue(
+                    toCurrency = currency,
+                    currencyRates = currencyRates
                 )
             }
     }

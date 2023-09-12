@@ -24,13 +24,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.clickableSingle
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Category
+import dev.icerock.moko.resources.compose.painterResource
 import kotlin.math.roundToInt
 
 @Composable
 internal fun CategorySelector(
+    withAddButton: Boolean,
     categories: List<Category>,
     onCategorySelect: (category: Category) -> Unit,
     onCategoryAdd: () -> Unit,
@@ -67,7 +68,7 @@ internal fun CategorySelector(
                         }
                     }
                     .clickableSingle {
-                        onCategorySelect.invoke(category)
+                        onCategorySelect(category)
                     },
                 columnCount = columnCount,
                 index = index,
@@ -82,16 +83,18 @@ internal fun CategorySelector(
                 )
             }
         }
-        item {
-            AddCell(
-                columnCount = columnCount,
-                index = categories.size,
-                dividerWidth = dividerWidth,
-                dividerColor = dividerColor,
-                cellHeight = cellHeight,
-                onCellWidthChange = { cellWidth = it },
-                onClick = onCategoryAdd
-            )
+        if (withAddButton) {
+            item {
+                AddCell(
+                    columnCount = columnCount,
+                    index = categories.size,
+                    dividerWidth = dividerWidth,
+                    dividerColor = dividerColor,
+                    cellHeight = cellHeight,
+                    onCellWidthChange = { cellWidth = it },
+                    onClick = onCategoryAdd
+                )
+            }
         }
     }
 }
@@ -108,7 +111,7 @@ private fun CategoryCard(
         verticalArrangement = Arrangement.Center
     ) {
         Icon(
-            painter = rememberAsyncImagePainter(category.icon),
+            painter = painterResource(category.icon),
             contentDescription = null
         )
         Text(

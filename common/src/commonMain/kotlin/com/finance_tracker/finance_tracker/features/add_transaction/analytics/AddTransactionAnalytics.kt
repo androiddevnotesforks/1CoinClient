@@ -254,6 +254,10 @@ class AddTransactionAnalytics: BaseAnalytics() {
         )
     }
 
+    fun trackRestoreTransaction() {
+        trackClick(eventName = "RestoreTransaction")
+    }
+
     companion object {
         private const val ActionIdKey = "action_id"
         private const val DurationKey = "duration"

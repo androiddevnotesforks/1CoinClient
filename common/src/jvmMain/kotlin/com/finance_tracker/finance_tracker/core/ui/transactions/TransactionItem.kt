@@ -25,10 +25,10 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.formatters.format
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
+import dev.icerock.moko.resources.compose.painterResource
 
 private val MaxAmountTextWidth = 120.dp
 
@@ -66,9 +66,9 @@ internal fun TransactionItem(
                 .background(color = CoinTheme.color.secondaryBackground, shape = CircleShape)
                 .padding(12.dp),
             painter = if (transaction.type == TransactionType.Transfer) {
-                rememberAsyncImagePainter(MR.files.ic_transfer)
+                painterResource(MR.images.ic_transfer)
             } else {
-                rememberAsyncImagePainter(category.icon)
+                painterResource(category.icon)
             },
             tint = CoinTheme.color.content,
             contentDescription = null

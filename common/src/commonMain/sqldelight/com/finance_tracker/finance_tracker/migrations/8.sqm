@@ -1,0 +1,12 @@
+-- Warning!!!
+-- If you create a new *.sqm, update:
+-- DatabaseInitializer.CurrentDbVersion and ExportImportRepository.LastSupportedDbVersion.
+-- Update MIGRATION logic in ExportImportRepository!
+
+CREATE TABLE IF NOT EXISTS TotalMonthLimitEntity(
+    year INTEGER NOT NULL,
+    month INTEGER NOT NULL,
+    limitAmount REAL NOT NULL,
+    currency TEXT NOT NULL,
+    PRIMARY KEY (year, month)
+);

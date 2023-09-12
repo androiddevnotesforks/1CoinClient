@@ -17,6 +17,10 @@ class AccountsAnalytics: BaseAnalytics() {
         )
     }
 
+    fun trackAccountsScreenBackClick() {
+        trackClick(eventName = "Back")
+    }
+
     fun trackAddAccountClick() {
         trackClick(eventName = "AddAccount")
     }

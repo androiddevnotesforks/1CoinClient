@@ -27,7 +27,7 @@ val PieChartLabelSize = 20.dp
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun AnalyticsScreen() {
-    ComposeScreen<AnalyticsViewModel> { viewModel ->
+    ComposeScreen<AnalyticsViewModel>(withBottomNavigation = true) { viewModel ->
 
         LaunchedEffect(Unit) {
             viewModel.onScreenComposed()
@@ -64,12 +64,12 @@ internal fun AnalyticsScreen() {
                     AnalyticsByCategoryWidget(
                         primaryCurrency = primaryCurrency,
                         monthTxsByCategoryDelegate = viewModel.getMonthTxsByCategoryDelegate(page),
-                        selectedTransactionTypeTab = selectedTransactionTypeTab
+                        selectedTransactionTypeTab = viewModel.getTransactionTypeTab(page)
                     )
 
                     AnalyticsTrendWidget(
                         trendsAnalyticsDelegate = viewModel.getTrendsAnalyticsDelegate(page),
-                        transactionTypeTab = selectedTransactionTypeTab
+                        transactionTypeTab = viewModel.getTransactionTypeTab(page)
                     )
 
                     Spacer(

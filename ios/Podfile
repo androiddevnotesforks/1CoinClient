@@ -1,8 +1,16 @@
 target 'OneCoin' do
   use_frameworks!
   platform :ios, '16.0'
+  
+  # KMM library
   pod 'OneCoinShared', :path => '../common'
+  pod 'OneCoinSharedSwift', :path => '../common'
+
+  # Display images for SwiftUI
   pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '3.x'
+  
+  # Consume StateFlow with Combine
+  pod 'KMPNativeCoroutinesCombine', '0.13.3'
 end
 
 # https://stackoverflow.com/questions/75574268/missing-file-libarclite-iphoneos-a-xcode-14-3/75867043#75867043

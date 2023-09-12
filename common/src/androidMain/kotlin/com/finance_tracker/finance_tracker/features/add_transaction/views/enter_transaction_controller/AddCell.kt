@@ -14,8 +14,8 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
+import dev.icerock.moko.resources.compose.painterResource
 
 @Composable
 internal fun AddCell(
@@ -30,7 +30,7 @@ internal fun AddCell(
 ) {
     BoxWithDividers(
         modifier = modifier
-            .clickable { onClick.invoke() },
+            .clickable { onClick() },
         columnCount = columnCount,
         index = index,
         dividerWidth = dividerWidth,
@@ -38,7 +38,7 @@ internal fun AddCell(
     ) {
         Box(
             modifier = Modifier
-                .onSizeChanged { onCellWidthChange.invoke(it.width) }
+                .onSizeChanged { onCellWidthChange(it.width) }
                 .height(cellHeight)
                 .fillMaxSize()
         ) {
@@ -46,7 +46,7 @@ internal fun AddCell(
                 modifier = Modifier
                     .size(24.dp)
                     .align(Alignment.Center),
-                painter = rememberAsyncImagePainter(MR.files.ic_plus),
+                painter = painterResource(MR.images.ic_plus),
                 tint = CoinTheme.color.secondary,
                 contentDescription = null
             )

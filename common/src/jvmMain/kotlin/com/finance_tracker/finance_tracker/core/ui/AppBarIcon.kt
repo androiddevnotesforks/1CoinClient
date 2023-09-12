@@ -39,7 +39,7 @@ internal fun AppBarIcon(
                 height = height
             )
             .`if`(enabled) {
-                clickable { onClick.invoke() }
+                clickable { onClick() }
             }
             .padding(8.dp),
         painter = painter,

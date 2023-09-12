@@ -58,7 +58,7 @@ internal fun BaseButton(
                 )
                 .background(backgroundColor)
                 .`if`(enabled && !loading) {
-                    noRippleClickable { onClick.invoke() }
+                    noRippleClickable { onClick() }
                 },
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
@@ -78,7 +78,7 @@ internal fun BaseButton(
                 Row(
                     modifier = Modifier.padding(12.dp)
                 ) {
-                    content.invoke()
+                    content()
                 }
             }
         }
@@ -101,14 +101,14 @@ private fun AnimatedContent(
             enter = enterTransition,
             exit = exitTransition
         ) {
-            secondaryContent.invoke()
+            secondaryContent()
         }
         AnimatedVisibility(
             visible = mainContentVisible,
             enter = enterTransition,
             exit = exitTransition
         ) {
-            content.invoke()
+            content()
         }
     }
 }

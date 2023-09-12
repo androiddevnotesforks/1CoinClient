@@ -7,13 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310099652A1BF69F003BC155 /* UIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310099642A1BF69F003BC155 /* UIConstants.swift */; };
+		3143C09B2A5FE77F001CDAF8 /* LastTransactionsContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3143C09A2A5FE77F001CDAF8 /* LastTransactionsContent.swift */; };
+		3143C09F2A5FE9C2001CDAF8 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3143C09E2A5FE9C2001CDAF8 /* TransactionCell.swift */; };
+		3143C0A22A5FF55F001CDAF8 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3143C0A12A5FF55F001CDAF8 /* TransactionType.swift */; };
+		3143C0A42A6005AB001CDAF8 /* TransactionListModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3143C0A32A6005AB001CDAF8 /* TransactionListModelMock.swift */; };
+		3143C0A62A61E792001CDAF8 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3143C0A52A61E792001CDAF8 /* Router.swift */; };
+		3143C0A82A6970ED001CDAF8 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3143C0A72A6970ED001CDAF8 /* Array.swift */; };
+		314515AF2A1F94E500E31A17 /* TotalExpenseChartWidgetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515AE2A1F94E500E31A17 /* TotalExpenseChartWidgetContent.swift */; };
+		314515B12A1F9D2D00E31A17 /* LollipopChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515B02A1F9D2D00E31A17 /* LollipopChart.swift */; };
+		314515B32A1FA92600E31A17 /* LollipopChartMockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515B22A1FA92600E31A17 /* LollipopChartMockData.swift */; };
+		314515B72A1FB5EA00E31A17 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515B62A1FB5EA00E31A17 /* Date.swift */; };
+		314515BA2A1FF0A100E31A17 /* SafeInCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515B92A1FF0A100E31A17 /* SafeInCollection.swift */; };
+		314515BC2A1FF38500E31A17 /* InteractionWithLollipopChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515BB2A1FF38500E31A17 /* InteractionWithLollipopChart.swift */; };
+		314515C12A20FDA700E31A17 /* YAxisDashedLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515C02A20FDA700E31A17 /* YAxisDashedLine.swift */; };
+		314515C52A210B0700E31A17 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314515C42A210B0700E31A17 /* Tabs.swift */; };
+		319CBA882A1D5D3300E5B8FD /* AccountCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319CBA872A1D5D3300E5B8FD /* AccountCard.swift */; };
+		319CBA8B2A1E3B3400E5B8FD /* TotalExpenseChartWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319CBA8A2A1E3B3400E5B8FD /* TotalExpenseChartWidget.swift */; };
+		319CBA8F2A1E57E200E5B8FD /* TimelineTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319CBA8E2A1E57E200E5B8FD /* TimelineTypes.swift */; };
 		3A23C5D0299256BA0033CCF8 /* OneCoinApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A23C5CF299256BA0033CCF8 /* OneCoinApp.swift */; };
 		3A23C5D2299256BA0033CCF8 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A23C5D1299256BA0033CCF8 /* HomeScreen.swift */; };
 		3A23C5D4299256BB0033CCF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A23C5D3299256BB0033CCF8 /* Assets.xcassets */; };
 		3A23C5D7299256BB0033CCF8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A23C5D6299256BB0033CCF8 /* Preview Assets.xcassets */; };
 		3A5BA2D129A8FE0D00085ACF /* TabsNavigationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2D029A8FE0D00085ACF /* TabsNavigationScreen.swift */; };
 		3A5BA2DA29A9014300085ACF /* AnalyticsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2D929A9014300085ACF /* AnalyticsScreen.swift */; };
-		3A5BA2DC29A9016200085ACF /* AccountsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2DB29A9016200085ACF /* AccountsScreen.swift */; };
+		3A5BA2DC29A9016200085ACF /* CardAccountsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2DB29A9016200085ACF /* CardAccountsScreen.swift */; };
 		3A5BA2DE29A9017700085ACF /* TransactionsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2DD29A9017700085ACF /* TransactionsScreen.swift */; };
 		3A5BA2E129A901C100085ACF /* AddTransactionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2E029A901C100085ACF /* AddTransactionScreen.swift */; };
 		3A5BA2E429A9FFDF00085ACF /* SVGImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2E329A9FFDF00085ACF /* SVGImageView.swift */; };
@@ -21,7 +39,6 @@
 		3A5BA2EC29B10B0A00085ACF /* CoinTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2EB29B10B0A00085ACF /* CoinTheme.swift */; };
 		3A5BA2EE29B10B2D00085ACF /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2ED29B10B2D00085ACF /* Typography.swift */; };
 		3A5BA2F029B10BE000085ACF /* CoinColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2EF29B10BE000085ACF /* CoinColors.swift */; };
-		3A5BA2F629B138DD00085ACF /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2F529B138DD00085ACF /* ThemeManager.swift */; };
 		3A5BA2FA29B376E300085ACF /* AppScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2F929B376E300085ACF /* AppScreen.swift */; };
 		3A5BA2FC29B37D1E00085ACF /* CustomEnvironmentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2FB29B37D1E00085ACF /* CustomEnvironmentValues.swift */; };
 		3A5BA2FE29B3895200085ACF /* CoinTopAppBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5BA2FD29B3895200085ACF /* CoinTopAppBar.swift */; };
@@ -35,12 +52,28 @@
 		7E7F35102A0AEEEA008C345E /* AccountCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F350F2A0AEEEA008C345E /* AccountCardModel.swift */; };
 		7E7F35172A0AF421008C345E /* PlansScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F35162A0AF421008C345E /* PlansScreen.swift */; };
 		7E7F35192A0AFAFF008C345E /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7F35182A0AFAFF008C345E /* Tab.swift */; };
-		B3E49C0266F031A1198D961B /* Pods_OneCoin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20EC0D6E66424714DD8562F4 /* Pods_OneCoin.framework */; };
+		8DEF964FB2E6B8623F46DD4A /* Pods_OneCoin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC40B00253D5E47B1DDE56C4 /* Pods_OneCoin.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		106BD4D641D5FF7BDD1FC52C /* Pods-OneCoin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneCoin.release.xcconfig"; path = "Target Support Files/Pods-OneCoin/Pods-OneCoin.release.xcconfig"; sourceTree = "<group>"; };
-		20EC0D6E66424714DD8562F4 /* Pods_OneCoin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneCoin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		310099642A1BF69F003BC155 /* UIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIConstants.swift; sourceTree = "<group>"; };
+		3143C09A2A5FE77F001CDAF8 /* LastTransactionsContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTransactionsContent.swift; sourceTree = "<group>"; };
+		3143C09E2A5FE9C2001CDAF8 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
+		3143C0A12A5FF55F001CDAF8 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
+		3143C0A32A6005AB001CDAF8 /* TransactionListModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionListModelMock.swift; sourceTree = "<group>"; };
+		3143C0A52A61E792001CDAF8 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		3143C0A72A6970ED001CDAF8 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		314515AE2A1F94E500E31A17 /* TotalExpenseChartWidgetContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalExpenseChartWidgetContent.swift; sourceTree = "<group>"; };
+		314515B02A1F9D2D00E31A17 /* LollipopChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LollipopChart.swift; sourceTree = "<group>"; };
+		314515B22A1FA92600E31A17 /* LollipopChartMockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LollipopChartMockData.swift; sourceTree = "<group>"; };
+		314515B62A1FB5EA00E31A17 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		314515B92A1FF0A100E31A17 /* SafeInCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeInCollection.swift; sourceTree = "<group>"; };
+		314515BB2A1FF38500E31A17 /* InteractionWithLollipopChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionWithLollipopChart.swift; sourceTree = "<group>"; };
+		314515C02A20FDA700E31A17 /* YAxisDashedLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YAxisDashedLine.swift; sourceTree = "<group>"; };
+		314515C42A210B0700E31A17 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
+		319CBA872A1D5D3300E5B8FD /* AccountCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCard.swift; sourceTree = "<group>"; };
+		319CBA8A2A1E3B3400E5B8FD /* TotalExpenseChartWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalExpenseChartWidget.swift; sourceTree = "<group>"; };
+		319CBA8E2A1E57E200E5B8FD /* TimelineTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineTypes.swift; sourceTree = "<group>"; };
 		3A23C5CC299256BA0033CCF8 /* OneCoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OneCoin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A23C5CF299256BA0033CCF8 /* OneCoinApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneCoinApp.swift; sourceTree = "<group>"; };
 		3A23C5D1299256BA0033CCF8 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -48,7 +81,7 @@
 		3A23C5D6299256BB0033CCF8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3A5BA2D029A8FE0D00085ACF /* TabsNavigationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsNavigationScreen.swift; sourceTree = "<group>"; };
 		3A5BA2D929A9014300085ACF /* AnalyticsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsScreen.swift; sourceTree = "<group>"; };
-		3A5BA2DB29A9016200085ACF /* AccountsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsScreen.swift; sourceTree = "<group>"; };
+		3A5BA2DB29A9016200085ACF /* CardAccountsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAccountsScreen.swift; sourceTree = "<group>"; };
 		3A5BA2DD29A9017700085ACF /* TransactionsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsScreen.swift; sourceTree = "<group>"; };
 		3A5BA2E029A901C100085ACF /* AddTransactionScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionScreen.swift; sourceTree = "<group>"; };
 		3A5BA2E329A9FFDF00085ACF /* SVGImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SVGImageView.swift; sourceTree = "<group>"; };
@@ -56,7 +89,6 @@
 		3A5BA2EB29B10B0A00085ACF /* CoinTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTheme.swift; sourceTree = "<group>"; };
 		3A5BA2ED29B10B2D00085ACF /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		3A5BA2EF29B10BE000085ACF /* CoinColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinColors.swift; sourceTree = "<group>"; };
-		3A5BA2F529B138DD00085ACF /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		3A5BA2F929B376E300085ACF /* AppScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppScreen.swift; path = ../AppScreen.swift; sourceTree = "<group>"; };
 		3A5BA2FB29B37D1E00085ACF /* CustomEnvironmentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEnvironmentValues.swift; sourceTree = "<group>"; };
 		3A5BA2FD29B3895200085ACF /* CoinTopAppBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTopAppBar.swift; sourceTree = "<group>"; };
@@ -68,10 +100,12 @@
 		3AF88E0629F3DC9E0011C207 /* CoinWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinWidget.swift; sourceTree = "<group>"; };
 		3AF88E0829F3DE220011C207 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		3AF88E0C29F3EDB30011C207 /* LastTransactionsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTransactionsWidget.swift; sourceTree = "<group>"; };
+		53E6CEA5556B37E170A8A2CD /* Pods-OneCoin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneCoin.release.xcconfig"; path = "Target Support Files/Pods-OneCoin/Pods-OneCoin.release.xcconfig"; sourceTree = "<group>"; };
 		7E7F350F2A0AEEEA008C345E /* AccountCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCardModel.swift; sourceTree = "<group>"; };
 		7E7F35162A0AF421008C345E /* PlansScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansScreen.swift; sourceTree = "<group>"; };
 		7E7F35182A0AFAFF008C345E /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
-		9EE0A9CAE319A78AC1868C04 /* Pods-OneCoin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneCoin.debug.xcconfig"; path = "Target Support Files/Pods-OneCoin/Pods-OneCoin.debug.xcconfig"; sourceTree = "<group>"; };
+		9903A3ABE7558B5D938A9DE7 /* Pods-OneCoin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneCoin.debug.xcconfig"; path = "Target Support Files/Pods-OneCoin/Pods-OneCoin.debug.xcconfig"; sourceTree = "<group>"; };
+		EC40B00253D5E47B1DDE56C4 /* Pods_OneCoin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneCoin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,13 +114,120 @@
 			buildActionMask = 2147483647;
 			files = (
 				3AE30BF929957A1400482B0D /* OneCoinShared.framework in Frameworks */,
-				B3E49C0266F031A1198D961B /* Pods_OneCoin.framework in Frameworks */,
+				8DEF964FB2E6B8623F46DD4A /* Pods_OneCoin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3143C09C2A5FE7EC001CDAF8 /* Transactions */ = {
+			isa = PBXGroup;
+			children = (
+				3143C0A02A5FF547001CDAF8 /* Model */,
+				3143C09D2A5FE7FC001CDAF8 /* View */,
+			);
+			path = Transactions;
+			sourceTree = "<group>";
+		};
+		3143C09D2A5FE7FC001CDAF8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3AF88E0C29F3EDB30011C207 /* LastTransactionsWidget.swift */,
+				3143C09A2A5FE77F001CDAF8 /* LastTransactionsContent.swift */,
+				3143C09E2A5FE9C2001CDAF8 /* TransactionCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3143C0A02A5FF547001CDAF8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3143C0A12A5FF55F001CDAF8 /* TransactionType.swift */,
+				3143C0A32A6005AB001CDAF8 /* TransactionListModelMock.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		314515B42A1FB5B500E31A17 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				314515B82A1FF08900E31A17 /* Collection */,
+				314515B52A1FB5D800E31A17 /* Date */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		314515B52A1FB5D800E31A17 /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				314515B62A1FB5EA00E31A17 /* Date.swift */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
+		314515B82A1FF08900E31A17 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				314515B92A1FF0A100E31A17 /* SafeInCollection.swift */,
+				3143C0A72A6970ED001CDAF8 /* Array.swift */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		314515C22A210A3900E31A17 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				314515C02A20FDA700E31A17 /* YAxisDashedLine.swift */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
+		314515C32A210AFB00E31A17 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				314515C42A210B0700E31A17 /* Tabs.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		314515C62A210B3700E31A17 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				3A5BA2FB29B37D1E00085ACF /* CustomEnvironmentValues.swift */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		319CBA892A1E3B1900E5B8FD /* TotalExpenseChart */ = {
+			isa = PBXGroup;
+			children = (
+				319CBA8D2A1E53FC00E5B8FD /* Model */,
+				319CBA8C2A1E53F500E5B8FD /* View */,
+			);
+			path = TotalExpenseChart;
+			sourceTree = "<group>";
+		};
+		319CBA8C2A1E53F500E5B8FD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				319CBA8A2A1E3B3400E5B8FD /* TotalExpenseChartWidget.swift */,
+				314515AE2A1F94E500E31A17 /* TotalExpenseChartWidgetContent.swift */,
+				314515B02A1F9D2D00E31A17 /* LollipopChart.swift */,
+				314515BB2A1FF38500E31A17 /* InteractionWithLollipopChart.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		319CBA8D2A1E53FC00E5B8FD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				319CBA8E2A1E57E200E5B8FD /* TimelineTypes.swift */,
+				314515B22A1FA92600E31A17 /* LollipopChartMockData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3A23C5C3299256BA0033CCF8 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +256,7 @@
 				3A23C5CF299256BA0033CCF8 /* OneCoinApp.swift */,
 				3A23C5D3299256BB0033CCF8 /* Assets.xcassets */,
 				3A23C5D5299256BB0033CCF8 /* Preview Content */,
+				3143C0A52A61E792001CDAF8 /* Router.swift */,
 			);
 			path = OneCoin;
 			sourceTree = "<group>";
@@ -131,7 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				3AE30BF829957A1400482B0D /* OneCoinShared.framework */,
-				20EC0D6E66424714DD8562F4 /* Pods_OneCoin.framework */,
+				EC40B00253D5E47B1DDE56C4 /* Pods_OneCoin.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -202,12 +344,14 @@
 		3A5BA2E229A9FFC600085ACF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				3A5BA2FB29B37D1E00085ACF /* CustomEnvironmentValues.swift */,
+				314515C62A210B3700E31A17 /* Preferences */,
+				314515C32A210AFB00E31A17 /* Components */,
+				314515C22A210A3900E31A17 /* Shapes */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		3A5BA2E529AA673300085ACF /* Views */ = {
+		3A5BA2E529AA673300085ACF /* View */ = {
 			isa = PBXGroup;
 			children = (
 				3A5BA2E329A9FFDF00085ACF /* SVGImageView.swift */,
@@ -216,28 +360,29 @@
 				3AF88E0629F3DC9E0011C207 /* CoinWidget.swift */,
 				3AF88E0829F3DE220011C207 /* View+Extension.swift */,
 			);
-			path = Views;
+			path = View;
 			sourceTree = "<group>";
 		};
 		3A5BA2E829B10AB900085ACF /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				3A5BA2EA29B10AF900085ACF /* Theme */,
-				3A5BA2E529AA673300085ACF /* Views */,
+				314515B42A1FB5B500E31A17 /* Extension */,
+				3A5BA2EA29B10AF900085ACF /* UI */,
+				3A5BA2E529AA673300085ACF /* View */,
 				3A5BA2E229A9FFC600085ACF /* Utils */,
 			);
 			path = Core;
 			sourceTree = "<group>";
 		};
-		3A5BA2EA29B10AF900085ACF /* Theme */ = {
+		3A5BA2EA29B10AF900085ACF /* UI */ = {
 			isa = PBXGroup;
 			children = (
 				3A5BA2EB29B10B0A00085ACF /* CoinTheme.swift */,
 				3A5BA2ED29B10B2D00085ACF /* Typography.swift */,
 				3A5BA2EF29B10BE000085ACF /* CoinColors.swift */,
-				3A5BA2F529B138DD00085ACF /* ThemeManager.swift */,
+				310099642A1BF69F003BC155 /* UIConstants.swift */,
 			);
-			path = Theme;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		3A5BA30329B3A97400085ACF /* Settings */ = {
@@ -251,7 +396,9 @@
 		3AF88E0B29F3ED9D0011C207 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
-				3AF88E0C29F3EDB30011C207 /* LastTransactionsWidget.swift */,
+				3143C09C2A5FE7EC001CDAF8 /* Transactions */,
+				319CBA892A1E3B1900E5B8FD /* TotalExpenseChart */,
+				3A5BA2D529A900E600085ACF /* Accounts */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -267,7 +414,8 @@
 		7E7F350D2A0AEAA8008C345E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3A5BA2DB29A9016200085ACF /* AccountsScreen.swift */,
+				3A5BA2DB29A9016200085ACF /* CardAccountsScreen.swift */,
+				319CBA872A1D5D3300E5B8FD /* AccountCard.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -277,7 +425,6 @@
 			children = (
 				7E7F35122A0AF3FE008C345E /* Plans */,
 				3A5BA2DF29A901A000085ACF /* AddTransaction */,
-				3A5BA2D529A900E600085ACF /* Accounts */,
 				3A5BA2D629A900F300085ACF /* Analytics */,
 				3A5BA2D429A900DA00085ACF /* Transactions */,
 				3A5BA2D329A9008D00085ACF /* Home */,
@@ -296,8 +443,8 @@
 		B69A29D5410520987788C79C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9EE0A9CAE319A78AC1868C04 /* Pods-OneCoin.debug.xcconfig */,
-				106BD4D641D5FF7BDD1FC52C /* Pods-OneCoin.release.xcconfig */,
+				9903A3ABE7558B5D938A9DE7 /* Pods-OneCoin.debug.xcconfig */,
+				53E6CEA5556B37E170A8A2CD /* Pods-OneCoin.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -309,11 +456,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A23C5DA299256BB0033CCF8 /* Build configuration list for PBXNativeTarget "OneCoin" */;
 			buildPhases = (
-				F9D732022391754963135969 /* [CP] Check Pods Manifest.lock */,
+				E9A7486019277EB338788B16 /* [CP] Check Pods Manifest.lock */,
 				3A23C5C8299256BA0033CCF8 /* Sources */,
 				3A23C5C9299256BA0033CCF8 /* Frameworks */,
 				3A23C5CA299256BA0033CCF8 /* Resources */,
-				D836A29EE9D16490C917FE00 /* [CP] Embed Pods Frameworks */,
+				F4E638A11978EC0146EA7A27 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -370,24 +517,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D836A29EE9D16490C917FE00 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OneCoin/Pods-OneCoin-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OneCoin/Pods-OneCoin-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OneCoin/Pods-OneCoin-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F9D732022391754963135969 /* [CP] Check Pods Manifest.lock */ = {
+		E9A7486019277EB338788B16 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -409,6 +539,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		F4E638A11978EC0146EA7A27 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OneCoin/Pods-OneCoin-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OneCoin/Pods-OneCoin-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OneCoin/Pods-OneCoin-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -416,29 +563,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3143C0A62A61E792001CDAF8 /* Router.swift in Sources */,
 				3A5BA2FE29B3895200085ACF /* CoinTopAppBar.swift in Sources */,
+				314515B32A1FA92600E31A17 /* LollipopChartMockData.swift in Sources */,
 				3A5BA2DA29A9014300085ACF /* AnalyticsScreen.swift in Sources */,
+				314515B72A1FB5EA00E31A17 /* Date.swift in Sources */,
 				7E7F35172A0AF421008C345E /* PlansScreen.swift in Sources */,
+				314515C52A210B0700E31A17 /* Tabs.swift in Sources */,
 				3A5BA2FA29B376E300085ACF /* AppScreen.swift in Sources */,
+				3143C0A22A5FF55F001CDAF8 /* TransactionType.swift in Sources */,
+				3143C0A82A6970ED001CDAF8 /* Array.swift in Sources */,
 				3A5BA2F029B10BE000085ACF /* CoinColors.swift in Sources */,
+				310099652A1BF69F003BC155 /* UIConstants.swift in Sources */,
+				314515AF2A1F94E500E31A17 /* TotalExpenseChartWidgetContent.swift in Sources */,
 				3A23C5D2299256BA0033CCF8 /* HomeScreen.swift in Sources */,
 				3A5BA2D129A8FE0D00085ACF /* TabsNavigationScreen.swift in Sources */,
 				7E7F35192A0AFAFF008C345E /* Tab.swift in Sources */,
+				3143C0A42A6005AB001CDAF8 /* TransactionListModelMock.swift in Sources */,
+				3143C09B2A5FE77F001CDAF8 /* LastTransactionsContent.swift in Sources */,
 				3AF88E0D29F3EDB30011C207 /* LastTransactionsWidget.swift in Sources */,
 				3A5BA2E429A9FFDF00085ACF /* SVGImageView.swift in Sources */,
-				3A5BA2DC29A9016200085ACF /* AccountsScreen.swift in Sources */,
-				3A5BA2F629B138DD00085ACF /* ThemeManager.swift in Sources */,
+				3A5BA2DC29A9016200085ACF /* CardAccountsScreen.swift in Sources */,
 				3A5BA2DE29A9017700085ACF /* TransactionsScreen.swift in Sources */,
 				3A5BA2FC29B37D1E00085ACF /* CustomEnvironmentValues.swift in Sources */,
 				3A5BA30529B3A98300085ACF /* SettingsScreen.swift in Sources */,
+				319CBA8B2A1E3B3400E5B8FD /* TotalExpenseChartWidget.swift in Sources */,
+				314515C12A20FDA700E31A17 /* YAxisDashedLine.swift in Sources */,
+				3143C09F2A5FE9C2001CDAF8 /* TransactionCell.swift in Sources */,
 				3AF88E0729F3DC9E0011C207 /* CoinWidget.swift in Sources */,
 				3A5BA2EC29B10B0A00085ACF /* CoinTheme.swift in Sources */,
+				314515B12A1F9D2D00E31A17 /* LollipopChart.swift in Sources */,
 				3A5BA30229B3A83000085ACF /* TransactionsAppBar.swift in Sources */,
 				3A23C5D0299256BA0033CCF8 /* OneCoinApp.swift in Sources */,
 				3A5BA2E729AA674B00085ACF /* CoinTabView.swift in Sources */,
 				3A5BA2EE29B10B2D00085ACF /* Typography.swift in Sources */,
+				319CBA8F2A1E57E200E5B8FD /* TimelineTypes.swift in Sources */,
 				3A5BA30029B39BB800085ACF /* HomeTopBar.swift in Sources */,
+				314515BA2A1FF0A100E31A17 /* SafeInCollection.swift in Sources */,
 				3AF88E0929F3DE220011C207 /* View+Extension.swift in Sources */,
+				314515BC2A1FF38500E31A17 /* InteractionWithLollipopChart.swift in Sources */,
+				319CBA882A1D5D3300E5B8FD /* AccountCard.swift in Sources */,
 				7E7F35102A0AEEEA008C345E /* AccountCardModel.swift in Sources */,
 				3A5BA2E129A901C100085ACF /* AddTransactionScreen.swift in Sources */,
 			);
@@ -563,7 +727,7 @@
 		};
 		3A23C5DB299256BB0033CCF8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9EE0A9CAE319A78AC1868C04 /* Pods-OneCoin.debug.xcconfig */;
+			baseConfigurationReference = 9903A3ABE7558B5D938A9DE7 /* Pods-OneCoin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -588,7 +752,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.finance-tracker.OneCoin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -596,7 +762,7 @@
 		};
 		3A23C5DC299256BB0033CCF8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 106BD4D641D5FF7BDD1FC52C /* Pods-OneCoin.release.xcconfig */;
+			baseConfigurationReference = 53E6CEA5556B37E170A8A2CD /* Pods-OneCoin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -623,6 +789,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.finance-tracker.OneCoin";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

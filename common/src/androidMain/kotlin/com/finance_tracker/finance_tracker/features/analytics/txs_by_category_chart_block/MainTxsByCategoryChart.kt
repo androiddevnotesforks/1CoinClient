@@ -16,7 +16,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
-import com.finance_tracker.finance_tracker.core.common.rememberAsyncImagePainter
 import com.finance_tracker.finance_tracker.core.common.toLimitedFloat
 import com.finance_tracker.finance_tracker.core.common.toUIColor
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -25,6 +24,7 @@ import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
 import com.finance_tracker.finance_tracker.features.analytics.PieChartLabelSize
 import com.finance_tracker.finance_tracker.features.analytics.PieChartSize
 import com.finance_tracker.finance_tracker.features.analytics.views.CoinBezierLabelConnector
+import dev.icerock.moko.resources.compose.painterResource
 import io.github.koalaplot.core.ChartLayout
 import io.github.koalaplot.core.pie.DefaultSlice
 import io.github.koalaplot.core.pie.PieChart
@@ -83,7 +83,7 @@ internal fun MainTxsByCategoryChart(
                             .clip(CircleShape)
                             .background(piece.color.toUIColor())
                             .padding(3.dp),
-                        painter = rememberAsyncImagePainter(category.icon),
+                        painter = painterResource(category.icon),
                         contentDescription = null,
                         tint = CoinTheme.color.white
                     )

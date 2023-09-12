@@ -1,30 +1,43 @@
 package com.finance_tracker.finance_tracker.features.add_transaction
 
+import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.TextFieldValue
+import com.finance_tracker.finance_tracker.core.common.TextRange
 import com.finance_tracker.finance_tracker.core.common.combineExtended
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDate
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDateTime
+import com.finance_tracker.finance_tracker.core.common.formatters.evaluateDoubleWithReplace
+import com.finance_tracker.finance_tracker.core.common.formatters.format
+import com.finance_tracker.finance_tracker.core.common.formatters.parseToDouble
+import com.finance_tracker.finance_tracker.core.common.keyboard.CalculationState
+import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
+import com.finance_tracker.finance_tracker.core.common.keyboard.applyKeyboardAction
 import com.finance_tracker.finance_tracker.core.common.stateIn
-import com.finance_tracker.finance_tracker.core.common.toString
+import com.finance_tracker.finance_tracker.core.common.toDateTime
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
-import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
+import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
+import com.finance_tracker.finance_tracker.core.common.view_models.showPreviousScreenSnackbar
+import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarActionState
+import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarState
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionTypeTab
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.data.database.mappers.categoryToDomainModel
-import com.finance_tracker.finance_tracker.domain.interactors.TransactionsInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.transactions.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
+import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.Transaction
 import com.finance_tracker.finance_tracker.features.add_transaction.analytics.AddTransactionAnalytics
 import com.financetracker.financetracker.data.AccountsEntityQueries
 import com.financetracker.financetracker.data.CategoriesEntityQueries
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.github.murzagalin.evaluator.Evaluator
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -36,14 +49,15 @@ import kotlinx.datetime.LocalDate
 private const val MaxAmountValue = 100_000_000_000_000.0
 private const val MaxAmountLength = 18
 
+@Suppress("LargeClass")
 class AddTransactionViewModel(
     private val transactionsInteractor: TransactionsInteractor,
     private val accountsEntityQueries: AccountsEntityQueries,
     private val categoriesEntityQueries: CategoriesEntityQueries,
     params: AddTransactionScreenParams,
     private val addTransactionAnalytics: AddTransactionAnalytics,
-    val featuresManager: FeaturesManager
-): BaseViewModel<AddTransactionAction>() {
+    private val evaluator: Evaluator
+) : BaseViewModel<AddTransactionAction>() {
 
     private val preselectedAccount: Account? = params.preselectedAccount
     private val transaction: Transaction? = params.transaction
@@ -63,7 +77,7 @@ class AddTransactionViewModel(
     )
     val selectedSecondaryAccount: StateFlow<Account?> = _selectedSecondaryAccount.asStateFlow()
 
-    val transactionInsertionDate = transaction?.insertionDateTime
+    private val transactionInsertionDate = transaction?.insertionDateTime
     val primaryCurrency = selectedPrimaryAccount
         .map { it?.balance?.currency }
         .stateIn(viewModelScope, initialValue = null)
@@ -72,23 +86,50 @@ class AddTransactionViewModel(
         .map { it?.balance?.currency }
         .stateIn(viewModelScope, initialValue = null)
 
-    private val selectedIncomeCategory = MutableStateFlow(transaction?._category)
-    private val selectedExpenseCategory = MutableStateFlow(transaction?._category)
+    private val selectedIncomeCategory = MutableStateFlow(
+        transaction?._category?.takeIf { it.isIncome }
+    )
+    private val selectedExpenseCategory = MutableStateFlow(
+        transaction?._category?.takeIf { it.isExpense }
+    )
 
     private val initialSelectedDate = transaction?.dateTime?.date ?: Clock.System.currentLocalDate()
     private val _selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(initialSelectedDate)
     val selectedDate: StateFlow<LocalDate> = _selectedDate.asStateFlow()
 
-    private val initialAmount = transaction?.primaryAmount
-    private val _primaryAmountText: MutableStateFlow<String> = MutableStateFlow(
-        initialAmount?.amountValue?.toString(precision = 2) ?: "0"
-    )
-    val primaryAmountText: StateFlow<String> = _primaryAmountText.asStateFlow()
+    private val initialPrimaryAmountValue = transaction?.primaryAmount?.amountValue?.format()
 
-    private val _secondaryAmountText: MutableStateFlow<String> = MutableStateFlow(
-        transaction?.secondaryAmount?.amountValue?.toString(precision = 2) ?: "0"
+    private val _primaryAmountFormula = MutableStateFlow(
+        TextFieldValue(
+            text = initialPrimaryAmountValue ?: "0",
+            selection = TextRange(
+                start = initialPrimaryAmountValue?.length ?: 1,
+                end = initialPrimaryAmountValue?.length ?: 1
+            ),
+        )
     )
-    val secondaryAmountText: StateFlow<String> = _secondaryAmountText.asStateFlow()
+    val primaryAmountFormula = _primaryAmountFormula.asStateFlow()
+
+    private val primaryAmountCalculation = _primaryAmountFormula
+        .map { calculateAmountFormula(it.text) }
+        .stateIn(viewModelScope, initialValue = CalculationState("0", false))
+
+    private val initialSecondaryAmountValue = transaction?.secondaryAmount?.amountValue?.format()
+
+    private val _secondaryAmountFormula = MutableStateFlow(
+        TextFieldValue(
+            text = initialSecondaryAmountValue ?: "0",
+            selection = TextRange(
+                start = initialSecondaryAmountValue?.length ?: 1,
+                end = initialSecondaryAmountValue?.length ?: 1
+            ),
+        )
+    )
+    val secondaryAmountFormula = _secondaryAmountFormula.asStateFlow()
+
+    private val secondaryAmountCalculation = _secondaryAmountFormula
+        .map { calculateAmountFormula(it.text) }
+        .stateIn(viewModelScope, initialValue = CalculationState("0", false))
 
     private val _expenseCategories: MutableStateFlow<List<Category>> = MutableStateFlow(emptyList())
     val expenseCategories: StateFlow<List<Category>> = _expenseCategories.asStateFlow()
@@ -113,8 +154,11 @@ class AddTransactionViewModel(
         .map { it.flow }
         .stateIn(viewModelScope, initialValue = defaultFlow)
 
-    val selectedCategory = combine(currentFlow, selectedIncomeCategory, selectedExpenseCategory) {
-            currentFlow, selectedIncomeCategory, selectedExpenseCategory ->
+    val selectedCategory = combine(
+        currentFlow,
+        selectedIncomeCategory,
+        selectedExpenseCategory
+    ) { currentFlow, selectedIncomeCategory, selectedExpenseCategory ->
         when (currentFlow) {
             AddTransactionFlow.Expense -> selectedExpenseCategory
             AddTransactionFlow.Income -> selectedIncomeCategory
@@ -122,63 +166,68 @@ class AddTransactionViewModel(
         }
     }.stateIn(viewModelScope, initialValue = null)
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    val currentStep = currentFlowState
-        .flatMapLatest { it.currentStepFlow }
-        .stateIn(viewModelScope, initialValue = null)
-
-    private val hasPreviousStep = currentFlowState.value.hasPreviousStep
+    val currentStep = MutableStateFlow<EnterTransactionStep?>(null)
+    private val hasPreviousStep = MutableStateFlow(false)
 
     @Suppress("UnnecessaryParentheses")
     val isAddTransactionEnabled = combineExtended(
         currentFlow, selectedPrimaryAccount, selectedSecondaryAccount,
-        selectedCategory, primaryAmountText, secondaryAmountText
+        selectedCategory, primaryAmountFormula, secondaryAmountFormula
     ) { currentFlow, selectedPrimaryAccount, selectedSecondaryAccount,
-        selectedCategory, primaryAmountText, secondaryAmountText ->
+        selectedCategory, primaryAmountFormula, secondaryAmountFormula ->
 
         when (currentFlow) {
             AddTransactionFlow.Expense,
             AddTransactionFlow.Income -> {
                 selectedPrimaryAccount != null &&
                         selectedCategory != null &&
-                        primaryAmountText.isNotEmptyAmount()
+                        primaryAmountFormula.text.isNotEmpty() &&
+                        primaryAmountFormula.text != "0"
             }
+
             AddTransactionFlow.Transfer -> {
                 selectedPrimaryAccount != null &&
                         selectedSecondaryAccount != null &&
-                        primaryAmountText.isNotEmptyAmount() &&
-                        secondaryAmountText.isNotEmptyAmount()
+                        primaryAmountFormula.text.isNotEmpty() &&
+                        primaryAmountFormula.text != "0" &&
+                        secondaryAmountFormula.text.isNotEmpty() &&
+                        secondaryAmountFormula.text != "0"
             }
         }
-    }
-        .stateIn(viewModelScope, initialValue = false)
+    }.stateIn(viewModelScope, initialValue = false)
 
     init {
         addTransactionAnalytics.trackAddTransactionScreenOpen()
         observeCurrentFlowState()
         initCurrentStep()
-        observePrimaryAmount()
+        observeAmountCalculations()
     }
 
-    @Suppress("UnnecessaryParentheses")
-    private fun String.isNotEmptyAmount(): Boolean {
-        return (this.toDoubleOrNull() ?: 0.0) > 0.0
-    }
-
-    private fun observePrimaryAmount() {
-        primaryAmountText
-            .onEach { primaryAmount ->
-                if (primaryCurrency.value == secondaryCurrency.value) {
-                    _secondaryAmountText.value = primaryAmount
+    private fun observeAmountCalculations() {
+        primaryAmountFormula
+            .onEach {
+                if (
+                    primaryCurrency.value == secondaryCurrency.value &&
+                    primaryCurrency.value != null
+                ) {
+                    _secondaryAmountFormula.value = it
                 }
             }
             .launchIn(viewModelScope)
+
+        primaryAmountCalculation.launchIn(viewModelScope)
+        secondaryAmountCalculation.launchIn(viewModelScope)
     }
 
     private fun observeCurrentFlowState() {
         viewModelScope.launch {
             currentFlowState
                 .onEach { currentFlowState ->
+                    observeHasPreviousStepFlow(currentFlowState, this)
+                    observeCurrentStepFlow(currentFlowState, this)
+
+                    if (isEditMode && currentStep.value == null) return@onEach
+
                     currentFlowState.setCurrentStepForFlowState(
                         isPrimaryAccountEmpty = selectedPrimaryAccount.value == null,
                         isSecondaryAccountEmpty = selectedSecondaryAccount.value == null,
@@ -188,6 +237,26 @@ class AddTransactionViewModel(
                 }
                 .launchIn(this)
         }
+    }
+
+    private fun observeHasPreviousStepFlow(
+        currentFlowState: AddTransactionFlowState,
+        scope: CoroutineScope
+    ) {
+        currentFlowState.hasPreviousStepFlow
+            .onEach { hasPreviousStep.value = it }
+            .launchIn(scope)
+    }
+
+    private fun observeCurrentStepFlow(
+        currentFlowState: AddTransactionFlowState,
+        scope: CoroutineScope
+    ) {
+        currentFlowState.currentStepFlow
+            .onEach {
+                currentStep.value = it
+            }
+            .launchIn(scope)
     }
 
     private fun initCurrentStep() {
@@ -217,7 +286,95 @@ class AddTransactionViewModel(
         }
     }
 
-    fun onAddTransactionClick(
+    @Suppress("CyclomaticComplexMethod")
+    fun addOrUpdateTransaction(fromButtonClick: Boolean) {
+        val primaryAmountCalcResult = primaryAmountCalculation.value.calculationResult.parseToDouble() ?: 0.0
+        val secondaryAmountCalcResult = secondaryAmountCalculation.value.calculationResult.parseToDouble() ?: 0.0
+        val isCalcIsFailed = primaryAmountCalculation.value.isError || secondaryAmountCalculation.value.isError
+
+        if (isCalcIsFailed) {
+            viewAction = AddTransactionAction.DisplayWrongCalculationDialog
+
+            return
+        }
+
+        if (primaryAmountCalcResult < 0.0 || secondaryAmountCalcResult < 0.0) {
+            viewAction = AddTransactionAction.DisplayNegativeAmountDialog
+
+            return
+        }
+
+        val primaryAccount = selectedPrimaryAccount.value
+        val primaryCurrency = primaryCurrency.value
+        val isEdit = isEditMode
+
+        val insertionDateTime = if (isEdit) {
+            transactionInsertionDate
+        } else {
+            Clock.System.currentLocalDateTime()
+        }
+
+        var transaction: Transaction? = null
+        if (currentFlow.value == AddTransactionFlow.Transfer) {
+            val secondaryAccount = selectedSecondaryAccount.value
+            val secondaryCurrency = secondaryCurrency.value
+
+            @Suppress("ComplexCondition")
+            if (
+                primaryAccount != null &&
+                secondaryAccount != null &&
+                primaryCurrency != null &&
+                secondaryCurrency != null
+            ) {
+                transaction = Transaction(
+                    type = selectedTransactionType.value.toTransactionType(),
+                    primaryAccount = primaryAccount,
+                    _category = null,
+                    primaryAmount = Amount(
+                        currency = primaryCurrency,
+                        amountValue = primaryAmountCalcResult
+                    ),
+                    secondaryAmount = Amount(
+                        currency = secondaryCurrency,
+                        amountValue = secondaryAmountCalcResult
+                    ),
+                    secondaryAccount = secondaryAccount,
+                    dateTime = selectedDate.value.toDateTime(),
+                    insertionDateTime = insertionDateTime
+                )
+            }
+        } else {
+            if (primaryAccount != null && primaryCurrency != null) {
+                transaction = Transaction(
+                    type = selectedTransactionType.value.toTransactionType(),
+                    primaryAccount = primaryAccount,
+                    _category = selectedCategory.value,
+                    primaryAmount = Amount(
+                        currency = primaryCurrency,
+                        amountValue = primaryAmountCalcResult
+                    ),
+                    dateTime = selectedDate.value.toDateTime(),
+                    insertionDateTime = insertionDateTime
+                )
+            }
+        }
+
+        if (transaction != null) {
+            if (isEdit) {
+                onEditTransactionClick(
+                    transaction = transaction,
+                    isFromButtonClick = fromButtonClick
+                )
+            } else {
+                onAddTransactionClick(
+                    transaction = transaction,
+                    isFromButtonClick = fromButtonClick
+                )
+            }
+        }
+    }
+
+    private fun onAddTransactionClick(
         transaction: Transaction,
         isFromButtonClick: Boolean
     ) {
@@ -228,7 +385,7 @@ class AddTransactionViewModel(
         }
     }
 
-    fun onEditTransactionClick(
+    private fun onEditTransactionClick(
         transaction: Transaction,
         isFromButtonClick: Boolean
     ) {
@@ -246,11 +403,24 @@ class AddTransactionViewModel(
         }
     }
 
+    fun displayDeleteTransactionDialog(transaction: Transaction?) {
+        viewAction = AddTransactionAction.DisplayDeleteTransactionDialog(transaction)
+    }
+
     fun onDeleteTransactionClick(transaction: Transaction, dialogKey: String) {
         addTransactionAnalytics.trackDeleteTransactionClick(transaction)
         viewModelScope.launch {
             transactionsInteractor.deleteTransaction(transaction)
             viewAction = AddTransactionAction.DismissDialog(dialogKey)
+            showPreviousScreenSnackbar(
+                snackbarState = SnackbarState.Information(
+                    iconResId = MR.images.ic_delete,
+                    textResId = MR.strings.toast_text_transaction_deleted,
+                    actionState = SnackbarActionState.Undo(
+                        onAction = { restoreTransaction(transaction) }
+                    )
+                )
+            )
             viewAction = AddTransactionAction.Close
         }
     }
@@ -283,9 +453,11 @@ class AddTransactionViewModel(
             EnterTransactionStep.PrimaryAccount -> {
                 _selectedPrimaryAccount.value = account
             }
+
             EnterTransactionStep.SecondaryAccount -> {
                 _selectedSecondaryAccount.value = account
             }
+
             else -> {
             }
         }
@@ -298,9 +470,11 @@ class AddTransactionViewModel(
             AddTransactionFlow.Expense -> {
                 selectedExpenseCategory.value = category
             }
+
             AddTransactionFlow.Income -> {
                 selectedIncomeCategory.value = category
             }
+
             else -> {
             }
         }
@@ -316,19 +490,36 @@ class AddTransactionViewModel(
         addTransactionAnalytics.trackCalendarClick()
     }
 
-    fun onKeyboardButtonClick(command: KeyboardCommand) {
-        val amountTextStateFlow = if (currentStep.value == EnterTransactionStep.SecondaryAmount) {
-            _secondaryAmountText
+    fun onKeyboardButtonClick(keyboardAction: KeyboardAction) {
+        val amountFormulaFlow = if (currentStep.value == EnterTransactionStep.SecondaryAmount) {
+            _secondaryAmountFormula
         } else {
-            _primaryAmountText
+            _primaryAmountFormula
         }
-        amountTextStateFlow.update {
-            amountTextStateFlow.value.applyKeyboardCommand(command)
+
+        amountFormulaFlow.update { textField: TextFieldValue ->
+            textField
+                .applyKeyboardAction(hasInitialZero = true, keyboardAction = keyboardAction)
                 .takeIf {
-                    it.length < MaxAmountLength &&
-                            it.toDoubleOrNull() ?: 0.0 <= MaxAmountValue
-                }
-                ?: amountTextStateFlow.value
+                    it.text.length < MaxAmountLength &&
+                            it.text.parseToDouble() ?: 0.0 <= MaxAmountValue
+                } ?: textField
+        }
+    }
+
+    @Suppress("SwallowedException")
+    private fun calculateAmountFormula(formula: String) =
+        try {
+            CalculationState(evaluator.evaluateDoubleWithReplace(formula).format(), false)
+        } catch (exception: IllegalArgumentException) {
+            CalculationState("0", formula.isNotEmpty())
+        }
+
+    private fun restoreTransaction(transaction: Transaction) {
+        viewModelScope.launch {
+            addTransactionAnalytics.trackRestoreTransaction()
+            transactionsInteractor.addTransaction(transaction)
+            hideSnackbar()
         }
     }
 
@@ -364,17 +555,21 @@ class AddTransactionViewModel(
             EnterTransactionStep.PrimaryAccount -> {
                 addTransactionAnalytics.trackPrimaryAccountClick()
             }
+
             EnterTransactionStep.Category -> {
                 addTransactionAnalytics.trackCategoryClick()
             }
+
             EnterTransactionStep.PrimaryAmount -> {
-                addTransactionAnalytics.trackPrimaryAmountClick(primaryAmountText.value)
+                addTransactionAnalytics.trackPrimaryAmountClick(primaryAmountFormula.value.text)
             }
+
             EnterTransactionStep.SecondaryAccount -> {
                 addTransactionAnalytics.trackSecondaryAccountClick()
             }
+
             EnterTransactionStep.SecondaryAmount -> {
-                addTransactionAnalytics.trackSecondaryAmountClick(secondaryAmountText.value)
+                addTransactionAnalytics.trackSecondaryAmountClick(secondaryAmountFormula.value.text)
             }
         }
     }
