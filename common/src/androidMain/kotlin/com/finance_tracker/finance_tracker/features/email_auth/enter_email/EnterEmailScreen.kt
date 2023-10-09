@@ -30,7 +30,6 @@ import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
 import com.finance_tracker.finance_tracker.core.common.toTextFieldValue
 import com.finance_tracker.finance_tracker.core.common.toUiTextFieldValue
-import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
@@ -40,12 +39,11 @@ import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-internal fun EnterEmailScreen() {
-    ComposeScreen<EnterEmailViewModel> { viewModel ->
-
-        viewModel.watchViewActions { action, baseLocalsStorage ->
-            handleAction(action, baseLocalsStorage)
-        }
+internal fun EnterEmailScreen(
+    component: EnterEmailComponent
+) {
+    ComposeScreen(component) {
+        val viewModel = component.viewModel
 
         val focusRequester = remember { FocusRequester() }
 

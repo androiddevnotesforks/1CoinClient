@@ -5,7 +5,7 @@ import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.common.isNotEmptyAmount
 import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.toString
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
 import com.finance_tracker.finance_tracker.core.common.view_models.showPreviousScreenSnackbar
 import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarActionState
@@ -20,6 +20,7 @@ import com.finance_tracker.finance_tracker.domain.models.Plan
 import com.finance_tracker.finance_tracker.features.add_transaction.KeyboardCommand
 import com.finance_tracker.finance_tracker.features.add_transaction.applyKeyboardCommand
 import com.finance_tracker.finance_tracker.features.plans.setup.analytics.SetupPlanAnalytics
+import com.finance_tracker.finance_tracker.presentation.models.toDomain
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -38,10 +39,10 @@ class SetupPlanViewModel(
     private val setupPlanAnalytics: SetupPlanAnalytics,
     private val plansInteractor: PlansInteractor,
     currenciesInteractor: CurrenciesInteractor
-): BaseViewModel<SetupPlanAction>() {
+): ComponentViewModel<Any, SetupPlanComponent.Action>() {
 
     private val yearMonth: YearMonth = params.yearMonth
-    private val plan: Plan? = params.plan
+    private val plan: Plan? = params.plan?.toDomain()
 
     val isEditMode = plan != null
 
@@ -114,7 +115,7 @@ class SetupPlanViewModel(
                 yearMonth = yearMonth,
                 plan = plan
             )
-            viewAction = SetupPlanAction.Close
+            componentAction = SetupPlanComponent.Action.Close
         }
     }
 
@@ -136,15 +137,21 @@ class SetupPlanViewModel(
                 oldPlan = oldPlan,
                 newPlan = newPlan
             )
-            viewAction = SetupPlanAction.Close
+            componentAction = SetupPlanComponent.Action.Close
         }
     }
 
-    fun onDeletePlanClick(plan: Plan, dialogKey: String) {
+    fun onDeletePlanClick() {
+        componentAction = SetupPlanComponent.Action.ShowDeletePlanDialog
+    }
+
+    fun onConfirmDeletePlanClick() {
+        val plan = this.plan ?: return
+
         setupPlanAnalytics.trackDeletePlanClick(plan)
         viewModelScope.launch {
             plansInteractor.deletePlan(plan)
-            viewAction = SetupPlanAction.DismissDialog(dialogKey)
+            componentAction = SetupPlanComponent.Action.DismissBottomDialog
             showPreviousScreenSnackbar(
                 snackbarState = SnackbarState.Information(
                     iconResId = MR.images.ic_delete,
@@ -154,19 +161,17 @@ class SetupPlanViewModel(
                     )
                 )
             )
-            viewAction = SetupPlanAction.Close
+            componentAction = SetupPlanComponent.Action.Close
         }
     }
 
-    private fun restorePlan(plan: Plan) {
-        viewModelScope.launch {
-            setupPlanAnalytics.trackRestorePlan()
-            plansInteractor.addPlan(
-                yearMonth = yearMonth,
-                plan = plan
-            )
-            hideSnackbar()
-        }
+    private suspend fun restorePlan(plan: Plan) {
+        setupPlanAnalytics.trackRestorePlan()
+        plansInteractor.addPlan(
+            yearMonth = yearMonth,
+            plan = plan
+        )
+        hideSnackbar()
     }
 
     fun onBackClick() {
@@ -174,7 +179,7 @@ class SetupPlanViewModel(
         if (hasPreviousStep.value) {
             currentFlowState.previous()
         } else {
-            viewAction = SetupPlanAction.Close
+            componentAction = SetupPlanComponent.Action.Close
         }
     }
 
@@ -214,5 +219,9 @@ class SetupPlanViewModel(
 
     fun onPrimaryAmountClick() {
         onCurrentStepSelect(SetupPlanStep.PrimaryAmount)
+    }
+
+    fun onDismissBottomDialog() {
+        componentAction = SetupPlanComponent.Action.DismissBottomDialog
     }
 }

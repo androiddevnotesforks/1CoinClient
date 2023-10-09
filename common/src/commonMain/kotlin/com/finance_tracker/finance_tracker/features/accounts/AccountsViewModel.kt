@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.features.accounts
 
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.features.accounts.analytics.AccountsAnalytics
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class AccountsViewModel(
     private val accountsInteractor: AccountsInteractor,
     private val accountsAnalytics: AccountsAnalytics
-): BaseViewModel<AccountsAction>() {
+): ComponentViewModel<AccountsAction, AccountsComponent.Action>() {
 
     private val _accounts = MutableStateFlow<List<Account>>(emptyList())
     val accounts = _accounts.asStateFlow()
@@ -26,17 +26,17 @@ class AccountsViewModel(
 
     fun onAccountClick(account: Account) {
         accountsAnalytics.trackAccountClick(account)
-        viewAction = AccountsAction.OpenEditAccountScreen(account)
+        componentAction = AccountsComponent.Action.OpenEditAccountScreen(account)
     }
 
     fun onBackClick() {
         accountsAnalytics.trackAccountsScreenBackClick()
-        viewAction = AccountsAction.CloseScreen
+        componentAction = AccountsComponent.Action.CloseScreen
     }
 
     fun onAddAccountClick() {
         accountsAnalytics.trackAddAccountClick()
-        viewAction = AccountsAction.OpenAddAccountScreen
+        componentAction = AccountsComponent.Action.OpenAddAccountScreen
     }
 
     fun onCardMove(fromIndex: Int, toIndex: Int) {

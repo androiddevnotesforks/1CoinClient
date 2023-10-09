@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.features.welcome
 
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.AuthInteractor
 import com.finance_tracker.finance_tracker.features.welcome.analytics.WelcomeAnalytics
 import io.github.aakira.napier.Napier
@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 class WelcomeViewModel(
     private val welcomeAnalytics: WelcomeAnalytics,
     private val authInteractor: AuthInteractor
-): BaseViewModel<WelcomeAction>() {
+): ComponentViewModel<WelcomeAction, WelcomeComponent.Action>() {
 
     init {
         welcomeAnalytics.trackScreenOpen()
@@ -31,11 +31,11 @@ class WelcomeViewModel(
 
     fun onContinueWithEmailClick() {
         welcomeAnalytics.trackContinueWithEmailClick()
-        viewAction = WelcomeAction.OpenEmailAuthScreen
+        componentAction = WelcomeComponent.Action.OpenEmailAuthScreen
     }
 
     fun onSkipClick() {
         welcomeAnalytics.trackSkipClick()
-        viewAction = WelcomeAction.OpenMainScreen
+        componentAction = WelcomeComponent.Action.OpenMainScreen
     }
 }

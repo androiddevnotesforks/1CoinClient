@@ -1,6 +1,5 @@
 package com.finance_tracker.finance_tracker.core.analytics
 
-import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.data.settings.AnalyticsSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +15,7 @@ class IosAnalyticsTracker(
     override val coroutineContext: CoroutineContext = SupervisorJob() + Dispatchers.IO
 
     @Suppress("NotImplementedDeclaration")
-    override fun init(context: Context, userId: String) {
+    override fun init(userId: String) {
 
     }
 

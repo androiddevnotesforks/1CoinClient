@@ -1,10 +1,8 @@
 package com.finance_tracker.finance_tracker.features.analytics.delegates
 
-import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.core.common.convertToCurrencyValue
 import com.finance_tracker.finance_tracker.core.common.date.currentLocalDate
 import com.finance_tracker.finance_tracker.core.common.formatters.AmountFormatMode
-import com.finance_tracker.finance_tracker.core.common.localizedString
 import com.finance_tracker.finance_tracker.core.common.strings.getDateMonthNameStringResBy
 import com.finance_tracker.finance_tracker.core.common.strings.getMonthNameStringResBy
 import com.finance_tracker.finance_tracker.core.common.strings.getWeekDayStringRes
@@ -23,6 +21,7 @@ import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import dev.icerock.moko.resources.desc.ResourceFormatted
 import dev.icerock.moko.resources.desc.StringDesc
+import dev.icerock.moko.resources.desc.desc
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -74,8 +73,8 @@ class TrendsAnalyticsDelegate(
                 mapTxsAmountsToTrendBarDetails(
                     txsAmounts = txsAmounts,
                     primaryCurrency = primaryCurrency,
-                    title = { context ->
-                        getWeekDayStringRes(dayOfWeek).localizedString(context)
+                    title = {
+                        getWeekDayStringRes(dayOfWeek).desc()
                     }
                 )
             }
@@ -100,12 +99,12 @@ class TrendsAnalyticsDelegate(
                 mapTxsAmountsToTrendBarDetails(
                     txsAmounts = txsAmounts,
                     primaryCurrency = primaryCurrency,
-                    title = { context ->
+                    title = {
                         val monthNumber = Clock.System.currentLocalDate().monthNumber
                         StringDesc.ResourceFormatted(
                             getDateMonthNameStringResBy(monthNumber),
                             dayOfMonth
-                        ).localizedString(context)
+                        )
                     }
                 )
             }
@@ -125,9 +124,8 @@ class TrendsAnalyticsDelegate(
                 mapTxsAmountsToTrendBarDetails(
                     txsAmounts = txsAmounts,
                     primaryCurrency = primaryCurrency,
-                    title = { context ->
-                        getMonthNameStringResBy(monthNumberOfYear)
-                            .localizedString(context)
+                    title = {
+                        getMonthNameStringResBy(monthNumberOfYear).desc()
                     }
                 )
             }
@@ -262,7 +260,7 @@ class TrendsAnalyticsDelegate(
     private fun mapTxsAmountsToTrendBarDetails(
         txsAmounts: List<Double>,
         primaryCurrency: Currency,
-        title: (context: Context) -> String
+        title: () -> StringDesc
     ): TrendBarDetails {
         val value = txsAmounts.sum()
         return TrendBarDetails(

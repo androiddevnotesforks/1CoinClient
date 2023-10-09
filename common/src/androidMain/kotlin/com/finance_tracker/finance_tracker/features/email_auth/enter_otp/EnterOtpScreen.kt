@@ -30,24 +30,19 @@ import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimatio
 import com.finance_tracker.finance_tracker.core.common.imePadding
 import com.finance_tracker.finance_tracker.core.common.noRippleClickable
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
-import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.AppBarIcon
 import com.finance_tracker.finance_tracker.core.ui.CoinCodeTextField
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
-import org.koin.core.parameter.parametersOf
 
 @Composable
-internal fun EnterOtpScreen(email: String) {
-    ComposeScreen<EnterOtpViewModel>(
-        parameters = { parametersOf(email) }
-    ) { viewModel ->
-
-        viewModel.watchViewActions { action, baseLocalsStorage ->
-            handleAction(action, baseLocalsStorage)
-        }
+internal fun EnterOtpScreen(
+    component: EnterOtpComponent
+) {
+    ComposeScreen(component) {
+        val viewModel = component.viewModel
 
         val focusRequester = remember { FocusRequester() }
         LaunchedEffect(Unit) {

@@ -16,12 +16,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
+import com.finance_tracker.finance_tracker.core.common.noRippleClickable
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.CoinWidget
 import com.finance_tracker.finance_tracker.domain.models.Plan
 import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
-import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 @Suppress("MagicNumber")
 @Composable

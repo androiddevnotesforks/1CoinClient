@@ -23,8 +23,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.formatters.format
+import com.finance_tracker.finance_tracker.core.common.painterDescResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.TransactionListModel
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
@@ -40,9 +40,8 @@ internal fun TransactionItem(
     onClick: () -> Unit = {},
     onLongClick: () -> Unit = {}
 ) {
-    val context = LocalContext.current
     val transaction = transactionData.transaction
-    val category = transaction.getCategoryOrUncategorized(context)
+    val category = transaction.getCategoryOrUncategorized()
     val isSelected by transactionData.isSelected.collectAsState()
     Row(
         modifier = modifier
@@ -68,7 +67,7 @@ internal fun TransactionItem(
             painter = if (transaction.type == TransactionType.Transfer) {
                 painterResource(MR.images.ic_transfer)
             } else {
-                painterResource(category.icon)
+                painterDescResource(category.icon)
             },
             tint = CoinTheme.color.content,
             contentDescription = null

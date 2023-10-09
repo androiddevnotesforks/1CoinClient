@@ -17,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
@@ -26,7 +25,6 @@ import com.finance_tracker.finance_tracker.core.common.getLocaleLanguage
 import com.finance_tracker.finance_tracker.core.common.imePadding
 import com.finance_tracker.finance_tracker.core.common.keyboardExpandedAsState
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
-import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.core.ui.button.PrimaryButton
@@ -37,22 +35,16 @@ import com.finance_tracker.finance_tracker.features.preset_currency.views.Select
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-internal fun PresetCurrencyScreen() {
-    ComposeScreen<PresetCurrencyViewModel> { viewModel ->
-
-        viewModel.watchViewActions { action, baseLocalsStorage ->
-            handleAction(
-                action = action,
-                baseLocalsStorage = baseLocalsStorage
-            )
-        }
+internal fun PresetCurrencyScreen(
+    component: PresetCurrencyComponent
+) {
+    ComposeScreen(component) {
+        val viewModel = component.viewModel
 
         val state by viewModel.state.collectAsState()
 
         Column {
-            PresetCurrencyAppBar(
-                onBackClick = viewModel::onBackClick
-            )
+            PresetCurrencyAppBar()
 
             val isKeyboardExpanded by keyboardExpandedAsState()
             val selectedPrimaryCurrency = state.selectedCurrency
@@ -99,7 +91,6 @@ internal fun PresetCurrencyScreen() {
                     onCurrencySelect = viewModel::onCurrencySelect
                 )
 
-                val context = LocalContext.current
                 PrimaryButton(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -111,7 +102,7 @@ internal fun PresetCurrencyScreen() {
                         .imePadding()
                         .navigationBarsPadding(),
                     text = stringResource(MR.strings.preset_currency_continue),
-                    onClick = { viewModel.onContinueClick(context) }
+                    onClick = { viewModel.onContinueClick() }
                 )
             }
         }

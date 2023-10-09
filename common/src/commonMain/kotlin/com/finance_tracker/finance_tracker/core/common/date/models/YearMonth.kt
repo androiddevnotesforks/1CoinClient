@@ -1,7 +1,9 @@
 package com.finance_tracker.finance_tracker.core.common.date.models
 
 import kotlinx.datetime.Month
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class YearMonth(
     val year: Int,
     val month: Month

@@ -30,7 +30,6 @@ kotlin {
                 api(libs.mokoResources.core)
 
                 implementation(libs.napier)
-                implementation(libs.kviewmodel)
                 implementation(libs.serialization)
                 implementation(libs.sqldelight.coroutines)
                 implementation(libs.bundles.ktor)
@@ -42,6 +41,7 @@ kotlin {
                 implementation(libs.paging)
                 implementation(libs.arithmeticEvaluator)
                 implementation(libs.bignum)
+                implementation(libs.bundles.decompose)
             }
         }
 
@@ -73,10 +73,7 @@ kotlin {
 
         jvmMain {
             dependencies {
-                api(libs.bundles.odyssey)
-
                 implementation(libs.imageloader)
-                implementation(libs.bundles.kviewmodel.compose)
                 implementation(libs.koalaplot)
                 implementation(libs.mokoResources.compose)
             }
@@ -101,6 +98,9 @@ kotlin {
         framework {
             export(libs.mokoResources.core)
             export(libs.mokoResources.graphics)
+            export(libs.bundles.decompose)
+            export(libs.bundles.essenty)
+
             baseName = "OneCoinShared"
         }
 

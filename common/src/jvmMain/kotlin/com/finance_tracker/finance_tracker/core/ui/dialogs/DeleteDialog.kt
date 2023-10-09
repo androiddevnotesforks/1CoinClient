@@ -12,43 +12,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.imePadding
-import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
+import com.finance_tracker.finance_tracker.core.common.stringDescResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.button.ActionButton
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-internal fun DeleteAlertDialog(
-    titleEntity: String,
-    onCancelClick: () -> Unit,
-    onDeleteClick: () -> Unit,
-) {
-    AlertDialogSurface {
-        DeleteDialog(
-            titleEntity = titleEntity,
-            onCancelClick = onCancelClick,
-            onDeleteClick = onDeleteClick
-        )
-    }
-}
-
-@Composable
 internal fun DeleteBottomDialog(
-    titleEntity: String,
+    component: DeleteDialogComponent,
     onCancelClick: () -> Unit,
-    onDeleteClick: () -> Unit,
+    onDeleteClick: () -> Unit
 ) {
-    BottomSheetDialogSurface {
-        DeleteDialog(
-            titleEntity = titleEntity,
-            onCancelClick = onCancelClick,
-            onDeleteClick = onDeleteClick,
-            modifier = Modifier
-                .navigationBarsPadding()
-                .imePadding()
-        )
-    }
+    DeleteDialog(
+        titleEntity = stringDescResource(component.titleRes),
+        onCancelClick = onCancelClick,
+        onDeleteClick = onDeleteClick
+    )
 }
 
 @Composable
@@ -59,12 +38,11 @@ private fun DeleteDialog(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.padding(8.dp)
+        modifier = modifier.padding(horizontal = 8.dp)
     ) {
         Text(
             modifier = Modifier
-                .padding(start = 16.dp)
-                .padding(top = 16.dp),
+                .padding(horizontal = 16.dp),
             text = titleEntity,
             style = CoinTheme.typography.h4,
             color = CoinTheme.color.content

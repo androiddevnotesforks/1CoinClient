@@ -4,7 +4,6 @@ import com.amplitude.Amplitude
 import com.amplitude.AmplitudeLog
 import com.amplitude.Event
 import com.finance_tracker.finance_tracker.core.common.AppBuildConfig
-import com.finance_tracker.finance_tracker.core.common.DesktopContext
 import com.finance_tracker.finance_tracker.core.common.runSafeCatching
 import com.finance_tracker.finance_tracker.data.settings.AnalyticsSettings
 import io.github.aakira.napier.Napier
@@ -28,7 +27,7 @@ class DesktopAnalyticsTracker(
 
     private var isAnalyticsDisabled = false
 
-    override fun init(context: DesktopContext, userId: String) {
+    override fun init(userId: String) {
         amplitude.init(AppBuildConfig.AMPLITUDE_API_KEY)
         amplitude.setLogMode(AmplitudeLog.LogMode.DEBUG)
         this.userId = userId
@@ -58,7 +57,9 @@ class DesktopAnalyticsTracker(
 
         val eventProps = JSONObject()
         runSafeCatching {
-            event.properties.forEach(eventProps::put)
+            event.properties.forEach { (key, value) ->
+                eventProps.put(key, value)
+            }
         }
 
         desktopEvent.eventProperties = eventProps

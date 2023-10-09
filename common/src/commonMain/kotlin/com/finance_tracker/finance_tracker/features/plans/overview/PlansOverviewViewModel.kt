@@ -3,7 +3,7 @@ package com.finance_tracker.finance_tracker.features.plans.overview
 import com.finance_tracker.finance_tracker.core.common.date.currentYearMonth
 import com.finance_tracker.finance_tracker.core.common.date.plusMonth
 import com.finance_tracker.finance_tracker.core.common.stateIn
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.plans.MonthExpenseLimitInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.plans.PlansInteractor
 import com.finance_tracker.finance_tracker.domain.models.Plan
@@ -22,7 +22,7 @@ class PlansOverviewViewModel(
     private val plansOverviewAnalytics: PlansOverviewAnalytics,
     private val monthExpenseLimitInteractor: MonthExpenseLimitInteractor,
     private val plansInteractor: PlansInteractor
-): BaseViewModel<PlansOverviewAction>(), PlansOverviewCallback {
+): ComponentViewModel<PlansOverviewViewAction, PlansOverviewComponent.Action>(), PlansOverviewCallback {
 
     private val currentYearMonth = Clock.System.currentYearMonth()
     private val selectedYearMonth = MutableStateFlow(currentYearMonth)
@@ -47,14 +47,14 @@ class PlansOverviewViewModel(
 
     fun onAddCategoryExpenseLimitClick() {
         plansOverviewAnalytics.trackAddLimitClick()
-        viewAction = PlansOverviewAction.OpenSetupPlanScreen(
+        componentAction = PlansOverviewComponent.Action.OpenSetupPlanScreen(
             yearMonth = selectedYearMonth.value,
         )
     }
 
     fun onCategoryExpenseLimitClick(plan: Plan) {
         plansOverviewAnalytics.trackLimitClick(plan)
-        viewAction = PlansOverviewAction.OpenEditPlanScreen(
+        componentAction = PlansOverviewComponent.Action.OpenEditPlanScreen(
             yearMonth = selectedYearMonth.value,
             plan = plan
         )
@@ -67,13 +67,13 @@ class PlansOverviewViewModel(
     override fun onPreviousPeriodClick() {
         plansOverviewAnalytics.trackPreviousPeriodClick(selectedYearMonth.value)
         val previousMonthIndex = months.indexOf(selectedYearMonth.value) - 1
-        viewAction = PlansOverviewAction.ScrollToPage(previousMonthIndex)
+        viewAction = PlansOverviewViewAction.ScrollToPage(previousMonthIndex)
     }
 
     override fun onNextPeriodClick() {
         plansOverviewAnalytics.trackNextPeriodClick(selectedYearMonth.value)
         val nextMonthIndex = months.indexOf(selectedYearMonth.value) + 1
-        viewAction = PlansOverviewAction.ScrollToPage(nextMonthIndex)
+        viewAction = PlansOverviewViewAction.ScrollToPage(nextMonthIndex)
     }
 
     fun getState(page: Int): StateFlow<MonthPlansOverviewState> {
@@ -95,6 +95,6 @@ class PlansOverviewViewModel(
     override fun onSetLimitClick() {
         val selectedYearMonth = selectedYearMonth.value
         plansOverviewAnalytics.trackSetLimitClick(selectedYearMonth)
-        viewAction = PlansOverviewAction.OpenSetLimitDialog(selectedYearMonth)
+        componentAction = PlansOverviewComponent.Action.ShowSetLimitDialog(selectedYearMonth)
     }
 }

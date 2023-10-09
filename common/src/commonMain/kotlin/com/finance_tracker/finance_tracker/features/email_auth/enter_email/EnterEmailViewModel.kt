@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.features.email_auth.enter_email
 
 import com.finance_tracker.finance_tracker.core.common.TextFieldValue
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.AuthInteractor
 import com.finance_tracker.finance_tracker.features.email_auth.enter_email.analytics.EnterEmailAnalytics
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class EnterEmailViewModel(
     private val enterEmailAnalytics: EnterEmailAnalytics,
     private val authInteractor: AuthInteractor
-): BaseViewModel<EnterEmailAction>() {
+): ComponentViewModel<EnterEmailAction, EnterEmailComponent.Action>() {
 
     private val _email = MutableStateFlow("")
     val email = _email.asStateFlow()
@@ -32,7 +32,7 @@ class EnterEmailViewModel(
 
     fun onBackClick() {
         enterEmailAnalytics.trackBackClick()
-        viewAction = EnterEmailAction.Close
+        componentAction = EnterEmailComponent.Action.Close
     }
 
     fun onContinueClick() {
@@ -42,8 +42,8 @@ class EnterEmailViewModel(
             runCatching { authInteractor.requestOtpCode() }
                 .onSuccess {
                     isLoading.value = false
-                    viewAction =
-                        EnterEmailAction.OpenEnterOtpScreen(_emailTextFieldValue.value.text)
+                    componentAction =
+                        EnterEmailComponent.Action.OpenEnterOtpScreen(_emailTextFieldValue.value.text)
                 }
                 .onFailure {
                     isLoading.value = false

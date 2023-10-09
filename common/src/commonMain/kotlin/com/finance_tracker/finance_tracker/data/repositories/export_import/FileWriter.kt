@@ -1,8 +1,6 @@
 package com.finance_tracker.finance_tracker.data.repositories.export_import
 
-import com.finance_tracker.finance_tracker.core.common.Context
-
-expect class FileWriter(context: Context) {
+expect class FileWriter {
 
     suspend fun zipFiles(
         directoryUri: String,

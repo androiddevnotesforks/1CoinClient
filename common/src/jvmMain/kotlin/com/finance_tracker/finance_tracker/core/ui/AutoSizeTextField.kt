@@ -18,7 +18,6 @@ import androidx.compose.ui.text.ParagraphIntrinsics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.createFontFamilyResolver
 
 private const val TextScaleReductionInterval = 0.9f
@@ -46,7 +45,7 @@ internal fun AutoSizeTextField(
                     fontSize = shrunkFontSize
                 ),
                 density = LocalDensity.current,
-                fontFamilyResolver = createFontFamilyResolver(LocalContext.current)
+                fontFamilyResolver = createFontFamilyResolver()
             )
         }
 

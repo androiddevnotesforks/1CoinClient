@@ -1,13 +1,13 @@
 package com.finance_tracker.finance_tracker.domain.interactors
 
 import com.finance_tracker.finance_tracker.AppDatabase
-import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.core.common.suspendTransaction
 import com.finance_tracker.finance_tracker.data.repositories.AccountsRepository
 import com.finance_tracker.finance_tracker.data.repositories.CurrenciesRepository
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.domain.models.CurrencyRates
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.runBlocking
 
 class CurrenciesInteractor(
     private val appDatabase: AppDatabase,
@@ -27,9 +27,9 @@ class CurrenciesInteractor(
         currenciesRepository.savePrimaryCurrency(currency)
     }
 
-    suspend fun presetPrimaryCurrency(context: Context, currency: Currency) {
+    suspend fun presetPrimaryCurrency(currency: Currency) {
         appDatabase.suspendTransaction {
-            accountsRepository.addDefaultAccount(context, currency)
+            accountsRepository.addDefaultAccount(currency)
             currenciesRepository.savePrimaryCurrency(currency)
         }
     }
@@ -44,5 +44,11 @@ class CurrenciesInteractor(
 
     suspend fun isPrimaryCurrencySelected(): Boolean {
         return currenciesRepository.isPrimaryCurrencySelected()
+    }
+
+    fun isPrimaryCurrencySelectedSync(): Boolean {
+        return runBlocking {
+            currenciesRepository.isPrimaryCurrencySelected()
+        }
     }
 }

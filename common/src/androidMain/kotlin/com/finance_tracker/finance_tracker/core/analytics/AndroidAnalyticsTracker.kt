@@ -1,11 +1,11 @@
 package com.finance_tracker.finance_tracker.core.analytics
 
+import android.content.Context
 import com.amplitude.android.Amplitude
 import com.amplitude.android.Configuration
 import com.amplitude.common.Logger
 import com.amplitude.core.events.Identify
 import com.finance_tracker.finance_tracker.core.common.AppBuildConfig
-import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.data.settings.AnalyticsSettings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class AndroidAnalyticsTracker(
+    private val applicationContext: Context,
     analyticsSettings: AnalyticsSettings
 ): AnalyticsTracker, CoroutineScope {
 
@@ -27,11 +28,11 @@ class AndroidAnalyticsTracker(
 
     private var isAnalyticsDisabled = true
 
-    override fun init(context: Context, userId: String) {
+    override fun init(userId: String) {
         amplitude = Amplitude(
             Configuration(
                 apiKey = AppBuildConfig.AMPLITUDE_API_KEY,
-                context = context
+                context = applicationContext
             )
         ).apply {
             logger.logMode = if (AppBuildConfig.DEBUG_BUILD_TYPE) {

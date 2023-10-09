@@ -32,12 +32,12 @@ android {
         }
     }
     namespace = "com.finance_tracker.finance_tracker"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.finance_tracker.finance_tracker"
         minSdk = 26
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 11
         versionName = rootProject.extra["appVersion"] as String
         signingConfig = signingConfigs.getByName("debug")
@@ -81,7 +81,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0"
+        kotlinCompilerExtensionVersion = "1.5.3"
     }
 }
 
@@ -94,4 +94,5 @@ dependencies {
     releaseImplementation(libs.chucker.release)
 
     implementation(libs.bundles.koin.android)
+    implementation(libs.bundles.decompose)
 }

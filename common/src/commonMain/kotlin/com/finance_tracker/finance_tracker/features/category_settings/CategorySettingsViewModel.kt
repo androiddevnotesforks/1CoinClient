@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.features.category_settings
 
 import com.finance_tracker.finance_tracker.core.common.stateIn
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesMode
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
@@ -20,10 +20,11 @@ import kotlinx.coroutines.launch
 class CategorySettingsViewModel(
     private val categoriesInteractor: CategoriesInteractor,
     private val categorySettingsAnalytics: CategorySettingsAnalytics
-): BaseViewModel<CategorySettingsAction>() {
+): ComponentViewModel<CategorySettingsAction, CategorySettingsComponent.Action>() {
 
     private val expenseCategories = MutableStateFlow<ImmutableList<Category>>(persistentListOf())
     private val incomeCategories = MutableStateFlow<ImmutableList<Category>>(persistentListOf())
+    private var deletingCategory: Category? = null
 
     private val transactionTypes = TransactionTypesMode.Main.types
     private val _selectedTransactionType = MutableStateFlow(TransactionTypeTab.Expense)
@@ -135,10 +136,11 @@ class CategorySettingsViewModel(
         }
     }
 
-    fun onConfirmDeleteCategory(category: Category, dialogKey: String) {
-        categorySettingsAnalytics.trackConfirmDeleteCategoryClick(category)
+    fun onConfirmDeleteCategory() {
+        val deletingCategory = deletingCategory ?: return
+        categorySettingsAnalytics.trackConfirmDeleteCategoryClick(deletingCategory)
         viewModelScope.launch {
-            categoriesInteractor.deleteCategoryById(category.id)
+            categoriesInteractor.deleteCategoryById(deletingCategory.id)
 
             if (_selectedTransactionType.value == TransactionTypeTab.Expense) {
                 loadAllExpenseCategories()
@@ -146,34 +148,42 @@ class CategorySettingsViewModel(
                 loadAllIncomeCategories()
             }
         }
-        viewAction = CategorySettingsAction.DismissDialog(dialogKey)
+        this.deletingCategory = null
+        componentAction = CategorySettingsComponent.Action.DismissBottomDialog
     }
 
-    fun onCancelDeleting(category: Category, dialogKey: String) {
-        categorySettingsAnalytics.trackCancelDeleteCategoryClick(category)
-        viewAction = CategorySettingsAction.DismissDialog(dialogKey)
+    fun onCancelDeleting() {
+        val deletingCategory = deletingCategory ?: return
+        categorySettingsAnalytics.trackCancelDeleteCategoryClick(deletingCategory)
+        this.deletingCategory = null
+        componentAction = CategorySettingsComponent.Action.DismissBottomDialog
+    }
+
+    fun onDismissBottomDialog() {
+        componentAction = CategorySettingsComponent.Action.DismissBottomDialog
     }
 
     fun onBackClick() {
         categorySettingsAnalytics.trackBackClick()
-        viewAction = CategorySettingsAction.CloseScreen
+        componentAction = CategorySettingsComponent.Action.Close
     }
 
     fun onAddCategoryClick() {
         categorySettingsAnalytics.trackAddCategoryClick()
-        viewAction = CategorySettingsAction.OpenAddCategoryScreen(
+        componentAction = CategorySettingsComponent.Action.OpenAddCategoryScreen(
             selectedTransactionTypeTab = selectedTransactionType.value
         )
     }
 
     fun onDeleteCategoryClick(category: Category) {
+        deletingCategory = category
         categorySettingsAnalytics.trackDeleteCategoryClick(category)
-        viewAction = CategorySettingsAction.OpenDeleteDialog(category)
+        componentAction = CategorySettingsComponent.Action.OpenDeleteDialog(category)
     }
 
     fun onCategoryCardClick(category: Category) {
         categorySettingsAnalytics.trackCategoryClick(category)
-        viewAction = CategorySettingsAction.OpenEditCategoryScreen(
+        componentAction = CategorySettingsComponent.Action.OpenEditCategoryScreen(
             category = category,
             transactionType = selectedTransactionType.value.toTransactionType()
         )

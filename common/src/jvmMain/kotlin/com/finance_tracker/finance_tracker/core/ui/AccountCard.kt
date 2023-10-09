@@ -17,11 +17,11 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.core.common.formatters.format
+import com.finance_tracker.finance_tracker.core.common.noRippleClickable
 import com.finance_tracker.finance_tracker.core.common.toUIColor
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Account
 import dev.icerock.moko.resources.compose.painterResource
-import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 val AccountCardHeight = 128.dp
 val AccountCardWidth = 160.dp
@@ -41,7 +41,7 @@ internal fun AccountCard(
         modifier = modifier
             .aspectRatio(AccountCardAspectRatio)
             .scaleClickAnimation()
-            .noRippleClickable(onClick)
+            .noRippleClickable { onClick() }
     ) {
         Column {
             Icon(

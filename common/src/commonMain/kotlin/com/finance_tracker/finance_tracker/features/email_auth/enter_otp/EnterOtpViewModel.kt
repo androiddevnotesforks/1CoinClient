@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.features.email_auth.enter_otp
 
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.AuthInteractor
 import com.finance_tracker.finance_tracker.features.email_auth.enter_otp.analytics.EnterOtpAnalytics
 import kotlinx.coroutines.Job
@@ -17,7 +17,7 @@ class EnterOtpViewModel(
     private val enterOtpAnalytics: EnterOtpAnalytics,
     private val authInteractor: AuthInteractor,
     val email: String
-) : BaseViewModel<EnterOtpAction>() {
+) : ComponentViewModel<EnterOtpAction, EnterOtpComponent.Action>() {
 
     private val _requestAgainLeftSeconds = MutableStateFlow(REQUEST_AGAIN_DELAY_SECONDS)
     val requestAgainLeftSeconds = _requestAgainLeftSeconds.asStateFlow()
@@ -60,7 +60,7 @@ class EnterOtpViewModel(
 
     fun onBackClick() {
         enterOtpAnalytics.trackBackClick()
-        viewAction = EnterOtpAction.Close
+        componentAction = EnterOtpComponent.Action.Close
     }
 
     private fun showWrongCodeState() {
@@ -105,8 +105,8 @@ class EnterOtpViewModel(
      }
  }
 
-    override fun onCleared() {
-        super.onCleared()
+    override fun onDestroy() {
+        super.onDestroy()
         timerJob?.cancel()
     }
 

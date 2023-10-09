@@ -1,8 +1,8 @@
 package com.finance_tracker.finance_tracker.features.home
 
 import com.finance_tracker.finance_tracker.core.common.convertToCurrencyValue
-import com.finance_tracker.finance_tracker.core.common.getKoin
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.globalKoin
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesMode
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.toTransactionType
@@ -34,13 +34,13 @@ import kotlinx.coroutines.plus
 class HomeViewModel(
     private val accountsInteractor: AccountsInteractor,
     private val currenciesInteractor: CurrenciesInteractor,
-    private val transactionsInteractor: TransactionsInteractor,
+    transactionsInteractor: TransactionsInteractor,
     private val homeAnalytics: HomeAnalytics,
     dashboardSettingsInteractor: DashboardSettingsInteractor
-): BaseViewModel<HomeAction>() {
+): ComponentViewModel<HomeAction, HomeComponent.Action>() {
     private val transactionTypes = TransactionTypesMode.Main.types
     private val typesToAnalyticsDelegates = transactionTypes.associateWith {
-        getKoin().get<AnalyticsDelegates>().apply {
+        globalKoin.get<AnalyticsDelegates>().apply {
             setTransactionType(it.toTransactionType())
         }
     }
@@ -148,36 +148,36 @@ class HomeViewModel(
 
     fun onMyAccountsClick() {
         homeAnalytics.trackMyAccountsClick()
-        viewAction = HomeAction.OpenAccountsScreen
+        componentAction = HomeComponent.Action.OpenAccountsScreen
     }
 
     fun onAccountClick(account: Account) {
         homeAnalytics.trackAccountClick(account)
-        viewAction = HomeAction.OpenAccountDetailScreen(account)
+        componentAction = HomeComponent.Action.OpenAccountDetailScreen(account)
     }
 
     fun onAddAccountClick() {
         homeAnalytics.trackAddAccountClick()
-        viewAction = HomeAction.OpenAddAccountScreen
+        componentAction = HomeComponent.Action.OpenAddAccountScreen
     }
 
     fun onLastTransactionsClick() {
         homeAnalytics.trackLastTransactionsClick()
-        viewAction = HomeAction.OpenTransactionsScreen
+        componentAction = HomeComponent.Action.OpenTransactionsScreen
     }
 
     fun onTransactionClick(transaction: Transaction) {
         homeAnalytics.trackTransactionClick(transaction)
-        viewAction = HomeAction.OpenEditTransactionScreen(transaction)
+        componentAction = HomeComponent.Action.OpenEditTransactionScreen(transaction)
     }
 
     fun onSettingsClick() {
         homeAnalytics.trackSettingsClick()
-        viewAction = HomeAction.ShowSettingsDialog
+        componentAction = HomeComponent.Action.OpenSettingsScreen
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    override fun onDestroy() {
+        super.onDestroy()
         typesToAnalyticsDelegates.values.forEach { it.cancel() }
     }
 }

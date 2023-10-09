@@ -14,17 +14,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
+import com.finance_tracker.finance_tracker.core.common.painterDescResource
 import com.finance_tracker.finance_tracker.core.common.toLimitedFloat
 import com.finance_tracker.finance_tracker.core.common.toUIColor
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.domain.models.TxsByCategoryChart
+import com.finance_tracker.finance_tracker.domain.models.empty
 import com.finance_tracker.finance_tracker.features.analytics.PieChartLabelSize
 import com.finance_tracker.finance_tracker.features.analytics.PieChartSize
 import com.finance_tracker.finance_tracker.features.analytics.views.CoinBezierLabelConnector
-import dev.icerock.moko.resources.compose.painterResource
 import io.github.koalaplot.core.ChartLayout
 import io.github.koalaplot.core.pie.DefaultSlice
 import io.github.koalaplot.core.pie.PieChart
@@ -40,7 +40,6 @@ internal fun MainTxsByCategoryChart(
 ) {
     val totalAmount = monthTransactionsByCategory.total
     val txsByCategoryChartPieces = monthTransactionsByCategory.mainPieces
-    val context = LocalContext.current
 
     ChartLayout(
         modifier = modifier
@@ -76,14 +75,14 @@ internal fun MainTxsByCategoryChart(
             label = { index ->
                 val piece = txsByCategoryChartPieces.getOrNull(index)
                 if (piece != null) {
-                    val category = piece.category ?: Category.empty(context)
+                    val category = piece.category ?: Category.empty()
                     Icon(
                         modifier = Modifier
                             .size(PieChartLabelSize)
                             .clip(CircleShape)
                             .background(piece.color.toUIColor())
                             .padding(3.dp),
-                        painter = painterResource(category.icon),
+                        painter = painterDescResource(category.icon),
                         contentDescription = null,
                         tint = CoinTheme.color.white
                     )

@@ -119,9 +119,7 @@ extension OneCoinApp {
     private func homeViewModelUsage() {
         // let homeViewModel = diMediator.home.homeViewModel
         // homeViewModel.onScreenComposed()
-        
-    
-        // https://github.com/adeo-opensource/kviewmodel--mpp#ios
+
         // https://github.com/icerockdev/moko-kswift
         // homeViewModel.onScreenComposed() - called after screen rendered
         // createPublisher(for: homeViewModel.totalBalanceNative) - example of listening state changes

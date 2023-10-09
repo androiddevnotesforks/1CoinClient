@@ -7,11 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.Divider
-import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Surface
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,42 +21,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.BackHandler
-import com.finance_tracker.finance_tracker.core.common.DialogConfigurations
 import com.finance_tracker.finance_tracker.core.common.asSp
 import com.finance_tracker.finance_tracker.core.common.`if`
-import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
-import com.finance_tracker.finance_tracker.core.ui.dialogs.DeleteAlertDialog
+import com.finance_tracker.finance_tracker.core.ui.decompose_ext.subscribeBottomDialog
+import com.finance_tracker.finance_tracker.core.ui.dialogs.DeleteBottomDialog
 import com.finance_tracker.finance_tracker.domain.models.Amount
 import com.finance_tracker.finance_tracker.domain.models.Plan
+import com.finance_tracker.finance_tracker.features.add_transaction.views.ActionButtonsSection
 import com.finance_tracker.finance_tracker.features.add_transaction.views.LabeledAmountTextField
-import com.finance_tracker.finance_tracker.features.plans.setup.views.ActionButtonsSection
 import com.finance_tracker.finance_tracker.features.plans.setup.views.ExpenseLimitTopBar
 import com.finance_tracker.finance_tracker.features.plans.setup.views.SetupPlanController
 import com.finance_tracker.finance_tracker.features.plans.setup.views.StepsSetupPlanBar
 import com.finance_tracker.finance_tracker.features.plans.setup.views.StepsSetupPlanBarData
 import dev.icerock.moko.resources.compose.stringResource
-import org.koin.core.parameter.parametersOf
-import ru.alexgladkov.odyssey.compose.controllers.ModalController
-import ru.alexgladkov.odyssey.compose.extensions.present
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun SetupPlanScreen(
-    params: SetupPlanScreenParams
+    component: SetupPlanComponent
 ) {
-    ComposeScreen<SetupPlanViewModel>(
-        parameters = { parametersOf(params) }
-    ) { viewModel ->
-        val navController = LocalRootController.current.findRootController()
-        val modalNavController = navController.findModalController()
+    val viewModel = component.viewModel
+    ComposeScreen(component) {
         LaunchedEffect(Unit) {
             viewModel.onScreenComposed()
-        }
-
-        viewModel.watchViewActions { action, baseLocalsStorage ->
-            handleAction(action, baseLocalsStorage)
         }
 
         val currentStep by viewModel.currentStep.collectAsState()
@@ -128,7 +114,8 @@ fun SetupPlanScreen(
                     .`if`(currentStep != null) {
                         weight(2f)
                     },
-                elevation = 8.dp
+                elevation = 8.dp,
+                contentColor = CoinTheme.color.content
             ) {
                 var previousStepIndex by rememberSaveable {
                     mutableStateOf(currentStep?.let { it.ordinal - 1 })
@@ -140,96 +127,76 @@ fun SetupPlanScreen(
                     previousStepIndex = currentStep?.ordinal
                 }
 
-                CompositionLocalProvider(LocalContentColor provides CoinTheme.color.content) {
-                    Column {
-                        if (isSystemInDarkTheme()) {
-                            Divider(
-                                thickness = 0.5.dp,
-                                color = CoinTheme.color.dividers
-                            )
-                        }
-
-                        StepsSetupPlanBar(
-                            data = StepsSetupPlanBarData(
-                                steps = currentFlow,
-                                currentStep = currentStep,
-                                categoryData = categoryData
-                            ),
-                            onStepSelect = viewModel::onCurrentStepSelect
-                        )
-
-                        val categories by viewModel.expenseCategories.collectAsState()
-
-                        SetupPlanController(
-                            modifier = Modifier
-                                .`if`(currentStep == null) {
-                                    height(0.dp)
-                                }
-                                .`if`(currentStep != null) {
-                                    weight(1f)
-                                },
-                            categories = categories,
-                            currentStep = currentStep,
-                            animationDirection = when {
-                                currentStep == null || previousStepIndex == null -> 0
-                                currentStep!!.ordinal >= previousStepIndex!! -> 1
-                                else -> -1
-                            },
-                            onCategorySelect = viewModel::onCategorySelect,
-                            onKeyboardButtonClick = viewModel::onKeyboardButtonClick
-                        )
-
-                        ActionButtonsSection(
-                            hasActiveStep = currentStep != null,
-                            enabled = isAddTransactionEnabled,
-                            onAddClick = {
-                                val fromButtonClick = true
-                                onUpdateTransaction(fromButtonClick)
-                            },
-                            onEditClick = {
-                                val fromButtonClick = true
-                                onUpdateTransaction(fromButtonClick)
-                            },
-                            isEditMode = viewModel.isEditMode,
-                            onDeleteClick = {
-                                modalNavController.present(DialogConfigurations.alert) { dialogKey ->
-                                    DeletePlanDialog(
-                                        key = dialogKey,
-                                        plan = params.plan,
-                                        modalNavController = modalNavController,
-                                        onDeleteTransactionClick = { plan ->
-                                            viewModel.onDeletePlanClick(
-                                                plan,
-                                                dialogKey
-                                            )
-                                        }
-                                    )
-                                }
-                            }
+                Column {
+                    if (isSystemInDarkTheme()) {
+                        Divider(
+                            thickness = 0.5.dp,
+                            color = CoinTheme.color.dividers
                         )
                     }
+
+                    StepsSetupPlanBar(
+                        data = StepsSetupPlanBarData(
+                            steps = currentFlow,
+                            currentStep = currentStep,
+                            categoryData = categoryData
+                        ),
+                        onStepSelect = viewModel::onCurrentStepSelect
+                    )
+
+                    val categories by viewModel.expenseCategories.collectAsState()
+
+                    SetupPlanController(
+                        modifier = Modifier
+                            .`if`(currentStep == null) {
+                                height(0.dp)
+                            }
+                            .`if`(currentStep != null) {
+                                weight(1f)
+                            },
+                        categories = categories,
+                        currentStep = currentStep,
+                        animationDirection = when {
+                            currentStep == null || previousStepIndex == null -> 0
+                            currentStep!!.ordinal >= previousStepIndex!! -> 1
+                            else -> -1
+                        },
+                        onCategorySelect = viewModel::onCategorySelect,
+                        onKeyboardButtonClick = viewModel::onKeyboardButtonClick
+                    )
+
+                    ActionButtonsSection(
+                        hasActiveStep = currentStep != null,
+                        enabled = isAddTransactionEnabled,
+                        onAddClick = {
+                            val fromButtonClick = true
+                            onUpdateTransaction(fromButtonClick)
+                        },
+                        onEditClick = {
+                            val fromButtonClick = true
+                            onUpdateTransaction(fromButtonClick)
+                        },
+                        isEditMode = viewModel.isEditMode,
+                        onDeleteClick = {
+                            viewModel.onDeletePlanClick()
+                        }
+                    )
                 }
             }
         }
     }
-}
 
-@Composable
-private fun DeletePlanDialog(
-    key: String,
-    plan: Plan?,
-    modalNavController: ModalController,
-    onDeleteTransactionClick: (Plan) -> Unit
-) {
-    DeleteAlertDialog(
-        titleEntity = stringResource(MR.strings.deleting_plan),
-        onCancelClick = {
-            modalNavController.popBackStack(key, animate = false)
-        },
-        onDeleteClick = {
-            plan?.let {
-                onDeleteTransactionClick(it)
+    component.bottomDialogSlot.subscribeBottomDialog(
+        onDismissRequest = viewModel::onDismissBottomDialog,
+    ) { child ->
+        when (child) {
+            is SetupPlanComponent.BottomDialogChild.DeletePlan -> {
+                DeleteBottomDialog(
+                    component = child.component,
+                    onCancelClick = viewModel::onDismissBottomDialog,
+                    onDeleteClick = viewModel::onConfirmDeletePlanClick
+                )
             }
         }
-    )
+    }
 }

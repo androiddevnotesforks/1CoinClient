@@ -20,20 +20,20 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
+import com.finance_tracker.finance_tracker.core.common.painterDescResource
+import com.finance_tracker.finance_tracker.core.common.stringDescResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.NoRippleTheme
-import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
-import ru.alexgladkov.odyssey.compose.controllers.TabNavigationModel
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
+import com.finance_tracker.finance_tracker.features.tabs_navigation.TabsNavigationComponent
 
 @Composable
 internal fun BottomNavigationBar(
-    selectedTabItem: TabNavigationModel,
-    onItemSelect: (tab: TabNavigationModel) -> Unit,
+    allTabs: List<TabsNavigationComponent.Config?>,
+    activeChild: TabsNavigationComponent.Child,
+    onItemSelect: (tab: TabsNavigationComponent.Config) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val rootController = LocalRootController.current as MultiStackRootController
-    val tabItems = rootController.tabItems.take(2) + null + rootController.tabItems.takeLast(2)
+    val activeTab = getTabForChild(activeChild)
     val navigationBarsHeight = LocalFixedInsets.current.navigationBarsHeight
     BottomAppBar(
         modifier = modifier,
@@ -44,16 +44,33 @@ internal fun BottomNavigationBar(
             bottom = navigationBarsHeight
         )
     ) {
-        tabItems.forEach { item ->
-            if (item != null) {
+        allTabs.forEach { tab ->
+            if (tab != null) {
                 BottomNavigationItem(
-                    item = item,
-                    selected = selectedTabItem == item,
-                    onClick = { onItemSelect(item) }
+                    item = tab,
+                    selected = tab == activeTab,
+                    onClick = { onItemSelect(tab) }
                 )
             } else {
                 EmptyBottomNavigationItem()
             }
+        }
+    }
+}
+
+private fun getTabForChild(child: TabsNavigationComponent.Child): TabsNavigationComponent.Config {
+    return when (child) {
+        is TabsNavigationComponent.Child.Analytics -> {
+            TabsNavigationComponent.Config.Analytics
+        }
+        is TabsNavigationComponent.Child.Home -> {
+            TabsNavigationComponent.Config.Home
+        }
+        is TabsNavigationComponent.Child.Plans -> {
+            TabsNavigationComponent.Config.Plans
+        }
+        is TabsNavigationComponent.Child.Transactions -> {
+            TabsNavigationComponent.Config.Transactions
         }
     }
 }
@@ -65,24 +82,23 @@ private fun EmptyBottomNavigationItem() {
 
 @Composable
 private fun RowScope.BottomNavigationItem(
-    item: TabNavigationModel,
+    item: TabsNavigationComponent.Config,
     selected: Boolean,
     onClick: () -> Unit
 ) {
-    val itemConfiguration = item.tabInfo.tabItem.configuration
     CompositionLocalProvider(LocalRippleTheme provides NoRippleTheme) {
         BottomNavigationItem(
             icon = {
                 NavBarIcon(
                     selected = selected,
-                    selectedIcon = itemConfiguration.selectedIcon!!,
-                    unselectedIcon = itemConfiguration.unselectedIcon!!,
-                    contentDescription = itemConfiguration.title
+                    selectedIcon = painterDescResource(item.selectedIcon),
+                    unselectedIcon = painterDescResource(item.unselectedIcon),
+                    contentDescription = stringDescResource(item.title)
                 )
             },
             label = {
                 Text(
-                    text = itemConfiguration.title,
+                    text = stringDescResource(item.title),
                     style = CoinTheme.typography.subtitle4,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis

@@ -16,11 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
-import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.theme.provideThemeImage
 import com.finance_tracker.finance_tracker.core.ui.AccountCard
-import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.core.ui.EmptyStub
 import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.grid.ReorderableItem
 import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.grid.detectReorderAfterLongPress
@@ -31,46 +29,40 @@ import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-internal fun AccountsScreen() {
-    ComposeScreen<AccountsViewModel> { viewModel ->
+internal fun AccountsScreen(
+    component: AccountsComponent
+) {
+    val viewModel = component.viewModel
 
-        viewModel.watchViewActions { action, baseLocalsStorage ->
-            handleAction(
-                action,
-                baseLocalsStorage
+    LaunchedEffect(Unit) {
+        viewModel.onScreenComposed()
+    }
+
+    Column {
+        AccountsAppBar(
+            onAddAccountClick = viewModel::onAddAccountClick,
+            onBackClick = viewModel::onBackClick
+        )
+
+        val accounts by viewModel.accounts.collectAsState()
+
+        if (accounts.isEmpty()) {
+            EmptyStub(
+                image = painterResource(
+                    provideThemeImage(
+                        darkFile = MR.images.accounts_empty_dark,
+                        lightFile = MR.images.accounts_empty_light
+                    )
+                ),
+                text = stringResource(MR.strings.add_account),
+                onClick = viewModel::onAddAccountClick
             )
-        }
-
-        LaunchedEffect(Unit) {
-            viewModel.onScreenComposed()
-        }
-
-        Column {
-            AccountsAppBar(
-                onAddAccountClick = viewModel::onAddAccountClick,
-                onBackClick = viewModel::onBackClick
+        } else {
+            AccountsList(
+                accounts = accounts,
+                onAccountClick = viewModel::onAccountClick,
+                onCardMove = viewModel::onCardMove
             )
-
-            val accounts by viewModel.accounts.collectAsState()
-
-            if (accounts.isEmpty()) {
-                EmptyStub(
-                    image = painterResource(
-                        provideThemeImage(
-                            darkFile = MR.images.accounts_empty_dark,
-                            lightFile = MR.images.accounts_empty_light
-                        )
-                    ),
-                    text = stringResource(MR.strings.add_account),
-                    onClick = viewModel::onAddAccountClick
-                )
-            } else {
-                AccountsList(
-                    accounts = accounts,
-                    onAccountClick = viewModel::onAccountClick,
-                    onCardMove = viewModel::onCardMove
-                )
-            }
         }
     }
 }

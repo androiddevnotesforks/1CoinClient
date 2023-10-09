@@ -1,6 +1,9 @@
 package com.finance_tracker.finance_tracker.core.common
 
-actual fun Context.updateSystemBarsConfig(
+import androidx.compose.runtime.Composable
+
+@Composable
+actual fun updateSystemBarsConfig(
     systemBarsConfig: SystemBarsConfig,
     isDarkTheme: Boolean
 ) {

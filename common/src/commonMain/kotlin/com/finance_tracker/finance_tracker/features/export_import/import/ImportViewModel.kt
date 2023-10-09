@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.features.export_import.import
 
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
 import com.finance_tracker.finance_tracker.core.common.view_models.showPreviousScreenSnackbar
 import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarActionState
@@ -15,14 +15,11 @@ import kotlinx.coroutines.launch
 class ImportViewModel(
     private val importAnalytics: ImportAnalytics,
     private val exportImportInteractor: ExportImportInteractor
-): BaseViewModel<ImportAction>() {
+): ComponentViewModel<ImportAction, ImportComponent.Action>() {
 
     private var importingFileJob: Job? = null
 
-    fun importFile(
-        dialogKey: String,
-        uri: String
-    ) {
+    fun importFile(uri: String) {
         importingFileJob = viewModelScope.launch {
             runCatching { exportImportInteractor.import(uri) }
                 .onSuccess {
@@ -46,7 +43,7 @@ class ImportViewModel(
                         )
                     )
                 }
-            viewAction = ImportAction.DismissDialog(dialogKey)
+            componentAction = ImportComponent.Action.Close
         }
     }
 
@@ -55,8 +52,8 @@ class ImportViewModel(
         importingFileJob = null
     }
 
-    fun onDismissDialog(dialogKey: String) {
+    fun onDismissDialog() {
         importAnalytics.trackCancelClick()
-        viewAction = ImportAction.DismissDialog(dialogKey)
+        componentAction = ImportComponent.Action.Close
     }
 }

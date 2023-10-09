@@ -1,6 +1,5 @@
 package com.finance_tracker.finance_tracker.core.common.date
 
-import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DatePeriod
@@ -38,10 +37,10 @@ fun YearMonth.plusMonth(value: Int): YearMonth {
     )
 }
 
-fun YearMonth.localizedName(context: Context): String {
+fun YearMonth.localizedName(): String {
     return if (currentYear == year) {
-        month.localizedName(context)
+        month.localizedName()
     } else {
-        "${month.localizedName(context)} $year"
+        "${month.localizedName()} $year"
     }
 }

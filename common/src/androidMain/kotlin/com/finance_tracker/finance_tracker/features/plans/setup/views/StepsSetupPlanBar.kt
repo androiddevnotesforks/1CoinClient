@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.`if`
+import com.finance_tracker.finance_tracker.core.common.noRippleClickable
+import com.finance_tracker.finance_tracker.core.common.painterDescResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.staticTextSize
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -34,7 +36,6 @@ import com.finance_tracker.finance_tracker.domain.models.Category
 import com.finance_tracker.finance_tracker.features.plans.setup.SetupPlanStep
 import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
-import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 data class StepsSetupPlanBarData(
     val steps: List<SetupPlanStep>,
@@ -112,7 +113,7 @@ internal fun CategoryRow(
     ) {
         Icon(
             modifier = Modifier.size(20.dp),
-            painter = painterResource(category.icon),
+            painter = painterDescResource(category.icon),
             contentDescription = null
         )
         Text(

@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.features.dashboard_settings
 
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.DashboardSettingsInteractor
 import com.finance_tracker.finance_tracker.domain.models.DashboardWidgetData
 import com.finance_tracker.finance_tracker.features.dashboard_settings.analytics.DashboardSettingsAnalytics
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 class DashboardSettingsViewModel(
     private val dashboardSettingsAnalytics: DashboardSettingsAnalytics,
     private val dashboardSettingsInteractor: DashboardSettingsInteractor
-): BaseViewModel<DashboardSettingsAction>() {
+): ComponentViewModel<DashboardSettingsAction, DashboardSettingsComponent.Action>() {
 
     private val _dashboardWidgets = MutableStateFlow<ImmutableList<DashboardWidgetData>>(persistentListOf())
     val dashboardWidgets = _dashboardWidgets.asStateFlow()
@@ -34,7 +34,7 @@ class DashboardSettingsViewModel(
 
     fun onBackClick() {
         dashboardSettingsAnalytics.trackBackClick()
-        viewAction = DashboardSettingsAction.Close
+        componentAction = DashboardSettingsComponent.Action.Back
     }
 
     fun onDashboardItemClick(dashboardWidgetData: DashboardWidgetData) {

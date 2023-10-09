@@ -2,7 +2,7 @@ package com.finance_tracker.finance_tracker.features.add_category.analytics
 
 import com.finance_tracker.finance_tracker.core.analytics.BaseAnalytics
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
-import dev.icerock.moko.resources.ImageResource
+import dev.icerock.moko.resources.desc.image.ImageDescResource
 
 class AddCategoryAnalytics: BaseAnalytics() {
 
@@ -14,7 +14,7 @@ class AddCategoryAnalytics: BaseAnalytics() {
 
     fun onAddOrEditCategoryClick(
         transactionType: TransactionType,
-        iconName: ImageResource,
+        iconName: ImageDescResource,
         categoryName: String,
         isEdit: Boolean,
     ) {

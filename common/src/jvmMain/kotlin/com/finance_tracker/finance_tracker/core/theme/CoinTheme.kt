@@ -20,13 +20,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
 import com.finance_tracker.finance_tracker.core.common.LocalSystemBarsConfig
 import com.finance_tracker.finance_tracker.core.common.asSp
-import com.finance_tracker.finance_tracker.core.common.getContext
 import com.finance_tracker.finance_tracker.core.common.getFixedInsets
-import com.finance_tracker.finance_tracker.core.common.getKoin
+import com.finance_tracker.finance_tracker.core.common.globalKoin
 import com.finance_tracker.finance_tracker.core.common.updateSystemBarsConfig
 import com.finance_tracker.finance_tracker.core.ui.snackbar.CoinSnackbarHostState
 import com.finance_tracker.finance_tracker.domain.interactors.ThemeInteractor
@@ -34,7 +32,7 @@ import com.finance_tracker.finance_tracker.domain.models.ThemeMode
 import dev.icerock.moko.resources.ImageResource
 import com.finance_tracker.finance_tracker.core.theme.toJvmColorPalette as toJvmColorPalette1
 
-private val themeInteractor: ThemeInteractor by lazy { getKoin().get() }
+private val themeInteractor: ThemeInteractor by lazy { globalKoin.get() }
 
 val LocalDarkTheme = staticCompositionLocalOf {
     false
@@ -123,8 +121,7 @@ fun CoinTheme(
         derivedStateOf { ColorPalette.provideColorPalette(isDarkTheme).toJvmColorPalette1() }
     }
 
-    val context = getContext()
-    context.updateSystemBarsConfig(
+    updateSystemBarsConfig(
         systemBarsConfig = LocalSystemBarsConfig.current,
         isDarkTheme = isDarkTheme
     )
@@ -146,7 +143,6 @@ fun CoinTheme(
         )
     ) {
         CompositionLocalProvider(
-            LocalContext provides context,
             LocalCoinColors provides coinColors.switch(),
             LocalCoinTypography provides CoinTheme.typography,
             LocalCoinShapes provides CoinTheme.shapes,

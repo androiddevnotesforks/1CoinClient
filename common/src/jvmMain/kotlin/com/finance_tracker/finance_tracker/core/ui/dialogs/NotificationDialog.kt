@@ -10,15 +10,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.stringDescResource
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.button.ActionButton
-import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 fun NotificationDialog(
-    text: StringResource,
-    onOkClick: () -> Unit
+    component: NotificationDialogComponent
 ) {
     AlertDialogSurface {
         Column(
@@ -28,7 +27,7 @@ fun NotificationDialog(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(top = 16.dp),
-                text = stringResource(text),
+                text = stringDescResource(component.textRes),
                 style = CoinTheme.typography.body1,
                 color = CoinTheme.color.content
             )
@@ -44,7 +43,7 @@ fun NotificationDialog(
             ) {
                 ActionButton(
                     text = stringResource(MR.strings.okey),
-                    onClick = onOkClick
+                    onClick = { component.onOkClick() }
                 )
             }
         }

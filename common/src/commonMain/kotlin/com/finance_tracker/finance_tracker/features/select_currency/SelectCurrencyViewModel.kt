@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.features.select_currency
 
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.models.Currency
 import com.finance_tracker.finance_tracker.features.select_currency.analytics.SelectCurrencyAnalytics
@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 
 class SelectCurrencyViewModel(
     private val currenciesInteractor: CurrenciesInteractor,
-    private val selectCurrencyAnalytics: SelectCurrencyAnalytics,
-): BaseViewModel<SelectCurrencyAction>() {
+    private val selectCurrencyAnalytics: SelectCurrencyAnalytics
+): ComponentViewModel<Any, SelectCurrencyComponent.Action>() {
 
     private val _currencies = MutableStateFlow(Currency.list)
     val currencies = _currencies.asStateFlow()
@@ -29,7 +29,7 @@ class SelectCurrencyViewModel(
 
     fun onBackClick() {
         selectCurrencyAnalytics.trackBackClick()
-        viewAction = SelectCurrencyAction.Close
+        componentAction = SelectCurrencyComponent.Action.Back
     }
 
     fun onSearchTextChange(text: String) {
@@ -41,6 +41,7 @@ class SelectCurrencyViewModel(
         viewModelScope.launch {
             currenciesInteractor.savePrimaryCurrency(currency)
         }
+        componentAction = SelectCurrencyComponent.Action.Back
     }
 
     fun onSearchClick() {

@@ -22,9 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.AppScope
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import dev.icerock.moko.resources.compose.painterResource
 import dev.icerock.moko.resources.compose.stringResource
+import kotlinx.coroutines.launch
 
 @Composable
 fun CoinSnackbar(
@@ -96,7 +98,11 @@ private fun SnackbarAction(
                     modifier = Modifier
                         .padding(end = 6.dp)
                         .clip(CircleShape)
-                        .clickable { actionState.onAction() }
+                        .clickable {
+                            AppScope.launch {
+                                actionState.onAction()
+                            }
+                        }
                         .size(32.dp)
                         .padding(6.dp),
                     painter = painterResource(MR.images.ic_close),
@@ -110,7 +116,11 @@ private fun SnackbarAction(
                         .padding(end = 10.dp)
                         .widthIn(min = 32.dp)
                         .clip(RoundedCornerShape(8.dp))
-                        .clickable { actionState.onAction() }
+                        .clickable {
+                            AppScope.launch {
+                                actionState.onAction()
+                            }
+                        }
                         .background(CoinTheme.color.secondaryBackground)
                         .padding(8.dp),
                     verticalAlignment = Alignment.CenterVertically

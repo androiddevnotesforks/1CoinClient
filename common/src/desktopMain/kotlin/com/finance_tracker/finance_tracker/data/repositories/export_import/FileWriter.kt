@@ -1,10 +1,6 @@
 package com.finance_tracker.finance_tracker.data.repositories.export_import
 
-import com.finance_tracker.finance_tracker.core.common.Context
-
-actual class FileWriter actual constructor(
-    context: Context
-) {
+actual class FileWriter {
     
     actual suspend fun zipFiles(
         directoryUri: String,

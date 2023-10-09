@@ -17,7 +17,6 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.CoinOutlinedTextField
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.core.ui.button.PrimaryButton
@@ -25,44 +24,34 @@ import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.features.add_category.views.AddCategoryAppBar
 import com.finance_tracker.finance_tracker.features.add_category.views.ChooseIconButton
 import dev.icerock.moko.resources.compose.stringResource
-import org.koin.core.parameter.parametersOf
 
 private const val MinCategoryNameLength = 2
 
 @Composable
 internal fun AddCategoryScreen(
-    addCategoryScreenParams: AddCategoryScreenParams
+    component: AddCategoryComponent
 ) {
-    ComposeScreen<AddCategoryViewModel>(
-        parameters = { parametersOf(addCategoryScreenParams) }
-    ) { viewModel ->
-
+    ComposeScreen(component) {
+        val viewModel = component.viewModel
         val focusRequester = remember { FocusRequester() }
 
         LaunchedEffect(Unit) {
-            if (addCategoryScreenParams.category == null) {
+            if (viewModel.category == null) {
                 focusRequester.requestFocus()
             }
-        }
-
-        viewModel.watchViewActions { action, baseLocalsStorage ->
-            handleAction(
-                action = action,
-                baseLocalsStorage = baseLocalsStorage
-            )
         }
 
         Column(modifier = Modifier.fillMaxSize()) {
             AddCategoryAppBar(
                 onBackClick = viewModel::onBackClick,
                 textValue = if (viewModel.isEditMode) {
-                    if (addCategoryScreenParams.transactionType == TransactionType.Expense) {
+                    if (viewModel.transactionType == TransactionType.Expense) {
                         MR.strings.expense_category
                     } else {
                         MR.strings.income_category
                     }
                 } else {
-                    if (addCategoryScreenParams.transactionType == TransactionType.Expense) {
+                    if (viewModel.transactionType == TransactionType.Expense) {
                         MR.strings.new_expense_category
                     } else {
                         MR.strings.new_income_category

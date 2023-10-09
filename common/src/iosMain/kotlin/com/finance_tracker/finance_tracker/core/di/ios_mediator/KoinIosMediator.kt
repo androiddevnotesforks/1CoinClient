@@ -1,7 +1,6 @@
 package com.finance_tracker.finance_tracker.core.di.ios_mediator
 
 import com.finance_tracker.finance_tracker.core.common.AppInitializer
-import com.finance_tracker.finance_tracker.core.common.EmptyContext
 import com.finance_tracker.finance_tracker.core.common.di.Di
 import com.finance_tracker.finance_tracker.core.common.logger.LoggerInitializer
 import com.finance_tracker.finance_tracker.data.settings.AccountSettings
@@ -19,7 +18,7 @@ object DiMediator {
     val sample = SampleFeatureIos()
 
     fun configure() {
-        Di.init(EmptyContext)
+        Di.init()
     }
 }
 

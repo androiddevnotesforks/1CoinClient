@@ -7,7 +7,7 @@ import com.finance_tracker.finance_tracker.core.common.formatters.format
 import com.finance_tracker.finance_tracker.core.common.formatters.parseToDouble
 import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
 import com.finance_tracker.finance_tracker.core.common.keyboard.applyKeyboardAction
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.plans.PlansInteractor
 import com.finance_tracker.finance_tracker.domain.models.Amount
@@ -25,9 +25,8 @@ class SetLimitViewModel(
     currenciesInteractor: CurrenciesInteractor,
     private val plansInteractor: PlansInteractor,
     private val plansOverviewAnalytics: PlansOverviewAnalytics
-): BaseViewModel<SetLimitAction>() {
+): ComponentViewModel<Any, SetLimitComponent.Action>() {
 
-    private var dialogKey: String? = null
     private var yearMonth: YearMonth? = null
     private val enteredBalance = MutableStateFlow(
         TextFieldValue(
@@ -62,12 +61,12 @@ class SetLimitViewModel(
             .launchIn(viewModelScope)
     }
 
-    fun setDialogKey(dialogKey: String) {
-        this.dialogKey = dialogKey
-    }
-
     fun onAmountChange(amount: TextFieldValue) {
         enteredBalance.value = amount
+    }
+
+    fun onDismissRequest() {
+        componentAction = SetLimitComponent.Action.Dismiss
     }
 
     fun onKeyboardButtonClick(keyboardAction: KeyboardAction) {
@@ -81,9 +80,7 @@ class SetLimitViewModel(
                 val amount = Amount(primaryCurrency.value, limitValue)
                 plansOverviewAnalytics.trackSetLimitClick(yearMonth)
                 plansInteractor.setMonthLimit(yearMonth, amount)
-                dialogKey?.let {
-                    viewAction = SetLimitAction.DismissDialog(it)
-                }
+                componentAction = SetLimitComponent.Action.Dismiss
             }
         }
     }

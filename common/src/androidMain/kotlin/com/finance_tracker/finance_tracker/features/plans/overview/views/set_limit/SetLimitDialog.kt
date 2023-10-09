@@ -15,72 +15,61 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.common.R
-import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.common.toTextFieldValue
 import com.finance_tracker.finance_tracker.core.common.toUiTextFieldValue
-import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
-import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.core.ui.button.PrimaryButton
 import com.finance_tracker.finance_tracker.core.ui.dialogs.BottomSheetDialogSurface
 import com.finance_tracker.finance_tracker.core.ui.keyboard.ArithmeticKeyboard
 import com.finance_tracker.finance_tracker.features.plans.overview.views.set_limit.views.AmountTextField
-import com.finance_tracker.finance_tracker.features.plans.set_limit.SetLimitViewModel
+import com.finance_tracker.finance_tracker.features.plans.set_limit.SetLimitComponent
 
 @Composable
-fun SetLimitDialog(
-    dialogKey: String,
-    yearMonth: YearMonth
-) {
-    BottomSheetDialogSurface {
-        ComposeScreen<SetLimitViewModel> { viewModel ->
+fun SetLimitDialog(component: SetLimitComponent) {
+    BottomSheetDialogSurface(
+        onDismissRequest = { component.viewModel.onDismissRequest() }
+    ) {
+        val viewModel = component.viewModel
+        val state by viewModel.state.collectAsState()
+        val focusRequester = remember { FocusRequester() }
 
-            val state by viewModel.state.collectAsState()
-            val focusRequester = remember { FocusRequester() }
+        LaunchedEffect(Unit) {
+            viewModel.setYearMonth(component.yearMonth)
 
-            viewModel.watchViewActions { action, baseLocalsStorage ->
-                handleAction(action, baseLocalsStorage)
-            }
+            focusRequester.requestFocus()
+        }
 
-            LaunchedEffect(Unit) {
-                viewModel.setYearMonth(yearMonth)
-                viewModel.setDialogKey(dialogKey)
+        Column {
 
-                focusRequester.requestFocus()
-            }
+            AmountTextField(
+                modifier = Modifier.focusRequester(focusRequester),
+                enteredBalance = state.balance.toUiTextFieldValue(),
+                isError = false,
+                currency = state.primaryCurrency,
+                onAmountChange = { uiTextFieldValue ->
+                    viewModel.onAmountChange(uiTextFieldValue.toTextFieldValue())
+                }
+            )
 
-            Column {
+            ArithmeticKeyboard(
+                shouldShowAmountKeyboard = true,
+                onKeyboardClick = viewModel::onKeyboardButtonClick,
+                modifier = Modifier
+                    .padding(top = 2.dp)
+                    .heightIn(max = 290.dp),
+                isBottomExpandable = false,
+                hasNavBarInsets = false,
+                hasElevation = false,
+                isArithmeticOperationsVisible = false,
+                hasBackground = false
+            )
 
-                AmountTextField(
-                    modifier = Modifier.focusRequester(focusRequester),
-                    enteredBalance = state.balance.toUiTextFieldValue(),
-                    isError = false,
-                    currency = state.primaryCurrency,
-                    onAmountChange = { uiTextFieldValue ->
-                        viewModel.onAmountChange(uiTextFieldValue.toTextFieldValue())
-                    }
-                )
-
-                ArithmeticKeyboard(
-                    shouldShowAmountKeyboard = true,
-                    onKeyboardClick = viewModel::onKeyboardButtonClick,
-                    modifier = Modifier
-                        .padding(top = 2.dp)
-                        .heightIn(max = 290.dp),
-                    isBottomExpandable = false,
-                    hasNavBarInsets = false,
-                    hasElevation = false,
-                    isArithmeticOperationsVisible = false,
-                    hasBackground = false
-                )
-
-                PrimaryButton(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    text = stringResource(R.string.plans_amount_btn_set_limit),
-                    onClick = viewModel::onSetLimitClick
-                )
-            }
+            PrimaryButton(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                text = stringResource(R.string.plans_amount_btn_set_limit),
+                onClick = viewModel::onSetLimitClick
+            )
         }
     }
 }

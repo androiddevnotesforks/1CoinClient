@@ -1,0 +1,3 @@
+package com.finance_tracker.finance_tracker.core.common
+
+actual object ApplicationContextStorage

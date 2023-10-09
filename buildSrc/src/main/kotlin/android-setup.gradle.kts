@@ -3,15 +3,14 @@ import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 plugins {
     id("com.android.library")
-    id("kotlin-parcelize")
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26
-        targetSdk = 33
+        targetSdk = 34
     }
 
     buildTypes {

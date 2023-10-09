@@ -1,19 +1,19 @@
 package com.finance_tracker.finance_tracker.core.common.view_models
 
-import com.finance_tracker.finance_tracker.core.common.getKoin
+import com.finance_tracker.finance_tracker.core.common.globalKoin
 import com.finance_tracker.finance_tracker.core.common.snackbar.SnackbarManager
 import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarState
 
-private val snackbarManager = getKoin().get<SnackbarManager>()
+private val snackbarManager = globalKoin.get<SnackbarManager>()
 
-fun BaseViewModel<*>.showCurrentScreenSnackbar(snackbarState: SnackbarState) {
+fun ComponentViewModel<*, *>.showCurrentScreenSnackbar(snackbarState: SnackbarState) {
     showSnackbar(
         snackbarState = snackbarState,
         showOnCurrentScreen = true
     )
 }
 
-fun BaseViewModel<*>.showPreviousScreenSnackbar(snackbarState: SnackbarState) {
+fun ComponentViewModel<*, *>.showPreviousScreenSnackbar(snackbarState: SnackbarState) {
     showSnackbar(
         snackbarState = snackbarState,
         showOnCurrentScreen = false
@@ -21,11 +21,11 @@ fun BaseViewModel<*>.showPreviousScreenSnackbar(snackbarState: SnackbarState) {
 }
 
 @Suppress("UnusedReceiverParameter")
-fun BaseViewModel<*>.hideSnackbar() {
+fun ComponentViewModel<*, *>.hideSnackbar() {
     snackbarManager.hideSnackbar()
 }
 
-private fun BaseViewModel<*>.showSnackbar(
+private fun ComponentViewModel<*, *>.showSnackbar(
     snackbarState: SnackbarState,
     showOnCurrentScreen: Boolean
 ) {

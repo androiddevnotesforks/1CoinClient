@@ -1,11 +1,12 @@
 package com.finance_tracker.finance_tracker.features.add_category
 
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.asImageDescResource
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.CategoriesInteractor
 import com.finance_tracker.finance_tracker.domain.models.TransactionType
 import com.finance_tracker.finance_tracker.features.add_category.analytics.AddCategoryAnalytics
-import dev.icerock.moko.resources.ImageResource
+import dev.icerock.moko.resources.desc.image.ImageDescResource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -16,23 +17,24 @@ class AddCategoryViewModel(
     private val categoriesInteractor: CategoriesInteractor,
     private val addCategoryAnalytics: AddCategoryAnalytics,
     private val screenParams: AddCategoryScreenParams
-): BaseViewModel<AddCategoryAction>() {
+): ComponentViewModel<AddCategoryAction, AddCategoryComponent.Action>() {
 
     private val categoriesNamesList = List(63) { "ic_category_${it + 1}" }
 
-    private val _icons = MutableStateFlow<List<ImageResource>>(emptyList())
+    private val _icons = MutableStateFlow<List<ImageDescResource>>(emptyList())
     val icons = _icons.asStateFlow()
 
+    val category = screenParams.category
     private val _chosenIcon = MutableStateFlow(
-        screenParams.category?.icon ?: MR.images.ic_category_1
+        category?.icon ?: MR.images.ic_category_1.asImageDescResource()
     )
     val chosenIcon = _chosenIcon.asStateFlow()
 
-    private val _categoryName = MutableStateFlow(screenParams.category?.name.orEmpty())
+    private val _categoryName = MutableStateFlow(category?.name.orEmpty())
     val categoryName = _categoryName.asStateFlow()
 
-    private val transactionType = screenParams.transactionType
-    val isEditMode = screenParams.category != null
+    val transactionType = screenParams.transactionType
+    val isEditMode = category != null
 
     init {
         addCategoryAnalytics.trackScreenOpen()
@@ -51,13 +53,13 @@ class AddCategoryViewModel(
         }
     }
 
-    fun onIconChoose(icon: ImageResource) {
+    fun onIconChoose(icon: ImageDescResource) {
         _chosenIcon.value = icon
     }
 
     private suspend fun addCategory(
         categoryName: String,
-        categoryIcon: ImageResource,
+        categoryIcon: ImageDescResource,
         transactionType: TransactionType
     ) {
         categoriesInteractor.insertCategory(
@@ -76,7 +78,7 @@ class AddCategoryViewModel(
 
     fun onBackClick() {
         addCategoryAnalytics.onBackClick()
-        viewAction = AddCategoryAction.CloseScreen
+        componentAction = AddCategoryComponent.Action.CloseScreen
     }
 
     fun addOrUpdateCategory() {
@@ -92,7 +94,7 @@ class AddCategoryViewModel(
 
         viewModelScope.launch {
             if (isEditMode) {
-                val categoryId = screenParams.category?.id ?: return@launch
+                val categoryId = category?.id ?: return@launch
                 categoriesInteractor.updateCategory(
                     id = categoryId,
                     name = newCategoryName,
@@ -105,7 +107,7 @@ class AddCategoryViewModel(
                     transactionType = transactionType
                 )
             }
-            viewAction = AddCategoryAction.CloseScreen
+            componentAction = AddCategoryComponent.Action.CloseScreen
         }
     }
 }

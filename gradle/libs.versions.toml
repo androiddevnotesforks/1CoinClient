@@ -1,22 +1,20 @@
 [versions]
-android_plugin = "8.1.0"
-kotlin = "1.8.20"
+android_plugin = "8.2.0-beta06"
+kotlin = "1.9.20-Beta2"
 kotlin_datetime = "0.4.0"
-kotlin_coroutines = "1.7.2"
-odyssey = "1.3.3"
-compose = "1.4.0"
-koin = "3.4.2"
+kotlin_coroutines = "1.7.3"
+compose = "1.5.10-beta02"
+koin = "3.4.3"
 koin_compose = "3.4.1"
 sqldelight = "1.5.5"
-firebase = "32.2.2"
+firebase = "32.3.1"
 chucker = "3.5.2"
-kviewmodel = "0.14"
 ktor = "2.3.3"
 koalaplot = "0.3.0"
-serialization = "1.5.1"
-detekt = "1.23.0"
-google_services = "4.3.15"
-firebase_crashlytics = "2.9.8"
+serialization = "1.6.0"
+detekt = "1.23.1"
+google_services = "4.4.0"
+firebase_crashlytics = "2.9.9"
 slf4j = "1.7.36"
 settings = "1.0.0"
 buildkonfig = "0.13.3"
@@ -32,7 +30,7 @@ datepicker_desktop = "11.2.1"
 paging = "3.1.1-0.3.1"
 json = "20211205"
 lottie = "6.1.0"
-googleServicesAuth = "20.6.0"
+googleServicesAuth = "20.7.0"
 immutableCollections = "0.3.5"
 imageloader = "1.4.0"
 arithmetic-evaluator = "0.15.0"
@@ -40,6 +38,11 @@ bignum = "0.3.8"
 nativecoroutines = "0.13.3"
 moko_kswift = "0.6.1"
 documentfile = "1.0.1"
+material3 = "1.2.0-alpha09"
+
+decompose = "2.2.0-alpha02"
+decompose_experimental = "2.2.0-compose-experimental-alpha02"
+essenty = "1.1.0"
 
 [libraries]
 gradleplugins-android = { module = "com.android.tools.build:gradle", version.ref = "android_plugin" }
@@ -55,18 +58,17 @@ gradleplugins-resources = { module = "dev.icerock.moko:resources-generator", ver
 gradleplugins-nativecoroutines = { module = "com.rickclephas.kmp.nativecoroutines:com.rickclephas.kmp.nativecoroutines.gradle.plugin", version.ref = "nativecoroutines" }
 gradleplugins-kswift = { module = "dev.icerock.moko:kswift-gradle-plugin", version.ref = "moko_kswift" }
 
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose_experimental" }
+essenty-lifecycle = { module = "com.arkivanov.essenty:lifecycle", version.ref = "essenty" }
+essenty-statekeeper = { module = "com.arkivanov.essenty:state-keeper", version.ref = "essenty" }
+
 paging = { module = "app.cash.paging:paging-common", version.ref = "paging" }
-
-odyssey-core = { module = "io.github.alexgladkov:odyssey-core", version.ref = "odyssey" }
-odyssey-compose = { module = "io.github.alexgladkov:odyssey-compose", version.ref = "odyssey" }
-
-kviewmodel = { module = "com.adeo:kviewmodel", version.ref = "kviewmodel" }
-kviewmodel-compose = { module = "com.adeo:kviewmodel-compose", version.ref = "kviewmodel" }
-kviewmodel-odyssey = { module = "com.adeo:kviewmodel-odyssey", version.ref = "kviewmodel" }
 
 compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 
@@ -140,9 +142,9 @@ bignum = { module = "com.ionspin.kotlin:bignum", version.ref = "bignum" }
 documentfile = { module = "androidx.documentfile:documentfile", version.ref = "documentfile" }
 
 [bundles]
-odyssey = ["odyssey-core", "odyssey-compose"]
-compose = ["compose-animation", "compose-foundation", "compose-material", "compose-ui"]
+compose = ["compose-animation", "compose-foundation", "compose-material", "compose-material3", "compose-ui"]
 koin-android = ["koin-android", "koin-compose"]
-kviewmodel-compose = ["kviewmodel-compose", "kviewmodel-odyssey"]
 ktor = ["ktor-core", "ktor-contentNegotiation", "ktor-serialization", "ktor-logging"]
 settings = ["settings", "settings-coroutines"]
+decompose = ["decompose", "decompose-extensions"]
+essenty = ["essenty-lifecycle", "essenty-statekeeper"]

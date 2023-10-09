@@ -25,7 +25,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.date.localizedName
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.features.plans.overview.views.plan_period.PlanPeriodCallback
@@ -57,7 +56,6 @@ internal fun PlanPeriodView(
                 onClick = callback::onPreviousPeriodClick
             )
 
-            val context = LocalContext.current
             AnimatedContent(
                 modifier = Modifier.weight(1f),
                 targetState = state.selectedPeriod,
@@ -74,7 +72,7 @@ internal fun PlanPeriodView(
                 label = "AnimatedContent"
             ) { targetState ->
                 Text(
-                    text = targetState.localizedName(context),
+                    text = targetState.localizedName(),
                     style = CoinTheme.typography.body1_medium,
                     textAlign = TextAlign.Center
                 )

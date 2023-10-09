@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 
 private val amountExtCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
-private val currenciesRepository: CurrenciesRepository by lazy { getKoin().get() }
+private val currenciesRepository: CurrenciesRepository by lazy { globalKoin.get() }
 private val currencyRatesFlow = currenciesRepository.getCurrencyRatesFlow()
     .stateIn(amountExtCoroutineScope, initialValue = emptyMap())
 

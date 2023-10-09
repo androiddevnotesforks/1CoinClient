@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.localizedString
 import com.finance_tracker.finance_tracker.core.common.zeroPrefixed
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.features.analytics.PeriodChip
@@ -54,7 +55,7 @@ internal fun PeriodBarChart(
 
         Text(
             modifier = Modifier.padding(top = 16.dp),
-            text = selectedBarChatEntity?.overviewTitle ?: defaultTitle,
+            text = selectedBarChatEntity?.overviewTitle?.localizedString() ?: defaultTitle,
             style = CoinTheme.typography.subtitle2_medium,
             color = CoinTheme.color.content.copy(alpha = 0.5f)
         )

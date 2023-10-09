@@ -23,10 +23,16 @@ import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActi
 import com.finance_tracker.finance_tracker.core.feature_flags.FeatureFlag
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
+import com.finance_tracker.finance_tracker.core.ui.decompose_ext.subscribeAlertDialog
+import com.finance_tracker.finance_tracker.core.ui.decompose_ext.subscribeBottomDialog
+import com.finance_tracker.finance_tracker.features.export_import.export.ExportLoadingDialog
+import com.finance_tracker.finance_tracker.features.export_import.import.ImportLoadingDialog
 import com.finance_tracker.finance_tracker.features.settings.views.ListGroupHeader
 import com.finance_tracker.finance_tracker.features.settings.views.ListItemDivider
 import com.finance_tracker.finance_tracker.features.settings.views.SettingsScreenTopBar
 import com.finance_tracker.finance_tracker.features.settings.views.SettingsVersionAndUserIdInfo
+import com.finance_tracker.finance_tracker.features.settings.views.dialogs.ExportImportBottomDialog
+import com.finance_tracker.finance_tracker.features.settings.views.dialogs.SendingUsageDataDialog
 import com.finance_tracker.finance_tracker.features.settings.views.items.ExportImportDataItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsCategoriesItem
 import com.finance_tracker.finance_tracker.features.settings.views.items.SettingsDashboardItem
@@ -38,9 +44,11 @@ import com.finance_tracker.finance_tracker.features.settings.views.items.Setting
 import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
-internal fun SettingsScreen() {
-    ComposeScreen<SettingsScreenViewModel> { viewModel ->
-
+internal fun SettingsScreen(
+    component: SettingsComponent
+) {
+    ComposeScreen(component) {
+        val viewModel = component.viewModel
         val uriHandler = LocalUriHandler.current
         val clipboardManager = LocalClipboardManager.current
         val pickFileLauncher = rememberLauncherForActivityResult(
@@ -57,14 +65,11 @@ internal fun SettingsScreen() {
                 viewModel.onDirectoryChosen(imageUri.toString())
             }
         }
-
-        viewModel.watchViewActions { action, baseLocalsStorage ->
+        viewModel.watchViewActions { action, _ ->
             handleAction(
                 action = action,
-                baseLocalsStorage = baseLocalsStorage,
                 uriHandler = uriHandler,
                 clipboardManager = clipboardManager,
-                viewModel = viewModel,
                 pickFileLauncher = pickFileLauncher,
                 pickDirectoryLauncher = pickDirectoryLauncher
             )
@@ -161,6 +166,32 @@ internal fun SettingsScreen() {
                     userId = userId,
                     onCopyUserId = viewModel::onCopyUserId
                 )
+            }
+        }
+
+        component.bottomDialogSlot.subscribeBottomDialog(
+            onDismissRequest = viewModel::onDismissBottomDialog
+        ) { child ->
+            when (child) {
+                is SettingsComponent.BottomDialogChild.ExportImportChild -> {
+                    ExportImportBottomDialog(component = child.component)
+                }
+                is SettingsComponent.BottomDialogChild.ExportChild -> {
+                    ExportLoadingDialog(component = child.component)
+                }
+                is SettingsComponent.BottomDialogChild.ImportChild -> {
+                    ImportLoadingDialog(component = child.component)
+                }
+            }
+        }
+
+        component.alertDialogSlot.subscribeAlertDialog(
+            onDismissRequest = viewModel::onDismissAlertDialog
+        ) { child ->
+            when (child) {
+                is SettingsComponent.AlertDialogChild.SendingUsage -> {
+                    SendingUsageDataDialog(component = child.component)
+                }
             }
         }
     }

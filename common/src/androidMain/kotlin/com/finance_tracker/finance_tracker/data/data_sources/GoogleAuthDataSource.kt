@@ -1,14 +1,14 @@
 package com.finance_tracker.finance_tracker.data.data_sources
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import com.finance_tracker.finance_tracker.common.R
-import com.finance_tracker.finance_tracker.core.common.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlin.coroutines.suspendCoroutine
 
-actual class GoogleAuthDataSource actual constructor(
+actual class GoogleAuthDataSource(
     private val context: Context
 ) {
 

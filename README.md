@@ -73,12 +73,11 @@
 - UI
   - [Compose Multiplatform](https://github.com/JetBrains/compose-jb) - UI (Android + Desktop)
   - [LGoodDatePicker](https://github.com/LGoodDatePicker/LGoodDatePicker) - DatePicker on Swing (Desktop)
-  - [Odyssey](https://github.com/AlexGladkov/Odyssey) - Navigation
+  - [Decompose](https://arkivanov.github.io/Decompose) - Navigation
   - [Koalaplot](https://github.com/KoalaPlot/koalaplot-core) - Charts
   - [MokoResources](https://github.com/icerockdev/moko-resources) - Resources: strings, colors, images, etc
   - [Lottie](https://airbnb.io/lottie/#/) - Vector animations
 - Common
-  - [KViewModel](https://github.com/adeo-opensource/kviewmodel--mpp) - Shared ViewModel
   - [Firebase](https://firebase.google.com) - Crashlytics
   - [GoogleServices](https://developers.google.com/android/guides/setup) - Google Authorization
   - [UUID](https://github.com/benasher44/uuid) - UUID generation

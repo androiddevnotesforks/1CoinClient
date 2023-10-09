@@ -1,8 +1,8 @@
 package com.finance_tracker.finance_tracker.data.repositories.export_import
 
+import android.content.Context
 import androidx.core.net.toUri
 import androidx.documentfile.provider.DocumentFile
-import com.finance_tracker.finance_tracker.core.common.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
@@ -11,7 +11,7 @@ import java.io.IOException
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
-actual class FileWriter actual constructor(
+actual class FileWriter(
     private val context: Context
 ) {
     

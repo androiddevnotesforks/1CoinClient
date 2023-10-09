@@ -7,7 +7,6 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.window.singleWindowApplication
 import com.finance_tracker.finance_tracker.core.common.AppInitializer
-import com.finance_tracker.finance_tracker.core.common.EmptyContext
 import com.finance_tracker.finance_tracker.core.common.MessageKeyQueue
 import com.finance_tracker.finance_tracker.core.common.di.Di
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
@@ -29,7 +28,7 @@ fun main() = singleWindowApplication(
         false
     }
 ) {
-    Di.init(EmptyContext)
+    Di.init()
     appInitializer.configure()
 
     CoinTheme {

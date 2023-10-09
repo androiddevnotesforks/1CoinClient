@@ -4,8 +4,8 @@ import android.app.DatePickerDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.finance_tracker.finance_tracker.common.R
-import com.finance_tracker.finance_tracker.core.common.LocalContext
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.toKotlinLocalDate
 import java.time.LocalDate as JavaLocalDate

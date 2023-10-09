@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.data.repositories.export_import
 
+import android.content.Context
 import androidx.core.net.toUri
-import com.finance_tracker.finance_tracker.core.common.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.BufferedOutputStream
@@ -13,8 +13,8 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.util.zip.ZipFile
 
-actual class FileReader actual constructor(
-    val context: Context
+actual class FileReader(
+    private val context: Context
 ) {
     actual suspend fun readLines(uri: String): List<String> {
         return runCatching {

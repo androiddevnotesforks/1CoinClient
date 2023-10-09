@@ -1,10 +1,10 @@
 package com.finance_tracker.finance_tracker.core.analytics
 
-import com.finance_tracker.finance_tracker.core.common.getKoin
+import com.finance_tracker.finance_tracker.core.common.globalKoin
 
 abstract class BaseAnalytics {
 
-    private val analyticsTracker: AnalyticsTracker by lazy { getKoin().get() }
+    private val analyticsTracker: AnalyticsTracker by lazy { globalKoin.get() }
     protected abstract val screenName: String
 
     fun trackClick(

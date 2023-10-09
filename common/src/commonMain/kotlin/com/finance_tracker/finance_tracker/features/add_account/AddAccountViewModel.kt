@@ -10,7 +10,7 @@ import com.finance_tracker.finance_tracker.core.common.keyboard.CalculationState
 import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
 import com.finance_tracker.finance_tracker.core.common.keyboard.applyKeyboardAction
 import com.finance_tracker.finance_tracker.core.common.stateIn
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
 import com.finance_tracker.finance_tracker.core.common.view_models.showCurrentScreenSnackbar
 import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarActionState
@@ -37,9 +37,9 @@ class AddAccountViewModel(
     private val _account: Account,
     private val addAccountAnalytics: AddAccountAnalytics,
     private val evaluator: Evaluator
-) : BaseViewModel<AddAccountAction>() {
+) : ComponentViewModel<AddAccountAction, AddAccountComponent.Action>() {
 
-    private val account: Account? = _account.takeIf { _account != Account.EMPTY }
+    val account: Account? = _account.takeIf { _account != Account.EMPTY }
 
     private val _amountCurrencies = MutableStateFlow(Currency.list)
     val amountCurrencies = _amountCurrencies.asStateFlow()
@@ -139,12 +139,14 @@ class AddAccountViewModel(
         _enteredBalance.applyKeyboardAction(keyboardAction)
     }
 
-    fun onConfirmDeletingClick(account: Account, dialogKey: String) {
+    fun onConfirmDeletingClick() {
+        val account = account ?: return
+
         addAccountAnalytics.trackConfirmDeletingClick(account)
-        viewAction = AddAccountAction.DismissDeleteDialog(dialogKey)
+        componentAction = AddAccountComponent.Action.DismissBottomDialog
         viewModelScope.launch {
             accountsInteractor.deleteAccountById(account.id)
-            viewAction = AddAccountAction.Close
+            componentAction = AddAccountComponent.Action.Close
         }
     }
 
@@ -190,7 +192,7 @@ class AddAccountViewModel(
                     balance = balance,
                 )
             }
-            viewAction = AddAccountAction.Close
+            componentAction = AddAccountComponent.Action.Close
         }
     }
 
@@ -222,18 +224,24 @@ class AddAccountViewModel(
 
     fun onBackClick() {
         addAccountAnalytics.trackBackClick()
-        viewAction = AddAccountAction.Close
+        componentAction = AddAccountComponent.Action.Close
     }
 
     fun onDeleteClick() {
         account?.let {
             addAccountAnalytics.trackDeleteClick(account)
-            viewAction = AddAccountAction.ShowDeleteDialog(account)
+            componentAction = AddAccountComponent.Action.ShowDeleteDialog(account)
         }
     }
 
-    fun onCancelDeletingClick(account: Account, dialogKey: String) {
+    fun onCancelDeletingClick() {
+        val account = account ?: return
+
         addAccountAnalytics.trackCancelDeletingClick(account)
-        viewAction = AddAccountAction.DismissDeleteDialog(dialogKey)
+        componentAction = AddAccountComponent.Action.DismissBottomDialog
+    }
+
+    fun onDismissBottomDialog() {
+        componentAction = AddAccountComponent.Action.DismissBottomDialog
     }
 }

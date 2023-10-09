@@ -4,10 +4,10 @@ import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.desc.StringDesc
 import dev.icerock.moko.resources.desc.desc
 
-actual fun StringResource.localizedString(context: Context): String {
-    return desc().toString(context)
+actual fun StringResource.localizedString(): String {
+    return desc().toString(ActivityContextStorage.getContext())
 }
 
-actual fun StringDesc.localizedString(context: Context): String {
-    return toString(context)
+actual fun StringDesc.localizedString(): String {
+    return toString(ActivityContextStorage.getContext())
 }

@@ -6,41 +6,34 @@ import androidx.activity.compose.setContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.view.WindowCompat
-import com.finance_tracker.finance_tracker.core.common.AppInitializer
-import com.finance_tracker.finance_tracker.core.navigation.main.navigationGraph
+import com.arkivanov.decompose.defaultComponentContext
+import com.finance_tracker.finance_tracker.core.common.ActivityContextStorage
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
-import ru.alexgladkov.odyssey.compose.setup.OdysseyConfiguration
-import ru.alexgladkov.odyssey.compose.setup.StartScreen
-import ru.alexgladkov.odyssey.compose.setup.setNavigationContent
-import ru.alexgladkov.odyssey.core.configuration.DisplayType
+import com.finance_tracker.finance_tracker.features.root.RootComponent
+import com.finance_tracker.finance_tracker.features.root.RootScreen
 
-class MainActivity : ComponentActivity(), KoinComponent {
-
-    private val appInitializer by inject<AppInitializer>()
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ActivityContextStorage.setContext(this)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.Transparent.toArgb()
         window.navigationBarColor = Color.Transparent.toArgb()
 
+        val rootComponent = RootComponent(componentContext = defaultComponentContext())
+
         setContent {
             CoinTheme {
-                setNavigationContent(
-                    configuration = OdysseyConfiguration(
-                        canvas = this,
-                        startScreen = StartScreen.Custom(appInitializer.startScreen),
-                        backgroundColor = CoinTheme.color.background,
-                        displayType = DisplayType.EdgeToEdge
-                    ),
-                    onApplicationFinish = ::finish
-                ) {
-                    navigationGraph()
-                }
+                RootScreen(component = rootComponent)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ActivityContextStorage.removeContext()
     }
 }

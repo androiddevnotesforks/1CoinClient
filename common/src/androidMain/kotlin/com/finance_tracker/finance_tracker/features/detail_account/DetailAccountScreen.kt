@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -34,29 +34,26 @@ import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.Collapsing
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.ScrollStrategy
 import com.finance_tracker.finance_tracker.core.ui.collapsing_toolbar.rememberCollapsingToolbarScaffoldState
 import com.finance_tracker.finance_tracker.core.ui.transactions.CommonTransactionsList
-import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.features.detail_account.views.AccountNameText
 import com.finance_tracker.finance_tracker.features.detail_account.views.DetailAccountAppBar
 import com.finance_tracker.finance_tracker.features.detail_account.views.DetailAccountExpandedAppBar
 import com.finance_tracker.finance_tracker.features.detail_account.views.EditButton
 import dev.icerock.moko.resources.compose.painterResource
-import org.koin.core.parameter.parametersOf
 
 @Composable
 @Suppress("MagicNumber")
 internal fun DetailAccountScreen(
-    account: Account
+    component: DetailAccountComponent
 ) {
-    ComposeScreen<DetailAccountViewModel>(
-        parameters = { parametersOf(account) }
-    ) { viewModel ->
+    ComposeScreen(component) {
+        val viewModel = component.viewModel
         UpdateSystemBarsConfigEffect {
             isStatusBarLight = false
         }
 
         val transactions = viewModel.paginatedTransactions.collectAsLazyPagingItems()
-        viewModel.watchViewActions { action, baseLocalsStorage ->
-            handleAction(action, baseLocalsStorage, transactions)
+        viewModel.watchViewActions { action, _ ->
+            handleAction(action, transactions)
         }
 
         LaunchedEffect(Unit) {
@@ -70,7 +67,7 @@ internal fun DetailAccountScreen(
             state = state,
             scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
             toolbar = {
-                var editButtonPositionX by remember { mutableStateOf(0) }
+                var editButtonPositionX by remember { mutableIntStateOf(0) }
                 DetailAccountAppBar(
                     modifier = Modifier
                         .graphicsLayer {

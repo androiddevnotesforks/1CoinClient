@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.domain.interactors.transactions
 
 import com.finance_tracker.finance_tracker.MR
+import com.finance_tracker.finance_tracker.core.common.asImageDescResource
 import com.finance_tracker.finance_tracker.core.common.convertToCurrencyValue
 import com.finance_tracker.finance_tracker.core.common.date.models.YearMonth
 import com.finance_tracker.finance_tracker.core.common.toLimitedFloat
@@ -80,7 +81,7 @@ class GetTransactionsForChartUseCase(
                     category = Category(
                         id = -2,
                         name = "Other",
-                        icon = MR.images.ic_more_horiz,
+                        icon = MR.images.ic_more_horiz.asImageDescResource(),
                         isExpense = true,
                         isIncome = true
                     ),

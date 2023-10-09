@@ -1,7 +1,6 @@
 package com.finance_tracker.finance_tracker.features.tabs_navigation
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
@@ -10,138 +9,98 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.ripple.LocalRippleTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveableStateHolder
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.Children
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.fade
+import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.stackAnimation
+import com.arkivanov.decompose.extensions.compose.jetbrains.subscribeAsState
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
-import com.finance_tracker.finance_tracker.core.common.getKoin
-import com.finance_tracker.finance_tracker.core.navigation.tabs.TabsNavigationTree
-import com.finance_tracker.finance_tracker.core.navigtion.main.MainNavigationTree
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.theme.NoRippleTheme
 import com.finance_tracker.finance_tracker.core.ui.BottomNavigationBar
-import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
-import com.finance_tracker.finance_tracker.features.tabs_navigation.analytics.TabsNavigationAnalytics
-import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.AnalyticsTab
-import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.HomeTab
-import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.PlansTab
-import com.finance_tracker.finance_tracker.features.tabs_navigation.tabs.TransactionsTab
+import com.finance_tracker.finance_tracker.core.ui.decompose_ext.subscribeBottomDialog
+import com.finance_tracker.finance_tracker.features.analytics.AnalyticsScreen
+import com.finance_tracker.finance_tracker.features.home.HomeScreen
+import com.finance_tracker.finance_tracker.features.plans.overview.PlansOverviewScreen
+import com.finance_tracker.finance_tracker.features.plans.overview.views.set_limit.SetLimitDialog
+import com.finance_tracker.finance_tracker.features.transactions.TransactionsScreen
 import dev.icerock.moko.resources.compose.painterResource
-import ru.alexgladkov.odyssey.compose.base.AnimatedHost
-import ru.alexgladkov.odyssey.compose.controllers.MultiStackRootController
-import ru.alexgladkov.odyssey.compose.controllers.TabNavigationModel
-import ru.alexgladkov.odyssey.compose.extensions.push
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
-import ru.alexgladkov.odyssey.core.LaunchFlag
-import ru.alexgladkov.odyssey.core.toScreenBundle
-
-val currenciesInteractor: CurrenciesInteractor = getKoin().get()
 
 @Composable
-internal fun TabsNavigationScreen() {
-
-    val rootController = LocalRootController.current as MultiStackRootController
-    val nullableSelectedTabItem by rootController.stackChangeObserver.collectAsState()
-    val selectedTabItem = nullableSelectedTabItem ?: return
-    val analytics: TabsNavigationAnalytics = remember { getKoin().get() }
-
-    LaunchedEffect(Unit) {
-        if (!currenciesInteractor.isPrimaryCurrencySelected()) {
-            rootController.findRootController().push(
-                screen = MainNavigationTree.PresetCurrency.name,
-                launchFlag = LaunchFlag.ClearPrevious
-            )
-        }
-    }
-
-    Scaffold(
-        bottomBar = {
-            BottomNavigationBar(
-                selectedTabItem = selectedTabItem,
-                onItemSelect = { tab ->
-                    val eventName = when (tab.tabInfo.tabItem) {
-                        is HomeTab -> "TabHome"
-                        is TransactionsTab -> "TabTransactions"
-                        is PlansTab -> "TabPlans"
-                        is AnalyticsTab -> "TabAnalytics"
-                        else -> "Undefined"
-                    }
-                    analytics.trackTabClick(eventName)
-
-                    val position = rootController.tabItems.indexOf(tab)
-                    rootController.switchTab(position)
-                }
-            )
-        },
-        floatingActionButton = {
-            CompositionLocalProvider(LocalRippleTheme provides NoRippleTheme) {
-                FloatingActionButton(
-                    modifier = Modifier
-                        .scaleClickAnimation(),
-                    backgroundColor = CoinTheme.color.primary,
-                    contentColor = CoinTheme.color.primaryVariant,
-                    onClick = {
-                        analytics.trackAddTransactionClick()
-                        rootController.findRootController()
-                            .push(MainNavigationTree.AddTransaction.name)
-                    }
-                ) {
-                    Icon(
-                        modifier = Modifier.size(30.dp),
-                        painter = painterResource(MR.images.ic_plus),
-                        contentDescription = null,
-                        tint = CoinTheme.color.white
-                    )
-                }
-            }
-        },
-        isFloatingActionButtonDocked = true,
-        floatingActionButtonPosition = FabPosition.Center
-    ) {
-        TabNavigator(
-            modifier = Modifier.fillMaxSize(),
-            startScreen = TabsNavigationTree.Home.name,
-            currentTab = selectedTabItem
-        )
-    }
-}
-
-@Composable
-private fun TabNavigator(
-    startScreen: String?,
-    currentTab: TabNavigationModel,
-    modifier: Modifier = Modifier
+internal fun TabsNavigationScreen(
+    component: TabsNavigationComponent
 ) {
-    val configuration = currentTab.rootController.currentScreen.collectAsState()
-    val saveableStateHolder = rememberSaveableStateHolder()
+    val viewModel = component.viewModel
+    val stack by component.stack.subscribeAsState()
+    val activeChild = stack.active.instance
 
-    saveableStateHolder.SaveableStateProvider(currentTab.tabInfo.tabItem.name) {
-        Box(modifier = modifier) {
-            CompositionLocalProvider(
-                LocalRootController provides currentTab.rootController
-            ) {
-                configuration.value?.let { navConfig ->
-                    AnimatedHost(
-                        currentScreen = navConfig.screen.toScreenBundle(),
-                        animationType = navConfig.screen.animationType,
-                        screenToRemove = navConfig.screenToRemove?.toScreenBundle(),
-                        isForward = navConfig.screen.isForward,
-                        onScreenRemove = currentTab.rootController.onScreenRemove
+    Box {
+        Scaffold(
+            bottomBar = {
+                BottomNavigationBar(
+                    allTabs = component.allTabs,
+                    activeChild = activeChild,
+                    onItemSelect = { tab ->
+                        component.onChangeTab(tab)
+                    }
+                )
+            },
+            floatingActionButton = {
+                CompositionLocalProvider(LocalRippleTheme provides NoRippleTheme) {
+                    FloatingActionButton(
+                        modifier = Modifier
+                            .scaleClickAnimation(),
+                        backgroundColor = CoinTheme.color.primary,
+                        contentColor = CoinTheme.color.primaryVariant,
+                        onClick = { component.onAddTransactionClick() }
                     ) {
-                        val rootController = currentTab.rootController
-                        rootController.renderScreen(it.realKey, it.params)
+                        Icon(
+                            modifier = Modifier.size(30.dp),
+                            painter = painterResource(MR.images.ic_plus),
+                            contentDescription = null,
+                            tint = CoinTheme.color.white
+                        )
+                    }
+                }
+            },
+            isFloatingActionButtonDocked = true,
+            floatingActionButtonPosition = FabPosition.Center
+        ) { _ ->
+            Children(
+                stack = stack,
+                animation = stackAnimation(fade())
+            ) {
+                when (val child = it.instance) {
+                    is TabsNavigationComponent.Child.Analytics -> {
+                        AnalyticsScreen(child.component)
+                    }
+
+                    is TabsNavigationComponent.Child.Home -> {
+                        HomeScreen(child.component)
+                    }
+
+                    is TabsNavigationComponent.Child.Plans -> {
+                        PlansOverviewScreen(child.component)
+                    }
+
+                    is TabsNavigationComponent.Child.Transactions -> {
+                        TransactionsScreen(child.component)
                     }
                 }
             }
         }
-    }
 
-    LaunchedEffect(currentTab) {
-        currentTab.rootController.drawCurrentScreen(startScreen = startScreen)
+        component.bottomDialogSlot.subscribeBottomDialog(
+            onDismissRequest = viewModel::onDismissBottomDialog
+        ) { child ->
+            when (child) {
+                is TabsNavigationComponent.BottomDialogChild.SetLimitDialogChild -> {
+                    SetLimitDialog(component = child.component)
+                }
+            }
+        }
     }
 }

@@ -22,18 +22,17 @@ import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesMode
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypesTabRow
 import dev.icerock.moko.resources.compose.painterResource
-import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun CategoriesAppBar(
     doneButtonEnabled: Boolean,
+    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
     selectedTransactionType: TransactionTypeTab = TransactionTypeTab.Expense,
     onTransactionTypeSelect: (TransactionTypeTab) -> Unit = {},
-    onDoneClick: () -> Unit = {}
+    onDoneClick: () -> Unit = {},
 ) {
-    val rootController = LocalRootController.current
     Column(
         modifier = modifier
             .background(CoinTheme.color.backgroundSurface)
@@ -48,7 +47,7 @@ internal fun CategoriesAppBar(
         ) {
             AppBarIcon(
                 painter = painterResource(MR.images.ic_arrow_back),
-                onClick = { rootController.popBackStack() }
+                onClick = onBackClick
             )
 
             Row(

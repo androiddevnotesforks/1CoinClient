@@ -18,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
-import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.column.DraggableItem
 import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.column.rememberDragDropState
@@ -31,15 +30,11 @@ import kotlinx.collections.immutable.toImmutableList
 private val DashboardWidgetsContentPadding = 16.dp
 
 @Composable
-internal fun DashboardSettingsScreen() {
-    ComposeScreen<DashboardSettingsViewModel> { viewModel ->
-
-        viewModel.watchViewActions { action, baseLocalsStorage ->
-            handleAction(
-                action,
-                baseLocalsStorage
-            )
-        }
+internal fun DashboardSettingsScreen(
+    component: DashboardSettingsComponent
+) {
+    ComposeScreen(component) {
+        val viewModel = component.viewModel
 
         Column {
             DashboardSettingsAppBar(

@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.core.common
 
-import dev.icerock.moko.resources.ImageResource
+import dev.icerock.moko.resources.desc.image.ImageDescResource
 
-expect fun String.toCategoryFileResource(): ImageResource
+expect fun String.toCategoryFileResource(): ImageDescResource
 
-expect fun ImageResource.toCategoryString(): String
+expect fun ImageDescResource.toCategoryString(): String

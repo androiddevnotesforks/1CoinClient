@@ -5,7 +5,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.LocalContext
 import com.finance_tracker.finance_tracker.core.common.formatters.AmountFormatMode
 import com.finance_tracker.finance_tracker.core.common.formatters.format
 import com.finance_tracker.finance_tracker.core.common.toLimitedFloat
@@ -54,14 +53,13 @@ internal fun AnalyticsTrendWidget(
 
 @Composable
 private fun List<TrendBarDetails>.mapToBarChartEntities(): List<CoinBarChartEntry<Float, Float>> {
-    val context = LocalContext.current
     return mapIndexed { index, trendBarDetails ->
         val (amount, format) = trendBarDetails.provideAmountWithFormat()
         CoinBarChartEntry(
             xValue = (index + 1).toFloat(),
             yMin = 0f,
             yMax = trendBarDetails.value.toLimitedFloat(),
-            overviewTitle = trendBarDetails.title(context),
+            overviewTitle = trendBarDetails.title(),
             overviewValue = amount.format(format)
         )
     }

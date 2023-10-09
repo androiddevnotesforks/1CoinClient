@@ -14,7 +14,7 @@ import com.finance_tracker.finance_tracker.core.common.keyboard.KeyboardAction
 import com.finance_tracker.finance_tracker.core.common.keyboard.applyKeyboardAction
 import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.toDateTime
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
 import com.finance_tracker.finance_tracker.core.common.view_models.showPreviousScreenSnackbar
 import com.finance_tracker.finance_tracker.core.ui.snackbar.SnackbarActionState
@@ -57,7 +57,7 @@ class AddTransactionViewModel(
     params: AddTransactionScreenParams,
     private val addTransactionAnalytics: AddTransactionAnalytics,
     private val evaluator: Evaluator
-) : BaseViewModel<AddTransactionAction>() {
+) : ComponentViewModel<Unit, AddTransactionComponent.Action>() {
 
     private val preselectedAccount: Account? = params.preselectedAccount
     private val transaction: Transaction? = params.transaction
@@ -92,6 +92,8 @@ class AddTransactionViewModel(
     private val selectedExpenseCategory = MutableStateFlow(
         transaction?._category?.takeIf { it.isExpense }
     )
+
+    private var deletableTransaction: Transaction? = null
 
     private val initialSelectedDate = transaction?.dateTime?.date ?: Clock.System.currentLocalDate()
     private val _selectedDate: MutableStateFlow<LocalDate> = MutableStateFlow(initialSelectedDate)
@@ -293,13 +295,13 @@ class AddTransactionViewModel(
         val isCalcIsFailed = primaryAmountCalculation.value.isError || secondaryAmountCalculation.value.isError
 
         if (isCalcIsFailed) {
-            viewAction = AddTransactionAction.DisplayWrongCalculationDialog
+            componentAction = AddTransactionComponent.Action.DisplayWrongCalculationDialog
 
             return
         }
 
         if (primaryAmountCalcResult < 0.0 || secondaryAmountCalcResult < 0.0) {
-            viewAction = AddTransactionAction.DisplayNegativeAmountDialog
+            componentAction = AddTransactionComponent.Action.DisplayNegativeAmountDialog
 
             return
         }
@@ -381,7 +383,7 @@ class AddTransactionViewModel(
         addTransactionAnalytics.trackAddClick(isFromButtonClick, transaction)
         viewModelScope.launch {
             transactionsInteractor.addTransaction(transaction)
-            viewAction = AddTransactionAction.Close
+            componentAction = AddTransactionComponent.Action.Close
         }
     }
 
@@ -399,19 +401,21 @@ class AddTransactionViewModel(
                 oldTransaction = oldTransaction,
                 newTransaction = newTransaction
             )
-            viewAction = AddTransactionAction.Close
+            componentAction = AddTransactionComponent.Action.Close
         }
     }
 
     fun displayDeleteTransactionDialog(transaction: Transaction?) {
-        viewAction = AddTransactionAction.DisplayDeleteTransactionDialog(transaction)
+        deletableTransaction = transaction
+        componentAction = AddTransactionComponent.Action.DisplayDeleteTransactionDialog
     }
 
-    fun onDeleteTransactionClick(transaction: Transaction, dialogKey: String) {
+    fun onDeleteTransactionClick() {
+        val transaction = deletableTransaction ?: return
         addTransactionAnalytics.trackDeleteTransactionClick(transaction)
         viewModelScope.launch {
             transactionsInteractor.deleteTransaction(transaction)
-            viewAction = AddTransactionAction.DismissDialog(dialogKey)
+            componentAction = AddTransactionComponent.Action.DismissBottomDialog
             showPreviousScreenSnackbar(
                 snackbarState = SnackbarState.Information(
                     iconResId = MR.images.ic_delete,
@@ -421,7 +425,8 @@ class AddTransactionViewModel(
                     )
                 )
             )
-            viewAction = AddTransactionAction.Close
+            deletableTransaction = null
+            componentAction = AddTransactionComponent.Action.Close
         }
     }
 
@@ -431,7 +436,7 @@ class AddTransactionViewModel(
         if (hasPreviousStep.value) {
             flowState.previous()
         } else {
-            viewAction = AddTransactionAction.Close
+            componentAction = AddTransactionComponent.Action.Close
         }
     }
 
@@ -443,7 +448,7 @@ class AddTransactionViewModel(
             transactionsInteractor.addTransaction(
                 transaction = transaction.copy(id = null, insertionDateTime = Clock.System.currentLocalDateTime())
             )
-            viewAction = AddTransactionAction.Close
+            componentAction = AddTransactionComponent.Action.Close
         }
     }
 
@@ -515,12 +520,10 @@ class AddTransactionViewModel(
             CalculationState("0", formula.isNotEmpty())
         }
 
-    private fun restoreTransaction(transaction: Transaction) {
-        viewModelScope.launch {
-            addTransactionAnalytics.trackRestoreTransaction()
-            transactionsInteractor.addTransaction(transaction)
-            hideSnackbar()
-        }
+    private suspend fun restoreTransaction(transaction: Transaction) {
+        addTransactionAnalytics.trackRestoreTransaction()
+        transactionsInteractor.addTransaction(transaction)
+        hideSnackbar()
     }
 
     fun onTransactionTypeSelect(transactionTypeTab: TransactionTypeTab) {
@@ -532,7 +535,7 @@ class AddTransactionViewModel(
 
     fun onAccountAdd() {
         addTransactionAnalytics.trackAddAccountClick()
-        viewAction = AddTransactionAction.OpenAddAccountScreen
+        componentAction = AddTransactionComponent.Action.OpenAddAccountScreen
     }
 
     fun onCategoryAdd() {
@@ -540,7 +543,7 @@ class AddTransactionViewModel(
         addTransactionAnalytics.trackAddCategoryClick(
             transactionType = transactionTypeTab.toTransactionType()
         )
-        viewAction = AddTransactionAction.OpenAddCategoryScreen(
+        componentAction = AddTransactionComponent.Action.OpenAddCategoryScreen(
             type = transactionTypeTab
         )
     }
@@ -580,6 +583,14 @@ class AddTransactionViewModel(
 
     fun onSecondaryAmountClick() {
         onCurrentStepSelect(EnterTransactionStep.SecondaryAmount)
+    }
+
+    fun onDismissAlertDialog() {
+        componentAction = AddTransactionComponent.Action.DismissAlertDialog
+    }
+
+    fun onDismissBottomDialog() {
+        componentAction = AddTransactionComponent.Action.DismissBottomDialog
     }
 
     private fun TransactionTypeTab.toAddTransactionFlow(): AddTransactionFlow {

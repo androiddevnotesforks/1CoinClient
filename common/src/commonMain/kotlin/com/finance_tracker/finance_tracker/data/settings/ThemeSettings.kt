@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalSettingsApi::class)
 class ThemeSettings(factory: Settings.Factory) {
@@ -25,7 +26,9 @@ class ThemeSettings(factory: Settings.Factory) {
         .stateIn(coroutineScope, initialValue = ThemeMode.System)
 
     fun saveThemeMode(themeMode: ThemeMode) {
-        settings.putString(KEY_THEME_MODE, themeMode.modeId)
+        coroutineScope.launch {
+            flowSettings.putString(KEY_THEME_MODE, themeMode.modeId)
+        }
     }
 
     companion object {

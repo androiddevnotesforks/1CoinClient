@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
@@ -14,7 +15,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
@@ -27,8 +27,11 @@ import com.finance_tracker.finance_tracker.features.widgets.LastTransactionsWidg
 import com.finance_tracker.finance_tracker.features.widgets.MyAccountsWidget
 
 @Composable
-internal fun HomeScreen() {
-    ComposeScreen<HomeViewModel>(withBottomNavigation = true) { screenState, viewModel ->
+internal fun HomeScreen(
+    component: HomeComponent
+) {
+    ComposeScreen(component) {
+        val viewModel = component.viewModel
         val accounts by viewModel.accounts.collectAsState()
         LaunchedEffect(Unit) {
             viewModel.onScreenComposed()
@@ -68,18 +71,21 @@ internal fun HomeScreen() {
                                 onClick = viewModel::onMyAccountsClick
                             )
                         }
+
                         DashboardWidgetData.DashboardWidgetType.ExpenseTrend -> {
                             AnalyticsTrendWidget(
                                 trendsAnalyticsDelegate = viewModel.expenseTrendsAnalyticsDelegate,
                                 transactionTypeTab = TransactionTypeTab.Expense
                             )
                         }
+
                         DashboardWidgetData.DashboardWidgetType.IncomeTrend -> {
                             AnalyticsTrendWidget(
                                 trendsAnalyticsDelegate = viewModel.incomeTrendsAnalyticsDelegate,
                                 transactionTypeTab = TransactionTypeTab.Income
                             )
                         }
+
                         DashboardWidgetData.DashboardWidgetType.ExpenseByCategory -> {
                             AnalyticsByCategoryWidget(
                                 primaryCurrency = totalBalance.currency,
@@ -87,6 +93,7 @@ internal fun HomeScreen() {
                                 selectedTransactionTypeTab = TransactionTypeTab.Expense
                             )
                         }
+
                         DashboardWidgetData.DashboardWidgetType.IncomeByCategory -> {
                             AnalyticsByCategoryWidget(
                                 primaryCurrency = totalBalance.currency,
@@ -94,6 +101,7 @@ internal fun HomeScreen() {
                                 selectedTransactionTypeTab = TransactionTypeTab.Income
                             )
                         }
+
                         DashboardWidgetData.DashboardWidgetType.LastTransactions -> {
                             val lastTransactions by viewModel.lastTransactions.collectAsState()
                             LastTransactionsWidget(

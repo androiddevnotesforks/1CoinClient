@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.features.detail_account
 
 import app.cash.paging.cachedIn
-import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
 import com.finance_tracker.finance_tracker.domain.interactors.AccountsInteractor
 import com.finance_tracker.finance_tracker.domain.interactors.transactions.TransactionsInteractor
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -20,7 +20,7 @@ class DetailAccountViewModel(
     private val transactionsInteractor: TransactionsInteractor,
     private val accountsInteractor: AccountsInteractor,
     private val detailAccountAnalytics: DetailAccountAnalytics
-): BaseViewModel<DetailAccountAction>() {
+): ComponentViewModel<DetailAccountAction, DetailAccountComponent.Action>() {
 
     val paginatedTransactions = transactionsInteractor.getPaginatedTransactionsByAccountId(_account.id)
         .cachedIn(viewModelScope)
@@ -41,7 +41,7 @@ class DetailAccountViewModel(
     private fun closeScreenIfAccountNotExists() {
         viewModelScope.launch {
             if (accountsInteractor.isAccountNotExists(_account.id)) {
-                viewAction = DetailAccountAction.CloseScreen
+                 componentAction = DetailAccountComponent.Action.Close
             }
         }
     }
@@ -56,26 +56,26 @@ class DetailAccountViewModel(
 
     fun onBackClick() {
         detailAccountAnalytics.trackBackClick()
-        viewAction = DetailAccountAction.CloseScreen
+        componentAction = DetailAccountComponent.Action.Close
     }
 
     fun onEditClick() {
         detailAccountAnalytics.trackEditAccountClick(accountData.value)
-        viewAction = DetailAccountAction.OpenEditAccountScreen(accountData.value)
+        componentAction = DetailAccountComponent.Action.OpenEditAccountScreen(accountData.value)
     }
 
     fun onTransactionClick(transaction: Transaction) {
         detailAccountAnalytics.trackTransactionClick(transaction)
-        viewAction = DetailAccountAction.OpenEditTransactionScreen(transaction)
+        componentAction = DetailAccountComponent.Action.OpenEditTransactionScreen(transaction)
     }
 
     fun onIconClick() {
         detailAccountAnalytics.trackIconClick(accountData.value)
-        viewAction = DetailAccountAction.OpenEditAccountScreen(accountData.value)
+        componentAction = DetailAccountComponent.Action.OpenEditAccountScreen(accountData.value)
     }
 
     fun onAddTransactionClick() {
         detailAccountAnalytics.trackAddTransactionClick(accountData.value)
-        viewAction = DetailAccountAction.OpenAddTransactionScreen(accountData.value)
+        componentAction = DetailAccountComponent.Action.OpenAddTransactionScreen(accountData.value)
     }
 }

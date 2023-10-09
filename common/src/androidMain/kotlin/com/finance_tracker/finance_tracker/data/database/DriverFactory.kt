@@ -1,7 +1,7 @@
 package com.finance_tracker.finance_tracker.data.database
 
+import android.content.Context
 import com.finance_tracker.finance_tracker.AppDatabase
-import com.finance_tracker.finance_tracker.core.common.Context
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
 

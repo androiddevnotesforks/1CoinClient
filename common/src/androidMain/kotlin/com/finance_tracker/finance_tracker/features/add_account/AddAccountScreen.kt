@@ -38,8 +38,9 @@ import com.finance_tracker.finance_tracker.core.common.toUiTextFieldValue
 import com.finance_tracker.finance_tracker.core.common.view_models.hideSnackbar
 import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
+import com.finance_tracker.finance_tracker.core.ui.decompose_ext.subscribeBottomDialog
+import com.finance_tracker.finance_tracker.core.ui.dialogs.DeleteBottomDialog
 import com.finance_tracker.finance_tracker.core.ui.keyboard.ArithmeticKeyboard
-import com.finance_tracker.finance_tracker.domain.models.Account
 import com.finance_tracker.finance_tracker.features.add_account.views.AccountColorTextField
 import com.finance_tracker.finance_tracker.features.add_account.views.AccountNameTextField
 import com.finance_tracker.finance_tracker.features.add_account.views.AccountTypeTextField
@@ -47,33 +48,32 @@ import com.finance_tracker.finance_tracker.features.add_account.views.AddAccount
 import com.finance_tracker.finance_tracker.features.add_account.views.AmountTextField
 import com.finance_tracker.finance_tracker.features.add_account.views.BalanceCalculationResult
 import com.finance_tracker.finance_tracker.features.add_account.views.EditAccountActions
-import org.koin.core.parameter.parametersOf
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 internal fun AddAccountScreen(
-    account: Account
+    component: AddAccountComponent
 ) {
-    ComposeScreen<AddAccountViewModel>(
-        parameters = { parametersOf(account) }
-    ) { screenState, viewModel ->
-        val focusRequester = remember { FocusRequester() }
-        val titleAccount by viewModel.enteredAccountName.collectAsState()
-        val selectedType by viewModel.selectedType.collectAsState()
-        val accountTypes by viewModel.types.collectAsState()
-        val selectedColor by viewModel.selectedColor.collectAsState()
-        val accountColors by viewModel.colors.collectAsState()
-        val enteredBalance by viewModel.enteredBalance.collectAsState()
-        val amountCurrencies by viewModel.amountCurrencies.collectAsState()
-        val selectedCurrency by viewModel.selectedCurrency.collectAsState()
-        val isAddButtonEnabled by viewModel.isAddButtonEnabled.collectAsState()
-        val balanceCalculationResult by viewModel.balanceCalculationResult.collectAsState()
-        var shouldShowAmountKeyboard by remember { mutableStateOf(false) }
-        val scrollState = rememberScrollState()
-        val screenDensity = LocalDensity.current
-        var keyboardHeight by remember { mutableStateOf(0.dp) }
-        val focusManager = LocalFocusManager.current
+    val viewModel = component.viewModel
+    val focusRequester = remember { FocusRequester() }
+    val titleAccount by viewModel.enteredAccountName.collectAsState()
+    val selectedType by viewModel.selectedType.collectAsState()
+    val accountTypes by viewModel.types.collectAsState()
+    val selectedColor by viewModel.selectedColor.collectAsState()
+    val accountColors by viewModel.colors.collectAsState()
+    val enteredBalance by viewModel.enteredBalance.collectAsState()
+    val amountCurrencies by viewModel.amountCurrencies.collectAsState()
+    val selectedCurrency by viewModel.selectedCurrency.collectAsState()
+    val isAddButtonEnabled by viewModel.isAddButtonEnabled.collectAsState()
+    val balanceCalculationResult by viewModel.balanceCalculationResult.collectAsState()
+    var shouldShowAmountKeyboard by remember { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
+    val screenDensity = LocalDensity.current
+    var keyboardHeight by remember { mutableStateOf(0.dp) }
+    val focusManager = LocalFocusManager.current
+    val account = viewModel.account
 
+    ComposeScreen(component) {
         BackHandler(enabled = shouldShowAmountKeyboard) {
             shouldShowAmountKeyboard = false
         }
@@ -85,24 +85,21 @@ internal fun AddAccountScreen(
         }
 
         LaunchedEffect(Unit) {
-            if (account == Account.EMPTY) {
+            if (account == null) {
                 focusRequester.requestFocus()
             }
         }
 
-        viewModel.watchViewActions { action, baseLocalsStorage ->
+        viewModel.watchViewActions { action, _ ->
             handleAction(
                 action = action,
-                baseLocalsStorage = baseLocalsStorage,
-                onHideKeyboard = { shouldShowAmountKeyboard = false },
-                onCancelDeletingClick = viewModel::onCancelDeletingClick,
-                onConfirmDeletingClick = viewModel::onConfirmDeletingClick
+                onHideKeyboard = { shouldShowAmountKeyboard = false }
             )
         }
 
         Column {
             AddAccountTopBar(
-                topBarTextId = if (account == Account.EMPTY) {
+                topBarTextId = if (account == null) {
                     MR.strings.new_account_title
                 } else {
                     MR.strings.accounts_screen_top_bar
@@ -163,7 +160,7 @@ internal fun AddAccountScreen(
                     BalanceCalculationResult(balanceCalculationResult.calculationResult)
 
                     EditAccountActions(
-                        deleteEnabled = account != Account.EMPTY,
+                        deleteEnabled = account != null,
                         addEnabled = isAddButtonEnabled,
                         onDeleteClick = {
                             focusManager.clearFocus()
@@ -189,6 +186,20 @@ internal fun AddAccountScreen(
                             }
                         }
                 )
+            }
+        }
+        
+        component.bottomDialogSlot.subscribeBottomDialog(
+            onDismissRequest = viewModel::onDismissBottomDialog
+        ) { child ->
+            when (child) {
+                is AddAccountComponent.BottomDialogChild.DeleteDialog -> {
+                    DeleteBottomDialog(
+                        component = child.component,
+                        onCancelClick = viewModel::onCancelDeletingClick,
+                        onDeleteClick = viewModel::onConfirmDeletingClick
+                    )
+                }
             }
         }
     }

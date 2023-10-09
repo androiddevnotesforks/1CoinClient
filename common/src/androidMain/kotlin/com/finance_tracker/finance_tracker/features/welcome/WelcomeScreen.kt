@@ -22,7 +22,6 @@ import com.finance_tracker.finance_tracker.core.common.UpdateSystemBarsConfigEff
 import com.finance_tracker.finance_tracker.core.common.VectorAnimation
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.common.statusBarsPadding
-import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.core.ui.welcome.EmailSignInButton
@@ -37,14 +36,13 @@ private const val MiddleContentWight = 1f - (TopSpaceWeight + BottomSpaceWeight)
 private val MaxButtonWidth = 560.dp
 
 @Composable
-internal fun WelcomeScreen() {
-    ComposeScreen<WelcomeViewModel> { viewModel ->
+internal fun WelcomeScreen(
+    component: WelcomeComponent
+) {
+    ComposeScreen(component) {
+        val viewModel = component.viewModel
         UpdateSystemBarsConfigEffect {
             isStatusBarLight = true
-        }
-
-        viewModel.watchViewActions { action, baseLocalsStorage ->
-            handleAction(action, baseLocalsStorage)
         }
 
         Column(

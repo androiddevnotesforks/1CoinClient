@@ -25,9 +25,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.clicks.scaleClickAnimation
 import com.finance_tracker.finance_tracker.core.common.`if`
+import com.finance_tracker.finance_tracker.core.common.noRippleClickable
 import com.finance_tracker.finance_tracker.core.theme.CoinAlpha
 import com.finance_tracker.finance_tracker.core.theme.CoinTheme
-import ru.alexgladkov.odyssey.compose.helpers.noRippleClickable
 
 @Composable
 @Suppress("ReusedModifierInstance")

@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.core.common.navigationBarsPadding
 import com.finance_tracker.finance_tracker.core.theme.CoinPaddings
-import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.features.widgets.AnalyticsByCategoryWidget
 import com.finance_tracker.finance_tracker.features.widgets.AnalyticsTrendWidget
 
@@ -26,58 +25,59 @@ val PieChartLabelSize = 20.dp
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun AnalyticsScreen() {
-    ComposeScreen<AnalyticsViewModel>(withBottomNavigation = true) { viewModel ->
+internal fun AnalyticsScreen(
+    component: AnalyticsComponent
+) {
+    val viewModel = component.viewModel
+    LaunchedEffect(Unit) {
+        viewModel.onScreenComposed()
+    }
 
-        LaunchedEffect(Unit) {
-            viewModel.onScreenComposed()
+    Column(modifier = Modifier.fillMaxSize()) {
+        val selectedTransactionTypeTab by viewModel.transactionTypeTab.collectAsState()
+
+        val pagerState = rememberPagerState {
+            viewModel.transactionTypesCount
+        }
+        AnalyticsScreenAppBar(
+            selectedTransactionTypeTab = selectedTransactionTypeTab,
+            pagerState = pagerState,
+            onTransactionTypeSelect = viewModel::onTransactionTypeSelect
+        )
+        val transactionTypeTabPage by viewModel.transactionTypeTabPage.collectAsState()
+        LaunchedEffect(transactionTypeTabPage) {
+            pagerState.animateScrollToPage(transactionTypeTabPage)
         }
 
-        Column(modifier = Modifier.fillMaxSize()) {
-            val selectedTransactionTypeTab by viewModel.transactionTypeTab.collectAsState()
+        LaunchedEffect(pagerState.currentPage) {
+            viewModel.onPageChanged(pagerState.currentPage)
+        }
 
-            val pagerState = rememberPagerState()
-            AnalyticsScreenAppBar(
-                selectedTransactionTypeTab = selectedTransactionTypeTab,
-                pagerState = pagerState,
-                onTransactionTypeSelect = viewModel::onTransactionTypeSelect
-            )
-            val transactionTypeTabPage by viewModel.transactionTypeTabPage.collectAsState()
-            LaunchedEffect(transactionTypeTabPage) {
-                pagerState.animateScrollToPage(transactionTypeTabPage)
-            }
+        HorizontalPager(
+            state = pagerState
+        ) { page ->
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(top = 12.dp)
+            ) {
+                val primaryCurrency by viewModel.primaryCurrency.collectAsState()
+                AnalyticsByCategoryWidget(
+                    primaryCurrency = primaryCurrency,
+                    monthTxsByCategoryDelegate = viewModel.getMonthTxsByCategoryDelegate(page),
+                    selectedTransactionTypeTab = viewModel.getTransactionTypeTab(page)
+                )
 
-            LaunchedEffect(pagerState.currentPage) {
-                viewModel.onPageChanged(pagerState.currentPage)
-            }
+                AnalyticsTrendWidget(
+                    trendsAnalyticsDelegate = viewModel.getTrendsAnalyticsDelegate(page),
+                    transactionTypeTab = viewModel.getTransactionTypeTab(page)
+                )
 
-            HorizontalPager(
-                pageCount = viewModel.transactionTypesCount,
-                state = pagerState
-            ) { page ->
-                Column(
+                Spacer(
                     modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                        .padding(top = 12.dp)
-                ) {
-                    val primaryCurrency by viewModel.primaryCurrency.collectAsState()
-                    AnalyticsByCategoryWidget(
-                        primaryCurrency = primaryCurrency,
-                        monthTxsByCategoryDelegate = viewModel.getMonthTxsByCategoryDelegate(page),
-                        selectedTransactionTypeTab = viewModel.getTransactionTypeTab(page)
-                    )
-
-                    AnalyticsTrendWidget(
-                        trendsAnalyticsDelegate = viewModel.getTrendsAnalyticsDelegate(page),
-                        transactionTypeTab = viewModel.getTransactionTypeTab(page)
-                    )
-
-                    Spacer(
-                        modifier = Modifier
-                            .navigationBarsPadding()
-                            .padding(bottom = CoinPaddings.bottomNavigationBar)
-                    )
-                }
+                        .navigationBarsPadding()
+                        .padding(bottom = CoinPaddings.bottomNavigationBar)
+                )
             }
         }
     }

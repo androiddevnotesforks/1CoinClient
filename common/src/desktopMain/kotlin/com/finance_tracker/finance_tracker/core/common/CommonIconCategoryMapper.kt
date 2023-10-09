@@ -1,13 +1,13 @@
 package com.finance_tracker.finance_tracker.core.common
 
-import dev.icerock.moko.resources.ImageResource
+import dev.icerock.moko.resources.desc.image.ImageDescResource
 
 @Suppress("NotImplementedDeclaration")
-actual fun String.toCategoryFileResource(): ImageResource {
+actual fun String.toCategoryFileResource(): ImageDescResource {
     TODO()
 }
 
 @Suppress("NotImplementedDeclaration")
-actual fun ImageResource.toCategoryString(): String {
+actual fun ImageDescResource.toCategoryString(): String {
     TODO()
 }

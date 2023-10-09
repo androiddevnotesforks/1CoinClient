@@ -1,7 +1,6 @@
 package com.finance_tracker.finance_tracker.data.repositories
 
 import com.finance_tracker.finance_tracker.MR
-import com.finance_tracker.finance_tracker.core.common.Context
 import com.finance_tracker.finance_tracker.core.common.localizedString
 import com.finance_tracker.finance_tracker.data.database.mappers.accountToDomainModel
 import com.finance_tracker.finance_tracker.domain.models.Account
@@ -121,12 +120,12 @@ class AccountsRepository(
         }
     }
 
-    suspend fun addDefaultAccount(context: Context, currency: Currency) {
+    suspend fun addDefaultAccount(currency: Currency) {
         withContext(Dispatchers.IO) {
             accountsEntityQueries.insertAccount(
                 id = 1,
                 type = Account.Type.Cash,
-                name = MR.strings.account_type_cash.localizedString(context),
+                name = MR.strings.account_type_cash.localizedString(),
                 balance = 0.0,
                 colorId = AccountColorModel.EastBay.id,
                 currency = currency.code,

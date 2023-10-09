@@ -1,6 +1,6 @@
 package com.finance_tracker.finance_tracker.features.analytics
 
-import com.finance_tracker.finance_tracker.core.common.getKoin
+import com.finance_tracker.finance_tracker.core.common.globalKoin
 import com.finance_tracker.finance_tracker.core.common.stateIn
 import com.finance_tracker.finance_tracker.core.common.view_models.BaseViewModel
 import com.finance_tracker.finance_tracker.core.ui.tab_rows.TransactionTypeTab
@@ -30,7 +30,7 @@ class AnalyticsViewModel(
     val transactionTypesCount = transactionTypes.size
 
     private val typesToAnalyticsDelegates = transactionTypes.associateWith {
-        getKoin().get<AnalyticsDelegates>().apply {
+        globalKoin.get<AnalyticsDelegates>().apply {
             setTransactionType(it.toTransactionType())
         }
     }
@@ -75,8 +75,8 @@ class AnalyticsViewModel(
         return transactionTypes.getOrNull(page) ?: error("No transaction type for page $page")
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    override fun onDestroy() {
+        super.onDestroy()
         typesToAnalyticsDelegates.values.forEach { it.cancel() }
     }
 }

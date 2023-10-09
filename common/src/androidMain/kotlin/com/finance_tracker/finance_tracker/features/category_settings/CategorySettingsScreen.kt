@@ -23,12 +23,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.finance_tracker.finance_tracker.MR
 import com.finance_tracker.finance_tracker.core.common.LocalFixedInsets
-import com.finance_tracker.finance_tracker.core.common.view_models.watchViewActions
 import com.finance_tracker.finance_tracker.core.theme.provideThemeImage
 import com.finance_tracker.finance_tracker.core.ui.CategoryCard
 import com.finance_tracker.finance_tracker.core.ui.ComposeScreen
 import com.finance_tracker.finance_tracker.core.ui.EmptyStub
 import com.finance_tracker.finance_tracker.core.ui.ItemWrapper
+import com.finance_tracker.finance_tracker.core.ui.decompose_ext.subscribeBottomDialog
+import com.finance_tracker.finance_tracker.core.ui.dialogs.DeleteBottomDialog
 import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.column.DraggableItem
 import com.finance_tracker.finance_tracker.core.ui.drag_and_drop.column.rememberDragDropState
 import com.finance_tracker.finance_tracker.domain.models.Category
@@ -40,17 +41,11 @@ private val CategoriesListContentPadding = 16.dp
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-internal fun CategorySettingsScreen() {
-    ComposeScreen<CategorySettingsViewModel> { viewModel ->
-
-        viewModel.watchViewActions { action, baseLocalsStorage ->
-            handleAction(
-                action = action,
-                baseLocalsStorage = baseLocalsStorage,
-                onCancelClick = viewModel::onCancelDeleting,
-                onConfirmDeleteClick = viewModel::onConfirmDeleteCategory
-            )
-        }
+internal fun CategorySettingsScreen(
+    component: CategorySettingsComponent
+) {
+    ComposeScreen(component) {
+        val viewModel = component.viewModel
 
         LaunchedEffect(Unit) {
             viewModel.onScreenComposed()
@@ -60,7 +55,9 @@ internal fun CategorySettingsScreen() {
 
             val selectedTransactionTypeTab by viewModel.selectedTransactionType.collectAsState()
 
-            val pagerState = rememberPagerState()
+            val pagerState = rememberPagerState {
+                viewModel.transactionTypesCount
+            }
 
             CategorySettingsAppBar(
                 pagerState = pagerState,
@@ -79,10 +76,7 @@ internal fun CategorySettingsScreen() {
                 viewModel.onPageChanged(pagerState.currentPage)
             }
 
-            HorizontalPager(
-                pageCount = viewModel.transactionTypesCount,
-                state = pagerState
-            ) { page ->
+            HorizontalPager(state = pagerState) { page ->
                 val categories by viewModel.getCategories(page).collectAsState()
                 if (categories.isEmpty()) {
                     EmptyStub(
@@ -101,6 +95,20 @@ internal fun CategorySettingsScreen() {
                         onSwap = viewModel::swapExpenseCategories,
                         onCrossDeleteClick = viewModel::onDeleteCategoryClick,
                         onClick = viewModel::onCategoryCardClick
+                    )
+                }
+            }
+        }
+
+        component.bottomDialogSlot.subscribeBottomDialog(
+            onDismissRequest = viewModel::onDismissBottomDialog
+        ) { child ->
+            when (child) {
+                is CategorySettingsComponent.BottomDialogChild.DeleteDialog -> {
+                    DeleteBottomDialog(
+                        component = child.component,
+                        onCancelClick = viewModel::onCancelDeleting,
+                        onDeleteClick = viewModel::onConfirmDeleteCategory
                     )
                 }
             }

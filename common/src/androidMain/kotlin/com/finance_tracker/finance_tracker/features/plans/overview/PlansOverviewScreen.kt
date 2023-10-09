@@ -1,6 +1,7 @@
 package com.finance_tracker.finance_tracker.features.plans.overview
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,53 +29,63 @@ import com.finance_tracker.finance_tracker.features.plans.overview.views.plans_o
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PlansOverviewScreen() {
-    ComposeScreen<PlansOverviewViewModel>(withBottomNavigation = true) { viewModel ->
+fun PlansOverviewScreen(
+    component: PlansOverviewComponent
+) {
+    val viewModel = component.viewModel
+    val pagerState = rememberPagerState(PlansOverviewState.InitialMonthIndex) {
+        PlansOverviewState.MaxMonths
+    }
+    viewModel.watchViewActions { action, baseLocalsStorage ->
+        handleAction(action, baseLocalsStorage, pagerState)
+    }
 
-        val pagerState = rememberPagerState(PlansOverviewState.InitialMonthIndex)
-        viewModel.watchViewActions { action, baseLocalsStorage ->
-            handleAction(action, baseLocalsStorage, pagerState)
-        }
+    ComposeScreen(
+        component = component,
+        withBottomNavigation = true
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                val plansOverviewState by viewModel.plansOverviewState.collectAsState()
+                PlansOverviewTopBar(
+                    planPeriodState = plansOverviewState.planPeriodState,
+                    planPeriodCallback = viewModel
+                )
 
-        Column(modifier = Modifier.fillMaxSize()) {
-            val plansOverviewState by viewModel.plansOverviewState.collectAsState()
-            PlansOverviewTopBar(
-                planPeriodState = plansOverviewState.planPeriodState,
-                planPeriodCallback = viewModel
-            )
+                LaunchedEffect(pagerState.currentPage) {
+                    viewModel.onPageChange(pagerState.currentPage)
+                }
 
-            LaunchedEffect(pagerState.currentPage) {
-                viewModel.onPageChange(pagerState.currentPage)
-            }
-
-            HorizontalPager(
-                state = pagerState,
-                pageCount = PlansOverviewState.MaxMonths
-            ) { page ->
-                val flow = remember(page) { viewModel.getState(page) }
-                val state by flow.collectAsState()
-                Column(
-                    modifier = Modifier
-                        .verticalScroll(rememberScrollState())
-                        .fillMaxWidth()
-                        .padding(top = 12.dp)
-                ) {
-                    MonthExpenseLimitWidget(
-                        monthExpenseLimitChartData = state.monthExpenseLimitChartData,
-                        onSetLimitClick = viewModel::onSetLimitClick
-                    )
-
-                    ExpenseLimitsWidget(
-                        onAddLimitClick = viewModel::onAddCategoryExpenseLimitClick,
-                        plans = state.plans,
-                        onLimitClick = viewModel::onCategoryExpenseLimitClick
-                    )
-
-                    Spacer(
+                HorizontalPager(
+                    state = pagerState
+                ) { page ->
+                    val flow = remember(page) { viewModel.getState(page) }
+                    val state by flow.collectAsState()
+                    Column(
                         modifier = Modifier
-                            .padding(bottom = CoinPaddings.bottomNavigationBar)
-                            .navigationBarsPadding()
-                    )
+                            .verticalScroll(rememberScrollState())
+                            .fillMaxWidth()
+                            .padding(top = 12.dp)
+                    ) {
+                        MonthExpenseLimitWidget(
+                            monthExpenseLimitChartData = state.monthExpenseLimitChartData,
+                            onSetLimitClick = viewModel::onSetLimitClick
+                        )
+
+                        ExpenseLimitsWidget(
+                            onAddLimitClick = viewModel::onAddCategoryExpenseLimitClick,
+                            plans = state.plans,
+                            onLimitClick = viewModel::onCategoryExpenseLimitClick
+                        )
+
+                        Spacer(
+                            modifier = Modifier
+                                .padding(bottom = CoinPaddings.bottomNavigationBar)
+                                .navigationBarsPadding()
+                        )
+                    }
                 }
             }
         }

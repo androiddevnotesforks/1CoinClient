@@ -4,11 +4,11 @@ import dev.icerock.moko.resources.StringResource
 import dev.icerock.moko.resources.desc.StringDesc
 import dev.icerock.moko.resources.desc.desc
 
-actual fun StringResource.localizedString(context: Context): String {
+actual fun StringResource.localizedString(): String {
     return desc().localized()
 }
 
 @Suppress("NotImplementedDeclaration")
-actual fun StringDesc.localizedString(context: Context): String {
+actual fun StringDesc.localizedString(): String {
     TODO()
 }

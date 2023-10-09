@@ -34,12 +34,11 @@ import app.cash.paging.LoadStates
 import app.cash.paging.NullPaddedList
 import app.cash.paging.PagingData
 import app.cash.paging.PagingDataDiffer
-import com.finance_tracker.finance_tracker.core.common.Parcelable
-import com.finance_tracker.finance_tracker.core.common.Parcelize
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.Serializable
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -327,5 +326,5 @@ public fun <T : Any> LazyListScope.itemsIndexed(
     }
 }
 
-@Parcelize
-private data class PagingPlaceholderKey(private val index: Int) : Parcelable
+@Serializable
+private data class PagingPlaceholderKey(private val index: Int)

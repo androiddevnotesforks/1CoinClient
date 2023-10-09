@@ -1,0 +1,140 @@
+package com.finance_tracker.finance_tracker.features.settings
+
+import com.finance_tracker.finance_tracker.core.common.AppBuildConfig
+import com.finance_tracker.finance_tracker.core.common.view_models.ComponentViewModel
+import com.finance_tracker.finance_tracker.core.feature_flags.FeaturesManager
+import com.finance_tracker.finance_tracker.domain.interactors.CurrenciesInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.ThemeInteractor
+import com.finance_tracker.finance_tracker.domain.interactors.UserInteractor
+import com.finance_tracker.finance_tracker.domain.models.Currency
+import com.finance_tracker.finance_tracker.domain.models.ThemeMode
+import com.finance_tracker.finance_tracker.features.settings.analytics.SettingsAnalytics
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+
+class SettingsViewModel(
+    private val userInteractor: UserInteractor,
+    private val settingsAnalytics: SettingsAnalytics,
+    private val themeInteractor: ThemeInteractor,
+    currenciesInteractor: CurrenciesInteractor,
+    val featuresManager: FeaturesManager
+): ComponentViewModel<SettingsAction, SettingsComponent.Action>() {
+
+    var lastExportImportDialogKey: String? = null
+
+    private val _userEmail = MutableStateFlow("")
+    val userEmail = _userEmail.asStateFlow()
+
+    private val _isUserAuthorized = MutableStateFlow(false)
+    val isUserAuthorized = _isUserAuthorized.asStateFlow()
+
+    val isSendingUsageDataEnabled = userInteractor.isAnalyticsEnabledFlow()
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = false)
+
+    val userId = flow { emit(userInteractor.getOrCreateUserId()) }
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = "")
+
+    val primaryCurrency = currenciesInteractor.getPrimaryCurrencyFlow()
+        .stateIn(viewModelScope, started = SharingStarted.Lazily, initialValue = Currency.default)
+
+    val versionName = AppBuildConfig.appVersion
+    val themes = ThemeMode.getAllThemes()
+
+    val currentTheme = themeInteractor.getThemeMode()
+
+    fun onBackClick() {
+        settingsAnalytics.trackBackClick()
+        componentAction = SettingsComponent.Action.Back
+    }
+
+    fun onSelectCurrencyClick() {
+        settingsAnalytics.trackSelectCurrencyClick()
+        componentAction = SettingsComponent.Action.OpenSelectMainCurrencyScreen
+    }
+
+    fun onCategorySettingsClick() {
+        settingsAnalytics.trackCategorySettingsClick()
+        componentAction = SettingsComponent.Action.OpenCategorySettingsScreen
+    }
+
+    fun onSendingUsageDataClick(isEnabled: Boolean) {
+        settingsAnalytics.trackSendingUsageDataSwitchClick(isEnabled)
+        viewModelScope.launch {
+            userInteractor.saveIsAnalyticsEnabled(isEnabled)
+        }
+    }
+
+    fun onSendingUsageDataInfoClick() {
+        settingsAnalytics.trackSendingUsageDataInfoClick()
+        componentAction = SettingsComponent.Action.ShowUsageDataInfoDialog
+    }
+
+    fun onTelegramCommunityClick() {
+        settingsAnalytics.trackTelegramCommunityClick()
+        viewAction = SettingsAction.OpenUri(telegramUri)
+    }
+
+    fun onPrivacyClick() {
+        settingsAnalytics.trackPrivacyClick()
+        componentAction = SettingsComponent.Action.OpenPrivacyScreen
+    }
+
+    fun onCopyUserId() {
+        settingsAnalytics.trackCopyUserIdClick()
+        viewAction = SettingsAction.CopyUserId(
+            userId = userId.value
+        )
+    }
+
+    fun onThemeChange(themeMode: ThemeMode) {
+        viewModelScope.launch {
+            themeInteractor.setThemeMode(themeMode)
+        }
+    }
+
+    fun onDashboardSettingsClick() {
+        settingsAnalytics.trackDashboardSettingsClick()
+        componentAction = SettingsComponent.Action.OpenWidgetsSettingsScreen
+    }
+
+    fun onExportImportClick() {
+        settingsAnalytics.trackExportImportClick()
+        componentAction = SettingsComponent.Action.OpenExportImportDialog
+    }
+
+    fun onExportClick() {
+        settingsAnalytics.trackExportClick()
+        componentAction = SettingsComponent.Action.DismissBottomDialogs
+        viewAction = SettingsAction.ChooseExportDirectory
+    }
+
+    fun onImportClick() {
+        settingsAnalytics.trackImportClick()
+        componentAction = SettingsComponent.Action.DismissBottomDialogs
+        viewAction = SettingsAction.ChooseImportFile
+    }
+
+    fun onFileChosen(uri: String) {
+        componentAction = SettingsComponent.Action.OpenImportDialog(uri)
+    }
+
+    fun onDirectoryChosen(uri: String) {
+        componentAction = SettingsComponent.Action.OpenExportDialog(uri)
+    }
+
+    fun onDismissBottomDialog() {
+        componentAction = SettingsComponent.Action.DismissBottomDialogs
+    }
+
+    fun onDismissAlertDialog() {
+        componentAction = SettingsComponent.Action.DismissAlertDialogs
+    }
+
+    companion object {
+        private const val telegramUri = "https://t.me/+FFK1aCS6uJs1NTBi"
+    }
+}
